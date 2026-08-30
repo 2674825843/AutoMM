@@ -46,8 +46,6 @@ def _check_finite_file(path: Path) -> None:
     if path.suffix.lower() not in {".json", ".csv"}:
         return
     text = path.read_text(encoding="utf-8", errors="replace")
-    if _NONFINITE_RE.search(text):
-        raise RuntimeError(f"关键结果包含 NaN/Inf：{relative(path)}")
     if path.suffix.lower() == ".json":
 
         def reject_constant(value: str) -> None:
@@ -69,6 +67,8 @@ def _check_finite_file(path: Path) -> None:
                     walk(child)
 
         walk(payload)
+    elif _NONFINITE_RE.search(text):
+        raise RuntimeError(f"关键结果包含 NaN/Inf：{relative(path)}")
 
 
 def _artifact(path: Path, kind: str, question_id: str | None = None) -> dict[str, Any]:

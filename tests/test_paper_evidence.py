@@ -53,7 +53,14 @@ def _eligible_problem(project_root: Path) -> tuple[str, Path]:
     write_text(version / "question_summary.md", "厚度估计为 10.2 um，相对误差为 0.8%。\n")
     result_dir = version / "results" / "accepted-run"
     result_dir.mkdir(parents=True)
-    write_json(result_dir / "result.json", {"thickness_um": 10.2, "relative_error_pct": 0.8})
+    write_json(
+        result_dir / "result.json",
+        {
+            "thickness_um": 10.2,
+            "relative_error_pct": 0.8,
+            "note": "约束满足：无 NaN/Inf",
+        },
+    )
 
     figure_path = version / "figures" / "fit.png"
     figure_path.parent.mkdir(parents=True)
