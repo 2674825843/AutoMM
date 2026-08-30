@@ -10,7 +10,7 @@ from automm.failure_policy import HarnessInvariantError
 from automm.llm import ProviderError, get_provider
 from automm.llm.dsh import _parse_json_text
 from automm.common import read_json
-from automm.problems import question_manifest
+from automm.problems import load_problem, question_manifest
 
 pytestmark = pytest.mark.unit
 
@@ -105,6 +105,31 @@ def test_command_batch_rolls_back_state_on_mid_batch_failure(initialized_problem
         apply_agent_commands(payload, {"problem_id": problem_id, "question_id": "prob01", "stage": "problem_understanding"})
     _, manifest = question_manifest(problem_id, "prob01")
     assert manifest["artifacts"]["problem_understanding"] is False
+
+
+def test_cross_question_review_accepts_global_artifact_command(initialized_problem: tuple[str, Path]) -> None:
+    problem_id, _ = initialized_problem
+    payload = response("act-cross-review")
+    payload["problem_id"] = problem_id
+    payload["question_id"] = None
+    payload["commands"] = [
+        {"name": "record_artifact", "arguments": {"name": "cross_question_review", "completed": True}},
+        {
+            "name": "mark_cross_question_review",
+            "arguments": {"status": "passed", "reason": "共享符号、单位和结论一致"},
+        },
+    ]
+
+    applied = apply_agent_commands(
+        payload,
+        {"problem_id": problem_id, "question_id": None, "stage": "cross_question_review"},
+    )
+
+    assert [item["name"] for item in applied] == ["record_artifact", "mark_cross_question_review"]
+    assert load_problem(problem_id)["cross_question_review"] == "passed"
+    for question_id in ("prob01", "prob02", "prob03"):
+        _, manifest = question_manifest(problem_id, question_id)
+        assert manifest["sanity"]["level_5"] == "PASS"
 
 
 def test_schema_enum_nodes_declare_type(project_root: Path) -> None:

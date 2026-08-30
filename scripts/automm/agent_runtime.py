@@ -257,6 +257,21 @@ def apply_agent_commands(response: dict[str, Any], action: dict[str, Any]) -> li
         for index, command in ordered:
             name, args = command["name"], dict(command["arguments"])
             args.setdefault("problem_id", problem_id)
+            if name == "record_artifact" and question_id is None:
+                if not (
+                    action.get("stage") == "cross_question_review"
+                    and args.get("name") == "cross_question_review"
+                    and args.get("completed") is True
+                ):
+                    raise HarnessInvariantError("全局动作不能登记小问级 artifact")
+                value = {"recorded": True, "scope": "problem"}
+                record = {"index": index, "name": name, "result": value}
+                applied.append(record)
+                append_jsonl(
+                    RUNTIME_DIR / "agent_commands.jsonl",
+                    {"at": utc_now(), "action_id": response["action_id"], **record},
+                )
+                continue
             if name not in {"mark_cross_question_review", "record_figure_review"}:
                 args.setdefault("question_id", question_id)
             value = _apply_one(name, args)
