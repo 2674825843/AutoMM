@@ -120,3 +120,21 @@ def test_successful_agent_recommendation_advances_when_transition_command_is_omi
 
     assert result["status"] == "completed"
     assert load_state()["current_stage"] == "robustness"
+
+
+def test_successful_non_agent_action_clears_previous_recovery_label(monkeypatch: pytest.MonkeyPatch) -> None:
+    state = load_state()
+    state["recovery_status"] = "degraded_review"
+    state["failure_class"] = "code_runtime"
+    save_state(state, event="test_setup")
+    monkeypatch.setattr(
+        "automm.runner.next_action",
+        lambda: {"policy": "P9", "action": "idle", "reason": "all work completed"},
+    )
+
+    result = run_once()
+
+    assert result["status"] == "completed"
+    updated = load_state()
+    assert updated["recovery_status"] == "normal"
+    assert updated["failure_class"] is None

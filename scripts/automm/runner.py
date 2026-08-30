@@ -502,6 +502,9 @@ def run_once() -> dict[str, Any]:
             state["blocking"] = [action["reason"]]
         elif action["action"] not in {"poll_email", "wait_for_compute"}:
             state["blocking"] = []
+            if agent_response is None:
+                state["recovery_status"] = "normal"
+                state["failure_class"] = None
         if agent_response:
             for warning in agent_response.get("warnings", []):
                 if warning not in state.setdefault("warnings", []):
