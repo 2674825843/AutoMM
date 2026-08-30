@@ -140,6 +140,9 @@ def apply_control(command: str, *, source: str = "cli") -> dict[str, Any]:
 
         reconciled = reconcile_tasks()
         state["blocking"] = []
+        if state.get("recovery_status") in {"human_blocked", "harness_invariant_error"}:
+            state["recovery_status"] = "normal"
+            state["failure_class"] = None
         state["last_action"] += f"；已对账 {len(reconciled)} 个异常任务"
     save_state(state, event="control_command", details={"command": command, "source": source})
     if command == "RESUME":

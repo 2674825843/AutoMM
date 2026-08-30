@@ -81,10 +81,13 @@ def test_blocking_requires_resume_before_next_agent(initialized_problem: tuple[s
 
     state = load_state()
     state["blocking"] = ["human action required"]
+    state["failure_class"] = "harness_invariant"
+    state["recovery_status"] = "human_blocked"
     save_state(state, event="test_setup")
     assert next_action()["action"] == "blocked"
     apply_control("RESUME", source="test")
     assert load_state()["blocking"] == []
+    assert load_state()["recovery_status"] == "normal"
     assert next_action()["action"] == "run_agent"
 
 
