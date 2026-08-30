@@ -1,25 +1,22 @@
 ---
 name: paper-writing
-description: 在全局检查通过且人类确认后生成最终 Markdown 论文。
+description: 在跨小问审查通过后，仅依据 Evidence Pack 生成并校验数学建模竞赛论文 Markdown，随后派生 DOCX、TEX 和 PDF。
 ---
 
 # Paper Writing
 
-本 Skill 在初版本中禁用。当前终态只构建 `reports/final_summary.md`，不创建 draft/final 论文，
-也不等待 APPROVE/REJECT/REVISE。以下内容仅保留为后续版本设计草案。
+## 前置门禁
 
-## Draft Gate
+运行 `python scripts/build_paper.py evidence --problem-id <id>`。只有所有小问 locally completed、接受版本有效、L1–L4 与 L5 通过、无 stale、图表视觉复核通过、引用完整且跨问审查 passed 时才继续。
 
-所有小问 locally completed；最终 sanity 为 PASS/WARN；条件性阶段完成或有跳过理由；Level 5 通过；引用双向闭合；图表清单完整。
+## 写作
 
-## Draft
+运行 `python scripts/build_paper.py draft --problem-id <id>` 创建不可覆盖的 `paper_vNNN`。只读取 Evidence Pack 白名单文件；关键事实保留 `<!-- evidence:ID -->`，引用使用 `[@ID]`，图表使用 stable ID。按小问写“问题—方法—结果—可靠性”，保留全部 warning、局限和适用边界。
 
-读取模板、风格样本和接受版本材料，生成 `draft_paper.md`。统一符号、公式和图表编号；按 GB/T 7714 组织引用；关键文献加 `[待人工复核]`。同时生成论文检查报告。
+## 校验与渲染
 
-## 授权
+运行 `python scripts/build_paper.py build --problem-id <id> --version paper_vNNN`。内容校验必须 PASS；Pandoc 生成 DOCX 和 TEX，Microsoft Word 从 DOCX 导出 PDF。失败时保留当前版本和日志，不覆盖旧版本，不把部分成功标成 completed。
 
-发送带唯一 request ID 的邮件。只接受允许发件人、同一线程、未处理 message ID 的 APPROVE/REJECT/REVISE。等待期间暂停其他研究动作。
+## 禁止行为
 
-## Final
-
-APPROVE 后才写 final；REVISE 回论文修订；REJECT 保留 draft 和材料。final 生成失败必须保留 draft，不伪装完成。
+不得运行模型或完整数据集；不得修改题面、数据、假设、公式、结果、图表/引用 registry 或受保护状态；不得读取 Evidence Pack 之外的事实文件；不得隐藏 warning 或虚构结果。

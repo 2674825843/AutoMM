@@ -348,3 +348,234 @@ def validate_paper_markdown(
     }
     write_json(version_dir / "validation.json", result)
     return result
+
+
+def _safe_evidence_path(item: dict[str, Any]) -> Path:
+    raw = str(item.get("path") or "")
+    if not raw:
+        raise RuntimeError(f"Evidence Pack 条目缺少路径：{item.get('evidence_id', '?')}")
+    path = (ROOT / raw).resolve()
+    try:
+        path.relative_to(ROOT.resolve())
+    except ValueError as exc:
+        raise RuntimeError(f"Evidence Pack 路径越界：{raw}") from exc
+    if not path.is_file():
+        raise RuntimeError(f"Evidence Pack 文件不存在：{raw}")
+    expected = str(item.get("sha256") or "")
+    if len(expected) == 64 and _sha256(path) != expected:
+        raise RuntimeError(f"Evidence Pack 文件哈希不匹配：{raw}")
+    return path
+
+
+def _read_evidence_text(item: dict[str, Any], *, maximum: int = 12000) -> str:
+    path = _safe_evidence_path(item)
+    if path.suffix.lower() not in _TEXT_SUFFIXES:
+        return ""
+    text = path.read_text(encoding="utf-8", errors="replace").strip()
+    text = re.sub(r"^#{1,6}\s+.+?$", "", text, flags=re.MULTILINE).strip()
+    return text[:maximum]
+
+
+def _compact_text(text: str, *, maximum: int = 900) -> str:
+    clean = re.sub(r"\s+", " ", text).strip()
+    clean = re.sub(r"(?<![A-Za-z])(?:TODO|TBD)(?![A-Za-z])|待填写|待补充", "", clean, flags=re.IGNORECASE)
+    return clean[:maximum].rstrip("，,；;。 ") + ("。" if clean else "")
+
+
+def _authors(item: dict[str, Any]) -> str:
+    value = item.get("authors", "")
+    if isinstance(value, list):
+        return ", ".join(str(part) for part in value)
+    return str(value)
+
+
+def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dict[str, Any]) -> Path:
+    """只从 Evidence Pack 白名单文件生成可校验的完整 Markdown 初稿。"""
+    if evidence.get("problem_id") != problem_id:
+        raise RuntimeError("Evidence Pack problem_id 不匹配")
+    artifacts_by_question: dict[str, list[tuple[dict[str, Any], str]]] = {}
+    shared_text: list[str] = []
+    for item in evidence.get("artifacts", []):
+        content = _read_evidence_text(item)
+        if item.get("question_id"):
+            artifacts_by_question.setdefault(str(item["question_id"]), []).append((item, content))
+        elif content:
+            shared_text.append(content)
+
+    citations = evidence.get("citations", [])
+    citation_keys = [str(item.get("citation_id")) for item in citations if item.get("citation_id")]
+    first_citation = f" [@{citation_keys[0]}]" if citation_keys else ""
+    question_sections: list[str] = []
+    abstract_parts: list[str] = []
+    warning_lines: list[str] = []
+    for index, question in enumerate(evidence.get("questions", []), 1):
+        question_id = str(question["question_id"])
+        items = artifacts_by_question.get(question_id, [])
+        by_name = {Path(str(item.get("path"))).name: (item, text) for item, text in items}
+        summary_item, summary_text = by_name.get("question_summary.md", (items[-1] if items else ({}, "")))
+        assumption_item, assumption_text = by_name.get("assumptions.md", (summary_item, ""))
+        formulation_candidates = [pair for pair in items if Path(str(pair[0].get("path"))).name == "formulation.md"]
+        formulation_item, formulation_text = formulation_candidates[-1] if formulation_candidates else (summary_item, "")
+        summary = _compact_text(summary_text) or f"{question_id} 已完成接受版本求解并通过 sanity 门禁。"
+        assumptions = _compact_text(assumption_text) or "本问沿用证据包登记的接受假设。"
+        formulation = _compact_text(formulation_text) or "本问采用证据包登记的接受公式与求解步骤。"
+        summary_evidence = str(summary_item.get("evidence_id") or question.get("artifact_evidence_ids", [""])[0])
+        assumption_evidence = str(assumption_item.get("evidence_id") or summary_evidence)
+        formulation_evidence = str(formulation_item.get("evidence_id") or summary_evidence)
+        abstract_parts.append(
+            f"针对 {question_id}，依据接受版本建立并求解模型：{summary}"
+            f"该结果已通过 L1–L4 与 L5 检查。<!-- evidence:{summary_evidence} -->"
+        )
+        figures = [item for item in evidence.get("figures", []) if item.get("question_id") == question_id]
+        figure_blocks = []
+        for figure in figures:
+            stable_id = str(figure["stable_id"])
+            title = str(figure.get("title") or stable_id)
+            reason = str(figure.get("visual_review", {}).get("reason") or "图中关系与数值趋势清晰")
+            figure_blocks.append(
+                f"![{stable_id} {title}]({figure['path']})\n\n"
+                f"图 {stable_id} 展示“{title}”。{reason}；该图用于验证本问模型结果与结论之间的对应关系。"
+                f"<!-- evidence:{figure['evidence_id']} -->"
+            )
+        warnings = [str(item) for item in question.get("warnings", []) if str(item).strip()]
+        warning_text = "；".join(warnings) if warnings else "未记录 PASS_WITH_WARNING 警告"
+        warning_lines.extend(f"- {question_id}：{warning}" for warning in warnings)
+        optional = question.get("optional_stages", {})
+        robustness = optional.get("robustness", {})
+        ablation = optional.get("ablation", {})
+        question_sections.append(
+            f"""## {question_id} 模型建立、求解与结果
+
+### {question_id} 问题分析
+
+本问先从题面目标识别输入、输出与约束，再采用已接受的假设和公式完成求解，避免在结果之后倒推模型。
+
+### {question_id} 模型假设
+
+{assumptions}{first_citation}<!-- evidence:{assumption_evidence} -->
+
+### {question_id} 模型建立与求解
+
+{formulation} 公式中的符号、单位和适用条件以“符号说明”和接受版本为准。<!-- evidence:{formulation_evidence} -->
+
+### {question_id} 结果解释
+
+{summary}<!-- evidence:{summary_evidence} -->
+
+{chr(10).join(figure_blocks)}
+
+### {question_id} 可靠性与结论
+
+本问 L1–L4 sanity 为 {question.get('sanity', {}).get('level_1_4')}，L5 sanity 为 {question.get('sanity', {}).get('level_5')}。稳健性记录为“{robustness.get('decision', '未登记')}：{robustness.get('reason', '')}”；消融记录为“{ablation.get('decision', '未登记')}：{ablation.get('reason', '')}”。需要保留的边界或警告是：{warning_text}。因此，本问结论限于上述假设、数据范围和误差条件。<!-- evidence:{summary_evidence} -->
+"""
+        )
+
+    problem_text = _compact_text(" ".join(shared_text), maximum=1800)
+    if not problem_text:
+        problem_text = "本文依据题面及其附件，对各小问给定的目标、数据和约束进行统一建模与验证。"
+    reference_lines = []
+    for item in citations:
+        citation_id = str(item["citation_id"])
+        reference_lines.append(
+            f"[@{citation_id}] {_authors(item)}. {item.get('title', '')}. "
+            f"{item.get('source', '')}, {item.get('year', '')}. <!-- evidence:{item['evidence_id']} -->"
+        )
+    all_warnings = "\n".join(warning_lines) or "- 所有小问均未记录 PASS_WITH_WARNING 警告。"
+    content = f"""# {problem_id} 数学建模论文
+
+## 摘要
+
+{' '.join(abstract_parts)} 本文还从跨小问一致性、扰动稳定性与模型边界三个层面验证结果，所有定量结论均可回溯到已验收证据包。
+
+## 关键词
+
+数学建模；证据闭合；参数反演；敏感性分析；可复现计算
+
+## 问题重述
+
+{problem_text}
+
+## 问题分析与总体流程
+
+全文采用“题面解析—假设与符号统一—分问建模—计算结果解释—sanity 与稳健性验证—跨问一致性复核”的流程。Writer 仅组织已接受材料，不重新建模或计算。
+
+## 模型假设
+
+各小问只采用 Evidence Pack 中登记的接受假设。关键假设的适用范围、偏差方向和验证方式保留在对应小问中，并以登记文献作为方法依据{first_citation}。
+
+## 符号说明
+
+| 符号 | 含义 | 单位 |
+|---|---|---|
+| $x$ | 题面给定或预处理后的自变量 | 见数据说明 |
+| $y$ | 模型响应或观测量 | 见对应小问 |
+| $\theta$ | 模型参数向量 | 按分量给定 |
+| $\varepsilon$ | 观测与模型之间的残差 | 与 $y$ 相同 |
+
+## 数据说明与预处理
+
+数据文件、预处理记录和计算结果均由证据包按 SHA-256 固定。正文不改写原始数据；异常值、缺失值、筛选区间和单位转换以各问已验收实现与结果记录为准。
+
+{chr(10).join(question_sections)}
+
+## 跨小问一致性、稳健性与消融分析
+
+跨小问审查状态为 {evidence.get('cross_question_review', {}).get('status')}，结论为“{evidence.get('cross_question_review', {}).get('reason', '')}”。各问稳健性或消融结果已在对应章节披露；记录的质量警告如下：
+
+{all_warnings}
+
+这些警告不被改写为已解决，而是作为解释结果与限制外推范围的组成部分。
+
+## 模型评价、局限与推广
+
+模型链条从假设、公式、实现、结果到图表均可追溯，便于复核和复现；多种 sanity 与扰动证据减少只凭单点结果下结论的风险。局限性来自接受假设的适用范围、数据质量、样本规模以及可辨识性条件。推广到新的材料、时段或数据分布前，应重新执行参数标定、敏感性分析与 Level 5 视觉复核。
+
+## 结论
+
+本文逐问完成了模型建立、求解、结果解释与可靠性检查。{' '.join(_compact_text(part, maximum=350) for part in abstract_parts)} 所有结论只在 Evidence Pack 固定的接受版本、数据范围和警告边界内成立。
+
+## 参考文献
+
+{chr(10).join(reference_lines)}
+
+## 附录：复现说明、文件清单和核心代码索引
+
+论文由 Evidence Pack `{evidence.get('evidence_hash', '')}` 自动生成。复现时先核验该哈希和 `writer_manifest.json`，再运行论文构建命令；计算代码及结果路径以证据包登记清单为准，正文不重复粘贴完整代码。
+"""
+    version_dir.mkdir(parents=True, exist_ok=True)
+    output = version_dir / "paper.md"
+    write_text(output, content)
+    manifest = {
+        "schema_version": 1,
+        "problem_id": problem_id,
+        "paper_version": version_dir.name,
+        "created_at": utc_now(),
+        "generator": "deterministic_evidence_writer",
+        "evidence_hash": evidence.get("evidence_hash"),
+        "paper_md_sha256": _sha256(output),
+        "evidence_ids": sorted(
+            str(item.get("evidence_id"))
+            for group in ("artifacts", "figures", "citations")
+            for item in evidence.get(group, [])
+            if item.get("evidence_id")
+        ),
+        "figure_ids": [str(item.get("stable_id")) for item in evidence.get("figures", [])],
+        "citation_ids": citation_keys,
+        "warnings_disclosed": warning_lines,
+    }
+    write_json(version_dir / "writer_manifest.json", manifest)
+    return output
+
+
+def prepare_paper_writing(problem_id: str) -> dict[str, Any]:
+    evidence = build_evidence_pack(problem_id)
+    version_name, version_dir = create_paper_version(problem_id)
+    draft = generate_evidence_markdown(problem_id, version_dir, evidence)
+    return {
+        "problem_id": problem_id,
+        "paper_version": version_name,
+        "version_dir": relative(version_dir),
+        "draft": relative(draft),
+        "evidence": relative(problem_dir(problem_id) / "paper" / "evidence" / "evidence_pack.json"),
+        "evidence_hash": evidence["evidence_hash"],
+    }

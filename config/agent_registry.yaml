@@ -37,6 +37,6 @@ agents:
     stages: [agent_template]
   paper-writer:
     prompt: agents/paper-writer.md
-    enabled: false
-    stages: []
+    enabled: true
+    stages: [paper_writing]
 

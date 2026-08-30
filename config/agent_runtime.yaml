@@ -29,6 +29,8 @@ stage_timeout_seconds:
   robustness: 1800
   ablation: 1800
   cross_question_review: 1800
+  paper_writing: 2400
+  paper_validation: 1200
   final_summary: 1200
   computation: 0
 timeout_policy:
