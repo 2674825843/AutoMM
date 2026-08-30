@@ -1,4 +1,14 @@
-enabled: false
-status: deferred
-reason: 初版本只生成 reports/final_summary.md，不生成论文草稿或终稿
-replacement: reports/final_summary.md
+enabled: true
+source_format: markdown
+primary_output: docx
+outputs: [docx, pdf, tex]
+reference_doc: templates/cumcm_reference.docx
+output_root_template: reports/problems/{problem_id}/paper
+require_cross_question_review: true
+require_level_5: true
+require_all_figures_reviewed: true
+max_writer_revisions: 3
+minimum_pdf_pages: 12
+pandoc_executable: pandoc
+pdf_exporter: microsoft_word
+pdf_export_timeout_seconds: 120

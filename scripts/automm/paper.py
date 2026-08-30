@@ -6,10 +6,12 @@ import hashlib
 import json
 import math
 import re
+import shutil
+import subprocess
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
-from .common import ROOT, read_json, read_yaml, relative, utc_now, write_json, write_text
+from .common import CONFIG_DIR, ROOT, read_json, read_yaml, relative, utc_now, write_json, write_text
 from .problems import load_problem, problem_dir, question_manifest
 
 
@@ -579,3 +581,209 @@ def prepare_paper_writing(problem_id: str) -> dict[str, Any]:
         "evidence": relative(problem_dir(problem_id) / "paper" / "evidence" / "evidence_pack.json"),
         "evidence_hash": evidence["evidence_hash"],
     }
+
+
+def create_reference_doc(path: Path) -> Path:
+    """生成固定的中文数学建模竞赛 Word 样式模板。"""
+    from docx import Document
+    from docx.enum.section import WD_SECTION
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+    from docx.shared import Cm, Pt
+
+    document = Document()
+    section = document.sections[0]
+    section.page_width = Cm(21)
+    section.page_height = Cm(29.7)
+    section.top_margin = Cm(2.5)
+    section.bottom_margin = Cm(2.5)
+    section.left_margin = Cm(2.5)
+    section.right_margin = Cm(2.5)
+    for name, size, bold in (("Normal", 10.5, False), ("Title", 18, True), ("Heading 1", 15, True), ("Heading 2", 13, True), ("Heading 3", 11, True)):
+        style = document.styles[name]
+        style.font.name = "Times New Roman"
+        style.font.size = Pt(size)
+        style.font.bold = bold
+        style._element.rPr.rFonts.set(qn("w:eastAsia"), "宋体" if name == "Normal" else "黑体")
+        style.paragraph_format.space_after = Pt(6)
+        style.paragraph_format.line_spacing = 1.25
+    document.styles["Title"].paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    footer = section.footer.paragraphs[0]
+    footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = footer.add_run()
+    field = OxmlElement("w:fldSimple")
+    field.set(qn("w:instr"), "PAGE")
+    run._r.addnext(field)
+    document.add_heading("数学建模论文样式", 0)
+    document.add_paragraph("此段用于固定正文、标题、公式、题注和表格样式。")
+    document.add_section(WD_SECTION.NEW_PAGE)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    document.save(path)
+    return path
+
+
+def export_docx_to_pdf(docx_path: Path, pdf_path: Path, timeout_seconds: int) -> None:
+    """在隔离 PowerShell 子进程中调用 Microsoft Word 导出 PDF。"""
+    script_path = docx_path.parent / "word_export.ps1"
+    script = r'''param([string]$Docx, [string]$Pdf)
+$ErrorActionPreference = "Stop"
+$word = $null
+$document = $null
+try {
+  $word = New-Object -ComObject Word.Application
+  $word.Visible = $false
+  $word.DisplayAlerts = 0
+  $document = $word.Documents.Open([System.IO.Path]::GetFullPath($Docx), $false, $true)
+  $document.ExportAsFixedFormat([System.IO.Path]::GetFullPath($Pdf), 17)
+} finally {
+  if ($null -ne $document) { $document.Close($false); [void][Runtime.InteropServices.Marshal]::ReleaseComObject($document) }
+  if ($null -ne $word) { $word.Quit(); [void][Runtime.InteropServices.Marshal]::ReleaseComObject($word) }
+  [GC]::Collect()
+  [GC]::WaitForPendingFinalizers()
+}
+'''
+    write_text(script_path, script)
+    command = [
+        "powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        str(script_path),
+        "-Docx",
+        str(docx_path),
+        "-Pdf",
+        str(pdf_path),
+    ]
+    try:
+        result = subprocess.run(
+            command,
+            cwd=docx_path.parent,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=timeout_seconds,
+            shell=False,
+            check=False,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise TimeoutError(f"Microsoft Word PDF 导出超时（{timeout_seconds} 秒）") from exc
+    if result.returncode != 0 or not pdf_path.is_file():
+        detail = (result.stderr or result.stdout or "未生成 PDF").strip()[-2000:]
+        raise RuntimeError(f"Microsoft Word PDF 导出失败：{detail}")
+
+
+def inspect_rendered_paper(version_dir: Path, minimum_pdf_pages: int) -> dict[str, Any]:
+    """解析 DOCX/PDF，核验媒体、可编辑公式、页数与 A4 页面。"""
+    import zipfile
+
+    from pypdf import PdfReader
+
+    docx_path = version_dir / "paper.docx"
+    pdf_path = version_dir / "paper.pdf"
+    with zipfile.ZipFile(docx_path) as archive:
+        document_xml = archive.read("word/document.xml")
+        media_count = len([name for name in archive.namelist() if name.startswith("word/media/")])
+    reader = PdfReader(str(pdf_path))
+    page_count = len(reader.pages)
+    if page_count < minimum_pdf_pages:
+        raise RuntimeError(f"PDF 页数 {page_count} 低于下限 {minimum_pdf_pages}")
+    non_a4_pages: list[int] = []
+    blank_pages: list[int] = []
+    for index, page in enumerate(reader.pages, 1):
+        width = float(page.mediabox.width)
+        height = float(page.mediabox.height)
+        short, long = sorted((width, height))
+        if abs(short - 595.276) > 12 or abs(long - 841.89) > 12:
+            non_a4_pages.append(index)
+        if not (page.extract_text() or "").strip():
+            blank_pages.append(index)
+    consecutive_blank = any(right == left + 1 for left, right in zip(blank_pages, blank_pages[1:]))
+    if non_a4_pages:
+        raise RuntimeError(f"PDF 存在非 A4 页面：{non_a4_pages}")
+    if consecutive_blank:
+        raise RuntimeError(f"PDF 存在连续空白页：{blank_pages}")
+    return {
+        "docx_media_count": media_count,
+        "docx_omml_count": document_xml.count(b"<m:oMath"),
+        "pdf_pages": page_count,
+        "pdf_blank_pages": blank_pages,
+        "pdf_non_a4_pages": non_a4_pages,
+    }
+
+
+def render_paper(
+    version_dir: Path,
+    config: dict[str, Any] | None = None,
+    *,
+    pdf_exporter: Callable[[Path, Path, int], None] | None = None,
+) -> dict[str, Any]:
+    """将同一 Markdown 源渲染为 DOCX、TEX，并从 DOCX 导出 PDF。"""
+    settings = dict(read_yaml(CONFIG_DIR / "paper.yaml", {}))
+    if config:
+        settings.update(config)
+    markdown = version_dir / "paper.md"
+    if not markdown.is_file():
+        raise RuntimeError(f"论文 Markdown 不存在：{markdown}")
+    pandoc_setting = str(settings.get("pandoc_executable", "pandoc"))
+    pandoc = shutil.which(pandoc_setting) or (pandoc_setting if Path(pandoc_setting).is_file() else None)
+    if not pandoc:
+        raise RuntimeError(f"Pandoc 不可用：{pandoc_setting}")
+    render_source = version_dir / "paper.render.md"
+    source = markdown.read_text(encoding="utf-8")
+    source = _EVIDENCE_MARKER_RE.sub("", source)
+    source = _CITATION_RE.sub(lambda match: f"[{match.group(1)}]", source)
+    write_text(render_source, source)
+    docx_path = version_dir / "paper.docx"
+    tex_path = version_dir / "paper.tex"
+    pdf_path = version_dir / "paper.pdf"
+    resource_paths = [str(version_dir), str(ROOT)]
+    base = [str(pandoc), str(render_source), "--from", "markdown+tex_math_dollars", "--resource-path", ";".join(resource_paths)]
+    docx_command = [*base, "--to", "docx", "--output", str(docx_path), "--number-sections"]
+    reference_value = settings.get("reference_doc")
+    if reference_value:
+        reference = (ROOT / str(reference_value)).resolve()
+        if reference.is_file():
+            docx_command.extend(["--reference-doc", str(reference)])
+    commands = [docx_command, [*base, "--to", "latex", "--output", str(tex_path), "--number-sections"]]
+    pandoc_logs: list[dict[str, Any]] = []
+    for command in commands:
+        result = subprocess.run(
+            command,
+            cwd=version_dir,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            shell=False,
+            check=False,
+        )
+        pandoc_logs.append({"command": command, "returncode": result.returncode, "stderr": result.stderr[-4000:]})
+        if result.returncode != 0:
+            raise RuntimeError(f"Pandoc 转换失败：{result.stderr.strip()[-2000:]}")
+    report: dict[str, Any] = {
+        "checked_at": utc_now(),
+        "paper_version": version_dir.name,
+        "source_sha256": _sha256(markdown),
+        "docx_sha256": _sha256(docx_path),
+        "tex_sha256": _sha256(tex_path),
+        "pandoc": pandoc_logs,
+        "status": "FAILED_RENDER",
+        "errors": [],
+    }
+    try:
+        exporter = pdf_exporter or export_docx_to_pdf
+        exporter(docx_path, pdf_path, int(settings.get("pdf_export_timeout_seconds", 120)))
+        inspection = inspect_rendered_paper(version_dir, int(settings.get("minimum_pdf_pages", 12)))
+        report.update(inspection)
+        report["pdf_sha256"] = _sha256(pdf_path)
+        report["status"] = "PASS"
+    except (OSError, RuntimeError, TimeoutError, ValueError) as exc:
+        if pdf_path.exists():
+            pdf_path.unlink()
+        report["errors"].append(str(exc))
+    write_json(version_dir / "render_report.json", report)
+    return report
