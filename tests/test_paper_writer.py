@@ -3,7 +3,6 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-
 from automm import paper
 from automm.common import read_json, write_text
 
@@ -81,9 +80,7 @@ def _writer_evidence(project_root: Path) -> dict:
     }
 
 
-def test_generator_builds_complete_valid_paper_from_whitelisted_evidence(
-    project_root: Path, tmp_path: Path
-) -> None:
+def test_generator_builds_complete_valid_paper_from_whitelisted_evidence(project_root: Path, tmp_path: Path) -> None:
     generator = getattr(paper, "generate_evidence_markdown", None)
     if generator is None:
         pytest.fail("generate_evidence_markdown 尚未实现")

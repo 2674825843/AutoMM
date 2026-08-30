@@ -4,11 +4,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from .common import ROOT, config_section, hash_json, read_json, read_yaml, utc_now, write_json, write_yaml
+from .common import config_section, hash_json, read_yaml, utc_now, write_json, write_yaml
 from .problems import decide_assumption_version, load_problem, problem_dir, question_manifest, update_question
 from .state import load_state, save_state
 from .tasks import TERMINAL, list_task_groups, list_tasks, reconcile_tasks, start_queued
-
 
 AGENT_BY_STAGE = {
     "problem_understanding": "problem-decomposer",
@@ -36,9 +35,7 @@ def _action(policy: str, action: str, reason: str, **fields: Any) -> dict[str, A
 
 def _question_tasks(problem_id: str, question_id: str) -> list[dict[str, Any]]:
     return [
-        task
-        for task in list_tasks()
-        if task.get("problem_id") == problem_id and task.get("question_id") == question_id
+        task for task in list_tasks() if task.get("problem_id") == problem_id and task.get("question_id") == question_id
     ]
 
 
@@ -63,7 +60,9 @@ def next_action() -> dict[str, Any]:
     if recovery_status == "human_blocked":
         return _action("P0", "blocked", "当前故障需要人工处理", blocking_reasons=state.get("blocking", []))
     if recovery_status == "harness_invariant_error":
-        return _action("P0", "blocked", "Harness invariant 错误，必须先完成对账", blocking_reasons=state.get("blocking", []))
+        return _action(
+            "P0", "blocked", "Harness invariant 错误，必须先完成对账", blocking_reasons=state.get("blocking", [])
+        )
     if blocking:
         return _action("P0", "blocked", "工作流存在需要人工解除的阻塞", blocking_reasons=blocking)
 
@@ -86,7 +85,11 @@ def next_action() -> dict[str, Any]:
             task_ids=[task["task_id"] for task in started],
         )
 
-    if recovery_status in {"retrying", "needs_revision"} and question_id and stage not in {"idle", "completed", "locally_completed"}:
+    if (
+        recovery_status in {"retrying", "needs_revision"}
+        and question_id
+        and stage not in {"idle", "completed", "locally_completed"}
+    ):
         agent = AGENT_BY_STAGE.get(stage)
         if agent:
             return _action(
@@ -156,11 +159,16 @@ def next_action() -> dict[str, Any]:
         number = int(manifest.get("active_assumption_version", 0))
         version = {}
         if number:
-            version = read_yaml(problem_dir(problem_id) / question_id / "versions" / f"assumption_v{number:03d}" / "version.yaml")
+            version = read_yaml(
+                problem_dir(problem_id) / question_id / "versions" / f"assumption_v{number:03d}" / "version.yaml"
+            )
         if not number or version.get("status") in {"accepted", "rejected", "deprecated"}:
             return _action(
-                "P5", "create_assumption_candidate", "当前阶段没有可编辑的 candidate 假设版本",
-                problem_id=problem_id, question_id=question_id,
+                "P5",
+                "create_assumption_candidate",
+                "当前阶段没有可编辑的 candidate 假设版本",
+                problem_id=problem_id,
+                question_id=question_id,
             )
 
     if stage == "mathematical_formulation":
@@ -169,13 +177,21 @@ def next_action() -> dict[str, Any]:
         formulation = {}
         if assumption_number and formulation_number:
             formulation = read_yaml(
-                problem_dir(problem_id) / question_id / "versions" / f"assumption_v{assumption_number:03d}"
-                / "formulations" / f"formulation_v{formulation_number:03d}" / "formulation.yaml"
+                problem_dir(problem_id)
+                / question_id
+                / "versions"
+                / f"assumption_v{assumption_number:03d}"
+                / "formulations"
+                / f"formulation_v{formulation_number:03d}"
+                / "formulation.yaml"
             )
         if not formulation_number or formulation.get("status") in {"accepted", "rejected", "deprecated"}:
             return _action(
-                "P5", "create_formulation_candidate", "当前阶段没有可编辑的 candidate 公式版本",
-                problem_id=problem_id, question_id=question_id,
+                "P5",
+                "create_formulation_candidate",
+                "当前阶段没有可编辑的 candidate 公式版本",
+                problem_id=problem_id,
+                question_id=question_id,
             )
 
     if manifest.get("stale", {}).get("value"):
@@ -199,10 +215,16 @@ def next_action() -> dict[str, Any]:
             statuses = group["task_statuses"]
             succeeded = all(status == "succeeded" for status in statuses)
             return _action(
-                "P2", "inspect_compute_result" if succeeded else "route_compute_failure",
-                "实验批次全部达到终态，需要统一分析", agent="sanity-checker" if succeeded else "implementation-agent",
-                problem_id=problem_id, question_id=question_id, stage=stage,
-                group_id=group["group_id"], task_ids=group["task_ids"], task_statuses=statuses,
+                "P2",
+                "inspect_compute_result" if succeeded else "route_compute_failure",
+                "实验批次全部达到终态，需要统一分析",
+                agent="sanity-checker" if succeeded else "implementation-agent",
+                problem_id=problem_id,
+                question_id=question_id,
+                stage=stage,
+                group_id=group["group_id"],
+                task_ids=group["task_ids"],
+                task_statuses=statuses,
             )
         finished = [
             task
@@ -233,8 +255,11 @@ def next_action() -> dict[str, Any]:
             and int(notification.get("attempts", 0)) < 3
         ):
             return _action(
-                "P6", "send_question_notification", "小问首次局部完成，需要发送单向回执",
-                problem_id=problem_id, question_id=question_id,
+                "P6",
+                "send_question_notification",
+                "小问首次局部完成，需要发送单向回执",
+                problem_id=problem_id,
+                question_id=question_id,
             )
         questions = problem["questions"]
         index = questions.index(question_id)
@@ -263,16 +288,47 @@ def next_action() -> dict[str, Any]:
         history = manifest.get("sanity_history", [])
         latest_l1_4 = max((i for i, item in enumerate(history) if item.get("level") == "level_1_4"), default=-1)
         latest_l6 = max((i for i, item in enumerate(history) if item.get("level") == "level_6"), default=-1)
-        if robustness.get("decision") == "completed" and level_1_4 in {"PASS", "PASS_WITH_WARNING"} and level_6 not in {"PASS", "PASS_WITH_WARNING"} and latest_l1_4 > latest_l6:
-            return _action("P3", "run_agent", "robustness 已完成，执行 Level 6 sanity", agent="sanity-checker", problem_id=problem_id, question_id=question_id, stage=stage, level="level_6")
+        if (
+            robustness.get("decision") == "completed"
+            and level_1_4 in {"PASS", "PASS_WITH_WARNING"}
+            and level_6 not in {"PASS", "PASS_WITH_WARNING"}
+            and latest_l1_4 > latest_l6
+        ):
+            return _action(
+                "P3",
+                "run_agent",
+                "robustness 已完成，执行 Level 6 sanity",
+                agent="sanity-checker",
+                problem_id=problem_id,
+                question_id=question_id,
+                stage=stage,
+                level="level_6",
+            )
 
     if stage == "visualization":
         robustness = manifest.get("optional_stages", {}).get("robustness", {})
         if manifest.get("artifacts", {}).get("visualization") and robustness.get("decision") == "completed":
-            return _action("P5", "advance_stage", "可视化已归档且 robustness 已完成，进入 Level 6 sanity", problem_id=problem_id, question_id=question_id, stage="sanity_check")
+            return _action(
+                "P5",
+                "advance_stage",
+                "可视化已归档且 robustness 已完成，进入 Level 6 sanity",
+                problem_id=problem_id,
+                question_id=question_id,
+                stage="sanity_check",
+            )
 
-    if stage == "robustness" and manifest.get("optional_stages", {}).get("robustness", {}).get("decision") == "completed":
-        return _action("P5", "advance_stage", "robustness 已完成，进入 Level 6 sanity", problem_id=problem_id, question_id=question_id, stage="sanity_check")
+    if (
+        stage == "robustness"
+        and manifest.get("optional_stages", {}).get("robustness", {}).get("decision") == "completed"
+    ):
+        return _action(
+            "P5",
+            "advance_stage",
+            "robustness 已完成，进入 Level 6 sanity",
+            problem_id=problem_id,
+            question_id=question_id,
+            stage="sanity_check",
+        )
 
     optional = manifest.get("optional_stages", {}).get(stage)
     if optional and optional.get("decision") in {"skip", "skipped"}:
@@ -441,7 +497,9 @@ def validate_local_completion(problem_id: str, question_id: str) -> None:
             errors.append(f"{stage} 尚未完成或跳过")
         if decision in {"skip", "skipped"} and not str(item.get("reason", "")).strip():
             errors.append(f"{stage} 跳过但未记录理由")
-    required_artifacts = tuple(config_section("gates", problem_id, question_id).get("required_artifacts_for_local_completion", []))
+    required_artifacts = tuple(
+        config_section("gates", problem_id, question_id).get("required_artifacts_for_local_completion", [])
+    )
     missing = [name for name in required_artifacts if not manifest.get("artifacts", {}).get(name)]
     if missing:
         errors.append(f"核心产物未完成：{', '.join(missing)}")
@@ -450,12 +508,15 @@ def validate_local_completion(problem_id: str, question_id: str) -> None:
     visualization = config_section("visualization", problem_id, question_id)
     quality = visualization.get("quality", {})
     accepted_figures = [
-        item for item in figures
-        if item.get("question_id") == question_id and item.get("assumption_version") == accepted_name
+        item
+        for item in figures
+        if item.get("question_id") == question_id
+        and item.get("assumption_version") == accepted_name
         and str(item.get("path", "")).lower().endswith(".png")
     ]
     count = sum(
-        1 for item in accepted_figures
+        1
+        for item in accepted_figures
         if (not quality.get("require_automated_pass", True) or item.get("quality_status") == "passed")
         and (not quality.get("require_visual_review", True) or item.get("visual_review", {}).get("status") == "passed")
     )
@@ -588,5 +649,7 @@ def record_sanity(
     state = load_state()
     if status == "PASS_WITH_WARNING":
         state.setdefault("warnings", []).append(f"{question_id} {level}: {reason}")
-        save_state(state, event="sanity_warning", details={"question_id": question_id, "level": level, "reason": reason})
+        save_state(
+            state, event="sanity_warning", details={"question_id": question_id, "level": level, "reason": reason}
+        )
     return {"status": status, "routed_to": None}

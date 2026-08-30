@@ -26,6 +26,12 @@ Harness invariant（非法迁移、事务不一致、schema/context 不匹配、
 
 `PASS_WITH_WARNING` 可接受有可行 incumbent 但未证明全局最优、`mip_gap` 缺失、达到时限、bootstrap/Monte Carlo 次数不足等技术债，前提是 solver 状态、约束残差和追踪链完整。NaN/Inf、硬约束违反、单位或维度错误、formulation 与实现不一致、原始数据被修改或追踪缺失必须失败。
 
+## 自动论文
+
+跨小问审查通过后，状态机依次进入 `paper_writing` 和 `paper_validation`。Runner 先构建带路径、版本和 SHA-256 的 Evidence Pack，再创建不可覆盖的 `paper_vNNN`；Paper Writer 只能读取该白名单，不得重新建模或计算。
+
+主源是 Markdown，Pandoc 生成含可编辑 OMML 公式的 DOCX 和 TEX，Microsoft Word 从同一 DOCX 导出 PDF。内容、证据、引用、图表、warning 披露与渲染检查全部 PASS 后，版本才发布到 `reports/problems/<problem_id>/paper/final/` 并进入 `completed`。内容失败创建新版本；Word/Pandoc 故障保留当前 Markdown、DOCX、TEX 和日志后重试。
+
 ## 文件和依赖
 
-项目内路径使用相对路径和 `pathlib`。Python 依赖写入 `scripts/requirements.txt`，仅安装到项目虚拟环境。运行前通过 `compileall`、Ruff、配置校验和故障注入测试。
+项目内路径使用相对路径和 `pathlib`。Python 依赖写入 `scripts/requirements.txt`，仅安装到项目虚拟环境。论文阶段要求 Pandoc 和 Microsoft Word。运行前通过 `compileall`、Ruff、配置校验和故障注入测试。

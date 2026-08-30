@@ -4,11 +4,10 @@ import zipfile
 from pathlib import Path
 
 import pytest
-from PIL import Image
-from pypdf import PdfWriter
-
 from automm import paper
 from automm.common import read_json, write_text
+from PIL import Image
+from pypdf import PdfWriter
 
 pytestmark = pytest.mark.integration
 

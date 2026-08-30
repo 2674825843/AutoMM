@@ -1,3 +1,4 @@
+# ruff: noqa: E501 -- 论文正文与嵌入式 PowerShell 保留可审阅的自然行。
 """论文证据闭合、版本管理、写作校验与渲染。"""
 
 from __future__ import annotations
@@ -11,9 +12,8 @@ import subprocess
 from pathlib import Path
 from typing import Any, Callable
 
-from .common import CONFIG_DIR, ROOT, read_json, read_yaml, relative, utc_now, write_json, write_text
+from .common import CONFIG_DIR, ROOT, read_yaml, relative, utc_now, write_json, write_text
 from .problems import load_problem, problem_dir, question_manifest
-
 
 _TEXT_SUFFIXES = {".md", ".txt", ".yaml", ".yml", ".json", ".csv", ".py"}
 _NONFINITE_RE = re.compile(r"(?<![A-Za-z])(?:NaN|[+-]?Inf(?:inity)?)(?![A-Za-z])", re.IGNORECASE)
@@ -49,6 +49,7 @@ def _check_finite_file(path: Path) -> None:
     if _NONFINITE_RE.search(text):
         raise RuntimeError(f"关键结果包含 NaN/Inf：{relative(path)}")
     if path.suffix.lower() == ".json":
+
         def reject_constant(value: str) -> None:
             raise ValueError(value)
 
@@ -186,7 +187,11 @@ def build_evidence_pack(problem_id: str) -> dict[str, Any]:
             raise RuntimeError(f"引用字段不完整：{citation_id or '?'}")
         item = dict(raw)
         item["citation_id"] = citation_id
-        item["evidence_id"] = _evidence_id("citation", citation_id, hashlib.sha256(json.dumps(raw, ensure_ascii=False, sort_keys=True).encode()).hexdigest())
+        item["evidence_id"] = _evidence_id(
+            "citation",
+            citation_id,
+            hashlib.sha256(json.dumps(raw, ensure_ascii=False, sort_keys=True).encode()).hexdigest(),
+        )
         selected_citations.append(item)
     if not selected_citations:
         raise RuntimeError("引用登记中没有 usage_status=used 的完整引用")
@@ -227,7 +232,9 @@ def build_evidence_pack(problem_id: str) -> dict[str, Any]:
             ]
         )
     lines.extend(["## 图表", ""] + [f"- `{item['stable_id']}`：{item.get('title', '')}" for item in selected_figures])
-    lines.extend(["", "## 引用", ""] + [f"- `[@{item['citation_id']}]`：{item['title']}" for item in selected_citations])
+    lines.extend(
+        ["", "## 引用", ""] + [f"- `[@{item['citation_id']}]`：{item['title']}" for item in selected_citations]
+    )
     write_text(evidence_dir / "evidence_pack.md", "\n".join(lines) + "\n")
     return evidence
 
@@ -253,9 +260,7 @@ def create_paper_version(problem_id: str) -> tuple[str, Path]:
             number += 1
 
 
-def validate_paper_markdown(
-    problem_id: str, version_dir: Path, evidence: dict[str, Any]
-) -> dict[str, Any]:
+def validate_paper_markdown(problem_id: str, version_dir: Path, evidence: dict[str, Any]) -> dict[str, Any]:
     """确定性检查论文的结构、事实来源、引用、图表与警告披露。"""
     draft_path = version_dir / "paper.md"
     if not draft_path.is_file():
@@ -417,7 +422,9 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
         summary_item, summary_text = by_name.get("question_summary.md", (items[-1] if items else ({}, "")))
         assumption_item, assumption_text = by_name.get("assumptions.md", (summary_item, ""))
         formulation_candidates = [pair for pair in items if Path(str(pair[0].get("path"))).name == "formulation.md"]
-        formulation_item, formulation_text = formulation_candidates[-1] if formulation_candidates else (summary_item, "")
+        formulation_item, formulation_text = (
+            formulation_candidates[-1] if formulation_candidates else (summary_item, "")
+        )
         summary = _compact_text(summary_text) or f"{question_id} 已完成接受版本求解并通过 sanity 门禁。"
         assumptions = _compact_text(assumption_text) or "本问沿用证据包登记的接受假设。"
         formulation = _compact_text(formulation_text) or "本问采用证据包登记的接受公式与求解步骤。"
@@ -468,7 +475,7 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 
 ### {question_id} 可靠性与结论
 
-本问 L1–L4 sanity 为 {question.get('sanity', {}).get('level_1_4')}，L5 sanity 为 {question.get('sanity', {}).get('level_5')}。稳健性记录为“{robustness.get('decision', '未登记')}：{robustness.get('reason', '')}”；消融记录为“{ablation.get('decision', '未登记')}：{ablation.get('reason', '')}”。需要保留的边界或警告是：{warning_text}。因此，本问结论限于上述假设、数据范围和误差条件。<!-- evidence:{summary_evidence} -->
+本问 L1–L4 sanity 为 {question.get("sanity", {}).get("level_1_4")}，L5 sanity 为 {question.get("sanity", {}).get("level_5")}。稳健性记录为“{robustness.get("decision", "未登记")}：{robustness.get("reason", "")}”；消融记录为“{ablation.get("decision", "未登记")}：{ablation.get("reason", "")}”。需要保留的边界或警告是：{warning_text}。因此，本问结论限于上述假设、数据范围和误差条件。<!-- evidence:{summary_evidence} -->
 """
         )
 
@@ -487,7 +494,7 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 
 ## 摘要
 
-{' '.join(abstract_parts)} 本文还从跨小问一致性、扰动稳定性与模型边界三个层面验证结果，所有定量结论均可回溯到已验收证据包。
+{" ".join(abstract_parts)} 本文还从跨小问一致性、扰动稳定性与模型边界三个层面验证结果，所有定量结论均可回溯到已验收证据包。
 
 ## 关键词
 
@@ -522,7 +529,7 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 
 ## 跨小问一致性、稳健性与消融分析
 
-跨小问审查状态为 {evidence.get('cross_question_review', {}).get('status')}，结论为“{evidence.get('cross_question_review', {}).get('reason', '')}”。各问稳健性或消融结果已在对应章节披露；记录的质量警告如下：
+跨小问审查状态为 {evidence.get("cross_question_review", {}).get("status")}，结论为“{evidence.get("cross_question_review", {}).get("reason", "")}”。各问稳健性或消融结果已在对应章节披露；记录的质量警告如下：
 
 {all_warnings}
 
@@ -534,7 +541,7 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 
 ## 结论
 
-本文逐问完成了模型建立、求解、结果解释与可靠性检查。{' '.join(_compact_text(part, maximum=350) for part in abstract_parts)} 所有结论只在 Evidence Pack 固定的接受版本、数据范围和警告边界内成立。
+本文逐问完成了模型建立、求解、结果解释与可靠性检查。{" ".join(_compact_text(part, maximum=350) for part in abstract_parts)} 所有结论只在 Evidence Pack 固定的接受版本、数据范围和警告边界内成立。
 
 ## 参考文献
 
@@ -542,7 +549,7 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 
 ## 附录：复现说明、文件清单和核心代码索引
 
-论文由 Evidence Pack `{evidence.get('evidence_hash', '')}` 自动生成。复现时先核验该哈希和 `writer_manifest.json`，再运行论文构建命令；计算代码及结果路径以证据包登记清单为准，正文不重复粘贴完整代码。
+论文由 Evidence Pack `{evidence.get("evidence_hash", "")}` 自动生成。复现时先核验该哈希和 `writer_manifest.json`，再运行论文构建命令；计算代码及结果路径以证据包登记清单为准，正文不重复粘贴完整代码。
 """
     version_dir.mkdir(parents=True, exist_ok=True)
     output = version_dir / "paper.md"
@@ -600,7 +607,13 @@ def create_reference_doc(path: Path) -> Path:
     section.bottom_margin = Cm(2.5)
     section.left_margin = Cm(2.5)
     section.right_margin = Cm(2.5)
-    for name, size, bold in (("Normal", 10.5, False), ("Title", 18, True), ("Heading 1", 15, True), ("Heading 2", 13, True), ("Heading 3", 11, True)):
+    for name, size, bold in (
+        ("Normal", 10.5, False),
+        ("Title", 18, True),
+        ("Heading 1", 15, True),
+        ("Heading 2", 13, True),
+        ("Heading 3", 11, True),
+    ):
         style = document.styles[name]
         style.font.name = "Times New Roman"
         style.font.size = Pt(size)
@@ -626,7 +639,7 @@ def create_reference_doc(path: Path) -> Path:
 def export_docx_to_pdf(docx_path: Path, pdf_path: Path, timeout_seconds: int) -> None:
     """在隔离 PowerShell 子进程中调用 Microsoft Word 导出 PDF。"""
     script_path = docx_path.parent / "word_export.ps1"
-    script = r'''param([string]$Docx, [string]$Pdf)
+    script = r"""param([string]$Docx, [string]$Pdf)
 $ErrorActionPreference = "Stop"
 $word = $null
 $document = $null
@@ -642,7 +655,7 @@ try {
   [GC]::Collect()
   [GC]::WaitForPendingFinalizers()
 }
-'''
+"""
     write_text(script_path, script)
     command = [
         "powershell.exe",
@@ -741,7 +754,14 @@ def render_paper(
     tex_path = version_dir / "paper.tex"
     pdf_path = version_dir / "paper.pdf"
     resource_paths = [str(version_dir), str(ROOT)]
-    base = [str(pandoc), str(render_source), "--from", "markdown+tex_math_dollars", "--resource-path", ";".join(resource_paths)]
+    base = [
+        str(pandoc),
+        str(render_source),
+        "--from",
+        "markdown+tex_math_dollars",
+        "--resource-path",
+        ";".join(resource_paths),
+    ]
     docx_command = [*base, "--to", "docx", "--output", str(docx_path), "--number-sections"]
     reference_value = settings.get("reference_doc")
     if reference_value:

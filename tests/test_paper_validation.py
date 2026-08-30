@@ -1,11 +1,11 @@
+# ruff: noqa: E501 -- 测试夹具保留真实论文段落，避免拼接掩盖占位符边界。
 from __future__ import annotations
 
 from pathlib import Path
 
 import pytest
-
-from automm.common import read_json, write_text
 from automm import paper
+from automm.common import read_json, write_text
 
 pytestmark = pytest.mark.unit
 
@@ -132,9 +132,7 @@ def test_complete_evidence_closed_markdown_passes(tmp_path: Path) -> None:
         ("图 prob01_fit 展示拟合值与观测值的一致性", "见上图", "图表缺少正文解释"),
     ],
 )
-def test_validator_rejects_specific_paper_integrity_breaks(
-    tmp_path: Path, old: str, new: str, message: str
-) -> None:
+def test_validator_rejects_specific_paper_integrity_breaks(tmp_path: Path, old: str, new: str, message: str) -> None:
     version = tmp_path / "paper_v001"
     version.mkdir()
     write_text(version / "paper.md", _valid_markdown().replace(old, new))

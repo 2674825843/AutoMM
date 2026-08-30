@@ -3,7 +3,6 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-
 from automm.common import read_json, write_json
 from automm.problems import load_problem, problem_dir, question_manifest
 from automm.runner import execute_non_agent

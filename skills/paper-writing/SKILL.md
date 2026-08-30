@@ -1,9 +1,13 @@
 ---
 name: paper-writing
-description: 在跨小问审查通过后，仅依据 Evidence Pack 生成并校验数学建模竞赛论文 Markdown，随后派生 DOCX、TEX 和 PDF。
+description: Use when AutoMM 已通过跨小问审查并需要生成、校验或重新渲染数学建模竞赛论文。
 ---
 
 # Paper Writing
+
+## 核心原则
+
+论文是已验收研究的证据闭合表达，不是第二次建模。完成标准是同一版本的 Markdown、DOCX、TEX、PDF、校验报告与哈希链全部通过。
 
 ## 前置门禁
 
@@ -20,3 +24,19 @@ description: 在跨小问审查通过后，仅依据 Evidence Pack 生成并校�
 ## 禁止行为
 
 不得运行模型或完整数据集；不得修改题面、数据、假设、公式、结果、图表/引用 registry 或受保护状态；不得读取 Evidence Pack 之外的事实文件；不得隐藏 warning 或虚构结果。
+
+## 快速判断
+
+| 状态 | 动作 |
+|---|---|
+| Evidence 门禁失败 | 返回对应研究阶段，不写论文 |
+| 内容校验 NEEDS_REVISION | 创建下一 `paper_vNNN`，保留旧版本 |
+| FAILED_RENDER | 保留 Markdown/DOCX/TEX，在同版本重试基础设施 |
+| 内容与渲染 PASS | 发布 `paper/final/`，再进入 completed |
+
+## 常见错误
+
+- 直接读取原始数据补写数字：数字必须先进入已验收结果和 Evidence Pack。
+- 删除 `PASS_WITH_WARNING` 以改善观感：必须在结果或局限章节原样披露。
+- 用图片公式替代 Word 公式：DOCX 必须保留 OMML 可编辑公式。
+- 覆盖旧论文：每次内容修订创建新版本；渲染重试才复用同一版本。

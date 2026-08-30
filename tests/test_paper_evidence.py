@@ -4,9 +4,8 @@ import importlib
 from pathlib import Path
 
 import pytest
-
 from automm.common import read_json, read_yaml, write_json, write_text, write_yaml
-from automm.problems import init_problem, problem_dir, question_manifest
+from automm.problems import init_problem, question_manifest
 
 pytestmark = pytest.mark.unit
 

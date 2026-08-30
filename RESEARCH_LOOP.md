@@ -16,6 +16,8 @@ Agent 超时只影响当前 action，保留日志和草稿并重试当前阶段�
 
 有可行 incumbent 但未证明全局最优、`mip_gap` 缺失或附加实验不足，可以通过 `PASS_WITH_WARNING`，但必须保留求解器状态、约束残差、输入、配置、代码 hash 和随机种子。NaN/Inf、硬约束违反、单位维度错误、公式与代码不一致、数据被修改和追踪链缺失必须失败。
 
-## 人工交接
+## 自动论文与归档
 
-每个小问完成后发送通知。所有小问完成后只生成 Markdown 总结归档，不自动生成论文；论文由数学建模团队人工整理。
+每个小问完成后发送通知。全部小问完成并通过跨问审查后，Runner 构建 Evidence Pack，Paper Writer 按竞赛论文结构生成 Markdown，再由确定性门禁检查证据、引用、图表、warning 和章节覆盖。通过后用 Pandoc 生成 DOCX/TEX，并由 Microsoft Word 从 DOCX 导出 PDF；四类正文产物和检查报告按 `paper_vNNN` 保留。
+
+工作流为 `cross_question_review → paper_writing → paper_validation → completed`。内容失败回 `paper_writing` 创建新版本；渲染失败停留在 `paper_validation` 重试同一版本。只有 final DOCX/PDF/TEX 发布成功后才进入 completed，随后仍生成 `final_summary.md` 作为研究归档索引。
