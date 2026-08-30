@@ -121,6 +121,21 @@ def test_evidence_pack_selects_only_accepted_reviewed_material(project_root: Pat
     assert (root / "paper" / "evidence" / "evidence_pack.md").is_file()
 
 
+def test_evidence_hash_is_stable_when_only_build_timestamp_changes(
+    project_root: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    paper = _paper_module()
+    problem_id, _ = _eligible_problem(project_root)
+    timestamps = iter(("2026-01-01T00:00:00+00:00", "2026-01-02T00:00:00+00:00"))
+    monkeypatch.setattr(paper, "utc_now", lambda: next(timestamps))
+
+    first = paper.build_evidence_pack(problem_id)
+    second = paper.build_evidence_pack(problem_id)
+
+    assert first["created_at"] != second["created_at"]
+    assert first["evidence_hash"] == second["evidence_hash"]
+
+
 def test_evidence_pack_ignores_results_from_rejected_formulation(project_root: Path) -> None:
     paper = _paper_module()
     problem_id, root = _eligible_problem(project_root)

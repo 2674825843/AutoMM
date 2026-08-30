@@ -227,7 +227,10 @@ def build_evidence_pack(problem_id: str) -> dict[str, Any]:
         "figures": selected_figures,
         "citations": selected_citations,
     }
-    canonical = json.dumps(evidence, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+    # The content address must describe evidence facts, not the wall-clock time
+    # at which an identical pack was rebuilt after a revision attempt.
+    canonical_payload = {key: value for key, value in evidence.items() if key != "created_at"}
+    canonical = json.dumps(canonical_payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
     evidence["evidence_hash"] = hashlib.sha256(canonical).hexdigest()
     evidence_dir = root / "paper" / "evidence"
     write_json(evidence_dir / "evidence_pack.json", evidence)
@@ -359,7 +362,7 @@ def validate_paper_markdown(problem_id: str, version_dir: Path, evidence: dict[s
         if stable_id not in prose:
             errors.append(f"图表缺少正文解释：{stable_id}")
         if question_id and not re.search(
-            rf"图\s*{re.escape(stable_id)}[^\n]*(?:展示|表明|说明|验证|支持|低于|高于)",
+            rf"图\s*`?\s*{re.escape(stable_id)}\s*`?[^\n]*(?:展示|给出|对比|汇总|叠加|显示|表明|说明|验证|支持|低于|高于)",
             prose,
         ):
             errors.append(f"图表缺少正文解释：{stable_id}")

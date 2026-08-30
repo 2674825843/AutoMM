@@ -135,6 +135,21 @@ def test_paraphrased_warning_passes_with_stable_warning_marker(tmp_path: Path) -
     assert result["errors"] == []
 
 
+def test_figure_explanation_accepts_markdown_code_id_and_natural_verb(tmp_path: Path) -> None:
+    version = tmp_path / "paper_v001"
+    version.mkdir()
+    text = _valid_markdown().replace(
+        "图 prob01_fit 展示拟合值与观测值的一致性",
+        "图 `prob01_fit` 给出拟合值与观测值的一致性",
+    )
+    write_text(version / "paper.md", text)
+
+    result = _validate("paper-demo", version, _evidence())
+
+    assert result["status"] == "PASS"
+    assert result["errors"] == []
+
+
 @pytest.mark.parametrize(
     ("old", "new", "message"),
     [
