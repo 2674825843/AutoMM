@@ -423,6 +423,23 @@ def run_once() -> dict[str, Any]:
                 transition(
                     target_stage="paper_writing", problem_id=action["problem_id"], reason="跨小问审查通过，进入论文写作"
                 )
+            current_stage = load_state().get("current_stage")
+            recommended_stage = response.get("recommended_next_stage")
+            if (
+                action.get("stage") not in {"computation", "cross_question_review"}
+                and response.get("status") in {"success", "warning"}
+                and recommended_stage
+                and recommended_stage != current_stage
+                and current_stage == action.get("stage")
+                and action.get("problem_id")
+                and action.get("question_id")
+            ):
+                transition(
+                    target_stage=str(recommended_stage),
+                    problem_id=action["problem_id"],
+                    question_id=action["question_id"],
+                    reason=f"{action['agent']} 已成功完成当前阶段，Runner 按推荐阶段兜底推进",
+                )
             if action.get("task_id") and response["status"] in {"success", "warning"}:
                 _mark_task_consumed(action["task_id"])
             if action.get("group_id") and response["status"] in {"success", "warning"}:

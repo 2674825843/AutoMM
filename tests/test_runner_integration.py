@@ -5,9 +5,10 @@ import sys
 from pathlib import Path
 
 import pytest
-
+from automm.common import write_yaml
 from automm.problems import question_manifest
 from automm.runner import recover_incomplete_transactions, run_once
+from automm.state import load_state, save_state
 
 pytestmark = pytest.mark.integration
 
@@ -30,7 +31,14 @@ def test_orchestrator_runner_help_does_not_execute_action(project_root: Path) ->
     action_root = project_root / "runtime" / "actions"
     before = set(action_root.glob("*"))
     script = Path(__file__).resolve().parents[1] / "scripts" / "orchestrator_runner.py"
-    result = subprocess.run([sys.executable, str(script), "--help"], cwd=project_root, capture_output=True, text=True, encoding="utf-8", check=False)
+    result = subprocess.run(
+        [sys.executable, str(script), "--help"],
+        cwd=project_root,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        check=False,
+    )
     assert result.returncode == 0
     assert "usage:" in result.stdout
     assert set(action_root.glob("*")) == before
@@ -50,3 +58,51 @@ def test_problem_conclusion_metadata_is_written(initialized_problem: tuple[str, 
     _, manifest = question_manifest(problem_id, "prob01")
     assert manifest["conclusion"]["conclusion_id"] == "c1"
     assert manifest["conclusion"]["content_hash"]
+
+
+def test_successful_agent_recommendation_advances_when_transition_command_is_omitted(
+    initialized_problem: tuple[str, Path], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """防止 Agent 成功登记产物后因漏发 transition 而无限重跑当前阶段。"""
+    problem_id, _ = initialized_problem
+    state = load_state()
+    state["current_stage"] = "visualization"
+    save_state(state, event="test_setup")
+    manifest_path, manifest = question_manifest(problem_id, "prob01")
+    manifest["stage"] = "visualization"
+    write_yaml(manifest_path, manifest)
+
+    def successful_visualization(
+        agent_name: str, action: dict[str, object], action_id: str
+    ) -> tuple[dict[str, object], dict[str, object]]:
+        assert agent_name == "visualization-agent"
+        assert action["stage"] == "visualization"
+        return (
+            {
+                "schema_version": 1,
+                "action_id": action_id,
+                "status": "success",
+                "failure_class": None,
+                "problem_id": problem_id,
+                "question_id": "prob01",
+                "assumption_version": None,
+                "formulation_version": None,
+                "artifacts_created": [],
+                "artifacts_updated": [],
+                "findings": ["visualization completed"],
+                "warnings": [],
+                "blocking_reasons": [],
+                "recommended_next_stage": "robustness",
+                "commands": [
+                    {"name": "record_artifact", "arguments": {"name": "visualization", "completed": True}}
+                ],
+            },
+            {"provider": "test"},
+        )
+
+    monkeypatch.setattr("automm.runner.invoke_agent", successful_visualization)
+
+    result = run_once()
+
+    assert result["status"] == "completed"
+    assert load_state()["current_stage"] == "robustness"
