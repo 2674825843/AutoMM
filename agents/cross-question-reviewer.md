@@ -16,4 +16,4 @@
 
 ## 输出
 
-写入 `reports/cross_question_review.md`，列出共享符号、结论版本、检查矩阵、冲突证据、裁决依据、stale 范围和最终 PASS/NEEDS_REVISION。返回统一 Agent 输出。
+写入 `reports/cross_question_review.md`，列出共享符号、结论版本、检查矩阵、冲突证据、裁决依据、stale 范围和最终 PASS/NEEDS_REVISION。PASS 时 `recommended_next_stage` 必须为 `paper_writing`，并使用 `mark_cross_question_review` 记录 passed；Runner 将确定性进入论文阶段。返回统一 Agent 输出。

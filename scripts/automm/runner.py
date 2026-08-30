@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 import sys
 import traceback
@@ -15,6 +16,7 @@ import psutil
 from .agent_runtime import apply_agent_commands, invoke_agent, new_action_id
 from .common import CONFIG_DIR, ROOT, RUNTIME_DIR, FileLock, append_jsonl, read_json, read_yaml, relative, utc_now, write_json, write_yaml
 from .failure_policy import AgentTimeoutError, classify_exception, note_recovery
+from .paper import prepare_paper_writing, render_paper, validate_paper_markdown
 from .problems import create_assumption_version, create_formulation_version, load_problem, problem_dir, question_manifest
 from .state import load_state, reconcile_control_flags, save_state
 from .summary import build_final_summary
@@ -143,6 +145,69 @@ def execute_non_agent(action: dict[str, Any]) -> dict[str, Any]:
         return {"handled": name, "notification": result}
     if name == "build_final_summary":
         return {"handled": name, "summary": build_final_summary(action["problem_id"])}
+    if name == "prepare_paper_writing":
+        prepared = prepare_paper_writing(action["problem_id"])
+        problem = load_problem(action["problem_id"])
+        problem["paper"] = {
+            "status": "drafting",
+            "evidence": prepared["evidence"],
+            "evidence_hash": prepared["evidence_hash"],
+            "active_version": prepared["paper_version"],
+            "version_dir": prepared["version_dir"],
+            "draft": prepared["draft"],
+            "prepared_at": utc_now(),
+        }
+        write_json(problem_dir(action["problem_id"]) / "problem_state.json", problem)
+        return {"handled": name, "paper": problem["paper"]}
+    if name == "validate_and_render_paper":
+        problem_id = action["problem_id"]
+        problem = load_problem(problem_id)
+        paper = problem.get("paper", {})
+        version_name = str(paper.get("active_version") or "")
+        if not version_name:
+            raise RuntimeError("problem_state.paper 缺少 active_version")
+        version_dir = problem_dir(problem_id) / "paper" / "versions" / version_name
+        evidence = read_json(problem_dir(problem_id) / "paper" / "evidence" / "evidence_pack.json")
+        validation = validate_paper_markdown(problem_id, version_dir, evidence)
+        paper["validation"] = relative(version_dir / "validation.json")
+        if validation["status"] != "PASS":
+            paper["status"] = "needs_revision"
+            problem["paper"] = paper
+            write_json(problem_dir(problem_id) / "problem_state.json", problem)
+            transition(target_stage="paper_writing", problem_id=problem_id, reason="论文内容门禁未通过，创建新版本修订")
+            return {"handled": name, "paper": paper, "validation": validation}
+        rendered = render_paper(version_dir)
+        paper["render_report"] = relative(version_dir / "render_report.json")
+        if rendered["status"] != "PASS":
+            paper["status"] = "render_failed"
+            problem["paper"] = paper
+            write_json(problem_dir(problem_id) / "problem_state.json", problem)
+            return {"handled": name, "paper": paper, "validation": validation, "render": rendered}
+        final_dir = problem_dir(problem_id) / "paper" / "final"
+        if final_dir.exists() and any(final_dir.iterdir()):
+            current = read_json(final_dir / "manifest.json", {})
+            if current.get("paper_version") != version_name:
+                raise RuntimeError("paper/final 已指向其他通过版本，拒绝覆盖")
+        else:
+            final_dir.mkdir(parents=True, exist_ok=True)
+            for filename in ("paper.md", "paper.docx", "paper.tex", "paper.pdf", "writer_manifest.json", "validation.json", "render_report.json"):
+                source = version_dir / filename
+                if source.is_file():
+                    shutil.copy2(source, final_dir / filename)
+        paper.update(
+            {
+                "status": "passed",
+                "docx": relative(version_dir / "paper.docx"),
+                "pdf": relative(version_dir / "paper.pdf"),
+                "tex": relative(version_dir / "paper.tex"),
+                "completed_at": utc_now(),
+            }
+        )
+        write_json(final_dir / "manifest.json", {"problem_id": problem_id, "paper_version": version_name, **paper})
+        problem["paper"] = paper
+        write_json(problem_dir(problem_id) / "problem_state.json", problem)
+        transition(target_stage="completed", problem_id=problem_id, reason="论文内容与 DOCX/PDF/TEX 渲染门禁全部通过")
+        return {"handled": name, "paper": paper, "validation": validation, "render": rendered}
     if name == "send_problem_notification":
         result = _notify("problem-complete", action["problem_id"])
         problem = load_problem(action["problem_id"])
@@ -203,14 +268,14 @@ def run_once() -> dict[str, Any]:
             if (
                 action.get("stage") == "cross_question_review"
                 and response.get("status") in {"success", "warning"}
-                and response.get("recommended_next_stage") == "final_summary"
+                and response.get("recommended_next_stage") in {"paper_writing", "final_summary"}
                 and any(
                     command.get("name") == "mark_cross_question_review"
                     and command.get("arguments", {}).get("status") == "passed"
                     for command in response.get("commands", [])
                 )
             ):
-                transition(target_stage="completed", problem_id=action["problem_id"], reason="跨小问审查通过，进入最终总结归档")
+                transition(target_stage="paper_writing", problem_id=action["problem_id"], reason="跨小问审查通过，进入论文写作")
             if action.get("task_id") and response["status"] in {"success", "warning"}:
                 _mark_task_consumed(action["task_id"])
             if action.get("group_id") and response["status"] in {"success", "warning"}:

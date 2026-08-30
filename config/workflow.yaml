@@ -28,6 +28,8 @@ stages:
   - ablation
   - locally_completed
   - cross_question_review
+  - paper_writing
+  - paper_validation
   - completed
 optional_stages:
   - robustness

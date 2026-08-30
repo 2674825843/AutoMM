@@ -42,6 +42,11 @@ allowed_transitions:
     - cross_question_review
   cross_question_review:
     - assumption_definition
+    - paper_writing
+  paper_writing:
+    - paper_validation
+  paper_validation:
+    - paper_writing
     - completed
   completed: []
 required_artifacts_for_local_completion:

@@ -22,6 +22,7 @@ AGENT_BY_STAGE = {
     "robustness": "robustness-analyst",
     "ablation": "ablation-analyst",
     "cross_question_review": "cross-question-reviewer",
+    "paper_writing": "paper-writer",
 }
 
 
@@ -113,6 +114,36 @@ def next_action() -> dict[str, Any]:
             "run_agent",
             "全部小问已局部完成，执行跨小问一致性审查",
             agent=AGENT_BY_STAGE[stage],
+            problem_id=problem_id,
+            stage=stage,
+        )
+
+    if stage == "paper_writing":
+        paper = problem.get("paper", {})
+        if paper.get("status") in {None, "not_started", "needs_revision"} or not paper.get("active_version"):
+            return _action(
+                "P8",
+                "prepare_paper_writing",
+                "跨小问审查已通过，构建 Evidence Pack 并创建不可覆盖的论文版本",
+                problem_id=problem_id,
+                stage=stage,
+            )
+        return _action(
+            "P8",
+            "run_agent",
+            "Evidence Pack 与论文版本已准备，调用 Paper Writer 完善 Markdown",
+            agent=AGENT_BY_STAGE[stage],
+            problem_id=problem_id,
+            stage=stage,
+            paper_version=paper.get("active_version"),
+            evidence=paper.get("evidence"),
+        )
+
+    if stage == "paper_validation":
+        return _action(
+            "P8",
+            "validate_and_render_paper",
+            "确定性校验论文并渲染 DOCX、TEX 和 PDF",
             problem_id=problem_id,
             stage=stage,
         )
@@ -301,7 +332,7 @@ def transition(
         if target_stage != current and target_stage not in allowed:
             raise RuntimeError(f"非法阶段迁移：{current} -> {target_stage}")
 
-    if question_id and target_stage not in {"cross_question_review", "completed"}:
+    if question_id and target_stage not in {"cross_question_review", "paper_writing", "paper_validation", "completed"}:
         _, entry_manifest = question_manifest(problem_id, question_id)
         if target_stage == "mathematical_formulation" and int(entry_manifest.get("accepted_assumption_version", 0)) < 1:
             raise RuntimeError("没有已接受的假设版本，不能进入 mathematical_formulation")
@@ -323,9 +354,17 @@ def transition(
         problem["cross_question_review"] = "in_progress"
         write_json(problem_dir(problem_id) / "problem_state.json", problem)
         question_id = None
+    elif target_stage in {"paper_writing", "paper_validation"}:
+        if problem.get("cross_question_review") != "passed":
+            raise RuntimeError("跨小问审查未通过，不能进入论文阶段")
+        write_json(problem_dir(problem_id) / "problem_state.json", problem)
+        question_id = None
     elif target_stage == "completed":
         if problem.get("cross_question_review") != "passed":
             raise RuntimeError("跨小问审查未通过，不能进入 completed")
+        paper = problem.get("paper", {})
+        if paper.get("status") != "passed" or not paper.get("docx") or not paper.get("pdf"):
+            raise RuntimeError("论文及渲染未通过，不能进入 completed")
         problem["status"] = "completed"
         write_json(problem_dir(problem_id) / "problem_state.json", problem)
         question_id = None
