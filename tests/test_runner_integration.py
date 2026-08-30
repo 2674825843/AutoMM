@@ -5,9 +5,9 @@ import sys
 from pathlib import Path
 
 import pytest
-from automm.common import write_yaml
+from automm.common import write_json, write_yaml
 from automm.problems import question_manifest
-from automm.runner import recover_incomplete_transactions, run_once
+from automm.runner import acquire_runner_lock, recover_incomplete_transactions, run_once
 from automm.state import load_state, save_state
 
 pytestmark = pytest.mark.integration
@@ -48,6 +48,20 @@ def test_transaction_recovery_marks_unfinished_action(tmp_path: Path) -> None:
     journal = tmp_path / "transactions.jsonl"
     journal.write_text('{"action_id":"act-1","phase":"started"}\n', encoding="utf-8")
     assert recover_incomplete_transactions(journal) == ["act-1"]
+
+
+def test_runner_immediately_recovers_lock_owned_by_dead_process(project_root: Path) -> None:
+    lock_path = project_root / "runtime" / "locks" / "orchestrator.lock"
+    write_json(
+        lock_path,
+        {"owner": "interrupted-action", "pid": 2_000_000_000, "created_at": "2099-01-01T00:00:00+00:00"},
+    )
+
+    runner_lock, acquired = acquire_runner_lock("replacement-action")
+
+    assert acquired is True
+    assert runner_lock.info()["owner"] == "replacement-action"
+    runner_lock.release()
 
 
 def test_problem_conclusion_metadata_is_written(initialized_problem: tuple[str, Path]) -> None:

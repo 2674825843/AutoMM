@@ -65,7 +65,10 @@ def acquire_runner_lock(action_id: str) -> tuple[FileLock, bool]:
     if item.acquire(action_id):
         return item, True
     info = item.info()
-    if item.is_stale() and not _owner_alive(info):
+    # A dead owner can never release its lock, so recover immediately.  The
+    # stale timeout only helps diagnose long-running live owners; requiring it
+    # here leaves every crash or forced daemon restart coalescing for an hour.
+    if not _owner_alive(info):
         append_jsonl(RUNTIME_DIR / "lock_recovery.jsonl", {"at": utc_now(), "lock": relative(item.path), "old": info})
         item.release()
         if item.acquire(action_id):
