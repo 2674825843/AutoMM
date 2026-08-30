@@ -120,6 +120,21 @@ def test_complete_evidence_closed_markdown_passes(tmp_path: Path) -> None:
     assert read_json(version / "validation.json")["status"] == "PASS"
 
 
+def test_paraphrased_warning_passes_with_stable_warning_marker(tmp_path: Path) -> None:
+    version = tmp_path / "paper_v001"
+    version.mkdir()
+    text = _valid_markdown().replace(
+        "但样本量较小，结果外推需谨慎。",
+        "但现有样本不足以支持跨分布外推，应用到新场景前应重新标定。<!-- warning:warn_prob01_f26fb05b36f7 -->",
+    ).replace("样本量较小，推广到分布漂移场景前需重新标定。", "推广到分布漂移场景前需重新标定。")
+    write_text(version / "paper.md", text)
+
+    result = _validate("paper-demo", version, _evidence())
+
+    assert result["status"] == "PASS"
+    assert result["errors"] == []
+
+
 @pytest.mark.parametrize(
     ("old", "new", "message"),
     [

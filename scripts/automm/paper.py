@@ -18,6 +18,7 @@ from .problems import load_problem, problem_dir, question_manifest
 _TEXT_SUFFIXES = {".md", ".txt", ".yaml", ".yml", ".json", ".csv", ".py"}
 _NONFINITE_RE = re.compile(r"(?<![A-Za-z])(?:NaN|[+-]?Inf(?:inity)?)(?![A-Za-z])", re.IGNORECASE)
 _EVIDENCE_MARKER_RE = re.compile(r"<!--\s*evidence:([A-Za-z0-9_.:-]+)\s*-->")
+_WARNING_MARKER_RE = re.compile(r"<!--\s*warning:([A-Za-z0-9_.:-]+)\s*-->")
 _CITATION_RE = re.compile(r"\[@([A-Za-z0-9_.:-]+)\]")
 
 
@@ -32,6 +33,11 @@ def _sha256(path: Path) -> str:
 def _evidence_id(kind: str, path: str, digest: str) -> str:
     token = hashlib.sha256(f"{kind}:{path}:{digest}".encode()).hexdigest()[:12]
     return f"ev_{kind}_{token}"
+
+
+def _warning_id(question_id: str, warning: str) -> str:
+    token = hashlib.sha256(f"{question_id}:{warning}".encode()).hexdigest()[:12]
+    return f"warn_{question_id}_{token}"
 
 
 def _is_pass(value: Any) -> bool:
@@ -299,8 +305,19 @@ def validate_paper_markdown(problem_id: str, version_dir: Path, evidence: dict[s
         if f"{question_id} 可靠性与结论" not in text:
             errors.append(f"{question_id} 缺少可靠性与结论")
         for warning in question.get("warnings", []):
-            if str(warning).strip() and str(warning).strip() not in text:
+            warning = str(warning).strip()
+            marker = _warning_id(question_id, warning)
+            if warning and warning not in text and marker not in _WARNING_MARKER_RE.findall(text):
                 errors.append(f"未披露警告：{question_id} / {warning}")
+
+    known_warning_ids = {
+        _warning_id(str(question.get("question_id", "")), str(warning).strip())
+        for question in evidence.get("questions", [])
+        for warning in question.get("warnings", [])
+        if str(warning).strip()
+    }
+    for warning_id in sorted(set(_WARNING_MARKER_RE.findall(text)) - known_warning_ids):
+        errors.append(f"未知 warning ID：{warning_id}")
 
     placeholder_patterns = [
         r"(?<![A-Za-z])TODO(?![A-Za-z])",
@@ -454,8 +471,14 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
                 f"<!-- evidence:{figure['evidence_id']} -->"
             )
         warnings = [str(item) for item in question.get("warnings", []) if str(item).strip()]
-        warning_text = "；".join(warnings) if warnings else "未记录 PASS_WITH_WARNING 警告"
-        warning_lines.extend(f"- {question_id}：{warning}" for warning in warnings)
+        warning_text = (
+            "；".join(f"{warning}<!-- warning:{_warning_id(question_id, warning)} -->" for warning in warnings)
+            if warnings
+            else "未记录 PASS_WITH_WARNING 警告"
+        )
+        warning_lines.extend(
+            f"- {question_id}：{warning}<!-- warning:{_warning_id(question_id, warning)} -->" for warning in warnings
+        )
         optional = question.get("optional_stages", {})
         robustness = optional.get("robustness", {})
         ablation = optional.get("ablation", {})

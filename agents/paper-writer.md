@@ -16,8 +16,8 @@
 
 1. 读取 `problem_state.json` 的 `paper.active_version`，不得自行选择或覆盖其他版本。
 2. 核对 `writer_manifest.json.evidence_hash` 与 Evidence Pack 一致。
-3. 在现有 `paper.md` 上改善结构、逻辑连接、定量表达和竞赛论文语气；保留所有 `<!-- evidence:... -->` 标记供机器校验。
-4. 每个关键数字、公式、图表、文献性主张和 warning 必须紧邻有效 evidence 标记。
+3. 在现有 `paper.md` 上改善结构、逻辑连接、定量表达和竞赛论文语气；保留所有 `<!-- evidence:... -->` 与 `<!-- warning:... -->` 标记供机器校验。
+4. 每个关键数字、公式、图表、文献性主张必须紧邻有效 evidence 标记。warning 可以概括为适合论文阅读的限制表述，但每条原始 warning 对应的 `<!-- warning:... -->` 必须紧邻该表述保留，不得集中为空标记或删除。
 5. 每问必须包含问题分析、模型建立、求解、结果解释、可靠性与明确结论。
 6. 所有图仅使用 Evidence Pack 中的 stable ID 和路径，并写明“说明了什么、是否通过阈值、如何支持结论”。
 7. 所有引用仅使用登记的 `[@citation_id]`；参考文献不得自行增加。
