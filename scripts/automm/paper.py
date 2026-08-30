@@ -130,6 +130,13 @@ def build_evidence_pack(problem_id: str) -> dict[str, Any]:
         for path in sorted(version_dir.rglob("*")):
             if not path.is_file() or path.suffix.lower() not in _TEXT_SUFFIXES:
                 continue
+            parts = path.relative_to(version_dir).parts
+            if len(parts) >= 3 and parts[0] == "results":
+                metadata_path = version_dir / "results" / parts[1] / "metadata.json"
+                if metadata_path.is_file():
+                    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+                    if metadata.get("formulation_version") != formulation_name:
+                        continue
             _check_finite_file(path)
             item = _artifact(path, "artifact", question_id)
             artifacts.append(item)

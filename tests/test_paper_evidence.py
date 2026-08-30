@@ -53,6 +53,7 @@ def _eligible_problem(project_root: Path) -> tuple[str, Path]:
     write_text(version / "question_summary.md", "厚度估计为 10.2 um，相对误差为 0.8%。\n")
     result_dir = version / "results" / "accepted-run"
     result_dir.mkdir(parents=True)
+    write_json(result_dir / "metadata.json", {"formulation_version": "formulation_v001"})
     write_json(
         result_dir / "result.json",
         {
@@ -118,6 +119,19 @@ def test_evidence_pack_selects_only_accepted_reviewed_material(project_root: Pat
     assert len(artifact["sha256"]) == 64
     assert (root / "paper" / "evidence" / "evidence_pack.json").is_file()
     assert (root / "paper" / "evidence" / "evidence_pack.md").is_file()
+
+
+def test_evidence_pack_ignores_results_from_rejected_formulation(project_root: Path) -> None:
+    paper = _paper_module()
+    problem_id, root = _eligible_problem(project_root)
+    rejected = root / "prob01" / "versions" / "assumption_v001" / "results" / "rejected-run"
+    rejected.mkdir(parents=True)
+    write_json(rejected / "metadata.json", {"formulation_version": "formulation_v000"})
+    (rejected / "result.json").write_text('{"thickness_um": NaN}', encoding="utf-8")
+
+    evidence = paper.build_evidence_pack(problem_id)
+
+    assert not any("rejected-run" in item["path"] for item in evidence["artifacts"])
 
 
 @pytest.mark.parametrize(
