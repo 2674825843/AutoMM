@@ -31,10 +31,22 @@ class DshHeadlessProvider(LLMProvider):
             raise ProviderError("找不到 dsh CLI（请先安装 @deepseek-ai/dsh）")
         return executable
 
+    def _command_prefix(self) -> list[str]:
+        executable = self._executable()
+        if Path(executable).suffix.lower() not in {".cmd", ".bat"}:
+            return [executable]
+
+        entrypoint = Path(executable).parent / "node_modules" / "@deepseek-ai" / "dsh" / "lib" / "bin.js"
+        node = shutil.which("node")
+        if not node or not entrypoint.is_file():
+            raise ProviderError("无法绕过 dsh CMD 包装器：未找到 Node.js 或 DSH bin.js")
+        return [node, str(entrypoint)]
+
     def probe(self) -> dict[str, Any]:
         executable = self._executable()
+        command_prefix = self._command_prefix()
         result = subprocess.run(
-            [executable, "--version"],
+            [*command_prefix, "--version"],
             capture_output=True, text=True, encoding="utf-8", errors="replace", shell=False, check=False,
         )
         if result.returncode != 0:
@@ -44,7 +56,7 @@ class DshHeadlessProvider(LLMProvider):
 
     def prepare(self, prompt: str, output_path: Path) -> Invocation:
         profile = str(self.config.get("profile", "headless"))
-        command = [self._executable(), "--profile", profile, prompt]
+        command = [*self._command_prefix(), "--profile", profile, prompt]
         env = dict(os.environ)
         env.setdefault("DSH_TOOLS_MODE", str(self.config.get("tools_mode", "native")))
         return Invocation(command=command, stdin=None, env=env, output_path=output_path)
