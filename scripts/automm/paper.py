@@ -15,6 +15,8 @@ from .problems import load_problem, problem_dir, question_manifest
 
 _TEXT_SUFFIXES = {".md", ".txt", ".yaml", ".yml", ".json", ".csv", ".py"}
 _NONFINITE_RE = re.compile(r"(?<![A-Za-z])(?:NaN|[+-]?Inf(?:inity)?)(?![A-Za-z])", re.IGNORECASE)
+_EVIDENCE_MARKER_RE = re.compile(r"<!--\s*evidence:([A-Za-z0-9_.:-]+)\s*-->")
+_CITATION_RE = re.compile(r"\[@([A-Za-z0-9_.:-]+)\]")
 
 
 def _sha256(path: Path) -> str:
@@ -247,3 +249,102 @@ def create_paper_version(problem_id: str) -> tuple[str, Path]:
             return name, path
         except FileExistsError:
             number += 1
+
+
+def validate_paper_markdown(
+    problem_id: str, version_dir: Path, evidence: dict[str, Any]
+) -> dict[str, Any]:
+    """确定性检查论文的结构、事实来源、引用、图表与警告披露。"""
+    draft_path = version_dir / "paper.md"
+    if not draft_path.is_file():
+        raise RuntimeError(f"论文 Markdown 不存在：{draft_path}")
+    text = draft_path.read_text(encoding="utf-8")
+    errors: list[str] = []
+    required_headings = [
+        "摘要",
+        "关键词",
+        "问题重述",
+        "问题分析与总体流程",
+        "模型假设",
+        "符号说明",
+        "数据说明与预处理",
+        "跨小问一致性、稳健性与消融分析",
+        "模型评价、局限与推广",
+        "结论",
+        "参考文献",
+        "附录：复现说明、文件清单和核心代码索引",
+    ]
+    headings = [match.group(1).strip() for match in re.finditer(r"^##\s+(.+?)\s*$", text, re.MULTILINE)]
+    for required in required_headings:
+        if not any(heading == required for heading in headings):
+            errors.append(f"缺少章节：{required}")
+    for question in evidence.get("questions", []):
+        question_id = str(question.get("question_id", ""))
+        if not any(heading.startswith(f"{question_id} ") for heading in headings):
+            errors.append(f"缺少小问章节：{question_id}")
+        if f"{question_id} 可靠性与结论" not in text:
+            errors.append(f"{question_id} 缺少可靠性与结论")
+        for warning in question.get("warnings", []):
+            if str(warning).strip() and str(warning).strip() not in text:
+                errors.append(f"未披露警告：{question_id} / {warning}")
+
+    placeholder_patterns = [
+        r"(?<![A-Za-z])TODO(?![A-Za-z])",
+        r"(?<![A-Za-z])TBD(?![A-Za-z])",
+        r"待填写",
+        r"待补充",
+        r"\{\{.+?\}\}",
+    ]
+    if any(re.search(pattern, text, re.IGNORECASE | re.DOTALL) for pattern in placeholder_patterns):
+        errors.append("正文包含占位符")
+
+    known_evidence = {
+        str(item.get("evidence_id"))
+        for group in ("artifacts", "figures", "citations")
+        for item in evidence.get(group, [])
+        if item.get("evidence_id")
+    }
+    used_evidence = set(_EVIDENCE_MARKER_RE.findall(text))
+    for evidence_id in sorted(used_evidence - known_evidence):
+        errors.append(f"未知 evidence ID：{evidence_id}")
+    if not used_evidence:
+        errors.append("正文没有 evidence 标记")
+
+    known_citations = {str(item.get("citation_id")) for item in evidence.get("citations", [])}
+    used_citations = set(_CITATION_RE.findall(text))
+    for citation_id in sorted(used_citations - known_citations):
+        errors.append(f"未登记引用：{citation_id}")
+    for citation_id in sorted(known_citations - used_citations):
+        errors.append(f"登记引用未在正文使用：{citation_id}")
+
+    prose_lines = [line for line in text.splitlines() if not line.lstrip().startswith("![")]
+    prose = "\n".join(prose_lines)
+    for figure in evidence.get("figures", []):
+        stable_id = str(figure.get("stable_id", ""))
+        question_id = str(figure.get("question_id", ""))
+        if not stable_id or stable_id not in text:
+            errors.append(f"缺少审核图表：{stable_id or '?'}")
+            continue
+        if stable_id not in prose:
+            errors.append(f"图表缺少正文解释：{stable_id}")
+        if question_id and not re.search(
+            rf"图\s*{re.escape(stable_id)}[^\n]*(?:展示|表明|说明|验证|支持|低于|高于)",
+            prose,
+        ):
+            errors.append(f"图表缺少正文解释：{stable_id}")
+
+    result = {
+        "checked_at": utc_now(),
+        "problem_id": problem_id,
+        "paper_version": version_dir.name,
+        "evidence_hash": evidence.get("evidence_hash"),
+        "status": "PASS" if not errors else "NEEDS_REVISION",
+        "errors": errors,
+        "evidence_ids_used": sorted(used_evidence),
+        "citation_ids_used": sorted(used_citations),
+        "figure_ids_used": sorted(
+            str(item.get("stable_id")) for item in evidence.get("figures", []) if item.get("stable_id") in text
+        ),
+    }
+    write_json(version_dir / "validation.json", result)
+    return result
