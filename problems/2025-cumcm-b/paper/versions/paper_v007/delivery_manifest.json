@@ -1,0 +1,504 @@
+{
+  "status": "PASS",
+  "paper_version": "paper_v007",
+  "evidence_hash": "f09919c80e560a2f54819fc67964f7fa5da0380890d8aa24fa5bcb0a0acb9b52",
+  "created_at": "2026-08-31T09:14:24.097136+00:00",
+  "destination": "problems/2025-cumcm-b/paper/final/交付",
+  "files": {
+    "论文.docx": "bb68e8d5d9cb2c9cc94dec08f12f54fe4f433f3c1927c5532cf774662834ef30",
+    "支撑材料/运行说明.md": "fbf485f0eeac8fb01be48be305ee6b878783b56722ae24c460e3a113baee8de4",
+    "支撑材料/图片/图01_合成两光束反射率谱与极值位置.png": "2b245a3c048dcd4cf9499e8c8a772b7c23b57eba46cd657424c5a914cf0ff461",
+    "支撑材料/图片/图02_碳化硅折射率的波数依赖与适用谱段.png": "e85bcdc2a37a9fce29acb21bc0be3f2b50dbd96e5a9e105a5b620a2c12645a43",
+    "支撑材料/图片/图03_相位函数与同型极值间隔.png": "d169f608de01f17c8fafa0cf4737773f74e18d9db56dcf3808818ffd81a90a30",
+    "支撑材料/图片/图04_三种方法的合成厚度估计.png": "f3d7faf8bf1a3edadfa546fc3541ba548ea1a19e152667b64fb9bba2aa2a8cad",
+    "支撑材料/图片/图05_忽略色散时的条纹间隔偏差.png": "03d5765b90464518a0155c0450a95c7182dc87be09efd85768d52df7812fdd46",
+    "支撑材料/图片/图06_全谱拟合的多初值与周期歧义.png": "16945bf570f45a0b0c80ff6c537f2ec7a7d81f7996b9391c8c85b54f6c0ab974",
+    "支撑材料/图片/图07_波数与入射角共同作用下的反射率响应.png": "9394804929c80dcbfcbbcba52bab37c0cf201706014e2fcd26aea73f2a00336c",
+    "支撑材料/图片/图08_合成实验的参数敏感性汇总.png": "e7466a12c7c2a122b14ca60fc18cce57b7c690c250b3109c354b440bb484c8fc",
+    "支撑材料/图片/图09_不同噪声水平下的合成厚度区间.png": "ab94d66900056fd39d95800cd91c081111af947cdf8c87f330c2f33f82c3378a",
+    "支撑材料/图片/图10_两光束模型的消融对照.png": "4f3fcc029d09b7d00212838b2eb2f7b55b471498ec985f02359b9f193099e3b0",
+    "支撑材料/图片/图11_不同偏振处理下的合成厚度一致性.png": "a63baaa29c7d9697173d06275afee2b49b66de4711f456bf97e80dae11d3397e",
+    "支撑材料/图片/图12_单初值与多初值策略对照.png": "00ab9de2060946c1110b1163f9c58cb24030d63405ed1c7a6ed351356ad173f0",
+    "支撑材料/图片/图13_碳化硅两入射角实测反射率谱.png": "3a554843b620cba813c9b3bc99dd66ab07b0dc30bbae63f01a76554e608e925e",
+    "支撑材料/图片/图14_碳化硅实测谱与物理两光束诊断拟合.png": "c7669d90e4d5450e2db2561bd97469c19cf2148ac73510d43d012754ef186845",
+    "支撑材料/图片/图15_碳化硅共享厚度与分角度厚度估计.png": "37807ee1af8d2c993d5eeed0a71adb4ad6eef0110161d2787aa47cad198da580",
+    "支撑材料/图片/图16_碳化硅主反演带内的色散模型.png": "7c369b1d042a0c8308dd1d5935ec7e328f71dfc76c2967df0fd5a23be87988d3",
+    "支撑材料/图片/图17_碳化硅可靠性指标与预设阈值.png": "3796cd918605804ceac2db7534243d518e951bf9a1a962c43a9b2ece416a50cc",
+    "支撑材料/图片/图18_碳化硅一维厚度目标函数.png": "7fd86a2b4854b006d6f86a5cdc46e35114ed899360b52eb78504d4b627771a08",
+    "支撑材料/图片/图19_碳化硅相位坐标与噪声极值辨别.png": "f3d092e6c6e74b3c5c3f71b3028e0f3c3fd2e78bde42d8b7d52a02fa71f904b5",
+    "支撑材料/图片/图20_厚度与衬底折射率的结构解耦.png": "00abefc1c0da510598df4a7bf1be380e0caaa04ec2bc97b1be60af059e7ba769",
+    "支撑材料/图片/图21_碳化硅反射率的角度—波数响应.png": "27618c633160f1a1bfb71dc66ba2d279d49b7330c425534c86dc9510f0a899ae",
+    "支撑材料/图片/图22_碳化硅不同反演方法的厚度量级.png": "06bb9efa7e1107878312b755112dddb12d59b9e1416f40495462cf7754668496",
+    "支撑材料/图片/图23_碳化硅模型组成的消融判定.png": "e6527add531d4ca474803523a97b829d36f9e18a3a68f127dc41d428b0fe1bfe",
+    "支撑材料/图片/图24_碳化硅消融后的厚度变化.png": "0bc384f4c70346be2eaa05e14b22f6716d45af30da3a4773649688c27c9adb0c",
+    "支撑材料/图片/图25_共享厚度约束与独立厚度估计.png": "ca4137a4fc27087139a1535f72f46ad4ac1345e84cc5e1dd686bc338b64bbda0",
+    "支撑材料/图片/图26_硅两入射角实测反射率谱.png": "a68181cf20060e7c3dc28c44de28ee5e9ccd5a7e2bfa024ba80d42bf35d1150b",
+    "支撑材料/图片/图27_硅实测谱与物理两光束诊断拟合.png": "18217a92cd5678b1249ee1a94c7d4ffc5779be9ca8ef12701a40fea42536ccc1",
+    "支撑材料/图片/图28_硅共享厚度与分角度厚度估计.png": "7e161f93b100c03348fd871daf3d3a10f474682e050a464fd2b43ca00565d90b",
+    "支撑材料/图片/图29_硅主反演谱段内的弱色散.png": "85c8c1c5bf7b5e6fbcfcfb627bfced686f386d50679e896005f23b74b4055ad9",
+    "支撑材料/图片/图30_硅可靠性指标与报告边界.png": "69b7c6f0ba6edf16f2533fb058f9068536a6b53755bc379ecd5adb06493311f8",
+    "支撑材料/图片/图31_硅厚度目标函数与邻近候选.png": "b62d6a08a3e48c3b016bbe93c79c08eba4ed79df4cd651a1bfd361e3e1d14f98",
+    "支撑材料/图片/图32_多光束相干、几何与反射率条件.png": "c355a99babe9e283c717c50b12df134b8b36738266b84a83c59c8d323753dc32",
+    "支撑材料/图片/图33_硅与碳化硅的多光束显著性对照.png": "b7319253636faced2aa200678cf6279b25f02fecdea731ebb35d89088b458cf3",
+    "支撑材料/图片/图34_硅反射率的角度—波数响应.png": "91991b092de949034034836b899712a4e05472fbaa2788fc78109bc5a8b50ee3",
+    "支撑材料/图片/图35_硅相位函数坐标中的干涉条纹.png": "74638d65bd53b55028729cb7cabda64da429e1784dc14758802a861ca97bb6b3",
+    "支撑材料/图片/图36_硅模型的消融判定汇总.png": "edeff286deaf3d079db429e818a86ce7de3ae4cdf6fe680dc8b57eb7297a5029",
+    "支撑材料/图片/图37_硅各消融方案的厚度对照.png": "13bd7feebe9666ecfb91a6c68dbd346b919dee39e8236a8d3c745fcac692c8aa",
+    "支撑材料/图片/图38_硅消融方案的拟合误差对照.png": "4e9d9299196f1d94b516f686609560246d868b1964873927b64adc82f02cab47",
+    "支撑材料/数据/problems/2025-cumcm-b/prob02/versions/assumption_v001/code/data/n_ref_anchor.csv": "73b79abb505e70d9b7f9a9473b6412646549a72165c020c37aa8d2002b891116",
+    "支撑材料/代码/scripts/requirements.txt": "efd1a0851d7f65067f23f0b2c8bb9f65d71babd5c6a7293017392a171b17216a",
+    "支撑材料/代码/scripts/task_worker.py": "d51fb6900952b3f987e8226ec83e4725da65979ba01dbf631e8aaeeb8ac85736",
+    "支撑材料/代码/scripts/automm/common.py": "c4e6decb041031e01d835310d9340516a54eb4eb352f1faedc1b9458a5a1685e",
+    "支撑材料/代码/scripts/automm/docx_styles.py": "737af7474795a7a3e542b0a5801ea7cdebfa8c193ab5ff8c7b66eda3747d8a6b",
+    "支撑材料/代码/scripts/automm/paper.py": "0b39b0ffbb4f68d951cc456f11452147e32b689bf4bb6b275998e78ab120f2a2",
+    "支撑材料/代码/scripts/automm/paper_delivery.py": "d1f7792cdcd0cbfa087fb12235eef67f66d937416b28227177eb8be30fcb4825",
+    "支撑材料/代码/scripts/automm/paper_integrity.py": "c92dee99da24d384c06a0da1e7b8aa6c9b71f62f8670bb3657356e9c9e328d73",
+    "支撑材料/代码/scripts/automm/paper_semantics.py": "9d0a694f4728103472294b08f32eda9e0d537856507c1d0111ea52adf9508f14",
+    "支撑材料/代码/scripts/automm/problems.py": "f60cd797029c144fe98306194f0acab4dff116b7a157d580251d71baef8e4e93",
+    "支撑材料/代码/scripts/automm/research.py": "662837952c73a702985abb8640b246ab1550641eaf60c2b4067a496fb7ab8675",
+    "支撑材料/代码/scripts/automm/state.py": "50d4894f68a560ffca7478a26809524a78e9d6aa4d594182ceba2c5544fefe1b",
+    "支撑材料/代码/scripts/automm/tasks.py": "c8e91625392ccd9b6df742602dea761c170f37b355af202b005081b611d657be",
+    "支撑材料/代码/scripts/automm/visualization.py": "d8123f7aea51a57b9580e9327348d7809807c2da011c3493f0536015b79443f2",
+    "支撑材料/代码/scripts/automm/workflow.py": "af6e3e48e525b0346d500a12ccc35e82cd6fb3903716ad433302841211dfe3a8",
+    "支撑材料/代码/scripts/automm/__init__.py": "d815c7929806b183c83f1da1b2febae932cd4a5aee98a2fee81a71a1895678e0",
+    "支撑材料/代码/scripts/automm/remote/base.py": "1d356d6693f761ac3c13916af2f19930d5806f6fe3714bdb21ba68b01bc3753e",
+    "支撑材料/代码/scripts/automm/remote/bundle.py": "1b9f7ec794516297bb69411c27273858e1c4067df3ae4b23b2b840791dff31a9",
+    "支撑材料/代码/scripts/automm/remote/kaggle.py": "0210ea6d6189c0618908b3ea6083581194a65d1bd73cb958fe3c64fae4c648e0",
+    "支撑材料/代码/scripts/automm/remote/service.py": "97473f1e95591893c09f77c74fc6305d847841a2f022c278b95c1f3ed58543e0",
+    "支撑材料/代码/scripts/automm/remote/ssh.py": "f51d2d8d53eea60ac6f91d65bc988db154457723b5c0a9bbb1b280b5e37cf3b1",
+    "支撑材料/代码/scripts/automm/remote/__init__.py": "eeed6ca10c97babdcce51ca39b1596e324b904d208cf2b491c248f616900cf01",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/code/ablation.py": "59204f911875845914c1449a6fdb85cfc495cd0c6e39a26769704a5fdf70f424",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/code/compute.py": "821057dd512e05f564129243c1d1c17de5eefbae973ff4fcb20d4be29d8a471b",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_ablation_figures.py": "38616ee9b23c6be08fffc0e1ca419aab0d8fe01ac4b7aa1351166d35904c0acb",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py": "17e0f82936b09c919869a703e4d439de589943d8418892c282b936f01f699e4a",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/code/model.py": "5a2dc0a31a3ddf7e9de67412d5978b3449482b65f7430ad80d4a8103cdf593a9",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/code/probe.py": "86ad1981f380cf79d44bb0d1f8a44d2d3dde171938b6985f81840fc0d669ee1d",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/code/robustness_probe.py": "92dc90c72ad745cea2d99a9b009cda2a7ede3121bcfff2d17531e72d5a4f672e",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/ablation_config.yaml": "b4c8d5c8fe3a8fa5c677d00a7eb8800cc27a0bffbd7ca432d6721a4b9dde2e27",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_config.yaml": "c63f60492ada56d458fd3f636a13f02858611ec1787ee585a8e49f342a6fd5f0",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_spec.yaml": "2ef56248c89a3bdb25394ab1f12028a52763b97356ff326ebc7f1f8adadf6bab",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v001/parameters.yaml": "ae64a462d0961d40851bc6eb43d103419d89d8fa82e897460b86c0abab633a9f",
+    "支撑材料/代码/problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/parameters.yaml": "3fd55a2008ca148bd9d70fcafc169703aceb814a40f01be8dff362608e2f73d4",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/code/ablation.py": "ff9ba359bad41adcfdff3a2a0521b0bf7f046460fe6c413062b0b626267e6192",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/code/compute.py": "382cdde0703a4ac4ce8b34cff24e527470be88565b41365999bd766a9efd7703",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_ablation_figures.py": "2eb43166ab4c6ff7e4ba9a619a4ccd7a81b7471287929a7bdbac2ff340b8e530",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py": "35520d588c5906eb37b0074425702760d70f52bde9f8c62bd8cd52385c9815b4",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/code/model.py": "efa38de987967e3a2b0b90adcf4a06765b964b13acc62571aff29c22ba029bd0",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/code/probe.py": "15474af842e04688c539367b14100cb3adfcd2d6fb183d814e8a421c17b81cda",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/ablation_config.yaml": "9cb577141a62972b0eab1a0a5e72ee4d675b6173dfc23d63262838164b3e29e0",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_config.yaml": "05394afb1513462a4ba9313a1e875918292e57c6714445c47a877ef13c64e7f2",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_spec.yaml": "a79a6194aa8bb5eb35088087aea878a65227fa5c2ec57fa6d34a26fde51a4bea",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v001/parameters.yaml": "ea0976b4afce91ba9b70dde253ac3ccac52500c4881961c9e99816c4fc1a8123",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v002/parameters.yaml": "1b38c92f8bc06b7fd50217ff2e51e6aa183bd42f2a0779d8d90e607964ecf2ed",
+    "支撑材料/代码/problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/parameters.yaml": "4dbd9f2f3dadac02ded035f3949ba492b23ab9144325b3ee65435917069cf006",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/code/ablation.py": "c5e5d7583e6a797dfd65c7e0ec720a525c69a0e08ab7b50a278e2d04a5d1f9ac",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/code/compute.py": "7e87a88c5113a86cf4e3a634acd449e5d2e276bfd92a6288f6152cc189e368e9",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_ablation_figures.py": "37a27e670908cb705657e359abfb5721ef57c73a6782495c7903de8213df275b",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py": "bb976f6694ef191a6e5dba78b254aed1b9042739955beb79300372872773be86",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_robustness_figures.py": "cbad7190de6da8e6ff223b3fbeeeb86e36d7409a901e8990695a53547af419de",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/code/model.py": "0cdc49a4b4f01bead990b7880bebe2fe1346bb23e086ec6ff7b8e640cd1aeb94",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/code/probe.py": "0da73c03444f2b09d28b3f64081d67e28ff4a85f66c815113d4d19c147711138",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/code/robustness.py": "61432ad0f47e2c35bb5badd09783554334369b55fe8311e3fd80b91a1c348f7e",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/ablation_config.yaml": "25721ef958f1f267ef8af28af6ffc67bc3856561bb3a9d26edb289f6788039dd",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/robustness_config.yaml": "a5f3e37f01488e55b7119c0de76725439ccf91ef7bb480fb31ed9c5846546f59",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/task_config.yaml": "4f97e8eb58e8b9eac557e6ccec6c0180f9791864efe42c10cc2c4349becdfcee",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/task_spec.yaml": "62a431c3f7c67e0254f69feef91ff9c4ec25aaba71d8dd301e0266bf80871470",
+    "支撑材料/代码/problems/2025-cumcm-b/prob01/versions/assumption_v001/formulations/formulation_v001/parameters.yaml": "1f74e51c3d64b08610e9fdfb531810c46eb468adb44951a4b98ebf6abf5d6ac7"
+  },
+  "sources": [
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/ablation.py",
+      "sha256": "c5e5d7583e6a797dfd65c7e0ec720a525c69a0e08ab7b50a278e2d04a5d1f9ac"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/compute.py",
+      "sha256": "7e87a88c5113a86cf4e3a634acd449e5d2e276bfd92a6288f6152cc189e368e9"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_ablation_figures.py",
+      "sha256": "37a27e670908cb705657e359abfb5721ef57c73a6782495c7903de8213df275b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py",
+      "sha256": "bb976f6694ef191a6e5dba78b254aed1b9042739955beb79300372872773be86"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_robustness_figures.py",
+      "sha256": "cbad7190de6da8e6ff223b3fbeeeb86e36d7409a901e8990695a53547af419de"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/model.py",
+      "sha256": "0cdc49a4b4f01bead990b7880bebe2fe1346bb23e086ec6ff7b8e640cd1aeb94"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/probe.py",
+      "sha256": "0da73c03444f2b09d28b3f64081d67e28ff4a85f66c815113d4d19c147711138"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/robustness.py",
+      "sha256": "61432ad0f47e2c35bb5badd09783554334369b55fe8311e3fd80b91a1c348f7e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/ablation_config.yaml",
+      "sha256": "25721ef958f1f267ef8af28af6ffc67bc3856561bb3a9d26edb289f6788039dd"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/robustness_config.yaml",
+      "sha256": "a5f3e37f01488e55b7119c0de76725439ccf91ef7bb480fb31ed9c5846546f59"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/task_config.yaml",
+      "sha256": "4f97e8eb58e8b9eac557e6ccec6c0180f9791864efe42c10cc2c4349becdfcee"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/task_spec.yaml",
+      "sha256": "62a431c3f7c67e0254f69feef91ff9c4ec25aaba71d8dd301e0266bf80871470"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formulations/formulation_v001/parameters.yaml",
+      "sha256": "1f74e51c3d64b08610e9fdfb531810c46eb468adb44951a4b98ebf6abf5d6ac7"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/ablation.py",
+      "sha256": "ff9ba359bad41adcfdff3a2a0521b0bf7f046460fe6c413062b0b626267e6192"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/compute.py",
+      "sha256": "382cdde0703a4ac4ce8b34cff24e527470be88565b41365999bd766a9efd7703"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_ablation_figures.py",
+      "sha256": "2eb43166ab4c6ff7e4ba9a619a4ccd7a81b7471287929a7bdbac2ff340b8e530"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "sha256": "35520d588c5906eb37b0074425702760d70f52bde9f8c62bd8cd52385c9815b4"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/model.py",
+      "sha256": "efa38de987967e3a2b0b90adcf4a06765b964b13acc62571aff29c22ba029bd0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/probe.py",
+      "sha256": "15474af842e04688c539367b14100cb3adfcd2d6fb183d814e8a421c17b81cda"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/ablation_config.yaml",
+      "sha256": "9cb577141a62972b0eab1a0a5e72ee4d675b6173dfc23d63262838164b3e29e0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_config.yaml",
+      "sha256": "05394afb1513462a4ba9313a1e875918292e57c6714445c47a877ef13c64e7f2"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_spec.yaml",
+      "sha256": "a79a6194aa8bb5eb35088087aea878a65227fa5c2ec57fa6d34a26fde51a4bea"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v001/parameters.yaml",
+      "sha256": "ea0976b4afce91ba9b70dde253ac3ccac52500c4881961c9e99816c4fc1a8123"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v002/parameters.yaml",
+      "sha256": "1b38c92f8bc06b7fd50217ff2e51e6aa183bd42f2a0779d8d90e607964ecf2ed"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/parameters.yaml",
+      "sha256": "4dbd9f2f3dadac02ded035f3949ba492b23ab9144325b3ee65435917069cf006"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/ablation.py",
+      "sha256": "59204f911875845914c1449a6fdb85cfc495cd0c6e39a26769704a5fdf70f424"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/compute.py",
+      "sha256": "821057dd512e05f564129243c1d1c17de5eefbae973ff4fcb20d4be29d8a471b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_ablation_figures.py",
+      "sha256": "38616ee9b23c6be08fffc0e1ca419aab0d8fe01ac4b7aa1351166d35904c0acb"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "sha256": "17e0f82936b09c919869a703e4d439de589943d8418892c282b936f01f699e4a"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/model.py",
+      "sha256": "5a2dc0a31a3ddf7e9de67412d5978b3449482b65f7430ad80d4a8103cdf593a9"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/probe.py",
+      "sha256": "86ad1981f380cf79d44bb0d1f8a44d2d3dde171938b6985f81840fc0d669ee1d"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/robustness_probe.py",
+      "sha256": "92dc90c72ad745cea2d99a9b009cda2a7ede3121bcfff2d17531e72d5a4f672e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/ablation_config.yaml",
+      "sha256": "b4c8d5c8fe3a8fa5c677d00a7eb8800cc27a0bffbd7ca432d6721a4b9dde2e27"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_config.yaml",
+      "sha256": "c63f60492ada56d458fd3f636a13f02858611ec1787ee585a8e49f342a6fd5f0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_spec.yaml",
+      "sha256": "2ef56248c89a3bdb25394ab1f12028a52763b97356ff326ebc7f1f8adadf6bab"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v001/parameters.yaml",
+      "sha256": "ae64a462d0961d40851bc6eb43d103419d89d8fa82e897460b86c0abab633a9f"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/parameters.yaml",
+      "sha256": "3fd55a2008ca148bd9d70fcafc169703aceb814a40f01be8dff362608e2f73d4"
+    },
+    {
+      "path": "scripts/automm/__init__.py",
+      "sha256": "d815c7929806b183c83f1da1b2febae932cd4a5aee98a2fee81a71a1895678e0"
+    },
+    {
+      "path": "scripts/automm/common.py",
+      "sha256": "c4e6decb041031e01d835310d9340516a54eb4eb352f1faedc1b9458a5a1685e"
+    },
+    {
+      "path": "scripts/automm/docx_styles.py",
+      "sha256": "737af7474795a7a3e542b0a5801ea7cdebfa8c193ab5ff8c7b66eda3747d8a6b"
+    },
+    {
+      "path": "scripts/automm/paper.py",
+      "sha256": "0b39b0ffbb4f68d951cc456f11452147e32b689bf4bb6b275998e78ab120f2a2"
+    },
+    {
+      "path": "scripts/automm/paper_delivery.py",
+      "sha256": "d1f7792cdcd0cbfa087fb12235eef67f66d937416b28227177eb8be30fcb4825"
+    },
+    {
+      "path": "scripts/automm/paper_integrity.py",
+      "sha256": "c92dee99da24d384c06a0da1e7b8aa6c9b71f62f8670bb3657356e9c9e328d73"
+    },
+    {
+      "path": "scripts/automm/paper_semantics.py",
+      "sha256": "9d0a694f4728103472294b08f32eda9e0d537856507c1d0111ea52adf9508f14"
+    },
+    {
+      "path": "scripts/automm/problems.py",
+      "sha256": "f60cd797029c144fe98306194f0acab4dff116b7a157d580251d71baef8e4e93"
+    },
+    {
+      "path": "scripts/automm/remote/__init__.py",
+      "sha256": "eeed6ca10c97babdcce51ca39b1596e324b904d208cf2b491c248f616900cf01"
+    },
+    {
+      "path": "scripts/automm/remote/base.py",
+      "sha256": "1d356d6693f761ac3c13916af2f19930d5806f6fe3714bdb21ba68b01bc3753e"
+    },
+    {
+      "path": "scripts/automm/remote/bundle.py",
+      "sha256": "1b9f7ec794516297bb69411c27273858e1c4067df3ae4b23b2b840791dff31a9"
+    },
+    {
+      "path": "scripts/automm/remote/kaggle.py",
+      "sha256": "0210ea6d6189c0618908b3ea6083581194a65d1bd73cb958fe3c64fae4c648e0"
+    },
+    {
+      "path": "scripts/automm/remote/service.py",
+      "sha256": "97473f1e95591893c09f77c74fc6305d847841a2f022c278b95c1f3ed58543e0"
+    },
+    {
+      "path": "scripts/automm/remote/ssh.py",
+      "sha256": "f51d2d8d53eea60ac6f91d65bc988db154457723b5c0a9bbb1b280b5e37cf3b1"
+    },
+    {
+      "path": "scripts/automm/research.py",
+      "sha256": "662837952c73a702985abb8640b246ab1550641eaf60c2b4067a496fb7ab8675"
+    },
+    {
+      "path": "scripts/automm/state.py",
+      "sha256": "50d4894f68a560ffca7478a26809524a78e9d6aa4d594182ceba2c5544fefe1b"
+    },
+    {
+      "path": "scripts/automm/tasks.py",
+      "sha256": "c8e91625392ccd9b6df742602dea761c170f37b355af202b005081b611d657be"
+    },
+    {
+      "path": "scripts/automm/visualization.py",
+      "sha256": "d8123f7aea51a57b9580e9327348d7809807c2da011c3493f0536015b79443f2"
+    },
+    {
+      "path": "scripts/automm/workflow.py",
+      "sha256": "af6e3e48e525b0346d500a12ccc35e82cd6fb3903716ad433302841211dfe3a8"
+    },
+    {
+      "path": "scripts/requirements.txt",
+      "sha256": "efd1a0851d7f65067f23f0b2c8bb9f65d71babd5c6a7293017392a171b17216a"
+    },
+    {
+      "path": "scripts/task_worker.py",
+      "sha256": "d51fb6900952b3f987e8226ec83e4725da65979ba01dbf631e8aaeeb8ac85736"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_reflectance_spectrum_1d4fb899d1.png",
+      "sha256": "2b245a3c048dcd4cf9499e8c8a772b7c23b57eba46cd657424c5a914cf0ff461"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_dispersion_curve_d85564d2fc.png",
+      "sha256": "e85bcdc2a37a9fce29acb21bc0be3f2b50dbd96e5a9e105a5b620a2c12645a43"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_phase_function_gap_459c486470.png",
+      "sha256": "d169f608de01f17c8fafa0cf4737773f74e18d9db56dcf3808818ffd81a90a30"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_thickness_methods_compare_5eac465fc8.png",
+      "sha256": "f3d7faf8bf1a3edadfa546fc3541ba548ea1a19e152667b64fb9bba2aa2a8cad"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_spacing_constant_n_bias_2245b6eda4.png",
+      "sha256": "03d5765b90464518a0155c0450a95c7182dc87be09efd85768d52df7812fdd46"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_nls_multistart_e64919ab13.png",
+      "sha256": "16945bf570f45a0b0c80ff6c537f2ec7a7d81f7996b9391c8c85b54f6c0ab974"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_response_surface_d0691c5dd8.png",
+      "sha256": "9394804929c80dcbfcbbcba52bab37c0cf201706014e2fcd26aea73f2a00336c"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_sensitivity_tornado_6983566848.png",
+      "sha256": "e7466a12c7c2a122b14ca60fc18cce57b7c690c250b3109c354b440bb484c8fc"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_noise_robustness_ci_30d4fa737f.png",
+      "sha256": "ab94d66900056fd39d95800cd91c081111af947cdf8c87f330c2f33f82c3378a"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_summary_ee3c34dcfa.png",
+      "sha256": "4f3fcc029d09b7d00212838b2eb2f7b55b471498ec985f02359b9f193099e3b0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_polarization_da59250d1b.png",
+      "sha256": "a63baaa29c7d9697173d06275afee2b49b66de4711f456bf97e80dae11d3397e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_init_strategy_7c59622d5a.png",
+      "sha256": "00ab9de2060946c1110b1163f9c58cb24030d63405ed1c7a6ed351356ad173f0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reflectance_spectrum_6b2265d217.png",
+      "sha256": "3a554843b620cba813c9b3bc99dd66ab07b0dc30bbae63f01a76554e608e925e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_model_fit_0ca711689b.png",
+      "sha256": "c7669d90e4d5450e2db2561bd97469c19cf2148ac73510d43d012754ef186845"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_thickness_estimate_efa7359eb9.png",
+      "sha256": "37807ee1af8d2c993d5eeed0a71adb4ad6eef0110161d2787aa47cad198da580"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_dispersion_curve_af50244106.png",
+      "sha256": "7c369b1d042a0c8308dd1d5935ec7e328f71dfc76c2967df0fd5a23be87988d3"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reliability_summary_78cd97014b.png",
+      "sha256": "3796cd918605804ceac2db7534243d518e951bf9a1a962c43a9b2ece416a50cc"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_variable_projection_jcurve_7a9a903650.png",
+      "sha256": "7fd86a2b4854b006d6f86a5cdc46e35114ed899360b52eb78504d4b627771a08"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_g_space_phase_gap_f500d9c0db.png",
+      "sha256": "f3d092e6c6e74b3c5c3f71b3028e0f3c3fd2e78bde42d8b7d52a02fa71f904b5"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_nsub_decoupling_39b4128d09.png",
+      "sha256": "00abefc1c0da510598df4a7bf1be380e0caaa04ec2bc97b1be60af059e7ba769"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_response_surface_cfe5827835.png",
+      "sha256": "27618c633160f1a1bfb71dc66ba2d279d49b7330c425534c86dc9510f0a899ae"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_methods_compare_99386076f5.png",
+      "sha256": "06bb9efa7e1107878312b755112dddb12d59b9e1416f40495462cf7754668496"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_summary_dcd697b29e.png",
+      "sha256": "e6527add531d4ca474803523a97b829d36f9e18a3a68f127dc41d428b0fe1bfe"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_thickness_d29e3fc1f0.png",
+      "sha256": "0bc384f4c70346be2eaa05e14b22f6716d45af30da3a4773649688c27c9adb0c"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_shared_t_14e5362fa7.png",
+      "sha256": "ca4137a4fc27087139a1535f72f46ad4ac1345e84cc5e1dd686bc338b64bbda0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reflectance_spectrum_41a3800f70.png",
+      "sha256": "a68181cf20060e7c3dc28c44de28ee5e9ccd5a7e2bfa024ba80d42bf35d1150b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_model_fit_3e94d2fac7.png",
+      "sha256": "18217a92cd5678b1249ee1a94c7d4ffc5779be9ca8ef12701a40fea42536ccc1"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_thickness_estimate_59f1546ed7.png",
+      "sha256": "7e161f93b100c03348fd871daf3d3a10f474682e050a464fd2b43ca00565d90b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_dispersion_curve_aac3dcebea.png",
+      "sha256": "85c8c1c5bf7b5e6fbcfcfb627bfced686f386d50679e896005f23b74b4055ad9"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reliability_summary_50b4f34a17.png",
+      "sha256": "69b7c6f0ba6edf16f2533fb058f9068536a6b53755bc379ecd5adb06493311f8"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_variable_projection_jcurve_4b30b360a4.png",
+      "sha256": "b62d6a08a3e48c3b016bbe93c79c08eba4ed79df4cd651a1bfd361e3e1d14f98"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_mb_conditions_9571a5012b.png",
+      "sha256": "c355a99babe9e283c717c50b12df134b8b36738266b84a83c59c8d323753dc32"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_sic_multibeam_recheck_4cbb136f9c.png",
+      "sha256": "b7319253636faced2aa200678cf6279b25f02fecdea731ebb35d89088b458cf3"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_response_surface_06cfec9b1e.png",
+      "sha256": "91991b092de949034034836b899712a4e05472fbaa2788fc78109bc5a8b50ee3"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_phase_freq_gspace_a936624612.png",
+      "sha256": "74638d65bd53b55028729cb7cabda64da429e1784dc14758802a861ca97bb6b3"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_summary_9f93c3dd2d.png",
+      "sha256": "edeff286deaf3d079db429e818a86ce7de3ae4cdf6fe680dc8b57eb7297a5029"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_t_consistency_ec44908369.png",
+      "sha256": "13bd7feebe9666ecfb91a6c68dbd346b919dee39e8236a8d3c745fcac692c8aa"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_rmse_ce4b523efa.png",
+      "sha256": "4e9d9299196f1d94b516f686609560246d868b1964873927b64adc82f02cab47"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/data/n_ref_anchor.csv",
+      "sha256": "73b79abb505e70d9b7f9a9473b6412646549a72165c020c37aa8d2002b891116"
+    }
+  ],
+  "excluded_inputs": [
+    "data/2025_cumcm_B/附件1.xlsx",
+    "data/2025_cumcm_B/附件2.xlsx",
+    "data/2025_cumcm_B/附件3.xlsx",
+    "data/2025_cumcm_B/附件4.xlsx"
+  ]
+}

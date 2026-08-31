@@ -1,0 +1,32 @@
+# n_ref(lambda) anchor nodes for prob02 segmented dispersion (formulation.md (4.2), B6)
+# columns: wavelength_um, n_ref
+# region <= 5um  : n = 4H-SiC Sellmeier (L09 / Wang et al. 2013, refractiveindex.info "Wang-4H-e", n(e) 0.405-2.33 um, n(o) to 5um)
+#                  n^2 = 6.79485 + 0.15558/(lam^2 - 0.03535) - 0.02296*lam^2
+# region >= 17um : n = Fischer et al. 2017, 4H-SiC n(o), 17-150 um (refractiveindex.info "Fischer-o", coeff [6.055, 2.669, 167.8])
+#                  n^2 = 6.055 + 2.669*lam^2/(lam^2 - 167.8)
+# gap 5-17 um    : DOCUMENTED DATA GAP (B6). No L26 full-text n/k table is present in repo.
+#                  The loader builds a monotone PCHIP interpolation between the 5um and 17um anchors
+#                  as a PROVISIONAL PROXY, flagged as technical debt pending L26 data extraction.
+# wavelength_um,n_ref
+0.400000,2.835368
+0.500000,2.741153
+0.600000,2.695516
+0.800000,2.652821
+1.000000,2.633092
+1.500000,2.610257
+2.000000,2.596585
+2.500000,2.583870
+3.000000,2.570129
+3.500000,2.554668
+4.000000,2.537171
+4.500000,2.517460
+5.000000,2.495412
+17.000000,3.524088
+18.000000,3.404587
+19.000000,3.322967
+20.000000,3.263857
+21.000000,3.219209
+22.000000,3.184396
+23.000000,3.156567
+24.000000,3.133872
+25.000000,3.115055

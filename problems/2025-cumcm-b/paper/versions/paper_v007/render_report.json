@@ -1,0 +1,441 @@
+{
+  "checked_at": "2026-08-31T09:13:05.723381+00:00",
+  "paper_version": "paper_v007",
+  "source_sha256": "480c9738486962a4a32db5bff8e07685391b21d8153617761918b8dcc45e1eff",
+  "docx_sha256": "bb68e8d5d9cb2c9cc94dec08f12f54fe4f433f3c1927c5532cf774662834ef30",
+  "tex_sha256": "3137e865cd4cb5ff636ce63e7018409eb106b8c102c8abd92b5d6b0c196dd892",
+  "evidence_hash": "f09919c80e560a2f54819fc67964f7fa5da0380890d8aa24fa5bcb0a0acb9b52",
+  "publication_manifest_sha256": "fbc39ff549197ab9ac86f1936e1dae4edde73727cd44faf46795ef12a1c09504",
+  "pandoc": [
+    {
+      "command": [
+        "E:\\anaconda\\Library\\bin\\pandoc.EXE",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v007\\paper.render.json",
+        "--from",
+        "json",
+        "--resource-path",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v007;E:\\项目\\AutoMM",
+        "--to",
+        "docx",
+        "--output",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v007\\paper.docx",
+        "--reference-doc",
+        "E:\\项目\\AutoMM\\数模论文标准模板.docx"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "E:\\anaconda\\Library\\bin\\pandoc.EXE",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v007\\paper.render.json",
+        "--from",
+        "json",
+        "--resource-path",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v007;E:\\项目\\AutoMM",
+        "--to",
+        "latex",
+        "--output",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v007\\paper.tex",
+        "--number-sections"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    }
+  ],
+  "status": "PASS",
+  "errors": [],
+  "template": {
+    "status": "PASS",
+    "template_sha256": "91710f1d43380961dae3dcceeba78f2353f338704b979ce1c94d70a6f55574dc",
+    "style_ids": {
+      "title": "af5",
+      "heading1": "1",
+      "heading2": "2",
+      "heading3": "3",
+      "body": "a4",
+      "image": "aff1",
+      "figure_caption": "a1",
+      "table_caption": "a0",
+      "table": "afb",
+      "table_text": "a9",
+      "display_math": "aff7",
+      "bibliography": "a",
+      "ordered_list": "a3",
+      "unordered_list": "a2",
+      "code": "ac"
+    },
+    "styles": {
+      "title": {
+        "name": "Title",
+        "style_id": "af5",
+        "type": "paragraph"
+      },
+      "heading1": {
+        "name": "heading 1",
+        "style_id": "1",
+        "type": "paragraph"
+      },
+      "heading2": {
+        "name": "heading 2",
+        "style_id": "2",
+        "type": "paragraph"
+      },
+      "heading3": {
+        "name": "heading 3",
+        "style_id": "3",
+        "type": "paragraph"
+      },
+      "body": {
+        "name": "Normal",
+        "style_id": "a4",
+        "type": "paragraph"
+      },
+      "image": {
+        "name": "图片",
+        "style_id": "aff1",
+        "type": "paragraph"
+      },
+      "figure_caption": {
+        "name": "图注",
+        "style_id": "a1",
+        "type": "paragraph"
+      },
+      "table_caption": {
+        "name": "表注",
+        "style_id": "a0",
+        "type": "paragraph"
+      },
+      "table": {
+        "name": "三线表",
+        "style_id": "afb",
+        "type": "table"
+      },
+      "table_text": {
+        "name": "表格",
+        "style_id": "a9",
+        "type": "paragraph"
+      },
+      "display_math": {
+        "name": "行间公式辅助样式",
+        "style_id": "aff7",
+        "type": "paragraph"
+      },
+      "bibliography": {
+        "name": "参考文献",
+        "style_id": "a",
+        "type": "paragraph"
+      },
+      "ordered_list": {
+        "name": "有序列表",
+        "style_id": "a3",
+        "type": "paragraph"
+      },
+      "unordered_list": {
+        "name": "无序列表",
+        "style_id": "a2",
+        "type": "paragraph"
+      },
+      "code": {
+        "name": "Plain Text",
+        "style_id": "ac",
+        "type": "paragraph"
+      }
+    },
+    "numbering": {
+      "heading1": {
+        "num_id": "1",
+        "abstract_num_id": "1",
+        "level": 0
+      },
+      "heading2": {
+        "num_id": "1",
+        "abstract_num_id": "1",
+        "level": 1
+      },
+      "heading3": {
+        "num_id": "1",
+        "abstract_num_id": "1",
+        "level": 2
+      },
+      "figure_caption": {
+        "num_id": "1",
+        "abstract_num_id": "1",
+        "level": 8
+      },
+      "table_caption": {
+        "num_id": "1",
+        "abstract_num_id": "1",
+        "level": 7
+      },
+      "bibliography": {
+        "num_id": "4",
+        "abstract_num_id": "0",
+        "level": 0
+      },
+      "ordered_list": {
+        "num_id": "3",
+        "abstract_num_id": "4",
+        "level": 0
+      },
+      "unordered_list": {
+        "num_id": "2",
+        "abstract_num_id": "2",
+        "level": 0
+      }
+    },
+    "body_section_index": 3,
+    "section_count": 5,
+    "effective_headers": {
+      "even": "word/header1.xml",
+      "default": "word/header4.xml",
+      "first": "word/header3.xml"
+    },
+    "effective_footers": {
+      "even": "word/footer1.xml",
+      "default": "word/footer4.xml",
+      "first": "word/footer3.xml"
+    }
+  },
+  "styles": {
+    "status": "PASS",
+    "template_sha256": "91710f1d43380961dae3dcceeba78f2353f338704b979ce1c94d70a6f55574dc",
+    "style_ids": {
+      "title": "af5",
+      "heading1": "1",
+      "heading2": "2",
+      "heading3": "3",
+      "body": "a4",
+      "image": "aff1",
+      "figure_caption": "a1",
+      "table_caption": "a0",
+      "table": "afb",
+      "table_text": "a9",
+      "display_math": "aff7",
+      "bibliography": "a",
+      "ordered_list": "a3",
+      "unordered_list": "a2",
+      "code": "ac"
+    },
+    "body_section_index": 3,
+    "counts": {
+      "title": 1,
+      "heading1": 15,
+      "body": 94,
+      "ordered_list": 5,
+      "table_caption": 5,
+      "table_text": 101,
+      "heading2": 13,
+      "display_math": 12,
+      "image": 38,
+      "figure_caption": 38,
+      "bibliography": 32
+    },
+    "captions": {
+      "figures": [
+        {
+          "number": 1,
+          "title": "合成两光束反射率谱与极值位置"
+        },
+        {
+          "number": 2,
+          "title": "碳化硅折射率的波数依赖与适用谱段"
+        },
+        {
+          "number": 3,
+          "title": "相位函数与同型极值间隔"
+        },
+        {
+          "number": 4,
+          "title": "三种方法的合成厚度估计"
+        },
+        {
+          "number": 5,
+          "title": "忽略色散时的条纹间隔偏差"
+        },
+        {
+          "number": 6,
+          "title": "全谱拟合的多初值与周期歧义"
+        },
+        {
+          "number": 7,
+          "title": "波数与入射角共同作用下的反射率响应"
+        },
+        {
+          "number": 8,
+          "title": "合成实验的参数敏感性汇总"
+        },
+        {
+          "number": 9,
+          "title": "不同噪声水平下的合成厚度区间"
+        },
+        {
+          "number": 10,
+          "title": "两光束模型的消融对照"
+        },
+        {
+          "number": 11,
+          "title": "不同偏振处理下的合成厚度一致性"
+        },
+        {
+          "number": 12,
+          "title": "单初值与多初值策略对照"
+        },
+        {
+          "number": 13,
+          "title": "碳化硅两入射角实测反射率谱"
+        },
+        {
+          "number": 14,
+          "title": "碳化硅实测谱与物理两光束诊断拟合"
+        },
+        {
+          "number": 15,
+          "title": "碳化硅共享厚度与分角度厚度估计"
+        },
+        {
+          "number": 16,
+          "title": "碳化硅主反演带内的色散模型"
+        },
+        {
+          "number": 17,
+          "title": "碳化硅可靠性指标与预设阈值"
+        },
+        {
+          "number": 18,
+          "title": "碳化硅一维厚度目标函数"
+        },
+        {
+          "number": 19,
+          "title": "碳化硅相位坐标与噪声极值辨别"
+        },
+        {
+          "number": 20,
+          "title": "厚度与衬底折射率的结构解耦"
+        },
+        {
+          "number": 21,
+          "title": "碳化硅反射率的角度—波数响应"
+        },
+        {
+          "number": 22,
+          "title": "碳化硅不同反演方法的厚度量级"
+        },
+        {
+          "number": 23,
+          "title": "碳化硅模型组成的消融判定"
+        },
+        {
+          "number": 24,
+          "title": "碳化硅消融后的厚度变化"
+        },
+        {
+          "number": 25,
+          "title": "共享厚度约束与独立厚度估计"
+        },
+        {
+          "number": 26,
+          "title": "硅两入射角实测反射率谱"
+        },
+        {
+          "number": 27,
+          "title": "硅实测谱与物理两光束诊断拟合"
+        },
+        {
+          "number": 28,
+          "title": "硅共享厚度与分角度厚度估计"
+        },
+        {
+          "number": 29,
+          "title": "硅主反演谱段内的弱色散"
+        },
+        {
+          "number": 30,
+          "title": "硅可靠性指标与报告边界"
+        },
+        {
+          "number": 31,
+          "title": "硅厚度目标函数与邻近候选"
+        },
+        {
+          "number": 32,
+          "title": "多光束相干、几何与反射率条件"
+        },
+        {
+          "number": 33,
+          "title": "硅与碳化硅的多光束显著性对照"
+        },
+        {
+          "number": 34,
+          "title": "硅反射率的角度—波数响应"
+        },
+        {
+          "number": 35,
+          "title": "硅相位函数坐标中的干涉条纹"
+        },
+        {
+          "number": 36,
+          "title": "硅模型的消融判定汇总"
+        },
+        {
+          "number": 37,
+          "title": "硅各消融方案的厚度对照"
+        },
+        {
+          "number": 38,
+          "title": "硅消融方案的拟合误差对照"
+        }
+      ],
+      "tables": [
+        {
+          "number": 1,
+          "title": "主要符号与单位约定"
+        },
+        {
+          "number": 2,
+          "title": "输入数据的材料与测量条件"
+        },
+        {
+          "number": 3,
+          "title": "碳化硅实测厚度估计"
+        },
+        {
+          "number": 4,
+          "title": "硅外延层厚度与条件不确定性"
+        },
+        {
+          "number": 5,
+          "title": "实测问题的可靠性指标对照"
+        }
+      ]
+    }
+  },
+  "support_dependencies_sha256": "578828f793f71ea8219518eb2ea7aa6ead8664c8591da9b174af9934381000d3",
+  "public_audit": {
+    "status": "PASS",
+    "issues": [],
+    "checked_parts": [
+      "word/document.xml",
+      "word/numbering.xml",
+      "word/styles.xml",
+      "word/footnotes.xml",
+      "word/comments.xml",
+      "word/theme/theme1.xml",
+      "word/settings.xml",
+      "word/webSettings.xml",
+      "word/fontTable.xml",
+      "word/automm_template/word/header1.xml",
+      "word/automm_template/word/header4.xml",
+      "word/automm_template/word/header3.xml",
+      "word/automm_template/word/footer1.xml",
+      "word/automm_template/word/footer4.xml",
+      "word/automm_template/word/footer3.xml"
+    ]
+  },
+  "docx_media_count": 38,
+  "docx_omml_count": 73,
+  "pdf_pages": 30,
+  "pdf_blank_pages": [],
+  "pdf_non_a4_pages": [],
+  "pdf_sha256": "276e3bea1d75b4b8f404de1c3d6b1ea62464a61e8aefa5a4491ee2235467d26e"
+}

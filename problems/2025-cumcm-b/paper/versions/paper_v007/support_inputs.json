@@ -1,0 +1,34 @@
+{
+  "inputs": [
+    {
+      "path": "data/2025_cumcm_B/附件1.xlsx",
+      "sha256": "b42f8bdabe7497951284cd044386c3cdf9d349b5e8ef4baaa0336e65ff84c67b",
+      "redistribution_allowed": false,
+      "reason": "未确认分发许可；从竞赛题目发布方合法取得并核对输入版本"
+    },
+    {
+      "path": "data/2025_cumcm_B/附件2.xlsx",
+      "sha256": "2e67444b61b90826c1ffe043fb0f3e7d3470fac9a005f8842f231ef3d64b34d1",
+      "redistribution_allowed": false,
+      "reason": "未确认分发许可；从竞赛题目发布方合法取得并核对输入版本"
+    },
+    {
+      "path": "data/2025_cumcm_B/附件3.xlsx",
+      "sha256": "79e9f66a00409f1d1130d9f4f3d76b4d5e5a1ccd3ac2d24dc0af8ecc583d0ec8",
+      "redistribution_allowed": false,
+      "reason": "未确认分发许可；从竞赛题目发布方合法取得并核对输入版本"
+    },
+    {
+      "path": "data/2025_cumcm_B/附件4.xlsx",
+      "sha256": "9cf1400404c4560958da06685beb8c2e1e4df5918a6e13863663a54440ba12e3",
+      "redistribution_allowed": false,
+      "reason": "未确认分发许可；从竞赛题目发布方合法取得并核对输入版本"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/data/n_ref_anchor.csv",
+      "sha256": "73b79abb505e70d9b7f9a9473b6412646549a72165c020c37aa8d2002b891116",
+      "redistribution_allowed": true,
+      "basis": "本项目按已登记公式生成的数值锚点，不含第三方原始光谱"
+    }
+  ]
+}

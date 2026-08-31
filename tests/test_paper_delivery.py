@@ -69,6 +69,15 @@ def test_changed_source_never_publishes_partial_delivery(project_root: Path):
     assert not destination.exists()
 
 
+def test_support_snapshot_includes_registered_parameter_inputs(project_root):
+    from automm.paper_delivery import build_support_dependencies
+    parameter = item(project_root,
+        'problems/demo/prob01/versions/assumption_v001/formulations/formulation_v003/parameters.yaml',
+        b'parameters: []')
+    snapshot = build_support_dependencies({'evidence_hash': 'accepted', 'artifacts': [parameter]})
+    assert parameter['path'] in {entry['path'] for entry in snapshot['files']}
+
+
 def test_only_explicitly_distributable_data_is_included(project_root: Path):
     from automm.paper_delivery import build_delivery
     version, evidence, manifest = setup(project_root)

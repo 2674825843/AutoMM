@@ -1,6 +1,6 @@
 # 2025-cumcm-b 论文证据包
 
-- Evidence hash：`6374ef02fd5a459dc6388aff56c1d4e7f0c36a4b8ad40ee46b3c3ef77b769025`
+- Evidence hash：`f09919c80e560a2f54819fc67964f7fa5da0380890d8aa24fa5bcb0a0acb9b52`
 
 ## prob01
 

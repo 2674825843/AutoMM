@@ -1,0 +1,278 @@
+{
+  "checked_at": "2026-08-31T08:52:21.301428+00:00",
+  "paper_version": "paper-upgrade-smoke-final",
+  "source_sha256": "da9a36ee9c4fb88ed06cfd4186d9c3404c654c5bd629b0f3c0710adcdb9c4872",
+  "docx_sha256": "6c28c38647d648d6a8d7f450a46c5ca0bf174c43107d4f42fd4da807d8b62499",
+  "tex_sha256": "3c5d1a49b5500e3967a96342637b03e95b302c26f058a5d23ef86fb91453dfcc",
+  "evidence_hash": "777a16afd329a630697a921289ca3f2e924484296495b074df89802aeafd4838",
+  "publication_manifest_sha256": "c1717213223d4726e44f6bda8ef54a92f86dc04f8232ca758cefeec5dd71fff4",
+  "pandoc": [
+    {
+      "command": [
+        "E:\\anaconda\\Library\\bin\\pandoc.EXE",
+        "E:\\项目\\AutoMM\\reports\\paper-upgrade-smoke-final\\paper.render.json",
+        "--from",
+        "json",
+        "--resource-path",
+        "E:\\项目\\AutoMM\\reports\\paper-upgrade-smoke-final;E:\\项目\\AutoMM",
+        "--to",
+        "docx",
+        "--output",
+        "E:\\项目\\AutoMM\\reports\\paper-upgrade-smoke-final\\paper.docx",
+        "--reference-doc",
+        "E:\\项目\\AutoMM\\数模论文标准模板.docx"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "E:\\anaconda\\Library\\bin\\pandoc.EXE",
+        "E:\\项目\\AutoMM\\reports\\paper-upgrade-smoke-final\\paper.render.json",
+        "--from",
+        "json",
+        "--resource-path",
+        "E:\\项目\\AutoMM\\reports\\paper-upgrade-smoke-final;E:\\项目\\AutoMM",
+        "--to",
+        "latex",
+        "--output",
+        "E:\\项目\\AutoMM\\reports\\paper-upgrade-smoke-final\\paper.tex",
+        "--number-sections"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    }
+  ],
+  "status": "PASS",
+  "errors": [],
+  "template": {
+    "status": "PASS",
+    "template_sha256": "91710f1d43380961dae3dcceeba78f2353f338704b979ce1c94d70a6f55574dc",
+    "style_ids": {
+      "title": "af5",
+      "heading1": "1",
+      "heading2": "2",
+      "heading3": "3",
+      "body": "a4",
+      "image": "aff1",
+      "figure_caption": "a1",
+      "table_caption": "a0",
+      "table": "afb",
+      "table_text": "a9",
+      "display_math": "aff7",
+      "bibliography": "a",
+      "ordered_list": "a3",
+      "unordered_list": "a2",
+      "code": "ac"
+    },
+    "styles": {
+      "title": {
+        "name": "Title",
+        "style_id": "af5",
+        "type": "paragraph"
+      },
+      "heading1": {
+        "name": "heading 1",
+        "style_id": "1",
+        "type": "paragraph"
+      },
+      "heading2": {
+        "name": "heading 2",
+        "style_id": "2",
+        "type": "paragraph"
+      },
+      "heading3": {
+        "name": "heading 3",
+        "style_id": "3",
+        "type": "paragraph"
+      },
+      "body": {
+        "name": "Normal",
+        "style_id": "a4",
+        "type": "paragraph"
+      },
+      "image": {
+        "name": "图片",
+        "style_id": "aff1",
+        "type": "paragraph"
+      },
+      "figure_caption": {
+        "name": "图注",
+        "style_id": "a1",
+        "type": "paragraph"
+      },
+      "table_caption": {
+        "name": "表注",
+        "style_id": "a0",
+        "type": "paragraph"
+      },
+      "table": {
+        "name": "三线表",
+        "style_id": "afb",
+        "type": "table"
+      },
+      "table_text": {
+        "name": "表格",
+        "style_id": "a9",
+        "type": "paragraph"
+      },
+      "display_math": {
+        "name": "行间公式辅助样式",
+        "style_id": "aff7",
+        "type": "paragraph"
+      },
+      "bibliography": {
+        "name": "参考文献",
+        "style_id": "a",
+        "type": "paragraph"
+      },
+      "ordered_list": {
+        "name": "有序列表",
+        "style_id": "a3",
+        "type": "paragraph"
+      },
+      "unordered_list": {
+        "name": "无序列表",
+        "style_id": "a2",
+        "type": "paragraph"
+      },
+      "code": {
+        "name": "Plain Text",
+        "style_id": "ac",
+        "type": "paragraph"
+      }
+    },
+    "numbering": {
+      "heading1": {
+        "num_id": "1",
+        "abstract_num_id": "1",
+        "level": 0
+      },
+      "heading2": {
+        "num_id": "1",
+        "abstract_num_id": "1",
+        "level": 1
+      },
+      "heading3": {
+        "num_id": "1",
+        "abstract_num_id": "1",
+        "level": 2
+      },
+      "figure_caption": {
+        "num_id": "1",
+        "abstract_num_id": "1",
+        "level": 8
+      },
+      "table_caption": {
+        "num_id": "1",
+        "abstract_num_id": "1",
+        "level": 7
+      },
+      "bibliography": {
+        "num_id": "4",
+        "abstract_num_id": "0",
+        "level": 0
+      },
+      "ordered_list": {
+        "num_id": "3",
+        "abstract_num_id": "4",
+        "level": 0
+      },
+      "unordered_list": {
+        "num_id": "2",
+        "abstract_num_id": "2",
+        "level": 0
+      }
+    },
+    "body_section_index": 3,
+    "section_count": 5,
+    "effective_headers": {
+      "even": "word/header1.xml",
+      "default": "word/header4.xml",
+      "first": "word/header3.xml"
+    },
+    "effective_footers": {
+      "even": "word/footer1.xml",
+      "default": "word/footer4.xml",
+      "first": "word/footer3.xml"
+    }
+  },
+  "styles": {
+    "status": "PASS",
+    "template_sha256": "91710f1d43380961dae3dcceeba78f2353f338704b979ce1c94d70a6f55574dc",
+    "style_ids": {
+      "title": "af5",
+      "heading1": "1",
+      "heading2": "2",
+      "heading3": "3",
+      "body": "a4",
+      "image": "aff1",
+      "figure_caption": "a1",
+      "table_caption": "a0",
+      "table": "afb",
+      "table_text": "a9",
+      "display_math": "aff7",
+      "bibliography": "a",
+      "ordered_list": "a3",
+      "unordered_list": "a2",
+      "code": "ac"
+    },
+    "body_section_index": 3,
+    "counts": {
+      "title": 1,
+      "heading1": 6,
+      "body": 7,
+      "display_math": 1,
+      "table_caption": 1,
+      "table_text": 9,
+      "heading2": 2,
+      "ordered_list": 2,
+      "unordered_list": 1,
+      "heading3": 1,
+      "image": 1,
+      "figure_caption": 1,
+      "bibliography": 1
+    },
+    "captions": {
+      "figures": [
+        {
+          "number": 1,
+          "title": "已验收合成反射率谱（仅用于图片排版检查）"
+        }
+      ],
+      "tables": [
+        {
+          "number": 1,
+          "title": "符号说明（排版样例）"
+        }
+      ]
+    }
+  },
+  "public_audit": {
+    "status": "PASS",
+    "issues": [],
+    "checked_parts": [
+      "word/document.xml",
+      "word/numbering.xml",
+      "word/styles.xml",
+      "word/footnotes.xml",
+      "word/comments.xml",
+      "word/theme/theme1.xml",
+      "word/settings.xml",
+      "word/webSettings.xml",
+      "word/fontTable.xml",
+      "word/automm_template/word/header1.xml",
+      "word/automm_template/word/header4.xml",
+      "word/automm_template/word/header3.xml",
+      "word/automm_template/word/footer1.xml",
+      "word/automm_template/word/footer4.xml",
+      "word/automm_template/word/footer3.xml"
+    ]
+  },
+  "docx_media_count": 1,
+  "docx_omml_count": 6,
+  "pdf_pages": 2,
+  "pdf_blank_pages": [],
+  "pdf_non_a4_pages": [],
+  "pdf_sha256": "8063c8bb88495314ab8467e9fa10f3b8c04759450fc01fa06308aaeaf5c06297"
+}

@@ -27,6 +27,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="从已验收证据生成数学建模论文")
     parser.add_argument("action", choices=["evidence", "draft", "validate", "render", "build", "rewrite"])
     parser.add_argument('--confirm-rewrite', action='store_true', help='用户明确授权从已验收证据重写论文')
+    parser.add_argument('--summary-review', help='经用户授权复核的摘要文字变更记录；不接纳其他证据变更')
     parser.add_argument("--problem-id")
     parser.add_argument("--version")
     args = parser.parse_args()
@@ -42,8 +43,11 @@ def main() -> None:
         if not guard.acquire('user-paper-rewrite'):
             raise SystemExit('Runner 正在运行，不能重写')
         try:
+            arguments = {'reason': '用户明确请求按原生模板重写并交付'}
+            if args.summary_review:
+                arguments['summary_review'] = args.summary_review
             response = {'action_id': new_action_id(), 'commands': [
-                {'name': 'request_paper_rewrite', 'arguments': {'reason': '用户明确请求按原生模板重写并交付'}}]}
+                {'name': 'request_paper_rewrite', 'arguments': arguments}]}
             result = apply_agent_commands(response, {'problem_id': problem_id, 'user_authorized_rewrite': True})
             print(json.dumps(result, ensure_ascii=False, indent=2))
         finally:

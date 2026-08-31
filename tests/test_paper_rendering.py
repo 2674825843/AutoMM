@@ -69,6 +69,49 @@ def test_missing_user_template_fails_without_default_fallback(tmp_path: Path) ->
                            pdf_exporter=_one_page_pdf)
 
 
+def test_internal_image_filename_is_not_published_in_picture_alternative_text(tmp_path):
+    import hashlib
+
+    from lxml import etree as ET
+    version = _version(tmp_path)
+    source = version / 'prob01_fig_fit_aabbccdd.png'
+    (version / 'figure.png').rename(source)
+    write_text(version / 'paper.md', '# 标题\n\n## 模型\n\n![拟合曲线](' + source.name + ')\n')
+    evidence = {'figures': [{'path': source.name, 'stable_id': 'prob01_fig_fit_aabbccdd',
+                             'evidence_id': 'ev_fit', 'sha256': hashlib.sha256(source.read_bytes()).hexdigest()}]}
+    evidence['evidence_hash'] = hash_json(evidence)
+    write_json(version / 'evidence_pack.json', evidence)
+    write_json(version / 'writer_manifest.json', {'evidence_hash': evidence['evidence_hash']})
+    result = paper.render_paper(version, {'minimum_pdf_pages': 1}, pdf_exporter=_one_page_pdf)
+    assert result['status'] == 'PASS'
+    with zipfile.ZipFile(version / 'paper.docx') as archive:
+        doc = ET.fromstring(archive.read('word/document.xml'))
+    metadata = [node for node in doc.iter() if ET.QName(node).localname in {'docPr', 'cNvPr'}]
+    assert metadata
+    assert all(node.get('descr') == '图1 拟合曲线' for node in metadata)
+    assert source.name not in ET.tostring(doc, encoding='unicode')
+
+
+@pytest.mark.skipif(__import__('os').name != 'nt', reason='需要 Windows Microsoft Word 实际编号渲染')
+def test_word_table_before_first_subsection_does_not_advance_heading_counter(tmp_path):
+    import re
+
+    from pypdf import PdfReader
+    version = _version(tmp_path)
+    write_text(version / 'paper.md', '# Title\n\n## Chapter\n\n'
+               '| x | y |\n|---|---|\n| 1 | 2 |\n\n: Results\n\n'
+               '<!-- evidence:ev_fig -->\n\n### First subsection\n\nText.\n\n'
+               '#### Nested subsection\n\nText.\n\n### Second subsection\n\nText.\n\n'
+               '## Next chapter\n\n### Next first subsection\n\nText.\n')
+    result = paper.render_paper(version, {'minimum_pdf_pages': 1})
+    assert result['status'] == 'PASS'
+    visible = '\n'.join(page.extract_text() for page in PdfReader(version / 'paper.pdf').pages)
+    assert re.search(r'1\.1\s+First subsection', visible)
+    assert re.search(r'1\.1\.1\s+Nested subsection', visible)
+    assert re.search(r'1\.2\s+Second subsection', visible)
+    assert re.search(r'2\.1\s+Next first subsection', visible)
+
+
 @pytest.mark.parametrize("error", [RuntimeError("Word failed"), TimeoutError("Word timed out")])
 def test_pdf_export_failure_preserves_docx_and_reports_failed_render(tmp_path: Path, error: Exception) -> None:
     renderer = getattr(paper, "render_paper", None)

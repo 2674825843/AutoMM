@@ -1,0 +1,526 @@
+{
+  "figures": [
+    {
+      "internal_id": "prob01_fig_reflectance_spectrum_1d4fb899d1",
+      "number": 1,
+      "title": "合成两光束反射率谱与极值位置",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_reflectance_spectrum_1d4fb899d1.png",
+      "evidence_ids": [
+        "ev_figure_7a32edbc8a9e"
+      ]
+    },
+    {
+      "internal_id": "prob01_fig_dispersion_curve_d85564d2fc",
+      "number": 2,
+      "title": "碳化硅折射率的波数依赖与适用谱段",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_dispersion_curve_d85564d2fc.png",
+      "evidence_ids": [
+        "ev_figure_15b6f2332b74"
+      ]
+    },
+    {
+      "internal_id": "prob01_fig_phase_function_gap_459c486470",
+      "number": 3,
+      "title": "相位函数与同型极值间隔",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_phase_function_gap_459c486470.png",
+      "evidence_ids": [
+        "ev_figure_0d27904b7650"
+      ]
+    },
+    {
+      "internal_id": "prob01_fig_thickness_methods_compare_5eac465fc8",
+      "number": 4,
+      "title": "三种方法的合成厚度估计",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_thickness_methods_compare_5eac465fc8.png",
+      "evidence_ids": [
+        "ev_figure_e5a8c9b5b48d"
+      ]
+    },
+    {
+      "internal_id": "prob01_fig_spacing_constant_n_bias_2245b6eda4",
+      "number": 5,
+      "title": "忽略色散时的条纹间隔偏差",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_spacing_constant_n_bias_2245b6eda4.png",
+      "evidence_ids": [
+        "ev_figure_465d5df2f0a3"
+      ]
+    },
+    {
+      "internal_id": "prob01_fig_nls_multistart_e64919ab13",
+      "number": 6,
+      "title": "全谱拟合的多初值与周期歧义",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_nls_multistart_e64919ab13.png",
+      "evidence_ids": [
+        "ev_figure_3aa4f2349c5a"
+      ]
+    },
+    {
+      "internal_id": "prob01_fig_response_surface_d0691c5dd8",
+      "number": 7,
+      "title": "波数与入射角共同作用下的反射率响应",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_response_surface_d0691c5dd8.png",
+      "evidence_ids": [
+        "ev_figure_8bddbe7bab83"
+      ]
+    },
+    {
+      "internal_id": "prob01_fig_sensitivity_tornado_6983566848",
+      "number": 8,
+      "title": "合成实验的参数敏感性汇总",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_sensitivity_tornado_6983566848.png",
+      "evidence_ids": [
+        "ev_figure_bf1c3bb811a0"
+      ]
+    },
+    {
+      "internal_id": "prob01_fig_noise_robustness_ci_30d4fa737f",
+      "number": 9,
+      "title": "不同噪声水平下的合成厚度区间",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_noise_robustness_ci_30d4fa737f.png",
+      "evidence_ids": [
+        "ev_figure_468d6eb2d342"
+      ]
+    },
+    {
+      "internal_id": "prob01_fig_ablation_summary_ee3c34dcfa",
+      "number": 10,
+      "title": "两光束模型的消融对照",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_summary_ee3c34dcfa.png",
+      "evidence_ids": [
+        "ev_figure_8526f70dd717"
+      ]
+    },
+    {
+      "internal_id": "prob01_fig_ablation_polarization_da59250d1b",
+      "number": 11,
+      "title": "不同偏振处理下的合成厚度一致性",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_polarization_da59250d1b.png",
+      "evidence_ids": [
+        "ev_figure_7460c4889f44"
+      ]
+    },
+    {
+      "internal_id": "prob01_fig_ablation_init_strategy_7c59622d5a",
+      "number": 12,
+      "title": "单初值与多初值策略对照",
+      "source_path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_init_strategy_7c59622d5a.png",
+      "evidence_ids": [
+        "ev_figure_a6478f4b1fae"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_reflectance_spectrum_6b2265d217",
+      "number": 13,
+      "title": "碳化硅两入射角实测反射率谱",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reflectance_spectrum_6b2265d217.png",
+      "evidence_ids": [
+        "ev_figure_dda4c5abdf3d"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_model_fit_0ca711689b",
+      "number": 14,
+      "title": "碳化硅实测谱与物理两光束诊断拟合",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_model_fit_0ca711689b.png",
+      "evidence_ids": [
+        "ev_figure_a75144cb91b3"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_thickness_estimate_efa7359eb9",
+      "number": 15,
+      "title": "碳化硅共享厚度与分角度厚度估计",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_thickness_estimate_efa7359eb9.png",
+      "evidence_ids": [
+        "ev_figure_73dc1fe83462"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_dispersion_curve_af50244106",
+      "number": 16,
+      "title": "碳化硅主反演带内的色散模型",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_dispersion_curve_af50244106.png",
+      "evidence_ids": [
+        "ev_figure_c3bd34878ece"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_reliability_summary_78cd97014b",
+      "number": 17,
+      "title": "碳化硅可靠性指标与预设阈值",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reliability_summary_78cd97014b.png",
+      "evidence_ids": [
+        "ev_figure_f8d6659bf219"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_variable_projection_jcurve_7a9a903650",
+      "number": 18,
+      "title": "碳化硅一维厚度目标函数",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_variable_projection_jcurve_7a9a903650.png",
+      "evidence_ids": [
+        "ev_figure_2a594948c032"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_g_space_phase_gap_f500d9c0db",
+      "number": 19,
+      "title": "碳化硅相位坐标与噪声极值辨别",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_g_space_phase_gap_f500d9c0db.png",
+      "evidence_ids": [
+        "ev_figure_ec5c566cade8"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_nsub_decoupling_39b4128d09",
+      "number": 20,
+      "title": "厚度与衬底折射率的结构解耦",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_nsub_decoupling_39b4128d09.png",
+      "evidence_ids": [
+        "ev_figure_fbf03315682d"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_response_surface_cfe5827835",
+      "number": 21,
+      "title": "碳化硅反射率的角度—波数响应",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_response_surface_cfe5827835.png",
+      "evidence_ids": [
+        "ev_figure_aad41352929d"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_methods_compare_99386076f5",
+      "number": 22,
+      "title": "碳化硅不同反演方法的厚度量级",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_methods_compare_99386076f5.png",
+      "evidence_ids": [
+        "ev_figure_d0a257b14967"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_ablation_summary_dcd697b29e",
+      "number": 23,
+      "title": "碳化硅模型组成的消融判定",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_summary_dcd697b29e.png",
+      "evidence_ids": [
+        "ev_figure_dff80f606d45"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_ablation_thickness_d29e3fc1f0",
+      "number": 24,
+      "title": "碳化硅消融后的厚度变化",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_thickness_d29e3fc1f0.png",
+      "evidence_ids": [
+        "ev_figure_9ff5e5c6749b"
+      ]
+    },
+    {
+      "internal_id": "prob02_fig_ablation_shared_t_14e5362fa7",
+      "number": 25,
+      "title": "共享厚度约束与独立厚度估计",
+      "source_path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_shared_t_14e5362fa7.png",
+      "evidence_ids": [
+        "ev_figure_47cfd6efa8cb"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_reflectance_spectrum_41a3800f70",
+      "number": 26,
+      "title": "硅两入射角实测反射率谱",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reflectance_spectrum_41a3800f70.png",
+      "evidence_ids": [
+        "ev_figure_5c5051a759c9"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_model_fit_3e94d2fac7",
+      "number": 27,
+      "title": "硅实测谱与物理两光束诊断拟合",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_model_fit_3e94d2fac7.png",
+      "evidence_ids": [
+        "ev_figure_8c09648b5b0d"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_thickness_estimate_59f1546ed7",
+      "number": 28,
+      "title": "硅共享厚度与分角度厚度估计",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_thickness_estimate_59f1546ed7.png",
+      "evidence_ids": [
+        "ev_figure_dfeacc75d39b"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_dispersion_curve_aac3dcebea",
+      "number": 29,
+      "title": "硅主反演谱段内的弱色散",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_dispersion_curve_aac3dcebea.png",
+      "evidence_ids": [
+        "ev_figure_7dcc8d1ec952"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_reliability_summary_50b4f34a17",
+      "number": 30,
+      "title": "硅可靠性指标与报告边界",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reliability_summary_50b4f34a17.png",
+      "evidence_ids": [
+        "ev_figure_3dff305300aa"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_variable_projection_jcurve_4b30b360a4",
+      "number": 31,
+      "title": "硅厚度目标函数与邻近候选",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_variable_projection_jcurve_4b30b360a4.png",
+      "evidence_ids": [
+        "ev_figure_6a4fab81710a"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_mb_conditions_9571a5012b",
+      "number": 32,
+      "title": "多光束相干、几何与反射率条件",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_mb_conditions_9571a5012b.png",
+      "evidence_ids": [
+        "ev_figure_a64ba1b677b8"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_sic_multibeam_recheck_4cbb136f9c",
+      "number": 33,
+      "title": "硅与碳化硅的多光束显著性对照",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_sic_multibeam_recheck_4cbb136f9c.png",
+      "evidence_ids": [
+        "ev_figure_592e5e151a31"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_response_surface_06cfec9b1e",
+      "number": 34,
+      "title": "硅反射率的角度—波数响应",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_response_surface_06cfec9b1e.png",
+      "evidence_ids": [
+        "ev_figure_a9d9c329d54e"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_phase_freq_gspace_a936624612",
+      "number": 35,
+      "title": "硅相位函数坐标中的干涉条纹",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_phase_freq_gspace_a936624612.png",
+      "evidence_ids": [
+        "ev_figure_9a913a61baae"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_ablation_summary_9f93c3dd2d",
+      "number": 36,
+      "title": "硅模型的消融判定汇总",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_summary_9f93c3dd2d.png",
+      "evidence_ids": [
+        "ev_figure_e1af76ad2a74"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_ablation_t_consistency_ec44908369",
+      "number": 37,
+      "title": "硅各消融方案的厚度对照",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_t_consistency_ec44908369.png",
+      "evidence_ids": [
+        "ev_figure_bce0cdb5c3cb"
+      ]
+    },
+    {
+      "internal_id": "prob03_fig_ablation_rmse_ce4b523efa",
+      "number": 38,
+      "title": "硅消融方案的拟合误差对照",
+      "source_path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_rmse_ce4b523efa.png",
+      "evidence_ids": [
+        "ev_figure_e962f369961c"
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "internal_id": "table-1",
+      "number": 1,
+      "title": "主要符号与单位约定",
+      "evidence_ids": [
+        "ev_artifact_55e196100f35"
+      ]
+    },
+    {
+      "internal_id": "table-2",
+      "number": 2,
+      "title": "输入数据的材料与测量条件",
+      "evidence_ids": [
+        "ev_artifact_0366c0d48834",
+        "ev_artifact_67d81d412946",
+        "ev_shared_d8b1f2b59c9e"
+      ]
+    },
+    {
+      "internal_id": "table-3",
+      "number": 3,
+      "title": "碳化硅实测厚度估计",
+      "evidence_ids": [
+        "ev_artifact_1c7696fb4377",
+        "ev_artifact_4b8a4e0e6b4e"
+      ]
+    },
+    {
+      "internal_id": "table-4",
+      "number": 4,
+      "title": "硅外延层厚度与条件不确定性",
+      "evidence_ids": [
+        "ev_artifact_67d81d412946",
+        "ev_artifact_eb303072a56b"
+      ]
+    },
+    {
+      "internal_id": "table-5",
+      "number": 5,
+      "title": "实测问题的可靠性指标对照",
+      "evidence_ids": [
+        "ev_artifact_1c7696fb4377",
+        "ev_artifact_4b8a4e0e6b4e",
+        "ev_artifact_a78e13973522",
+        "ev_artifact_eb303072a56b",
+        "ev_artifact_ed5e6f341dcb"
+      ]
+    }
+  ],
+  "citations": [
+    {
+      "internal_id": "L01",
+      "number": 1
+    },
+    {
+      "internal_id": "L02",
+      "number": 2
+    },
+    {
+      "internal_id": "L03",
+      "number": 3
+    },
+    {
+      "internal_id": "L04",
+      "number": 4
+    },
+    {
+      "internal_id": "L05",
+      "number": 5
+    },
+    {
+      "internal_id": "L06",
+      "number": 6
+    },
+    {
+      "internal_id": "L07",
+      "number": 7
+    },
+    {
+      "internal_id": "L08",
+      "number": 8
+    },
+    {
+      "internal_id": "L09",
+      "number": 9
+    },
+    {
+      "internal_id": "L10",
+      "number": 10
+    },
+    {
+      "internal_id": "L11",
+      "number": 11
+    },
+    {
+      "internal_id": "L12",
+      "number": 12
+    },
+    {
+      "internal_id": "L13",
+      "number": 13
+    },
+    {
+      "internal_id": "L14",
+      "number": 14
+    },
+    {
+      "internal_id": "L15",
+      "number": 15
+    },
+    {
+      "internal_id": "L16",
+      "number": 16
+    },
+    {
+      "internal_id": "L17",
+      "number": 17
+    },
+    {
+      "internal_id": "L23",
+      "number": 18
+    },
+    {
+      "internal_id": "L24",
+      "number": 19
+    },
+    {
+      "internal_id": "L25",
+      "number": 20
+    },
+    {
+      "internal_id": "L26",
+      "number": 21
+    },
+    {
+      "internal_id": "L27",
+      "number": 22
+    },
+    {
+      "internal_id": "L28",
+      "number": 23
+    },
+    {
+      "internal_id": "L29",
+      "number": 24
+    },
+    {
+      "internal_id": "L30",
+      "number": 25
+    },
+    {
+      "internal_id": "L31",
+      "number": 26
+    },
+    {
+      "internal_id": "L32",
+      "number": 27
+    },
+    {
+      "internal_id": "L43",
+      "number": 28
+    },
+    {
+      "internal_id": "L44",
+      "number": 29
+    },
+    {
+      "internal_id": "L45",
+      "number": 30
+    },
+    {
+      "internal_id": "L46",
+      "number": 31
+    },
+    {
+      "internal_id": "L47",
+      "number": 32
+    }
+  ]
+}

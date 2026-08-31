@@ -286,7 +286,8 @@ def test_caption_and_list_numbers_use_only_original_definitions_without_double_l
     parts = _parts(semantic_docx)
     document, numbering = _xml(parts), _xml(parts, "word/numbering.xml")
     original = _xml(_parts(TEMPLATE), "word/numbering.xml")
-    assert [ET.tostring(x, method="c14n") for x in numbering.findall("w:abstractNum", NS)] == [
+    original_count = len(original.findall('w:abstractNum', NS))
+    assert [ET.tostring(x, method="c14n") for x in numbering.findall("w:abstractNum", NS)[:original_count]] == [
         ET.tostring(x, method="c14n") for x in original.findall("w:abstractNum", NS)
     ]
 
@@ -297,10 +298,20 @@ def test_caption_and_list_numbers_use_only_original_definitions_without_double_l
         return num_id, _value(num, "w:abstractNumId"), _value(p, "w:pPr/w:numPr/w:ilvl")
 
     figure = binding("误差曲线")
-    assert figure[1:] == ("1", "8")
+    assert figure[2] == "8"
     assert binding("成本曲线") == figure
     table = binding("模型结果")
-    assert table[1:] == ("1", "7")
+    assert table[2] == "7"
+    assert figure[1] != table[1] and figure[1] != '1' and table[1] != '1'
+    for caption_binding in (figure, table):
+        isolated = numbering.xpath('w:abstractNum[@w:abstractNumId=$id]', namespaces=NS, id=caption_binding[1])[0]
+        assert not isolated.xpath('.//w:pStyle', namespaces=NS)
+        source = original.xpath('w:abstractNum[@w:abstractNumId="1"]', namespaces=NS)[0]
+        for before, after in zip(source.findall('w:lvl', NS), isolated.findall('w:lvl', NS), strict=True):
+            for key in ('w:start', 'w:numFmt', 'w:lvlText', 'w:lvlJc', 'w:pPr', 'w:rPr'):
+                expected, actual = before.find(key, NS), after.find(key, NS)
+                assert (ET.tostring(expected) if expected is not None else None) == (
+                    ET.tostring(actual) if actual is not None else None)
     assert figure[0] != table[0] and figure[0] != "1" and table[0] != "1"
     assert binding("首项")[1:] == ("4", "0")
     assert binding("嵌套有序项")[1:] == ("4", "1")

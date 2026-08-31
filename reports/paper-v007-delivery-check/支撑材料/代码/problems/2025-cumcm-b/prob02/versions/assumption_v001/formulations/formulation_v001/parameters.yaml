@@ -1,0 +1,222 @@
+# prob02 模型参数（formulation_v001）
+# 对应 formulation.md / formula_validation.md；供 implementation/computation 阶段（附件反射率谱反演）使用。
+# 单位约定：t[um]、nu[cm^-1]、lambda[um]=1e4/nu、theta[deg]（计算转 rad）、delta_nu[cm^-1]、delta[rad]。
+parameters:
+  - name: data_inputs
+    meaning: 附件 1/2 实测红外反射率谱
+    unit: none
+    value: null
+    domain: "附件1=10°，附件2=15°"
+    role: input
+    source: data/2025_cumcm_B/附件1.xlsx、附件2.xlsx（题面；B1）
+    note: 第 1 列波数 cm^-1，第 2 列反射率 %；第一行表头；约 7469 数据行
+  - name: nu_range
+    meaning: 实测波数范围
+    unit: cm^-1
+    value: [399.67, 4000.12]
+    domain: "> 0"
+    role: domain
+    source: 附件实测；B1
+    note: 波数升序；附件2 原为降序，反演前重排
+  - name: nu_step
+    meaning: 波数等间隔网格步长
+    unit: cm^-1
+    value: 0.482
+    domain: "> 0"
+    role: domain
+    source: 附件实测；B1
+    note: 约 0.482；7469 点
+  - name: theta
+    meaning: 红外光入射角（空气侧，相对表面法线）
+    unit: degree
+    value: [10.0, 15.0]
+    domain: "[0, 90)"
+    role: input
+    source: 题面；附件 1=10°、附件 2=15°
+    note: 两入射角共享同一晶圆片（B11）
+  - name: n_air
+    meaning: 空气（入射介质）折射率
+    unit: dimensionless
+    value: 1.0
+    domain: "≈ 1"
+    role: input
+    source: 假设 A9/B5（common_sense/inherited）
+    note: 误差远小于其他不确定度来源
+  - name: n_epi
+    meaning: 外延层折射率（色散函数）
+    unit: dimensionless
+    value: null
+    domain: "> 1"
+    role: model_function
+    source: B6；L09 Sellmeier（nu>=2000）+ L26 数据插值（nu<2000）
+    formula: "nu>=vc: n^2=6.79485+0.15558/(lambda^2-0.03535)-0.02296*lambda^2 ; nu<vc: n=c_disp*n_ref(nu)"
+    note: 分段色散模型 N-L26；lambda<=5 um 用 Sellmeier，lambda>5 um 用 L26 数据插值
+  - name: vc
+    meaning: Sellmeier 色散模型分界波数
+    unit: cm^-1
+    value: 2000.0
+    domain: "> 0"
+    role: domain
+    source: L09（经 L11 核验）；A5/B6
+    note: 对应 lambda_c=5 um；nu>=vc 用 Sellmeier，nu<vc 用 L26 数据插值
+  - name: c_disp
+    meaning: lambda>5 um 色散标定因子（吸收模型-数据系统偏差）
+    unit: dimensionless
+    value: 1.0
+    domain: "[0.95, 1.05]"
+    role: parameter_to_estimate
+    source: B6；L26/L27/L28/L29
+    note: 主模型取 1；N-scaled 模型可估/扰动做灵敏度（§4.2/§7.2）
+  - name: n_sub
+    meaning: 衬底折射率
+    unit: dimensionless
+    value: null
+    domain: "> 1"
+    role: parameter_to_estimate
+    source: B7；文献（掺杂-折射率机制）+ 数据反演；L30/L31
+    note: 重掺衬底红外可能近等离子体反射边；P2 反演/给定；灵敏度分析（§7.3）
+  - name: t
+    meaning: 外延层厚度（待求）
+    unit: um
+    value: null
+    domain: "[0.1, 100]"
+    role: output
+    source: 反演目标（B9）
+    formula: "t_phase = 1e4 / (2*[g(nu_m+2)-g(nu_m)]) ; t_NLS = argmin J(t)"
+    note: prob02 主反演输出；峰谷/相位法初值 + 全谱 NLS 多初值
+  - name: delta
+    meaning: 相邻反射光束相位差（含光程差相位与反射相位跃变）
+    unit: rad
+    value: null
+    domain: "实数"
+    role: derived
+    formula: "delta = 4*pi*1e-4 * n(nu) * t * nu * cos(theta_prime)"
+    note: (2.2)；色散逐点计算
+  - name: delta_nu
+    meaning: 相邻干涉极值（峰或谷）的波数间隔
+    unit: cm^-1
+    value: null
+    domain: "> 0"
+    role: derived_observable
+    formula: "delta_nu = 1e4 / (2*n*cos(theta_prime)*t)"
+    note: prob01 (3.8)/(3.10)；prob02 由实测峰谷定位（B8）
+  - name: delta_t_amb
+    meaning: 厚度周期歧义周期
+    unit: um
+    value: 0.96
+    domain: "> 0"
+    role: derived
+    formula: "delta_t_amb = 1 / (2*1e-4*n(nu0)*nu0*cos(theta_prime(nu0)))"
+    note: (6.3)；谱段中心 nu0~2000；NLS 多初值布点间隔；消除厚度周期歧义
+  - name: R_1
+    meaning: 空气/外延层界面强度反射率（局部中间量）
+    unit: dimensionless
+    value: null
+    domain: "[0, 1)"
+    role: derived
+    source: Fresnel（L06/L07，prob01 3.1-3.3）；prob03 登记 R_01 前置
+    note: s/p 偏振；prop2 取平均
+  - name: R_2
+    meaning: 外延层/衬底界面强度反射率（局部中间量）
+    unit: dimensionless
+    value: null
+    domain: "[0, 1)"
+    role: derived
+    source: Fresnel（L06/L07）；prob03 登记 R_12 前置
+    note: s/p 偏振；prop2 取平均
+  - name: reststrahlen_exclude
+    meaning: 近 Reststrahlen 区（两光束无吸收模型不适用，prob02 剔除/降权）
+    unit: cm^-1
+    value: [700, 1000]
+    domain: "> 0"
+    role: domain
+    source: 假设 B3；L16/L26
+    note: 对应约 10-14.3 um；预处理记录处理策略；权重 w=0（(5.2)）
+  - name: anomaly_rule
+    meaning: 附件 2 反射率 >100% 的异常点判定与处理
+    unit: none
+    value: null
+    domain: "R%>100（或上分位 Q99.9）"
+    role: team_decision
+    source: B2；L25/L32
+    note: 判定为测量/标定异常；剔除/截断/降权三策略，记录处理策略 S_A，不修改原始数据（§3.2/§7.5）
+  - name: inversion_method
+    meaning: 反演方法选择
+    unit: none
+    value: null
+    domain: "[extremum_phase, full_spectrum_nls, constant_n_baseline, airy_correction]"
+    role: team_decision
+    source: B8-B10；L25/L32；prob01 实现 §6.1
+    note: 阈值：M1 主全谱 NLS 多初值；M2 色散相位法初值；M3 常数 n 基线；M4 多光束修正（B13 诊断后）
+  - name: multi_start
+    meaning: NLS 多初值布点
+    unit: none
+    value: null
+    domain: "K=0..3，t0 in {t_phase, t_phase±k*delta_t_amb}"
+    role: team_decision
+    source: B9；prob01 implementation
+    note: 消除厚度周期歧义；取 J 最小
+  - name: target_tolerance
+    meaning: NLS/反演收敛容差
+    unit: none
+    value: 1e-8
+    domain: "> 0"
+    role: solver_config
+    source: 本项目惯例；prob01 task_config
+    note: scipy.optimize.least_squares xtol/ftol/gtol
+  - name: tau_12
+    meaning: 两入射角一致性相对偏差阈值（B11）
+    unit: percent
+    value: 2.0
+    domain: "> 0"
+    role: reliability_gate
+    source: B11；team_decision（§7.1）
+    note: eps_12<=tau_12 -> PASS；否则解释（测量点差异/膜厚梯度/色散）
+  - name: tau_disp
+    meaning: 色散模型敏感性阈值（B6）
+    unit: percent
+    value: 2.0
+    domain: "> 0"
+    role: reliability_gate
+    source: B6；prob01 robustness E3（§7.2）
+    note: delta_t_disp<=tau_disp；色散为最大不确定度来源
+  - name: tau_nsub
+    meaning: n_sub ±20% 扰动对厚度影响阈值（B7）
+    unit: percent
+    value: 0.5
+    domain: "> 0"
+    role: reliability_gate
+    source: B7；prob01 robustness E1（<0.01%）（§7.3）
+    note: delta_t_nsub<=tau_nsub；prob01 显示影响极小，此处以实测复核
+  - name: tau_ci
+    meaning: 厚度 95% CI 半宽阈值（B12）
+    unit: percent
+    value: 2.0
+    domain: "> 0"
+    role: reliability_gate
+    source: B12；bootstrap/MC B>=200（§7.4）
+    note: CI 半宽<=tau_ci
+  - name: tau_anom
+    meaning: 异常点处理对厚度影响阈值（B2）
+    unit: percent
+    value: 1.0
+    domain: "> 0"
+    role: reliability_gate
+    source: B2（§7.5）
+    note: delta_t_anom<=tau_anom
+  - name: comparison_criteria
+    meaning: 模型比较标准（计算结果前固定）
+    unit: none
+    value: null
+    domain: null
+    role: team_decision
+    source: 本版本 §8.2
+    note: 约束满足度、题目指标、解释性、复杂度、运行预算、鲁棒性
+  - name: seed
+    meaning: 随机种子（bootstrap/MC、求解扰动）
+    unit: none
+    value: 20260829
+    domain: "> 0"
+    role: solver_config
+    source: 本项目惯例（AUTOMM_SEED 优先）
+    note: 保证可复现；prob02 与 prob01 一致

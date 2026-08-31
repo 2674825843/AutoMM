@@ -1,0 +1,27 @@
+# prob01 计算任务执行配置（computation 阶段由 supervised worker 执行）
+# 场景与执行设置：合成验证的数值场景、反演与验证容差、超时/资源。
+# 分层合并：本文件作为 make_task_spec 的 config_path 合并进有效配置（compute 段生效）。
+compute:
+  task_timeout_seconds: 120
+  memory_per_worker_gb: 1
+scenario:
+  # 合成场景：prob01 无附件实测数据，用正模型自洽生成反射率谱验证公式与算法
+  t_true_um: 10.0            # 已知厚度（反演应恢复该值；µm）
+  n_sub: 3.0                 # 衬底折射率（A6；prob01 给定，prob02 反演/文献取值）
+  theta_deg: [10.0, 15.0]    # 两入射角（题面：附件 1/2 为 10°/15°），用于一致性检验（A10）
+  nu_min_cm1: 400.0
+  nu_max_cm1: 4000.0
+  nu_points: 3601            # 谱点（间隔 1 cm^-1，与附件量级一致）
+  noise_sigma_percent: 0.0   # 反射率高斯噪声（%）；prob01 无噪验证，噪声鲁棒性留 robustness 阶段
+  seed: 20260829             # 随机种子（可复现）
+  inversion:
+    # 方法 A (3.9) 常数 n 近似：2000-4000 cm^-1 谱段色散效应显著（nu*dn/dnu 约 9%），
+    # 实测偏差约 4%（A3 文档化系统偏差），作为基线/初值，容忍 10%
+    method_a_tol_rel: 0.10
+    method_b_tol_rel: 0.01                 # 方法 B（全谱 NLS）相对容差
+    nls_band_consistency_tol_rel: 0.01     # 全谱与弱色散谱段 NLS 一致性
+    two_angle_consistency_tol_rel: 0.02    # 两入射角反演厚度一致性（A10）
+    nls_ftol: 1.0e-10
+    nls_xtol: 1.0e-10
+    nls_gtol: 1.0e-10
+    nls_max_nfev: 200
