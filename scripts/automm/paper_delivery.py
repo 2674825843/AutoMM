@@ -230,6 +230,9 @@ def publish_paper(version_dir: Path, evidence: dict, paper_state: dict, final_di
     filenames = ('paper.md', 'paper.docx', 'paper.tex', 'paper.pdf', 'writer_manifest.json',
                  'evidence_pack.json', 'publication_manifest.json', 'support_dependencies.json',
                  'validation.json', 'render_report.json')
+    from .paper_quality import quality_audit_hashes
+    quality_hashes = quality_audit_hashes(version_dir, evidence)
+    filenames = tuple(dict.fromkeys((*filenames, *quality_hashes)))
     source_hashes = {name: digest(version_dir / name) for name in filenames}
     if final_dir.exists():
         manifest = read_json(final_dir / 'manifest.json')
@@ -254,6 +257,8 @@ def publish_paper(version_dir: Path, evidence: dict, paper_state: dict, final_di
     manifest = dict(paper_state, status='passed', paper_version=version_dir.name,
                     evidence_hash=evidence['evidence_hash'], completed_at=utc_now(),
                     delivery=delivery['destination'], delivery_status='PASS', files=_files(staging))
+    if quality_hashes:
+        manifest['quality_audit'] = quality_hashes
     write_json(staging / 'manifest.json', manifest)
     # A final verification detects source changes during a long copy operation.
     verify_rendered_version(version_dir, evidence, publication)

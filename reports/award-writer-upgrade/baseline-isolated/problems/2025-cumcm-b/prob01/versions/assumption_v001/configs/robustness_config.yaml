@@ -1,0 +1,35 @@
+# prob01 robustness 任务执行配置（robustness 阶段由 supervised worker 执行）
+# 场景与执行设置：合成基准场景 + 扰动/噪声/色散/截断实验参数（预注册方案见
+# robustness/preregistration.md，判据在 robustness.py PREREGISTERED 中运行前固定）。
+# 分层合并：本文件作为 make_task_spec 的 config_path 合并进有效配置（compute 段生效）。
+compute:
+  task_timeout_seconds: 900
+  memory_per_worker_gb: 1
+scenario:
+  # 合成基准场景（与 computation 阶段 synthetic_verify 一致，保证可对比）
+  t_true_um: 10.0            # 已知厚度（µm）
+  n_sub: 3.0                 # 衬底折射率（A6；扰动基准）
+  theta_deg: [10.0, 15.0]    # 两入射角（A10）
+  nu_min_cm1: 400.0
+  nu_max_cm1: 4000.0
+  nu_points: 3601            # 谱点（间隔 1 cm^-1，与附件量级一致）
+  seed: 20260829             # 随机种子（可复现；E4 各 σ 用 seed+σ*100 派生）
+robustness:
+  # 预注册方案参数（与 robustness.py PREREGISTERED / robustness/preregistration.md 一致）
+  nu_range_cm1: [400.0, 4000.0]
+  weak_band_cm1: [2000.0, 4000.0]
+  reststrahlen_exclude_cm1: [700.0, 1000.0]
+  # 扰动集合：±5/±10/±20%（robustness-analyst 默认方案）
+  n_sub_perturbation_percent: [-20.0, -10.0, -5.0, 0.0, 5.0, 10.0, 20.0]
+  theta_perturbation_percent: [-20.0, -10.0, -5.0, 0.0, 5.0, 10.0, 20.0]
+  # 噪声稳健性：σ ∈ {0.5,1.0,2.0}%（反射率相对高斯噪声）× 100 次随机实验
+  noise_sigma_percent: [0.5, 1.0, 2.0]
+  noise_repetitions: 100
+  # 谱段截断集合（弱色散反演段 [2000,4000] 为基准）
+  spectral_cutoffs_cm1:
+    - [1800.0, 4000.0]
+    - [1900.0, 4000.0]
+    - [2000.0, 4000.0]
+    - [2100.0, 4000.0]
+    - [2000.0, 3800.0]
+    - [2000.0, 3600.0]

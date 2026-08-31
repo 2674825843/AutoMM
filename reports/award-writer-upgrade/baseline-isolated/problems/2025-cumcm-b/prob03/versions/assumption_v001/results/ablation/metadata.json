@@ -1,0 +1,55 @@
+{
+  "problem_id": "2025-cumcm-b",
+  "question_id": "prob03",
+  "assumption_version": "assumption_v001",
+  "formulation_version": "formulation_v002",
+  "ablation_version": "ablation_v001",
+  "created_at": "2026-08-30T12:57:37.375887+00:00",
+  "seed": 20260830,
+  "scenario": {
+    "theta_deg": [
+      10.0,
+      15.0
+    ],
+    "inv_band_cm1": [
+      2000.0,
+      4000.0
+    ],
+    "attachment_si10": "data/2025_cumcm_B/附件3.xlsx",
+    "attachment_si15": "data/2025_cumcm_B/附件4.xlsx",
+    "baseline_poly_deg": 3,
+    "envelope_poly_deg": 1,
+    "t_scan_range": [
+      2.0,
+      12.0
+    ],
+    "t_scan_step": 0.01
+  },
+  "input_parameters_yaml_hash": "3fd55a2008ca148bd9d70fcafc169703aceb814a40f01be8dff362608e2f73d4",
+  "ablation_config_yaml_hash": "b4c8d5c8fe3a8fa5c677d00a7eb8800cc27a0bffbd7ca432d6721a4b9dde2e27",
+  "unit_conventions": {
+    "t": "um",
+    "nu": "cm^-1",
+    "lambda": "um = 1e4 / nu",
+    "theta": "degree（三角函数内部转 rad）",
+    "delta": "rad",
+    "delta_nu": "cm^-1",
+    "r": "dimensionless（R% / 100 归一）",
+    "g": "cm^-1（相位函数 g=n*nu*cos(theta')）",
+    "Rbar": "dimensionless（sqrt(R01*R12)，多光束显著性主控量）"
+  },
+  "formula_refs": {
+    "snell": "(3.1)",
+    "phase": "(3.7)",
+    "fresnel": "(3.2)-(3.4)",
+    "two_beam": "(3.8)",
+    "airy": "(3.5)/(3.6)",
+    "sellmeier_si": "(6.1)",
+    "n1_reflectivity": "(4.1)/(4.2)",
+    "extremum_invariance": "(4.7)/(4.8), L17",
+    "vp_decomposition": "(7.1)-(7.3)",
+    "vp_scan": "(7.4)/(7.5)",
+    "phase_freq_thickness": "(3.9)"
+  },
+  "python": "3.13.9"
+}

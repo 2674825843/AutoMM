@@ -1,0 +1,51 @@
+# prob01 ablation 实验矩阵（机器可读，与 ablation.py PREREGISTERED 一致）
+# 版本：ablation_v001（预注册，运行前固定；实验参数与 configs/ablation_config.yaml 对应）
+preregistration_version: ablation_v001
+base_scenario:
+  t_true_um: 10.0
+  n_sub: 3.0
+  theta_deg: [10.0, 15.0]
+  nu_range_cm1: [400.0, 4000.0]
+  weak_band_cm1: [2000.0, 4000.0]
+  reststrahlen_exclude_cm1: [700.0, 1000.0]
+experiments:
+  f0:
+    name: 完整模型对照
+    design: "正模型 (3.5) avg 生成观测谱；完整模型 avg + 全谱 NLS 多初值反演"
+    criterion: "NLS 厚度相对真值最大误差 <= 1%；rmse(t) 深度比 >= 100（t_true 处全局极小）"
+  a1:
+    name: 干涉叠加项消融
+    remove: "2*(1-R1)*sqrt(R1*R2)*cos(delta) 项置零（非相干叠加模型，A11 相干性失效极限）"
+    design: "正模型 (3.5) avg 生成观测谱；非相干模型反演（模型不含 t）"
+    criterion: "rmse(t) 网格平坦度 <= 5% -> 厚度不可辨识 -> 干涉项必要"
+  a2:
+    name: 衬底界面反射消融
+    remove: "R2 -> 0（去掉 (1-R1)^2*R2 项与干涉幅度 sqrt(R2) 因子，模型退化为界面 1 反射）"
+    design: "正模型 (3.5) avg 生成观测谱；无衬底模型反演（模型不含 t）"
+    criterion: "rmse(t) 网格平坦度 <= 5% -> 厚度不可辨识 -> 衬底界面反射项必要"
+  a3:
+    name: 偏振平均消融
+    replace: "s/p 平均 (3.6) 替换为单 s / 单 p 反演"
+    design: "正模型 (3.5) avg 生成观测谱；反演分别用 avg / s / p 偏振模型"
+    criterion: "s/p/avg 三种反演厚度最大相对差 <= 1% -> 偏振平均为非关键简化（安全）"
+  a4:
+    name: 多初值模块消融
+    remove: "NLS 多初值布点（网格扫描 +- period）-> 仅方法 A 解析初值单次 NLS"
+    design: "正模型 (3.5) avg 生成观测谱；单初值 NLS vs 多初值 NLS 对比"
+    criterion: "单初值相对真值误差 > 2% 且多初值 <= 1% -> 多初值模块必要（周期歧义规避）"
+identifiability:
+  t_lo_um: 1.0
+  t_hi_um: 25.0
+  n_grid: 200
+  flatness_threshold: 0.05
+  note: "rmse(t) 网格平坦度 = (max-min)/(min+eps)；<= 阈值判定厚度不可辨识"
+inversion:
+  method: "全谱 NLS（formulation_v001 §3.6 方法 B）"
+  init_strategy_full: "网格扫描初值（t in [1,25] um，200 点最小 rmse）+ +-period 布点"
+  init_strategy_single: "方法 A 解析初值（弱色散段 [2000,4000] 峰定位 -> 同型间隔 -> (3.10)），单次 NLS"
+  period_ambiguity: "formula_validation §6：cos(delta) 对 t 的周期歧义，多初值规避"
+outputs:
+  result_json: "各实验判定、conclusion（components_confirmed/partially_confirmed）、feasible_incumbent"
+  summary_json: "F0 + A1-A4 汇总表（t、rmse、平坦度/深度比、约束满足度、判定）"
+  checks_json: "判据逐条检查（预期 vs 实测）"
+  metadata_json: "场景、种子、输入/配置 hash、单位约定、公式引用"

@@ -1,0 +1,95 @@
+# prob03 ablation 实验矩阵（ablation_v001）
+# 与 ablation/preregistration.md、code/ablation.py PREREGISTERED 保持一致。
+# 完整模型（F0）为内部对照；每次只改变一个目标项，数据/种子/其余配置一致。
+# 依据：ablation-analyst 角色说明 + knowledge/robustness-ablation.md §消融设计。
+
+version: ablation_v001
+base_scenario:
+  material: silicon
+  attachment_theta10: data/2025_cumcm_B/附件3.xlsx
+  attachment_theta15: data/2025_cumcm_B/附件4.xlsx
+  theta_deg: [10.0, 15.0]
+  inv_band_cm1: [2000.0, 4000.0]
+  multiphonon_exclude_cm1: [400.0, 1600.0]
+  dispersion_model: N-SE
+  baseline_poly_deg: 3
+  envelope_poly_deg: 1
+  t_scan_range: [2.0, 12.0]
+  t_scan_step: 0.01
+  shared_t: true
+  seed: 20260830
+  formula_version: formulation_v002
+  assumption_version: assumption_v001
+
+experiments:
+  F0:
+    name: 完整模型（内部对照）
+    ablate: 无
+    config:
+      dispersion_model: N-SE
+      baseline_poly_deg: 3
+      envelope_poly_deg: 1
+      shared_t: true
+      airy_harmonics: []
+    criterion:
+      t_hat_range_um: [3.40, 3.49]
+      model_in_unit_range: true
+    expected: "t̂=3.4477 µm；加权 RMSE≈2.57e-3；R∈[0,1]"
+
+  A1:
+    name: 色散项消融（Sellmeier vs 常数 n）
+    ablate: 色散模型 N-SE → N-const
+    config:
+      dispersion_model: N-const
+      baseline_poly_deg: 3
+      envelope_poly_deg: 1
+      shared_t: true
+      airy_harmonics: []
+    criterion:
+      delta_t_percent_max: 2.0
+    expected: "Δt≤2%（色散弱，色散项非 t̂ 关键复杂度）"
+
+  A2:
+    name: 多光束（Airy）高阶干涉项消融（加 cos2δ/sin2δ、cos3δ/sin3δ）
+    ablate: 两光束一阶 VP → 加 Airy 高阶谐波列
+    config:
+      dispersion_model: N-SE
+      baseline_poly_deg: 3
+      envelope_poly_deg: 1
+      shared_t: true
+      airy_harmonics: [2, 3]
+    criterion:
+      delta_t_percent_max: 1.0
+    expected: "Δt≤1%（L17：Airy 高阶不改变极值位置/相位频率 → 不改 t̂）"
+
+  A3:
+    name: 基线多项式项消融（p=3 → p=0）
+    ablate: 基线多项式阶数 p 3 → 0
+    config:
+      dispersion_model: N-SE
+      baseline_poly_deg: 0
+      envelope_poly_deg: 1
+      shared_t: true
+      airy_harmonics: []
+    criterion:
+      delta_t_percent_max: 2.0
+    expected: "Δt≤2%（基线项只改拟合残差/基线，不进入相位频率）"
+
+  A4:
+    name: 两角共享 t 约束消融（shared=True → False）
+    ablate: 两角共享 t 约束移除（每角独立 t）
+    config:
+      dispersion_model: N-SE
+      baseline_poly_deg: 3
+      envelope_poly_deg: 1
+      shared_t: false
+      airy_harmonics: []
+    criterion:
+      delta_t_percent_max: 2.0
+      eps12_percent_max: 2.0
+    expected: "每角独立 t̂ 与共享 t̂ 一致；ε₁₂≤2%（共享为安全约束）"
+
+conclusion_rule:
+  all_pass: components_confirmed
+  any_fail: components_partially_confirmed
+  note: "不删除不利情景；A1–A4 的 t̂ 稳定/Δt≈0 是「复杂度不贡献 t̂」的正常结论，非实验失败"

@@ -1,0 +1,67 @@
+# prob02 计算任务规格（computation 阶段由 Runner/resource-manager 提交）
+# 本文件是 implementation 阶段的交付物之一：描述 computation 阶段应提交的唯一任务。
+# 提交方式：Runner 使用 sys.executable 作为 command[0]（{python} 占位符），
+# 通过 scripts/compute_dispatcher.py submit 调用 make_task_spec/submit_task；
+# implementation 阶段禁止自行创建正式 task（tasks.py 也会拒绝 stage=implementation）。
+# 版本：formulation_v003（主反演 = 基线-干涉分解 + 一维相位频率扫描（variable projection），两角共享 t；
+#       t 与 n_sub 解耦；n_sub 由干涉幅值弱辨识；两角一致性改对相位-频率拟合的嵌套 F 检验）。
+#
+# 提交等价命令：
+#   python scripts/compute_dispatcher.py submit \
+#     --problem-id 2025-cumcm-b --question-id prob02 --stage computation \
+#     --code-path problems/2025-cumcm-b/prob02/versions/assumption_v001/code/compute.py \
+#     --config-path problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_config.yaml \
+#     --input-path problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/parameters.yaml \
+#     --assumption-version assumption_v001 --formulation-version formulation_v003 \
+#     --output-directory problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003 \
+#     --working-directory . --timeout-seconds 1200 --seed 20260829 \
+#     -- {python} problems/2025-cumcm-b/prob02/versions/assumption_v001/code/compute.py \
+#       --config problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_config.yaml \
+#       --input problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/parameters.yaml \
+#       --output problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003
+problem_id: 2025-cumcm-b
+question_id: prob02
+stage: computation
+assumption_version: assumption_v001
+formulation_version: formulation_v003
+code_path: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/compute.py
+config_path: problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_config.yaml
+input_path: problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/parameters.yaml
+output_directory: problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003
+working_directory: .
+timeout_seconds: 1200
+seed: 20260829
+backend: local
+dependencies:
+  - data/2025_cumcm_B/附件1.xlsx
+  - data/2025_cumcm_B/附件2.xlsx
+  - problems/2025-cumcm-b/prob02/versions/assumption_v001/code/data/n_ref_anchor.csv
+command:
+  - "{python}"
+  - "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/compute.py"
+  - "--config"
+  - "problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_config.yaml"
+  - "--input"
+  - "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/parameters.yaml"
+  - "--output"
+  - "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003"
+expected_outputs:
+  - result.json
+  - solver_status.json
+  - verification.json
+  - metadata.json
+  - preprocessing.json
+  - dispersion_ref.json
+  - reflectance_theta10.csv
+  - reflectance_theta15.csv
+failure_conditions:
+  - process 非零退出：code_runtime（先 compileall/ruff/探针复现，再考虑重试或修订）
+  - result.json 缺失或 feasible_incumbent=false：反演/判据未通过，交由 sanity/降级路由（不盲目重跑）
+  - 输出目录与 spec 不一致或被其他任务锁定：harness_invariant，必须人工对账
+  - 附件缺失/sha256 与 README 不符：数据契约违反，交由 input_missing 审批
+notes:
+  - 版本 v003：主反演 = 基线-干涉分解 + 一维相位频率扫描（variable projection），两角共享 t；t 与 n_sub 结构解耦
+  - 基线 B(ν) 与包络 C/S(ν) 用中心化正交化（Chebyshev）多项式基（p=3/q=1，计算前固定）；n_sub 由幅值 A=√(C²+S²) 弱辨识
+  - 色散模型 N-SE（带内纯 Sellmeier）；λ>5µm（ν<2000）n_ref 锚点仅作 Δt_inv_band 背景（code/data/n_ref_anchor.csv）
+  - 输出目录为 thickness_inversion_v003，与 v001（results/thickness_inversion）、v002（thickness_inversion_v002）分离，避免覆盖旧结果
+  - 只读原始数据；输出写入 v003 输出目录；不修改 formulation/assumption 历史文件

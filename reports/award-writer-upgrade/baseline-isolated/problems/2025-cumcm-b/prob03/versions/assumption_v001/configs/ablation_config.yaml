@@ -1,0 +1,27 @@
+# prob03 消融实验执行配置（ablation 阶段由 supervised worker 执行）
+# 场景与执行设置：硅片（附件3/4）厚度反演模型组件/约束必要性检验（完整模型 F0 内部对照 + A1–A4）。
+# 提交方式：与 compute_dispatcher.py submit 一致（stage=ablation），输出目录 results/ablation。
+# 版本：formulation_v002 / assumption_v001；消融方案版本 ablation_v001（预注册，判据运行前固定）。
+# 说明：本文件为 --config 输入；--input 传入 formulation_v002/parameters.yaml（追踪 input hash）。
+# 消融参数（每个实验只改变一个目标项，其余不变）在 ablation.py PREREGISTERED 与 ablation/experiment_matrix.yaml 中固定：
+#   F0 完整模型（对照） = N-SE 色散 + p=3 + q=1 + two-angle shared t
+#   A1 色散项消融       = N-SE → N-const
+#   A2 多光束（Airy）高阶项消融 = 加 cos2δ/sin2δ、cos3δ/sin3δ
+#   A3 基线多项式项消融 = p=3 → p=0
+#   A4 两角共享 t 约束消融 = shared=True → False
+scenario:
+  seed: 20260830                    # 随机种子（可复现；AUTOMM_SEED 优先）
+  attachment_si10: data/2025_cumcm_B/附件3.xlsx   # 硅，入射角 10°
+  attachment_si15: data/2025_cumcm_B/附件4.xlsx   # 硅，入射角 15°
+  theta_deg: [10.0, 15.0]           # 两入射角（共享同一厚度 t）
+  inv_band_lo: 2000.0               # 硅主反演谱段下界（C8，透明窗）
+  inv_band_hi: 4000.0               # 硅主反演谱段上界
+  multiphonon_exclude_cm1: [400.0, 1600.0]  # 硅多声子吸收带（C8，模型不适用，w=0）
+  weight_anomaly: 0.05              # 异常点降权权重（B2；硅片无 R%>100 异常）
+  baseline_poly_deg: 3              # 基线多项式阶数 p（F0/A1/A2/A4 默认；A3 消融为 0）
+  envelope_poly_deg: 1              # 包络多项式阶数 q（默认）
+  t_scan_lo: 2.0                    # 一维扫描下界
+  t_scan_hi: 12.0                   # 一维扫描上界
+  t_scan_step: 0.01                 # 扫描步长（≤0.01µm，全局极小捕获与唯一性分辨率）
+  n_sub_max: 4.2                    # 硅衬底折射率上限（幅值弱辨识边界）
+  n_sub_si_init: 3.56               # 硅 n_sub 幅值弱辨识初值（formulation §14.2）

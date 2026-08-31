@@ -1,0 +1,51 @@
+{
+  "checks": {
+    "F0_full_model": {
+      "expected": "t̂≈7.2–8.0µm、有限",
+      "measured": 7.215791464723568,
+      "uniqueness_second_min_ratio": 1.0169719792038678,
+      "uniqueness_note": "次小候选 J 略高（ratio≈1.017，弱色散下周期歧义边缘）；唯一性由 robustness 确认",
+      "passed": true
+    },
+    "A1_no_dispersion": {
+      "object": "dispersion(nu) N-SE -> N-const",
+      "dt_disp_abl_percent": 8.440052574091345,
+      "threshold_percent": 1.0,
+      "t_hat_um": 7.8248080579830335,
+      "confirmed_contributes": true,
+      "note": "A1 色散模型消融：Δt_disp_abl=|t̂_A1−t̂_F0|/t̂_F0 > 1% -> 色散必要（B10 约 4.2–4.7% 偏差）"
+    },
+    "A2_no_baseline_poly": {
+      "object": "baseline polynomial p=3 -> p=0",
+      "dt_base_abl_percent": 5.5459605132018055,
+      "rmse_ratio_vs_f0": 7.028650421149029,
+      "threshold_percent": 1.0,
+      "t_hat_um": 7.615976410072124,
+      "confirmed_contributes": true,
+      "note": "A2 基线多项式消融：Δt_base_abl > 1% 或主拟合 RMSE 相对 F0 上升 > 2× -> 基线-稳健分解必要"
+    },
+    "A3_no_variable_projection": {
+      "object": "phase-frequency VP -> full-spectrum amplitude NLS",
+      "dt_vp_abl_percent": 5.4386888879207,
+      "threshold_percent": 1.0,
+      "t_hat_um": 7.608235913291019,
+      "nls_status": "ok",
+      "confirmed_contributes": true,
+      "note": "A3 相位-频率方法消融：Δt_vp_abl=|t̂_A3−t̂_F0|/t̂_F0 > 1% -> 相位-频率方法必要"
+    },
+    "A4_no_shared_t": {
+      "object": "two-angle shared t -> per-angle independent t",
+      "t_hat_per_angle_um": [
+        7.221407936874835,
+        7.209498693985791
+      ],
+      "eps12_percent": 0.16505190136253994,
+      "delta_shared_abl_percent": 0.08720832314156764,
+      "threshold_percent": 2.0,
+      "benign_consistent_constraint": true,
+      "note": "A4 两角共享-t 消融：每角 t̂ 与共享 t̂ 最大相对差 <= 2% 且 ε₁₂ <= 2% -> 共享-t 为良性一致约束"
+    }
+  },
+  "conclusion": "components_confirmed",
+  "feasible_incumbent": true
+}

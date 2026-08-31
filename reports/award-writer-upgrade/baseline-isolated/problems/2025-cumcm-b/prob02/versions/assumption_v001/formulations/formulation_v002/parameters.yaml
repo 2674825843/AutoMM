@@ -1,0 +1,288 @@
+# prob02 模型参数（formulation_v002）
+# 对应 formulation.md / formula_validation.md；供 implementation/computation 阶段（附件反射率谱反演）使用。
+# 单位约定：t[um]、nu[cm^-1]、lambda[um]=1e4/nu、theta[deg]（计算转 rad）、delta_nu[cm^-1]、delta[rad]。
+# 本版为 v001 修订：主反演谱段截断至 nu_inv=[2000,4000]（Sellmeier 已知区）；n_sub 与 t 联合反演（P2）；
+# 两角一致性改嵌套 F 检验；色散敏感性用带内合法候选（N-SE/N-SE-delta）。
+parameters:
+  - name: data_inputs
+    meaning: 附件 1/2 实测红外反射率谱
+    unit: none
+    value: null
+    domain: "附件1=10°（SiC），附件2=15°（SiC）"
+    role: input
+    source: data/2025_cumcm_B/附件1.xlsx、附件2.xlsx（题面；B1）
+    note: 第 1 列波数 cm^-1，第 2 列反射率 %；第一行表头；约 7469 数据行
+  - name: nu_range
+    meaning: 实测波数范围
+    unit: cm^-1
+    value: [399.67, 4000.12]
+    domain: "> 0"
+    role: domain
+    source: 附件实测；B1
+    note: 波数升序；附件2 原为降序，反演前重排
+  - name: nu_step
+    meaning: 波数等间隔网格步长
+    unit: cm^-1
+    value: 0.482
+    domain: "> 0"
+    role: domain
+    source: 附件实测；B1
+    note: 约 0.482；7469 点
+  - name: nu_inv
+    meaning: 主反演谱段（色散已知区，截断后）
+    unit: cm^-1
+    value: [2000.0, 4000.0]
+    domain: "nu_lo>=nu_c(2000) 且 <=4000"
+    role: domain
+    source: B6；L09 Sellmeier 有效区（lambda<=5um）；本版修订
+    note: nu<2000（lambda>5um）为色散缺口区（5-17um 代理），不进入主反演（w=0）；影响由 delta_t_inv_band 报告
+  - name: nu_c
+    meaning: Sellmeier 色散模型分界波数
+    unit: cm^-1
+    value: 2000.0
+    domain: "> 0"
+    role: domain
+    source: L09（经 L11 核验）；A5/B6
+    note: 对应 lambda_c=5 um；nu>=nu_c 用 Sellmeier；nu<nu_c 色散已知性不足，主反演剔除
+  - name: theta
+    meaning: 红外光入射角（空气侧）
+    unit: degree
+    value: [10.0, 15.0]
+    domain: "[0, 90)"
+    role: input
+    source: 题面；附件 1=10°、附件 2=15°
+    note: 两入射角共享同一晶圆片与同一厚度 t（B11）
+  - name: n_air
+    meaning: 空气折射率
+    unit: dimensionless
+    value: 1.0
+    domain: "≈ 1"
+    role: input
+    source: 假设 A9/B5（common_sense/inherited）
+    note: 误差远小于其他不确定度来源
+  - name: n_epi
+    meaning: 外延层折射率（色散函数，主反演带内用 Sellmeier）
+    unit: dimensionless
+    value: null
+    domain: "> 1"
+    role: model_function
+    source: B6；L09 Sellmeier（nu_inv 内）
+    formula: "nu in [2000,4000]: n^2=6.79485+0.15558/(lambda^2-0.03535)-0.02296*lambda^2 ; c_disp=1"
+    note: 主模型 N-SE（Sellmeier 已知区）；lambda>5um 缺口区不使用其在主反演的 n_ref 插值
+  - name: n_sub
+    meaning: 衬底折射率（与 t 联合反演，P2）
+    unit: dimensionless
+    value: null
+    domain: "> n（实际约 2.55-2.6）"
+    role: parameter_to_estimate
+    source: B7；L26（4H/6H-SiC n）、L30/L31（掺杂机制）；本版 P2 联合反演
+    note: 弱对比度（n_sub≈n）下 t-n_sub 相关；以 P2 联合反演 + 相关置信区间；v001 固定 3.0 为远离实测最优的模型失配，本版不再采用
+  - name: n_sub_init
+    meaning: n_sub 联合反演初值
+    unit: dimensionless
+    value: 2.55
+    domain: "> n"
+    role: solver_config
+    source: 实测探针（§13.2）；L26
+    note: 带内实测强偏好 n_sub≈2.58；作 P2 多初值起点
+  - name: t
+    meaning: 外延层厚度（待求）
+    unit: um
+    value: null
+    domain: "[0.1, 100]"
+    role: output
+    source: 反演目标（B9）
+    formula: "t_phase = 1e4 / (2*[g(nu_m+2)-g(nu_m)]) ; (t,n_sub) = argmin J(t,n_sub)"
+    note: 主反演输出；峰谷/相位法初值 + 全谱 NLS 多初值；P2 联合（t,n_sub）
+  - name: delta
+    meaning: 相邻反射光束相位差（含光程差相位与反射相位跃变）
+    unit: rad
+    value: null
+    domain: 实数
+    role: derived
+    formula: "delta = 4*pi*1e-4 * n(nu) * t * nu * cos(theta_prime)"
+    note: (2.2)；色散逐点计算（带内 Sellmeier）
+  - name: delta_nu
+    meaning: 相邻干涉极值（峰或谷）的波数间隔
+    unit: cm^-1
+    value: null
+    domain: "> 0"
+    role: derived_observable
+    formula: "delta_nu = 1e4 / (2*n*cos(theta_prime)*t)"
+    note: prob01 (3.8)/(3.10)；带内极值定位（B8）
+  - name: delta_t_amb
+    meaning: 厚度周期歧义周期（随参考波数变化；带内约 0.5-1.0 µm，v001 computation 实测加权值约 0.85 µm）
+    unit: um
+    value: null
+    domain: "> 0"
+    role: derived
+    formula: "delta_t_amb = 1 / (2*1e-4*n(nu0)*nu0*cos(theta_prime(nu0)))"
+    note: (6.3)；nu0=2000~1.0um、3000~0.65um、4000~0.49um（色散，非单值）；implementation 在带中心估算，且多初值布点配合网格扫描覆盖周期歧义
+  - name: R_1
+    meaning: 空气/外延层界面强度反射率（局部中间量）
+    unit: dimensionless
+    value: null
+    domain: "[0, 1)"
+    role: derived
+    source: Fresnel（L06/L07，prob01 3.1-3.3）；prob03 登记 R_01 前置
+    note: s/p 偏振；(2.4) 取平均
+  - name: R_2
+    meaning: 外延层/衬底界面强度反射率（局部中间量）
+    unit: dimensionless
+    value: null
+    domain: "[0, 1)"
+    role: derived
+    source: Fresnel（L06/L07）；prob03 登记 R_12 前置
+    note: s/p 偏振；带内弱（n_sub≈n），t 由相位频率独立确定
+  - name: reststrahlen_exclude
+    meaning: 近 Reststrahlen 区（两光束无吸收模型不适用）
+    unit: cm^-1
+    value: [700, 1000]
+    domain: "> 0"
+    role: domain
+    source: B3；L16/L26
+    note: 预处理权重 w=0；与 nu_inv 截断共同限定反演谱段
+  - name: anomaly_rule
+    meaning: 附件 2 反射率 >100% 的异常点判定与处理
+    unit: none
+    value: null
+    domain: "R%>100（或上分位 Q99.9）"
+    role: team_decision
+    source: B2；L25/L32
+    note: 判定为测量/标定异常；剔除/截断/降权三策略，记录 S_A，不修改原始数据（§3.2/§7.5）
+  - name: weight_anomaly
+    meaning: 异常点权重
+    unit: none
+    value: 0.05
+    domain: "[0,1]"
+    role: solver_config
+    source: v001 实现；B2（(5.2) 降权）
+    note: 附件 2 超 100% 点按此降权；若对 t 影响超 tau_anom=1% 则复核策略
+  - name: dispersion_model
+    meaning: 主反演色散模型选择
+    unit: none
+    value: N-SE
+    domain: "[N-SE, N-SE-delta, N-const]"
+    role: team_decision
+    source: B6；L09 Sellmeier；本版修订
+    note: N-SE=带内 Sellmeier（主）；N-SE-delta=Sellmeier×c_disp（灵敏度）；N-const=常数 n 基线（B10 对照，不入 delta_t_disp 候选集）
+  - name: c_disp
+    meaning: 色散标定因子（带内 Sellmeier 系数可复现性）
+    unit: dimensionless
+    value: 1.0
+    domain: "[0.995, 1.005]（delta=0.5%）"
+    role: parameter_to_estimate
+    source: B6；L09 经 L11 交叉核验
+    note: 主模型取 1；N-SE-delta 模型扰动作灵敏度（§7.2）
+  - name: delta_c_disp
+    meaning: 色散敏感性扰动半宽
+    unit: none
+    value: 0.005
+    domain: "> 0"
+    role: team_decision
+    source: L09/L11（Sellmeier 系数可复现性）；本版
+    note: N-SE-delta 用 c_disp∈[1±0.005]；delta_t_disp 对该族统计
+  - name: inversion_method
+    meaning: 反演方法选择
+    unit: none
+    value: null
+    domain: "[extremum_phase, full_spectrum_nls, constant_n_baseline, airy_correction]"
+    role: team_decision
+    source: B8-B10；L25/L32；prob01 实现 §6.1
+    note: M1 主全谱 NLS 多初值（P2）；M2 色散相位法初值；M3 常数 n 基线；M4 多光束修正（B13 诊断后）
+  - name: mode
+    meaning: 反演参数模式
+    unit: none
+    value: P2
+    domain: "[P1(仅t), P2(联合 t,n_sub)]"
+    role: team_decision
+    source: B7/B9；本版修订
+    note: P2 主（n_sub 由数据确定，相关置信）；P1 对照（n_sub 取文献值）
+  - name: multi_start
+    meaning: NLS 多初值布点
+    unit: none
+    value: null
+    domain: "K=0..3，t0 in {t_phase, t_phase±k*delta_t_amb}，n_sub0=n_sub_init"
+    role: team_decision
+    source: B9；prob01 implementation
+    note: 消除厚度周期歧义；取 J 最小
+  - name: target_tolerance
+    meaning: NLS/反演收敛容差
+    unit: none
+    value: 1e-8
+    domain: "> 0"
+    role: solver_config
+    source: 本项目惯例；prob01 task_config
+    note: scipy.optimize.least_squares xtol/ftol/gtol
+  - name: tau_12
+    meaning: 两入射角一致性裸偏差报告阈值（B11）
+    unit: percent
+    value: 2.0
+    domain: "> 0"
+    role: reliability_gate
+    source: B11；team_decision（§7.1）
+    note: 主判据为嵌套 F 检验（alpha=0.05）；tau_12 作为裸偏差报告/解释阈值
+  - name: alpha_ftest
+    meaning: 两角一致性嵌套 F 检验显著性水平
+    unit: none
+    value: 0.05
+    domain: "(0,1)"
+    role: reliability_gate
+    source: 统计学标准（§7.1）
+    note: F<=F_alpha(1,N_tot-3) 接受共享 t（一致性 PASS）
+  - name: tau_disp
+    meaning: 色散模型敏感性阈值（B6，带内合法候选）
+    unit: percent
+    value: 2.0
+    domain: "> 0"
+    role: reliability_gate
+    source: B6；prob01 robustness E3（§7.2）
+    note: delta_t_disp<=tau_disp（N-SE vs N-SE-delta，delta_c_disp=0.5%）
+  - name: tau_ci
+    meaning: 厚度 95% CI 半宽阈值（B12，含 n_sub 相关项）
+    unit: percent
+    value: 2.0
+    domain: "> 0"
+    role: reliability_gate
+    source: B12；bootstrap/MC B>=200（§7.4）
+    note: CI 半宽<=tau_ci；P2 用联合协方差投影到 t
+  - name: tau_nsub_diag
+    meaning: n_sub 局部灵敏度诊断阈值（B7，本版改诊断，非硬门禁）
+    unit: percent
+    value: 3.0
+    domain: "> 0"
+    role: reliability_diagnostic
+    source: B7；本版 §7.3
+    note: 在联合最优解附近扰动 n_sub∈[n_hat,n_hat+0.10] 报局部 dt/dn_sub；诊断（实测约 1-1.7%），不作 0.5% 硬门禁
+  - name: tau_anom
+    meaning: 异常点处理对厚度影响阈值（B2）
+    unit: percent
+    value: 1.0
+    domain: "> 0"
+    role: reliability_gate
+    source: B2（§7.5）
+    note: delta_t_anom<=tau_anom；v001 实测 0.91%（PASS）
+  - name: multibeam_threshold
+    meaning: 多光束需修正的残差改善阈值（B13）
+    unit: percent
+    value: 10.0
+    domain: "> 0"
+    role: reliability_gate
+    source: B13（§7.6）
+    note: Airy 相对两光束残差改善 >10% 则标志需多光束修正；否则两光束适用（v001 实测 0.14%<10%）
+  - name: comparison_criteria
+    meaning: 模型比较标准（计算结果前固定）
+    unit: none
+    value: null
+    domain: null
+    role: team_decision
+    source: 本版本 §8.2
+    note: 约束满足度、题目指标、解释性、复杂度、运行预算、鲁棒性
+  - name: seed
+    meaning: 随机种子（bootstrap/MC、求解扰动）
+    unit: none
+    value: 20260829
+    domain: "> 0"
+    role: solver_config
+    source: 本项目惯例（AUTOMM_SEED 优先）
+    note: 保证可复现；prob02 与 prob01 一致

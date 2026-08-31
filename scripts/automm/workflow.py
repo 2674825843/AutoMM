@@ -166,6 +166,8 @@ def next_action() -> dict[str, Any]:
 
     if stage == "paper_writing":
         paper = problem.get("paper", {})
+        if paper.get('quality_contract') and paper.get('status') == 'attention':
+            return _action('P8', 'paper_attention', paper.get('attention_reason', '论文需要关注'), problem_id=problem_id, stage=stage)
         if paper.get("status") in {None, "not_started", "needs_revision"} or not paper.get("active_version"):
             return _action(
                 "P8",
@@ -183,9 +185,25 @@ def next_action() -> dict[str, Any]:
             stage=stage,
             paper_version=paper.get("active_version"),
             evidence=paper.get("evidence"),
+            **({'paper_phase': paper.get('status'), 'version_dir': paper.get('version_dir'),
+                'revision_requests': paper.get('revision_requests', [])} if paper.get('quality_contract') else {}),
         )
 
     if stage == "paper_validation":
+        paper = problem.get('paper', {})
+        if paper.get('quality_contract'):
+            from .paper_quality import quality_contract
+            from .paper_integrity import load_version_evidence
+            version = problem_dir(problem_id) / 'paper/versions' / paper['active_version']
+            quality_contract(version, load_version_evidence(version, paper['evidence_hash']))
+            if paper.get('status') == 'attention':
+                return _action('P8', 'paper_attention', paper.get('attention_reason', '论文需要关注'), problem_id=problem_id, stage=stage)
+            if paper.get('status') == 'reviewing':
+                return _action('P8', 'run_agent', '独立检查论文逐问主张与真实证据', agent='paper-reviewer',
+                               problem_id=problem_id, stage=stage, paper_version=paper['active_version'],
+                               evidence=paper.get('evidence'), read_only=True, review_bindings=paper.get('review_bindings'))
+            if paper.get('status') != 'validating' and paper.get('status') != 'render_failed':
+                return _action('P8', 'assess_paper_quality', '检查内容门禁和独立审阅', problem_id=problem_id, stage=stage)
         return _action(
             "P8",
             "validate_and_render_paper",

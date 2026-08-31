@@ -1,0 +1,136 @@
+# prob03 robustness 实验矩阵（robustness_v001）
+# 预注册判据在 computation 前固定（formulation_v002 §8.5 / parameters.yaml），此处仅映射到
+# robustness 默认扰动约定并登记 computation 阶段实测值。R7（窗口敏感性）由本阶段只读探针补登。
+# 版本：assumption_v001 / formulation_v002。
+schema_version: 1
+problem_id: 2025-cumcm-b
+question_id: prob03
+assumption_version: assumption_v001
+formulation_version: formulation_v002
+robustness_version: robustness_v001
+seed: 20260830
+baseline:
+  main_t_hat_shared_um: 3.447668992836722
+  t_hat_per_angle_um: [3.4507446594671896, 3.446258474301775]
+  epsilon_12_percent: 0.13009085477863216
+  n_sub_hat: 3.5576709414472134
+  inv_band_cm1: [2000.0, 4000.0]
+  polynomial_basis: centered_orthogonalized_chebyshev
+  p_baseline_deg: 3
+  q_envelope_deg: 1
+  main_fit_weighted_rmse: 2.57e-3
+  multibeam_decision_si: two_beam_negligible
+  sic_mb_verdict: no_correction_needed
+  result_dir: results/silicon_mb_verify
+  sources:
+    - results/silicon_mb_verify/result.json
+    - results/silicon_mb_verify/metadata.json
+    - results/silicon_mb_verify/verification.json
+    - robustness/r7_window_sensitivity.json
+experiments:
+  - id: R1
+    object: two_angle_consistency
+    design: 嵌套 F 检验 H0:t1=t2 (alpha=0.05)；报告 eps12
+    criterion: R1_two_angle_ftest
+    threshold_percent: 2.0
+    measured_percent: 0.13009085477863216
+    status: PASS
+    unit: percent
+    rule: F<=F_crit 且 eps12<=tau_12
+    detail: F_stat=0.0; F_critical=3.842582419279694; p_value=1.0; accept_shared_t=true; df2=8278
+  - id: R2
+    object: dispersion_model_color
+    design: N-SE vs N-SE-delta (delta_c_disp=0.5%)
+    criterion: R2_disp_sensitivity
+    threshold_percent: 2.0
+    measured_percent: 0.5029278792377905
+    status: PASS
+    unit: percent
+    rule: delta_t_disp <= tau_disp
+    detail: t_NSE=3.447669; t_NSE-delta+=3.430456; t_NSE-delta-=3.465008（硅无 lambda>5um 色散缺口）
+  - id: R3
+    object: noise_confidence_interval
+    design: 轮廓似然/夹逼区间（J(t) 曲率），95% CI
+    criterion: R3_ci_halfwidth
+    threshold_percent: 2.0
+    measured_percent: 0.13381498688466645
+    status: PASS
+    unit: percent
+    rule: CI 半宽 <= tau_ci
+    detail: t_low=3.443236; t_high=3.452463; halfwidth_um=0.004613; method=profile_likelihood_Jcurve
+    note: bootstrap（B>=200）为登记方法债（见 preregistration §8）
+  - id: R4
+    object: anomaly_impact
+    design: 剔除(vs)保留(vs)降权(w=0.05) 三策略重跑主扫描
+    criterion: R4_anomaly
+    threshold_percent: 1.0
+    measured_percent: 0.0
+    status: PASS
+    unit: percent
+    rule: delta_t_anom <= tau_anom
+    detail: downweight/drop/keep 策略均 t=3.447825；硅片无 R%>100 异常点，异常点按 w=0.05 降权（不改原始数据）
+  - id: R5
+    object: multibeam_airy
+    design: 两光束 vs Airy 全谱残差改善率
+    criterion: R5_multibeam
+    threshold_percent: 10.0
+    measured_percent: 0.11079057079353158
+    status: PASS
+    unit: percent
+    rule: eta_mb <= tau_mb 且 Rbar<=theta_mb → 两光束适用
+    detail: 10°=0.03817%；15°=0.11079%；max=0.11079%；multibeam_decision_si=two_beam_negligible
+    note: Airy 仅诊断；完整推导见 formulation §4.5（L17 极值不变性），η_mb 以物理两光束正模型为基准（基线差异见 preregistration §8）
+  - id: R6
+    object: substrate_index_nsub
+    design: n_sub 幅度层扰动（主方法 t 与 n_sub 结构解耦）
+    criterion: R6_nsub_decoupling
+    threshold_percent: 3.0
+    measured_percent: 0.0
+    status: PASS
+    unit: percent
+    rule: 主方法 t 由相位频率确定、与 n_sub 解耦（main_t_nsub_delta_percent=0.0）；诊断<=tau_nsub_diag
+    detail: main_t_decoupled=true; n_sub_hat_amplitude=3.5577（弱可辨识）；t 不进入 n_sub 反演
+    note: n_sub 仅影响幅度 A=sqrt(C^2+S^2)，不进入相位频率 g(nu)；t 不依赖 n_sub（B7 解耦）
+  - id: R7
+    object: spectral_window_band
+    design: [2000,4000]（基准）vs [1600,4000]/[1800,4000]/[2200,4000]
+    criterion: R7_window_sensitivity
+    threshold_percent: 2.0
+    measured_percent: 0.7491302504257346
+    status: PASS
+    unit: percent
+    rule: t 对窗口稳健（delta_t_win <= tau_win，tau_win 同 R2 量级取 2%）
+    detail: t_base=3.447669; t_1600=3.461601; t_1800=3.421841; t_2200=3.431752
+    note: 本阶段只读探针补登（robustness/r7_window_sensitivity.json 与 code/robustness_probe.py，复用 model.py，不修改原始数据/代码）；computation 阶段未单独执行（formulation §8.5 登记为预注册项）
+  - id: R8
+    object: uniqueness_initialization
+    design: 一维全局扫描 vs 次小候选（偶然初始化/周期歧义）
+    criterion: R8_uniqueness
+    threshold_percent: null
+    measured_percent: null
+    status: REPORT
+    unit: none
+    rule: 全局极小唯一；次小候选比值越远离 1 越好（报告项而非硬门禁）
+    detail: uniqueness_second_min_ratio=1.0200082131853192；t=3.4477 为全局极小；t≈6.9 为倍周期假极小（RMSE 高约 4.3×）
+    note: 弱色散下周期邻近候选接近简并（≈1.020），全局唯一性由 formulation §7.6 预注册判据确认
+supplementary:
+  - id: N1-N4
+    object: multibeam_necessary_conditions_si
+    design: 界面反射率乘积/相干长度/界面平行度/吸收限制（Q1）
+    status: PASS
+    rule: N1 Rbar=0.01008<=theta_mb=0.05; N2 m_max_coh=439>=2; N3 alpha_bound≈0.0033°; N4 k≈0（m_max_abs=1e9）；全部满足
+  - id: SIC_RECHECK
+    object: sic_multibeam_recheck
+    design: SiC 附件1/2 在 prob02 t̂ 处只读量级核实（Q3）
+    status: PASS
+    rule: Rbar_max=0.002396<=theta_mb=0.05 → sic_mb_verdict=no_correction_needed；prob02 t̂=7.2158µm 维持（C17）
+criteria_summary:
+  total: 8
+  passed: 7
+  reported_only: [R8_uniqueness]
+  special_routing:
+    - id: R8_uniqueness
+      verdict: REPORT
+      reason: uniqueness_second_min_ratio≈1.020 接近 1（弱色散下周期邻近候选接近简并）；全局唯一性由 §7.6 预注册判据（全局极小唯一+嵌套 F 检验）确认，作为报告项而非硬门禁，不翻转模型结论
+conclusion: stable
+conclusion_note: 全部预注册定量判据（R1–R7）在阈值内通过；R8 唯一性次小候选比值≈1.020 为报告项（弱色散周期歧义，由 §7.6 判据保障全局唯一）。附条件边界：n_sub 弱可辨识（B7）与 uniqueness 近简并为登记边界，不影响 t̂ 稳健性。

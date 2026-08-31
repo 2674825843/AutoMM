@@ -1,0 +1,25 @@
+# 由 reviewer invocation 最后加载；不修改用户 DSH profile 或全局设置。
+- id: sandbox-policy
+  name: '@deepseek-ai/dsh-sandbox-policy'
+  disabled: false
+  config:
+    mode: read-only
+- id: sandbox
+  name: '@deepseek-ai/dsh-sandbox-local'
+  disabled: false
+- id: fs-sandbox
+  name: '@deepseek-ai/dsh-fs-sandbox'
+  disabled: false
+- id: approval
+  name: '@deepseek-ai/dsh-user-approval'
+  disabled: false
+  config:
+    policy: never
+- id: permission
+  disabled: true
+- id: pwsh-sandbox
+  name: '@deepseek-ai/dsh-pwsh-sandbox'
+  disabled: !!js process.platform !== 'win32'
+- id: bash-sandbox
+  name: '@deepseek-ai/dsh-bash-sandbox'
+  disabled: !!js process.platform === 'win32'

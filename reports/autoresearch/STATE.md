@@ -4,8 +4,8 @@
 
 ## 基本状态
 
-- 更新时间：2026-08-31T12:35:36.791754+00:00
-- 控制状态：running
+- 更新时间：2026-08-31T15:15:48.857263+00:00
+- 控制状态：paused
 - 活动题目：2025-cumcm-b
 - 当前小问：未设置
 - 当前阶段：completed
@@ -16,7 +16,7 @@ failed=1 | succeeded=10 | timed_out=1
 
 ## 最近动作
 
-act-e99c90c5cde34a9d: idle
+控制命令 PAUSE，来源 award-writer-upgrade
 
 ## 警告
 

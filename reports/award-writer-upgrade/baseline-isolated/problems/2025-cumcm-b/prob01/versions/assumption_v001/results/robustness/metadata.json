@@ -1,0 +1,100 @@
+{
+  "problem_id": "2025-cumcm-b",
+  "question_id": "prob01",
+  "assumption_version": "assumption_v001",
+  "formulation_version": "formulation_v001",
+  "created_at": "2026-08-29T06:58:38.187976+00:00",
+  "seed": 20260829,
+  "scenario": {
+    "t_true_um": 10.0,
+    "n_sub": 3.0,
+    "theta_deg": [
+      10.0,
+      15.0
+    ],
+    "nu_range_cm1": [
+      400.0,
+      4000.0
+    ],
+    "nu_points": 3601,
+    "noise_sigma_percent": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "noise_repetitions": 100,
+    "perturbations_percent": {
+      "n_sub": [
+        -20.0,
+        -10.0,
+        -5.0,
+        0.0,
+        5.0,
+        10.0,
+        20.0
+      ],
+      "theta": [
+        -20.0,
+        -10.0,
+        -5.0,
+        0.0,
+        5.0,
+        10.0,
+        20.0
+      ]
+    },
+    "spectral_cutoffs_cm1": [
+      [
+        1800.0,
+        4000.0
+      ],
+      [
+        1900.0,
+        4000.0
+      ],
+      [
+        2000.0,
+        4000.0
+      ],
+      [
+        2100.0,
+        4000.0
+      ],
+      [
+        2000.0,
+        3800.0
+      ],
+      [
+        2000.0,
+        3600.0
+      ]
+    ],
+    "dispersion_extension": "constant",
+    "reststrahlen_exclude_cm1": [
+      700.0,
+      1000.0
+    ]
+  },
+  "input_parameters_yaml_hash": "1f74e51c3d64b08610e9fdfb531810c46eb468adb44951a4b98ebf6abf5d6ac7",
+  "robustness_config_yaml_hash": "a5f3e37f01488e55b7119c0de76725439ccf91ef7bb480fb31ed9c5846546f59",
+  "unit_conventions": {
+    "t": "um",
+    "nu": "cm^-1",
+    "lambda": "um = 1e4 / nu",
+    "theta": "degree（三角函数内部转 rad）",
+    "n_sub": "dimensionless",
+    "sigma": "%（反射率相对高斯噪声）"
+  },
+  "formula_refs": {
+    "forward_model": "(3.5)/(3.6)",
+    "snell": "(2.1)-(2.3)",
+    "phase": "(2.7)/(2.8)",
+    "fresnel": "(3.1)-(3.3)",
+    "extremum": "(3.7)",
+    "spacing": "(3.8)",
+    "thickness": "(3.10)",
+    "phase_method": "(3.11)-(3.13)",
+    "sellmeier": "(4.1)"
+  },
+  "python": "3.13.9"
+}

@@ -19,6 +19,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from ..common import ROOT
 from .base import Invocation, LLMProvider, ProviderError
 
 
@@ -56,9 +57,16 @@ class DshHeadlessProvider(LLMProvider):
 
     def prepare(self, prompt: str, output_path: Path) -> Invocation:
         profile = str(self.config.get("profile", "headless"))
-        command = [*self._command_prefix(), "--profile", profile, prompt]
+        command = [*self._command_prefix(), "--profile", profile]
         env = dict(os.environ)
         env.setdefault("DSH_TOOLS_MODE", str(self.config.get("tools_mode", "native")))
+        if self.config.get('read_only'):
+            patch = ROOT / 'config/dsh_paper_reviewer.patch.yml'
+            if not patch.is_file():
+                raise ProviderError('缺少 DSH 独立审阅只读策略')
+            env['DSH_PERMISSION_MODE'] = 'read-only'
+            command.extend(['--patch', str(patch)])
+        command.append(prompt)
         return Invocation(command=command, stdin=None, env=env, output_path=output_path)
 
     def extract_response(

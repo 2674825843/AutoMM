@@ -1,0 +1,235 @@
+version: assumption_v001
+status: accepted
+created_at: '2026-08-29T15:01:58.757705+00:00'
+parent_version: null
+assumptions:
+- id: B1
+  statement: 附件 1/2 为同一块 SiC 晶圆片在入射角 10°/15° 的实测红外反射率光谱：第 1 列波数 ν（cm⁻¹，等间隔，步长约 0.482），第
+    2 列反射率（%）；反演时按 R_model = R%/100 归一为强度反射率，波数-波长用 λ[µm]=1e4/ν；原始数据只读，所有处理写入预处理日志
+  type: data_assumption
+  key: false
+  evidence_type: project_assumption
+  reference_ids: []
+  scope: 附件 1（10°）、附件 2（15°）；400–4000 cm⁻¹
+  bias_direction: 若归一化/单位换算有误会导致厚度量纲或数值整体偏移；按全局符号表一致处理
+  verification: 量纲与数值检查；与 prob01 符号表一致
+  related_assumptions:
+  - B2
+  status: candidate
+- id: B2
+  statement: 附件 2 反射率最大值 102.74% 超出 100%，判定为测量/标定异常或背底/标定偏移；预处理对超界（或稳健阈值）点标记，并采用截断、剔除或稳健拟合/基线校正处理，记录处理策略，不直接修改原始数据
+  type: data_assumption
+  key: true
+  evidence_type: team_decision
+  reference_ids:
+  - L25
+  - L32
+  scope: 附件 2（15°）个别超界点；异常点占比小
+  bias_direction: 异常点残留会引入反射率基线偏移/伪条纹，干扰极值检测与全谱拟合残差；稳健处理可降低影响
+  verification: 预处理前后极值位置/周期稳定性、全谱 NLS 残差对比；两入射角一致性（B11）
+  related_assumptions:
+  - B3
+  - B8
+  - B9
+  status: candidate
+- id: B3
+  statement: 反演谱段需避开 SiC 近 Reststrahlen 区（约 [700,1000] cm⁻¹），该区强吸收/强色散，两光束无吸收模型不适用；预处理剔除或降权并记录策略，其余谱段吸收可忽略（实数折射率）
+  type: boundary_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L16
+  - L26
+  scope: 400–4000 cm⁻¹ 内剔除 [700,1000] cm⁻¹ 或降权；prob01 A7 边界延续
+  bias_direction: Reststrahlen 区强行使用无吸收模型导致反射率拟合残差剧增、厚度失真；剔除会减少可用条纹数
+  verification: 残差谱诊断；剔除前后厚度稳定性（B8/B9）
+  related_assumptions:
+  - B4
+  - B6
+  - B8
+  status: inherited
+- id: B4
+  statement: prob01 两光束干涉正模型与反演公式（prob01-conclusion-v1）在选定反演谱段内有效：厚度由同型相邻极值波数间隔（色散化相位法）与全谱非线性最小二乘反演确定；忽略多次反射与衬底背面反射
+  type: mechanism_simplification
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L25
+  - L32
+  scope: 选定反演谱段；多光束效应见 B13
+  bias_direction: 若存在显著多光束，两光束模型低估条纹对比度并可能引入厚度偏差（B13 判定）
+  verification: 两光束公式拟合残差；两入射角一致性；多光束诊断
+  related_assumptions:
+  - B3
+  - B5
+  - B8
+  - B9
+  - B13
+  status: inherited
+- id: B5
+  statement: 继承 prob01 A2/A4/A9：光程差 Δ=2t√(n²−sin²θ)（n_air≈1），反射相位跃变只改变峰/谷类型、在相邻同型极值间隔中抵消
+  type: mechanism_simplification
+  key: false
+  evidence_type: literature_fact
+  reference_ids:
+  - L01
+  - L02
+  - L06
+  - L07
+  scope: 平行平板、弱吸收谱段（避开 Reststrahlen）
+  bias_direction: 界面不平行或厚度不均匀→条纹对比度下降、极值模糊
+  verification: 条纹对比度；两入射角一致性
+  related_assumptions:
+  - B4
+  - B8
+  status: inherited
+- id: B6
+  statement: 外延层折射率色散 n(ν)：λ≤5µm（ν≥2000 cm⁻¹）采用 4H-SiC Sellmeier（prob01 L09）；λ>5µm（ν<2000
+    cm⁻¹）以 prob02 文献（L26–L29 全谱段 n/k）为初值，采用数据反演/分谱段策略确定，并量化对厚度影响
+  type: mechanism_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L09
+  - L26
+  - L27
+  - L28
+  - L42
+  scope: 4H-SiC 外延层；题目 2.5–25 µm；近 Reststrahlen 区受 B3 约束
+  bias_direction: 色散模型选择是厚度反演最大不确定度来源；常数 n 近似引入约 4–5% 系统偏差（prob01 方法 A）
+  verification: 不同色散模型（Sellmeier/分段常数/数据插值）拟合残差与厚度稳定性；两入射角一致性
+  related_assumptions:
+  - B3
+  - B7
+  - B9
+  - B10
+  status: inherited
+- id: B7
+  statement: 衬底与外延层因掺杂载流子浓度不同而折射率不同（n≠n_sub），是界面反射与干涉条纹的物理前提；n_sub 由文献（掺杂-折射率机制）与数据反演确定，并做灵敏度分析
+  type: mechanism_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L30
+  - L31
+  scope: 轻掺外延层/重掺衬底；重掺衬底红外可能接近等离子体反射边
+  bias_direction: n 与 n_sub 差异过小→条纹对比度差、反演误差增大；prob01 robustness E1 显示 n_sub±20% 对厚度影响
+    <0.01%
+  verification: 条纹对比度；n_sub 灵敏度分析（B10）
+  related_assumptions:
+  - B4
+  - B6
+  - B10
+  status: inherited
+- id: B8
+  statement: 极值（峰/谷）定位与周期估计用于厚度初值；定位精度受噪声、离散采样（0.482 cm⁻¹）与峰形影响，需量化并纳入可靠性
+  type: numerical_approximation
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L25
+  - L32
+  scope: 全谱/指定谱段峰谷检测；异常点与 Reststrahlen 已剔除
+  bias_direction: 噪声下极值定位失真（prob01 robustness E4 已覆盖并升级网格扫描初值）；间隔/相位法对定位误差敏感
+  verification: 合成谱噪声扰动下定位精度；与全谱 NLS 结果交叉验证
+  related_assumptions:
+  - B3
+  - B4
+  - B9
+  - B11
+  - B12
+  status: candidate
+- id: B9
+  statement: 以色散化正模型做全谱非线性最小二乘（NLS）反演厚度 t，多初值布点（含 ±厚度周期）消除厚度周期歧义（约 0.9 µm）
+  type: algorithm_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L25
+  - L32
+  scope: 全谱拟合；n(ν)、n_sub 作为参数或给定
+  bias_direction: 单初值可能落入错误局部极小（prob01 实测）；多初值/相位法初值缓解
+  verification: 多初值全局最优、拟合残差、两入射角一致性
+  related_assumptions:
+  - B4
+  - B6
+  - B8
+  - B10
+  status: candidate
+- id: B10
+  statement: 反演优先采用色散化方法（色散化相位法/色散 NLS）而非 prob01 方法 A 常数 n 近似（约 4–5% 系统偏差）；常数 n 仅作基线/初值
+  type: algorithm_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L25
+  - L32
+  scope: prob02 主反演链路
+  bias_direction: 常数 n 近似高估/低估 t
+  verification: 色散化 vs 常数 n 结果对比；两入射角一致性
+  related_assumptions:
+  - B6
+  - B9
+  status: candidate
+- id: B11
+  statement: 同一晶圆片在 10°/15° 两入射角的厚度反演结果应一致，偏差阈值作为可靠性判据；不一致需解释（测量点差异、膜厚梯度等）
+  type: validation_assumption
+  key: false
+  evidence_type: team_decision
+  reference_ids: []
+  scope: 附件 1 vs 附件 2；prob02 可靠性分析
+  bias_direction: 若两测量点空间差异大或膜厚有梯度，两角度结果分歧
+  verification: 两角度相对偏差统计与阈值判定
+  related_assumptions:
+  - B4
+  - B8
+  - B9
+  - B13
+  status: candidate
+- id: B12
+  statement: 测量噪声近似随机（独立/弱相关），通过残差谱、分段拟合与重复采样估计其量级；极值定位与全谱反演均受噪声影响，可靠性分析量化其传播（置信区间）
+  type: statistical_assumption
+  key: false
+  evidence_type: project_assumption
+  reference_ids:
+  - L36
+  scope: prob01 合成谱噪声 0.5–2% 已覆盖；实测噪声由残差估计
+  bias_direction: 噪声等级估计偏差影响置信区间半宽
+  verification: 残差正态性/自相关诊断；阈值与置信区间
+  related_assumptions:
+  - B8
+  - B9
+  - B11
+  status: candidate
+- id: B13
+  statement: 选定反演谱段内以两光束为基础；基于实测谱诊断是否出现多光束干涉（界面反射率、衬底吸收、相干长度、条纹对比度/峰形），若判定出现则采用多光束（Airy）修正，并量化其对厚度结果的影响（prob03
+    深入）
+  type: mechanism_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L25
+  - L33
+  scope: prob02 判定 SiC 数据是否需修正；prob03 深究
+  bias_direction: 若存在显著多光束而忽略，厚度反演引入小偏差（L17 候选：多光束不改变极值位置，需独立验证）
+  verification: 条纹对比度/峰形与两光束 vs 多光束模型拟合残差比较；两入射角一致性
+  related_assumptions:
+  - B4
+  - B11
+  status: candidate
+formulation_versions:
+- formulation_v001
+- formulation_v002
+- formulation_v003
+active_formulation: formulation_v003
+accepted_formulation: formulation_v003
+tasks: []
+sanity_status: pending
+conclusion_id: ''
+conclusion_version: 0
+conclusion_hash: ''
+decision_reason: prob02 assumption_v001 完成：13 条假设（9 条关键）全部明确证据类型与来源，关键假设均绑定本问文献池 verified+used
+  来源（L25/L26/L27/L28/L30/L31/L32 等），覆盖 G1–G4 在本问的落地（数据预处理/两光束继承/色散与 n_sub/反演算法/可靠性/多光束判定）；假设间无冲突且与
+  prob01-conclusion-v1、prob02 problem_understanding、global_symbols.yaml 一致；适用边界、偏差方向、验证方式齐备。建议接受并进入
+  mathematical_formulation。
+decided_at: '2026-08-29T15:09:10.985942+00:00'

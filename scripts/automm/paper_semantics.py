@@ -170,7 +170,7 @@ def prepare_publication(markdown: str, evidence_pack: dict, *, pandoc: str = 'pa
     reference_section = False
     for block in blocks:
         if block['t'] == 'Header':
-            reference_section = plain(block['c'][2]).strip() == '参考文献'
+            reference_section = plain(block['c'][2]).strip() == '参考文献' or block['c'][1][0] == 'paper-references'
         if reference_section:
             for node in nodes(block):
                 if node.get('t') == 'Cite':
@@ -236,13 +236,13 @@ def prepare_publication(markdown: str, evidence_pack: dict, *, pandoc: str = 'pa
             output.extend([styled('表注', [paragraph(table_blocks[index]['title'])]), table])
         elif kind == 'Header':
             text = plain(block['c'][2]).strip()
-            reference_section = text == '参考文献'
+            reference_section = text == '参考文献' or block['c'][1][0] == 'paper-references'
             if not title_seen:
                 output.append(styled('Title', [{'t': 'Para', 'c': clean(block['c'][2])}]))
                 title_seen = True
             else:
                 style = f'heading {max(1, min(3, block["c"][0] - 1))}'
-                if text in {'摘要', '关键词', '参考文献', '致谢'} or text.startswith('附录'):
+                if reference_section or text in {'摘要', '关键词', '参考文献', '致谢'} or text.startswith('附录'):
                     style = 'AutoMMUnnumberedHeading1'
                 output.append(styled(style, [{'t': 'Para', 'c': clean(block['c'][2])}]))
         else:

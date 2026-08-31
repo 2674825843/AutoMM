@@ -39,4 +39,9 @@ agents:
     prompt: agents/paper-writer.md
     enabled: true
     stages: [paper_writing]
+  paper-reviewer:
+    prompt: agents/paper-reviewer.md
+    enabled: true
+    stages: [paper_validation]
+    read_only: true
 

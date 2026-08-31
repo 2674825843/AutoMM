@@ -62,11 +62,15 @@ def load_version_evidence(version_dir: Path, expected_hash: str | None = None) -
     writer = read_json(version_dir / 'writer_manifest.json')
     if writer.get('evidence_hash') != actual:
         raise RuntimeError('writer_manifest 与版本证据快照哈希不匹配')
+    from .paper_quality import quality_contract
+    quality_contract(version_dir, evidence)
     return evidence
 
 
 def verify_rendered_version(version_dir: Path, evidence: dict, publication_manifest: dict | None = None) -> dict:
     snapshot = load_version_evidence(version_dir, evidence.get('evidence_hash', ''))
+    from .paper_quality import check_review, quality_audit_hashes
+    check_review(version_dir, snapshot)
     if evidence_digest(evidence) != evidence_digest(snapshot):
         raise RuntimeError('交付证据内容与版本快照不匹配')
     report = read_json(version_dir / 'render_report.json')
@@ -84,6 +88,8 @@ def verify_rendered_version(version_dir: Path, evidence: dict, publication_manif
     if (publication_manifest is not None and
             publication_manifest != read_json(version_dir / 'publication_manifest.json')):
         raise RuntimeError('publication_manifest 与已验收论文不匹配')
+    if report.get('quality_audit', {}) != quality_audit_hashes(version_dir, snapshot):
+        raise RuntimeError('渲染报告质量审阅来源哈希不匹配')
     if audit_public_docx(version_dir / 'paper.docx')['status'] != 'PASS':
         raise RuntimeError('已验收 DOCX 公开审计失败')
     return report

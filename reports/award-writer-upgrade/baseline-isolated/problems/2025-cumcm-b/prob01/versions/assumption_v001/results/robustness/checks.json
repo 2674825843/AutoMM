@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "criteria": [
+    {
+      "name": "e1",
+      "passed": true,
+      "metric": "max_rel_err",
+      "measured": 7.676271831424941e-05,
+      "threshold": 0.03,
+      "note": "n_sub 扰动 ±20% 内 NLS 厚度相对真值最大误差 ≤ 3%"
+    },
+    {
+      "name": "e2",
+      "passed": true,
+      "metric": "max_rel_err",
+      "measured": 0.0022225903307617756,
+      "threshold": 0.02,
+      "note": "入射角扰动 ±20% 内 NLS 厚度相对真值最大误差 ≤ 2%"
+    },
+    {
+      "name": "e3",
+      "passed": true,
+      "metric": "s1_max_rel_err / alt_max_bias",
+      "measured": [
+        1.5987211554602255e-15,
+        0.009568869447567074
+      ],
+      "threshold": [
+        0.01,
+        0.05
+      ],
+      "note": "基准色散 Sellmeier 下 NLS 误差 ≤ 1%；替代色散模型偏差 ≤ 5%（作为已知方法限制报告）"
+    },
+    {
+      "name": "e4",
+      "passed": true,
+      "metric": "ci_halfwidth_rel / convergence_rate",
+      "measured": [
+        [
+          0.5,
+          4.661628811568619e-05,
+          1.0
+        ],
+        [
+          0.5,
+          5.787218000961047e-05,
+          1.0
+        ],
+        [
+          1.0,
+          0.00011479596637435918,
+          1.0
+        ],
+        [
+          1.0,
+          0.00010225759461448546,
+          1.0
+        ],
+        [
+          2.0,
+          0.0002238445000172007,
+          1.0
+        ],
+        [
+          2.0,
+          0.0001944750498765302,
+          1.0
+        ]
+      ],
+      "threshold": {
+        "ci_halfwidth_rel": {
+          "0.5": 0.02,
+          "1.0": 0.04,
+          "2.0": 0.08
+        },
+        "convergence_rate": 1.0
+      },
+      "note": "噪声 σ=0.5/1.0/2.0% 的 NLS 厚度 95% CI 半宽分别 ≤ 2%/4%/8%；收敛率 100%（失败运行计入）"
+    },
+    {
+      "name": "e5",
+      "passed": true,
+      "metric": "max_rel_change_vs_base_cutoff",
+      "measured": 5.329070518200748e-16,
+      "threshold": 0.02,
+      "note": "谱段截断变化下 NLS 厚度相对基准截断 [2000,4000] 最大变化 ≤ 2%"
+    }
+  ],
+  "method_reference": {
+    "forward_model": "(3.5)/(3.6)",
+    "snell": "(2.1)-(2.3)",
+    "phase": "(2.7)/(2.8)",
+    "fresnel": "(3.1)-(3.3)",
+    "extremum": "(3.7)",
+    "spacing": "(3.8)",
+    "thickness": "(3.10)",
+    "phase_method": "(3.11)-(3.13)",
+    "sellmeier": "(4.1)"
+  }
+}

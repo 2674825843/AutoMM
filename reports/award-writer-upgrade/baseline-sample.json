@@ -1,0 +1,931 @@
+{
+  "purpose": "旧生成器隔离样稿，非已验收论文，不发布",
+  "evidence_hash": "f09919c80e560a2f54819fc67964f7fa5da0380890d8aa24fa5bcb0a0acb9b52",
+  "copied_evidence": [
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/ablation/conclusion.md",
+      "sha256": "00a55e6f4a9a2fa8dd1c9f11c93ee5520c526bed12b87616884f12f991bed958"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/ablation/decision.md",
+      "sha256": "9883c078855db61b3e3a18f08d69af301d2d7be8f97424de54da731b9437d5b2"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/ablation/experiment_matrix.yaml",
+      "sha256": "443ae236b1eb7099ecf1257fbd4e4c5b653bed891155b81c2b076360eca533cc"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/ablation/preregistration.md",
+      "sha256": "123caee4046edca08b424f9bf84644a4ac0e7d0308c26abe77d82015dafb44b3"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/assumptions.md",
+      "sha256": "f303d7a8ae885c5338949e234bda78fdc6629e0b429abd39ee19752dd342687c"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/ablation.py",
+      "sha256": "c5e5d7583e6a797dfd65c7e0ec720a525c69a0e08ab7b50a278e2d04a5d1f9ac"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/compute.py",
+      "sha256": "7e87a88c5113a86cf4e3a634acd449e5d2e276bfd92a6288f6152cc189e368e9"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_ablation_figures.py",
+      "sha256": "37a27e670908cb705657e359abfb5721ef57c73a6782495c7903de8213df275b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py",
+      "sha256": "bb976f6694ef191a6e5dba78b254aed1b9042739955beb79300372872773be86"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_robustness_figures.py",
+      "sha256": "cbad7190de6da8e6ff223b3fbeeeb86e36d7409a901e8990695a53547af419de"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/model.py",
+      "sha256": "0cdc49a4b4f01bead990b7880bebe2fe1346bb23e086ec6ff7b8e640cd1aeb94"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/probe.py",
+      "sha256": "0da73c03444f2b09d28b3f64081d67e28ff4a85f66c815113d4d19c147711138"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/robustness.py",
+      "sha256": "61432ad0f47e2c35bb5badd09783554334369b55fe8311e3fd80b91a1c348f7e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/ablation_config.yaml",
+      "sha256": "25721ef958f1f267ef8af28af6ffc67bc3856561bb3a9d26edb289f6788039dd"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/robustness_config.yaml",
+      "sha256": "a5f3e37f01488e55b7119c0de76725439ccf91ef7bb480fb31ed9c5846546f59"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/task_config.yaml",
+      "sha256": "4f97e8eb58e8b9eac557e6ccec6c0180f9791864efe42c10cc2c4349becdfcee"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/task_spec.yaml",
+      "sha256": "62a431c3f7c67e0254f69feef91ff9c4ec25aaba71d8dd301e0266bf80871470"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_init_strategy_7c59622d5a.quality.json",
+      "sha256": "ccc9dd47ed081ddcb804489ca7af85159f44877860abbf5ecce99ebdbfad876b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_polarization_da59250d1b.quality.json",
+      "sha256": "ec6b1926fe16404093fe87890831f465fb68e27a2c314926c6900468065553d5"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_summary_ee3c34dcfa.quality.json",
+      "sha256": "6003f8bb8109dd4b8dab2c3bef0d5f4116aed6faf0579c8f9a773dac8452f8cc"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_dispersion_curve_d85564d2fc.quality.json",
+      "sha256": "b61206055135ef3fa07e400b164624ca4b03cac67dd07e68c8a1961dd5a6836f"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_nls_multistart_e64919ab13.quality.json",
+      "sha256": "968992bf55e93a9c490ae3f5c1274ab01ba0265ad7162ab9c215c94151e9a2eb"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_noise_robustness_ci_30d4fa737f.quality.json",
+      "sha256": "d718b86727b3ea5ebfff9912ea96b9a0914016811ddc68dfaf07ff7fd2b54305"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_phase_function_gap_459c486470.quality.json",
+      "sha256": "4b11d68978229a49a761e4f23cea8ed279fa89f4575c8a0e833c9c939401e224"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_reflectance_spectrum_1d4fb899d1.quality.json",
+      "sha256": "5fc49d21c46f3bedee49fa9a367ce9a93f401520b06ec68b9ff9f24a5228d7e6"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_response_surface_d0691c5dd8.quality.json",
+      "sha256": "3471f9737936d4494d37a4acec07be971154e3e1e30e7841460a2df4995115cb"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_sensitivity_tornado_6983566848.quality.json",
+      "sha256": "2629eef4eafcba2c51b9948d55cff31bf57ff80e248610d0b35d2c1f7f88270f"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_spacing_constant_n_bias_2245b6eda4.quality.json",
+      "sha256": "a65174ab7925df5a6c0e9e990aaf517f6dfb890b8b0fbe7b8d55836cbd3f4df4"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_thickness_methods_compare_5eac465fc8.quality.json",
+      "sha256": "da0d90d5fa8955be8d26f71dd7ca05b7bb8c1a6849a503aef4668d9a9db06dc5"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/visual_review_report.md",
+      "sha256": "aeec33631fd6f39adef6259eed407ed8a05f1fb935bcd43a8b0a0fbb386a4a9e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formula_validation.md",
+      "sha256": "1878261f8cbd4718e46ff62f473b5d2e6754ef3216d9d412fd91f650ab33d2ba"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formulation.md",
+      "sha256": "b243b56c8b38ae5047b7d67cc868772a130b32382a13d021ab489ceb03397fbc"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formulations/formulation_v001/formula_validation.md",
+      "sha256": "8400bf968ead73ca8377b1721e71f5ec273815577dd11277898692a6bf782d42"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formulations/formulation_v001/formulation.md",
+      "sha256": "420dd0a7442abbb4f53c8687360a3a2cbbf589afe8dd394c89a4d693c19d7748"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formulations/formulation_v001/formulation.yaml",
+      "sha256": "94176dd292971054ee52fd126b13d6360911e414a5511e79f20523d7ea2d92e0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formulations/formulation_v001/parameters.yaml",
+      "sha256": "1f74e51c3d64b08610e9fdfb531810c46eb468adb44951a4b98ebf6abf5d6ac7"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/implementation.md",
+      "sha256": "c1f2f9a84d7522c6968011a618110af46f0eaf9054a21730c6e1084b2f5064cb"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/question_summary.md",
+      "sha256": "0a1e6ad659335e0b0656367f7da875a425d7e79f832fcddae36855b89876884c"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/ablation/checks.json",
+      "sha256": "e6be26c9b455eaf73fea2b0723c6f9c493ae0a78375cc64abab71b8b2c278e54"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/ablation/metadata.json",
+      "sha256": "3657c0eadc1de85ab9003dd6142b16d437742e1361f34c22b568cc984d87dc0a"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/ablation/result.json",
+      "sha256": "8fc6eca2f7333b91b70fdf4970ae5788f518c1f9e6c5556a764f5ef193fe06ff"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/ablation/summary.json",
+      "sha256": "b776b5efcd469010c58c910ccebdd6b9256cacee84126cfc0ae03d868c7deae5"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/robustness/checks.json",
+      "sha256": "2e72ba0b67ffb10b6e075973a42031d3ee24984551c955e2a77459c3a74360e5"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/robustness/metadata.json",
+      "sha256": "e2e2ccad17fecf832899ec11656bf5fd3e3bafddd3d89e8a236742ea4043692b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/robustness/raw_samples/e4_noise_raw.csv",
+      "sha256": "5d979964da34c64ef101888a3451fc5eabb3b9011d9c132664b4b02419267418"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/robustness/result.json",
+      "sha256": "0c5c23ae5f54a2b430cef2c3f9ee2a9e7aefdf1e84ceac571c763e062b36b717"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/robustness/summary.json",
+      "sha256": "bc9e0ee406222a0812c0a80c88a87104c5364717978a4289b8720b35579e47fe"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/machine_sanity.json",
+      "sha256": "b27bf00c660794d02b58b3bab86e42f9f4ff231ee75fd673242cc3a225e31f1d"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/metadata.json",
+      "sha256": "0ec6d8e5d7d3caa5f903e92fc624c556818055db2d6322340fd9c7c90a700bd5"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/result.json",
+      "sha256": "c06fa2d8168c365994b6457273308c086e791bcd47a633c88c2f08b17d354794"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/sanity_report.md",
+      "sha256": "664445cbf09db396578aeaf07feb09f338b24da97b9069449939b7494993a40a"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/solver_status.json",
+      "sha256": "411aed05f3f8336010e5fc82cddd3e8ee591c0a321368a76bf71d4d8e649657f"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/synthetic_spectrum_theta10.csv",
+      "sha256": "cad57197fbefe6ce9a94e2ad034c3c6f4a2f0b936d04ee20e1992b9ca3ab27aa"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/synthetic_spectrum_theta15.csv",
+      "sha256": "5766f1a42de4600a04db82dada3d213f1d2c0c46bc90fed0eeed7811a214d961"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/verification.json",
+      "sha256": "0a0bfbf8800af9d7a496034a6a847d3547f177d67fa0c0a0269b9b38e8188590"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/robustness/conclusion.md",
+      "sha256": "a7fac0e82fc77dc6b85b0a593ea3c03f942aac876f37fe992e77d0b4df035689"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/robustness/decision.md",
+      "sha256": "141f4f1cb09d963f5334c46f61b0741f0da453914f9fc9784586d5ae7f3fbc33"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/robustness/experiment_matrix.yaml",
+      "sha256": "ede8a20000fb8283e0d99ec5e7c8a8d680a62401acf56a4cc52630636278a8d9"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/robustness/preregistration.md",
+      "sha256": "c74d21e611c1d7ffcafc9584e5090a376d21d3f4b36b8b5e6a2ddc17258d1cd0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/sanity_report.md",
+      "sha256": "4cb681614bd6974f497be87342ed5a1a3f7fe76a576dcbe899f5d2f0050bc095"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/version.yaml",
+      "sha256": "4b09493b34f3c54a58e50b303dcd8f92af91c5e5e1ff52b98b7f2279f6c1aa00"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/ablation/conclusion.md",
+      "sha256": "69c065efedb8c76cc434a547250f0e7120f93ae335ca836e3e2e7662edd14ec1"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/ablation/decision.md",
+      "sha256": "ea5652a6cb97bb72c0ac6763ac23526ae6b9ae44b2a9b917f3cedf2ca5454b65"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/ablation/experiment_matrix.yaml",
+      "sha256": "8d98fea87ff755dabd58f6eb20fcde8bbec36691a57fb652232ccb87df904d7a"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/ablation/preregistration.md",
+      "sha256": "f327c8c48ffa4b3f7fb7acef938b77b04876a0f6d930da5637ba351126bd4136"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/assumptions.md",
+      "sha256": "da0cba942bae243dd97dde2f695f5d671bfa86d6ebdfb428de72fd2505217336"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/ablation.py",
+      "sha256": "ff9ba359bad41adcfdff3a2a0521b0bf7f046460fe6c413062b0b626267e6192"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/compute.py",
+      "sha256": "382cdde0703a4ac4ce8b34cff24e527470be88565b41365999bd766a9efd7703"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/data/n_ref_anchor.csv",
+      "sha256": "73b79abb505e70d9b7f9a9473b6412646549a72165c020c37aa8d2002b891116"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_ablation_figures.py",
+      "sha256": "2eb43166ab4c6ff7e4ba9a619a4ccd7a81b7471287929a7bdbac2ff340b8e530"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "sha256": "35520d588c5906eb37b0074425702760d70f52bde9f8c62bd8cd52385c9815b4"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/model.py",
+      "sha256": "efa38de987967e3a2b0b90adcf4a06765b964b13acc62571aff29c22ba029bd0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/probe.py",
+      "sha256": "15474af842e04688c539367b14100cb3adfcd2d6fb183d814e8a421c17b81cda"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/ablation_config.yaml",
+      "sha256": "9cb577141a62972b0eab1a0a5e72ee4d675b6173dfc23d63262838164b3e29e0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_config.yaml",
+      "sha256": "05394afb1513462a4ba9313a1e875918292e57c6714445c47a877ef13c64e7f2"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_spec.yaml",
+      "sha256": "a79a6194aa8bb5eb35088087aea878a65227fa5c2ec57fa6d34a26fde51a4bea"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_shared_t_14e5362fa7.quality.json",
+      "sha256": "b5e5613d89fb74c79a01fe7f3b5b8d6c11bf8131f7ef8809cd6a5fa4e2c11c2b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_summary_dcd697b29e.quality.json",
+      "sha256": "33425dcba50dba255fcc1b9fb18fdc39c780c6c38766cec71d91d5f372a16ef0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_thickness_d29e3fc1f0.quality.json",
+      "sha256": "139fad805a43a1340f343fbe1978925c1a4a325b003f83dc5dd5201b52b240f8"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_dispersion_curve_af50244106.quality.json",
+      "sha256": "6ff111c49776105718c089ed031336bfe6bef7e2ea5f36a878046e3b83e7d82b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_g_space_phase_gap_f500d9c0db.quality.json",
+      "sha256": "243dc1e5811cbc2e84831d9d4bd67566b28334a6e8820b3f24c2b01045c6ef81"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_methods_compare_99386076f5.quality.json",
+      "sha256": "0f22e068c718549a55a22cba39769bddf39eb095223da14c72973e3fecf7fb02"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_model_fit_0ca711689b.quality.json",
+      "sha256": "35f126f251cbd6e2f327b4cc1333988719626d2a737e78ebb798ea57b835314d"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_nsub_decoupling_39b4128d09.quality.json",
+      "sha256": "0d878a8d4ed4df3cc48ec29b774541d5897e9d6bc51ce14a73821c5c154922f4"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reflectance_spectrum_6b2265d217.quality.json",
+      "sha256": "6fb7372e5711c934ee5bab191940556a29fc67b8a7fe924a1011e4fab1154004"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reliability_summary_78cd97014b.quality.json",
+      "sha256": "5c80b917f6c13c87b6492893b60368e2626f6e14863907049200ea24971ec744"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_response_surface_cfe5827835.quality.json",
+      "sha256": "d5fa3894480aa755a272e2f633749b10dd63021c49e93351a0fbc3f4834ac109"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_thickness_estimate_efa7359eb9.quality.json",
+      "sha256": "cf6320a162011988097788eb56332d3afd48660e8207cfcb3e89194182b0e0c7"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_variable_projection_jcurve_7a9a903650.quality.json",
+      "sha256": "65d6daea08dd2b36913758efd08310d3348a29411d538238a880c8f05ec6bde8"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/visual_review_report.md",
+      "sha256": "2dd88efbf65124006013415886af050cbbdb7dddd543ac8ef67b3f6888329b04"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formula_validation.md",
+      "sha256": "1878261f8cbd4718e46ff62f473b5d2e6754ef3216d9d412fd91f650ab33d2ba"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulation.md",
+      "sha256": "b243b56c8b38ae5047b7d67cc868772a130b32382a13d021ab489ceb03397fbc"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v001/formula_validation.md",
+      "sha256": "cc1d319adbb2564a82fb746a23d409cbbc310763667080c18220ead9ea95253f"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v001/formulation.md",
+      "sha256": "eae8d554075c1557bbef9274083145a38b54073b4229322e3c0903561c9f2bd9"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v001/formulation.yaml",
+      "sha256": "ff1204b4808e22b92a878d821fec6f4da00c71d3680da8e2ca5acaaaea6d866e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v001/parameters.yaml",
+      "sha256": "ea0976b4afce91ba9b70dde253ac3ccac52500c4881961c9e99816c4fc1a8123"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v002/formula_validation.md",
+      "sha256": "c45febe64d02d92b7b0c0ea8f5c25a635f1410c627d4cedaf4c8fe2f1d9a193e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v002/formulation.md",
+      "sha256": "8432f24c85f38b2426b51edd16bc032a577a592e52879782ce1f3b9332f8dd42"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v002/formulation.yaml",
+      "sha256": "862aa7768cede93b003c48e86d07cb5df958654b6cb96087f2ae8f64446157ec"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v002/parameters.yaml",
+      "sha256": "1b38c92f8bc06b7fd50217ff2e51e6aa183bd42f2a0779d8d90e607964ecf2ed"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/formula_validation.md",
+      "sha256": "e3be877f9914ee09f0883e9f94a45b5d63431f17714a8d313c5f24af78538b2e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/formulation.md",
+      "sha256": "806c528b797527c1802739285c865e4fa4c47593eb5e55054612583a3182308a"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/formulation.yaml",
+      "sha256": "346d52300b9a1c5669b85ecb80cd9110601904b78604271b2f47f3d417b269db"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/parameters.yaml",
+      "sha256": "4dbd9f2f3dadac02ded035f3949ba492b23ab9144325b3ee65435917069cf006"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/implementation.md",
+      "sha256": "78c0c7f626129487d5086f53ba19afe35e8bbaff19dd84199436001d17b0e141"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/question_summary.md",
+      "sha256": "41675481d8ebeb61ecf39ff728d7c0f87067c61cc6e68efa1f84281091801b45"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/ablation/checks.json",
+      "sha256": "dea488dd43c0017a40351b8a31493c198bac7454de0e52e1c16df267c978253e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/ablation/metadata.json",
+      "sha256": "ea563a50e78ed7e123b00abc770198287ad717a31e90affe011aeda70bc93e1e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/ablation/result.json",
+      "sha256": "8e97baee4079d2fbe2d15dde5af04c275eb5d5e9a098b2a61fc371db2db56a24"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/ablation/summary.json",
+      "sha256": "28e4ecd59a2e6c1e37b4d0c98c82edcb6a243a137fca0d199759e4dac956dedd"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/dispersion_ref.json",
+      "sha256": "344e83803a3015046ad320f25dc9a61a63b1e85b8fcf521cddc3f97ab322727e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/machine_sanity.json",
+      "sha256": "81705160f98adf8c0d8383d14ec40758dd5d90d5785f37908a888ede02f14222"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/metadata.json",
+      "sha256": "ff3ac9f142ddf00c66a9434646d5c3bda46aa344f236c584d2e66c1604274b36"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/preprocessing.json",
+      "sha256": "00ddc9a4fd36f64762a96dd6392e57a56eedf62273287f2c565dadc51c244c25"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/reflectance_theta10.csv",
+      "sha256": "33f4a654b8694feacdcb2e0cdd0744ba6871fab10e9ce3be27d6d4fd736ed166"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/reflectance_theta15.csv",
+      "sha256": "4a6574ae9b7a3d92619b4bd6c624dd7c583aa5f0a8f1817a93eeb502f88a3bb7"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/result.json",
+      "sha256": "64609a3fd55784d719b1a32613b7d7c5e516b8fea3123ba59eca8fcf4d1efaa3"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/sanity_report.md",
+      "sha256": "d7efa8cd48b726c8bc33b33b9d14c2571a13ae628c5278d2ae7486d0be4ff7ab"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/solver_status.json",
+      "sha256": "ad41dc671f90f675f1a29260727f17277799d6ced6f8fdcb253125e6859066dc"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/verification.json",
+      "sha256": "36afc18159c8fe53664f14dcf125f834853bdf0c03930e7323ea860eb1fcc624"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/robustness/conclusion.md",
+      "sha256": "908d6b65c8c26cb917710d5fd513808c53c4444d7c123ce589a234da48e315a8"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/robustness/decision.md",
+      "sha256": "c3e2356a5ddcc8c2ffecaf65063094c7d429f3e2a1085f225c704c3fa674af61"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/robustness/experiment_matrix.yaml",
+      "sha256": "deda1f20f4434268dec83d11b8ce2d316f5d36b3a5e7fef9058c896f3f8aad0c"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/robustness/preregistration.md",
+      "sha256": "ecf3be240ece317c23c5321a055be89f5e793723df7166022d02cc39923bf00a"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/sanity_report.md",
+      "sha256": "da15b584810cf63250184b1fd901cae2e13035c63268c855d6b6df4486279d22"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/version.yaml",
+      "sha256": "593ab924caaf397477061e5d224c575ecc40dd052cefc2f89570f93b2ce8a86e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/ablation/conclusion.md",
+      "sha256": "b9f19690ab6a00d3ddbe839bb67a9913d9f0702377ad69b020e69f26b525d337"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/ablation/decision.md",
+      "sha256": "b709c37db289bf4e31e36461f6eb98c1faed014ecc268be13786e75ca8ecbf95"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/ablation/experiment_matrix.yaml",
+      "sha256": "9f6ef0cdea350b4f8db843ff9da92421cc855c3583e3a0ef8c36a5a2ca910687"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/ablation/preregistration.md",
+      "sha256": "3c4d877f2be349d72e177d99edf1dcd5c7010e3d78ed176c525135a89fce0928"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/assumptions.md",
+      "sha256": "2d104f2397f2c1d2e0236642135b98b5b96d5cdb20a33f77bb5bad1cbe59d3c7"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/ablation.py",
+      "sha256": "59204f911875845914c1449a6fdb85cfc495cd0c6e39a26769704a5fdf70f424"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/compute.py",
+      "sha256": "821057dd512e05f564129243c1d1c17de5eefbae973ff4fcb20d4be29d8a471b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_ablation_figures.py",
+      "sha256": "38616ee9b23c6be08fffc0e1ca419aab0d8fe01ac4b7aa1351166d35904c0acb"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "sha256": "17e0f82936b09c919869a703e4d439de589943d8418892c282b936f01f699e4a"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/model.py",
+      "sha256": "5a2dc0a31a3ddf7e9de67412d5978b3449482b65f7430ad80d4a8103cdf593a9"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/probe.py",
+      "sha256": "86ad1981f380cf79d44bb0d1f8a44d2d3dde171938b6985f81840fc0d669ee1d"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/robustness_probe.py",
+      "sha256": "92dc90c72ad745cea2d99a9b009cda2a7ede3121bcfff2d17531e72d5a4f672e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/ablation_config.yaml",
+      "sha256": "b4c8d5c8fe3a8fa5c677d00a7eb8800cc27a0bffbd7ca432d6721a4b9dde2e27"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_config.yaml",
+      "sha256": "c63f60492ada56d458fd3f636a13f02858611ec1787ee585a8e49f342a6fd5f0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_spec.yaml",
+      "sha256": "2ef56248c89a3bdb25394ab1f12028a52763b97356ff326ebc7f1f8adadf6bab"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_rmse_ce4b523efa.quality.json",
+      "sha256": "a24a4aaa80593f90d8cb5bd82c5997326f06d99de1cc54e6153b19ab17a881a5"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_summary_9f93c3dd2d.quality.json",
+      "sha256": "3e3b8fc83e4fc93c58176320fc213240906be30f93ae9e0aa111396f488571bc"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_t_consistency_ec44908369.quality.json",
+      "sha256": "fb6242f00299f94a9f09605f02daec9e4c21b83cb634ffc25d86e7c192fd6247"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_dispersion_curve_aac3dcebea.quality.json",
+      "sha256": "c8464e810326a5a64d17e7f53322a4893f155fdc11db6598d1e1e38214aceaa9"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_mb_conditions_9571a5012b.quality.json",
+      "sha256": "91edce63c06622773bfb400ddd90e581ca6ff8547be9b0c86a90d0427f71686b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_model_fit_3e94d2fac7.quality.json",
+      "sha256": "44743b1dcec035b75c901636b4fbd6fcb5ec08ae6e4d54af3bea5c7720827085"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_phase_freq_gspace_a936624612.quality.json",
+      "sha256": "31bfb7742d123894ed8e431934402a65fed4d108313ceeab2136876c5a66e6c2"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reflectance_spectrum_41a3800f70.quality.json",
+      "sha256": "7d89461d835dfaf951c17e3e7e7716bf5c8832c53dd5c677c4a4be8189cbcf8f"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reliability_summary_50b4f34a17.quality.json",
+      "sha256": "85a0f2543dac26049c8c81e8aba132a7b38dcd91dd932a03017e71f7c45dedab"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_response_surface_06cfec9b1e.quality.json",
+      "sha256": "dd3f76f4ddd0f32cb526820209b8c636f2bfde36c0ddd4e89314490226b7a76e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_sic_multibeam_recheck_4cbb136f9c.quality.json",
+      "sha256": "a1b45c2e93268e1fd5d4b8ac805be0d7eecb9d8d4ad6bbdd551f974e5e32eb87"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_thickness_estimate_59f1546ed7.quality.json",
+      "sha256": "49e0b62d5fd6c7e5678db1e66663ef0bcf1211a817484225368cc1f6b7559f06"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_variable_projection_jcurve_4b30b360a4.quality.json",
+      "sha256": "a87c9a492b3789be91b07411abcbd5d6fa780c090d9d4cac30a0e1633b470f50"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/visual_review_report.md",
+      "sha256": "fe4a3f23f7821bf8a31c7bd221a77b2f5dc68845a1fd61a8f3582bea05616a0d"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formula_validation.md",
+      "sha256": "1878261f8cbd4718e46ff62f473b5d2e6754ef3216d9d412fd91f650ab33d2ba"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulation.md",
+      "sha256": "b243b56c8b38ae5047b7d67cc868772a130b32382a13d021ab489ceb03397fbc"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v001/formula_validation.md",
+      "sha256": "1cadeaacae86187ab55586fe62a500431305a2ba484a8d540f68080d43f8e583"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v001/formulation.md",
+      "sha256": "1c2564673a94f84c8c35acae121f6d9c348a1365a7cdd71cd7179ad69747b8f0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v001/formulation.yaml",
+      "sha256": "eb594ece29ce8b23b23e12d49818e192deb63c41f2ef88d318e330894988fd99"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v001/parameters.yaml",
+      "sha256": "ae64a462d0961d40851bc6eb43d103419d89d8fa82e897460b86c0abab633a9f"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/formula_validation.md",
+      "sha256": "3a19cc3640dff28e6f878d5366c46611353399a35b28f78f7626447298433896"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/formulation.md",
+      "sha256": "37689750aef9a1c939dbcd4f27d8fdda7553e2daddea6c93f47b9d91747cf217"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/formulation.yaml",
+      "sha256": "5c9dddfe23dd8095f840a8ae55a768999a192d0ad62f97162e7c929f036141a5"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/parameters.yaml",
+      "sha256": "3fd55a2008ca148bd9d70fcafc169703aceb814a40f01be8dff362608e2f73d4"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/implementation.md",
+      "sha256": "5c84e1ff4974cf01c9381d590f652931f691f149658ca5f72993382ff7a66ced"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/question_summary.md",
+      "sha256": "46221810d58c2cb95fd1d112d5da28b02dd2b2d5940386282cd502948afd9e95"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/ablation/checks.json",
+      "sha256": "a67b326fb3de3616484892c7afc5a969e9dd4e77a0093371e33fbacd9b37a19c"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/ablation/metadata.json",
+      "sha256": "8ed7cfad11769c0eb6c270c74bc7d7c03211f62062e5e0d7337cf75b3183e5be"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/ablation/result.json",
+      "sha256": "5d049e64f629e4275f2e618a817dd9ed28ae9ddc9e18d7f979335c0a2ca764af"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/ablation/summary.json",
+      "sha256": "e23af3b2f311f07087ac7f956a84193ba50666b813f1fd234a95fbc3a4bbc335"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/dispersion_ref.json",
+      "sha256": "b9ccafcb7a53b6df187229ea9a37979b2ac06fd6a1a84c188e14c4bbde01651b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/machine_sanity.json",
+      "sha256": "3cc127266dabf68870e19a950df998a05a5f5c49da80acb0163e7bf3f6803ce2"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/mb_conditions.json",
+      "sha256": "d66f73c95e67c2fecc669490710e0c9c37ab91ea7b977573d1547f035bf69cfa"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/metadata.json",
+      "sha256": "b8b08f4fd03fa06a503ce00f4ad523574f6b6edcfa1b879c3f1002cdc3d6d13d"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/preprocessing.json",
+      "sha256": "b0eb616636d0f9b18091d9c907e5811c0b027cc8ad88375e36be3e7457bd4262"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/reflectance_theta10.csv",
+      "sha256": "73094174f0c85a603d54e067609790970df8a833298507745e236a6bd6c34661"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/reflectance_theta15.csv",
+      "sha256": "4f7829f3e29991bdcb69a3092a86340f9358f87fe1dffbd9d05da2fa6eca6cb9"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/result.json",
+      "sha256": "4d99db0cfb2d2b920e481fa7056b24f1f43034c239f91300166ec6b065d03e1f"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/sanity_report.md",
+      "sha256": "4a0f18cac2a0ff3d5cfab954bb3e088eb5547ef1b99426c0e224d1c6117f5fec"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/solver_status.json",
+      "sha256": "978c47fa14771e86d822f96b8caa3e99e7ad9818c1f645df33fa2daf76d24cbf"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/verification.json",
+      "sha256": "66a10155c3b4bd787cf3da5268804c79690f2abbe3ef8554c0283b23e8c0107b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/robustness/conclusion.md",
+      "sha256": "3ce4910eee67baffb74047b98037dd3db547e5155835ebbdc572cab2c996399a"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/robustness/decision.md",
+      "sha256": "48d57e4cbc69aea9f4879dce4a81244b0731a8abfbabf8152d4b370b643d9ae6"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/robustness/experiment_matrix.yaml",
+      "sha256": "76f2c71dc1747d0c0ec9f1b54d3697a9537daf5d387598354482deb99c1855e8"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/robustness/preregistration.md",
+      "sha256": "ce1e03ba641a9298722faf28f330ed9fbca6b69dda776de30b02dce21ed9bb75"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/robustness/r7_window_sensitivity.json",
+      "sha256": "b9d1a9c1d1cd401c894fb841a5b2cfbe644bcd9f74b1b45b07574b0f963ce775"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/sanity_report.md",
+      "sha256": "91444d54dc35472b7f8e06183f44959dc63d883add6e0415f3c88cc4dc2e26b6"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/version.yaml",
+      "sha256": "c3aa0f604b12f6c77c6a66b15a77e240a344d4c69c2ab2f9977cf9f8747aa1cb"
+    },
+    {
+      "path": "request/problem.md",
+      "sha256": "dacf4503177855e41f2347a757db4b6bd8e69fb9a1a6b5e4519a1759b39ffe93"
+    },
+    {
+      "path": "problems/2025-cumcm-b/problem_understanding.md",
+      "sha256": "0cfb5dc795a901cb31df590e9ba147a9fdb8eff1ce3a25a94deb0d2e86d00aa0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/global_symbols.yaml",
+      "sha256": "8199c09dbee1723a1ca91874b5eefc607544c3e573df70d7f34978adb3bf94e1"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_reflectance_spectrum_1d4fb899d1.png",
+      "sha256": "2b245a3c048dcd4cf9499e8c8a772b7c23b57eba46cd657424c5a914cf0ff461"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_dispersion_curve_d85564d2fc.png",
+      "sha256": "e85bcdc2a37a9fce29acb21bc0be3f2b50dbd96e5a9e105a5b620a2c12645a43"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_phase_function_gap_459c486470.png",
+      "sha256": "d169f608de01f17c8fafa0cf4737773f74e18d9db56dcf3808818ffd81a90a30"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_thickness_methods_compare_5eac465fc8.png",
+      "sha256": "f3d7faf8bf1a3edadfa546fc3541ba548ea1a19e152667b64fb9bba2aa2a8cad"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_spacing_constant_n_bias_2245b6eda4.png",
+      "sha256": "03d5765b90464518a0155c0450a95c7182dc87be09efd85768d52df7812fdd46"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_nls_multistart_e64919ab13.png",
+      "sha256": "16945bf570f45a0b0c80ff6c537f2ec7a7d81f7996b9391c8c85b54f6c0ab974"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_response_surface_d0691c5dd8.png",
+      "sha256": "9394804929c80dcbfcbbcba52bab37c0cf201706014e2fcd26aea73f2a00336c"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_sensitivity_tornado_6983566848.png",
+      "sha256": "e7466a12c7c2a122b14ca60fc18cce57b7c690c250b3109c354b440bb484c8fc"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_noise_robustness_ci_30d4fa737f.png",
+      "sha256": "ab94d66900056fd39d95800cd91c081111af947cdf8c87f330c2f33f82c3378a"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_summary_ee3c34dcfa.png",
+      "sha256": "4f3fcc029d09b7d00212838b2eb2f7b55b471498ec985f02359b9f193099e3b0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_polarization_da59250d1b.png",
+      "sha256": "a63baaa29c7d9697173d06275afee2b49b66de4711f456bf97e80dae11d3397e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_init_strategy_7c59622d5a.png",
+      "sha256": "00ab9de2060946c1110b1163f9c58cb24030d63405ed1c7a6ed351356ad173f0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reflectance_spectrum_6b2265d217.png",
+      "sha256": "3a554843b620cba813c9b3bc99dd66ab07b0dc30bbae63f01a76554e608e925e"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_model_fit_0ca711689b.png",
+      "sha256": "c7669d90e4d5450e2db2561bd97469c19cf2148ac73510d43d012754ef186845"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_thickness_estimate_efa7359eb9.png",
+      "sha256": "37807ee1af8d2c993d5eeed0a71adb4ad6eef0110161d2787aa47cad198da580"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_dispersion_curve_af50244106.png",
+      "sha256": "7c369b1d042a0c8308dd1d5935ec7e328f71dfc76c2967df0fd5a23be87988d3"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reliability_summary_78cd97014b.png",
+      "sha256": "3796cd918605804ceac2db7534243d518e951bf9a1a962c43a9b2ece416a50cc"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_variable_projection_jcurve_7a9a903650.png",
+      "sha256": "7fd86a2b4854b006d6f86a5cdc46e35114ed899360b52eb78504d4b627771a08"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_g_space_phase_gap_f500d9c0db.png",
+      "sha256": "f3d092e6c6e74b3c5c3f71b3028e0f3c3fd2e78bde42d8b7d52a02fa71f904b5"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_nsub_decoupling_39b4128d09.png",
+      "sha256": "00abefc1c0da510598df4a7bf1be380e0caaa04ec2bc97b1be60af059e7ba769"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_response_surface_cfe5827835.png",
+      "sha256": "27618c633160f1a1bfb71dc66ba2d279d49b7330c425534c86dc9510f0a899ae"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_methods_compare_99386076f5.png",
+      "sha256": "06bb9efa7e1107878312b755112dddb12d59b9e1416f40495462cf7754668496"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_summary_dcd697b29e.png",
+      "sha256": "e6527add531d4ca474803523a97b829d36f9e18a3a68f127dc41d428b0fe1bfe"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_thickness_d29e3fc1f0.png",
+      "sha256": "0bc384f4c70346be2eaa05e14b22f6716d45af30da3a4773649688c27c9adb0c"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_shared_t_14e5362fa7.png",
+      "sha256": "ca4137a4fc27087139a1535f72f46ad4ac1345e84cc5e1dd686bc338b64bbda0"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reflectance_spectrum_41a3800f70.png",
+      "sha256": "a68181cf20060e7c3dc28c44de28ee5e9ccd5a7e2bfa024ba80d42bf35d1150b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_model_fit_3e94d2fac7.png",
+      "sha256": "18217a92cd5678b1249ee1a94c7d4ffc5779be9ca8ef12701a40fea42536ccc1"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_thickness_estimate_59f1546ed7.png",
+      "sha256": "7e161f93b100c03348fd871daf3d3a10f474682e050a464fd2b43ca00565d90b"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_dispersion_curve_aac3dcebea.png",
+      "sha256": "85c8c1c5bf7b5e6fbcfcfb627bfced686f386d50679e896005f23b74b4055ad9"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reliability_summary_50b4f34a17.png",
+      "sha256": "69b7c6f0ba6edf16f2533fb058f9068536a6b53755bc379ecd5adb06493311f8"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_variable_projection_jcurve_4b30b360a4.png",
+      "sha256": "b62d6a08a3e48c3b016bbe93c79c08eba4ed79df4cd651a1bfd361e3e1d14f98"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_mb_conditions_9571a5012b.png",
+      "sha256": "c355a99babe9e283c717c50b12df134b8b36738266b84a83c59c8d323753dc32"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_sic_multibeam_recheck_4cbb136f9c.png",
+      "sha256": "b7319253636faced2aa200678cf6279b25f02fecdea731ebb35d89088b458cf3"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_response_surface_06cfec9b1e.png",
+      "sha256": "91991b092de949034034836b899712a4e05472fbaa2788fc78109bc5a8b50ee3"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_phase_freq_gspace_a936624612.png",
+      "sha256": "74638d65bd53b55028729cb7cabda64da429e1784dc14758802a861ca97bb6b3"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_summary_9f93c3dd2d.png",
+      "sha256": "edeff286deaf3d079db429e818a86ce7de3ae4cdf6fe680dc8b57eb7297a5029"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_t_consistency_ec44908369.png",
+      "sha256": "13bd7feebe9666ecfb91a6c68dbd346b919dee39e8236a8d3c745fcac692c8aa"
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_rmse_ce4b523efa.png",
+      "sha256": "4e9d9299196f1d94b516f686609560246d868b1964873927b64adc82f02cab47"
+    }
+  ],
+  "draft_sha256": "b99de059584212ba69fd7b4aab203c12237e502ec23c720b18f113e6f5a1ba92",
+  "draft_chars": 47045,
+  "figures": 40,
+  "scientific_computation_run": false,
+  "live_agent_run": false
+}

@@ -1,6 +1,51 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "AutoMM Agent Response",
+  "$defs": {
+    "paperAssessment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "status", "reason", "anchor", "excerpt", "evidence_ids"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "status": {"type": "string", "enum": ["adequate", "needs_revision"]},
+        "reason": {"type": "string", "minLength": 8},
+        "anchor": {"type": "string", "minLength": 1},
+        "excerpt": {"type": "string", "minLength": 8},
+        "evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "paperFinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["severity", "reason", "instruction", "anchor", "excerpt", "evidence_ids"],
+      "properties": {
+        "severity": {"type": "string", "enum": ["blocking", "advisory"]},
+        "reason": {"type": "string", "minLength": 8},
+        "instruction": {"type": "string", "minLength": 8},
+        "anchor": {"type": "string", "minLength": 1},
+        "excerpt": {"type": "string", "minLength": 8},
+        "evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "paperReview": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "paper_version", "draft_sha256", "plan_sha256", "evidence_hash", "rules_sha256", "contract_sha256", "questions", "claims", "warnings", "evidence_reads", "findings"],
+      "properties": {
+        "schema_version": {"type": "integer", "const": 1}, "paper_version": {"type": "string", "pattern": "^paper_v[0-9]{3,}$"},
+        "draft_sha256": {"$ref": "#/$defs/sha256"}, "plan_sha256": {"$ref": "#/$defs/sha256"},
+        "evidence_hash": {"$ref": "#/$defs/sha256"}, "rules_sha256": {"$ref": "#/$defs/sha256"},
+        "contract_sha256": {"$ref": "#/$defs/sha256"},
+        "questions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/paperAssessment"}},
+        "claims": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/paperAssessment"}},
+        "warnings": {"type": "array", "items": {"$ref": "#/$defs/paperAssessment"}},
+        "findings": {"type": "array", "items": {"$ref": "#/$defs/paperFinding"}},
+        "evidence_reads": {"type": "array", "minItems": 1, "items": {
+          "type": "object", "additionalProperties": false, "required": ["evidence_id", "sha256", "excerpt"],
+          "properties": {"evidence_id": {"type": "string"}, "sha256": {"$ref": "#/$defs/sha256"}, "excerpt": {"type": "string", "minLength": 8}}
+        }}
+      }
+    }
+  },
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -38,6 +83,22 @@
       "type": "array",
       "items": {
         "anyOf": [
+          {
+            "type": "object", "additionalProperties": false, "required": ["name", "arguments"],
+            "properties": {
+              "name": {"type": "string", "const": "record_paper_review"},
+              "arguments": {"type": "object", "additionalProperties": false, "required": ["report"],
+                "properties": {"report": {"$ref": "#/$defs/paperReview"}}}
+            }
+          },
+          {
+            "type": "object", "additionalProperties": false, "required": ["name", "arguments"],
+            "properties": {
+              "name": {"type": "string", "const": "record_paper_checkpoint"},
+              "arguments": {"type": "object", "additionalProperties": false, "required": ["phase"],
+                "properties": {"phase": {"type": "string", "enum": ["planning", "drafting"]}}}
+            }
+          },
           {
             "type": "object",
             "additionalProperties": false,

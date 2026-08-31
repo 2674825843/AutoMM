@@ -1,0 +1,92 @@
+{
+  "attachment_si10": {
+    "path": "E:\\项目\\AutoMM\\data\\2025_cumcm_B\\附件3.xlsx",
+    "sha256": "79e9f66a00409f1d1130d9f4f3d76b4d5e5a1ccd3ac2d24dc0af8ecc583d0ec8",
+    "log": {
+      "n_points": 7469,
+      "exclude_band": [
+        400.0,
+        1600.0
+      ],
+      "n_excluded": 2489,
+      "anomaly_rule": "R% > 100.0 或 R% < 0.0（超界）",
+      "n_anomaly": 0,
+      "n_anomaly_upper": 0,
+      "n_anomaly_lower": 0,
+      "weight_anomaly": 0.05,
+      "n_valid_points": 4980,
+      "note": "原始数据只读；反射率 %->0-1 归一；吸收带 w=0；异常点降权 w=weight_anomaly"
+    }
+  },
+  "attachment_si15": {
+    "path": "E:\\项目\\AutoMM\\data\\2025_cumcm_B\\附件4.xlsx",
+    "sha256": "9cf1400404c4560958da06685beb8c2e1e4df5918a6e13863663a54440ba12e3",
+    "log": {
+      "n_points": 7469,
+      "exclude_band": [
+        400.0,
+        1600.0
+      ],
+      "n_excluded": 2489,
+      "anomaly_rule": "R% > 100.0 或 R% < 0.0（超界）",
+      "n_anomaly": 0,
+      "n_anomaly_upper": 0,
+      "n_anomaly_lower": 0,
+      "weight_anomaly": 0.05,
+      "n_valid_points": 4980,
+      "note": "原始数据只读；反射率 %->0-1 归一；吸收带 w=0；异常点降权 w=weight_anomaly"
+    }
+  },
+  "attachment_sic10": {
+    "path": "E:\\项目\\AutoMM\\data\\2025_cumcm_B\\附件1.xlsx",
+    "sha256": "b42f8bdabe7497951284cd044386c3cdf9d349b5e8ef4baaa0336e65ff84c67b",
+    "log": {
+      "n_points": 7469,
+      "exclude_band": [
+        700.0,
+        1000.0
+      ],
+      "n_excluded": 623,
+      "anomaly_rule": "R% > 100.0 或 R% < 0.0（超界）",
+      "n_anomaly": 0,
+      "n_anomaly_upper": 0,
+      "n_anomaly_lower": 0,
+      "weight_anomaly": 0.05,
+      "n_valid_points": 6846,
+      "note": "原始数据只读；反射率 %->0-1 归一；吸收带 w=0；异常点降权 w=weight_anomaly"
+    }
+  },
+  "attachment_sic15": {
+    "path": "E:\\项目\\AutoMM\\data\\2025_cumcm_B\\附件2.xlsx",
+    "sha256": "2e67444b61b90826c1ffe043fb0f3e7d3470fac9a005f8842f231ef3d64b34d1",
+    "log": {
+      "n_points": 7469,
+      "exclude_band": [
+        700.0,
+        1000.0
+      ],
+      "n_excluded": 623,
+      "anomaly_rule": "R% > 100.0 或 R% < 0.0（超界）",
+      "n_anomaly": 262,
+      "n_anomaly_upper": 262,
+      "n_anomaly_lower": 0,
+      "weight_anomaly": 0.05,
+      "n_valid_points": 7108,
+      "note": "原始数据只读；反射率 %->0-1 归一；吸收带 w=0；异常点降权 w=weight_anomaly"
+    }
+  },
+  "inv_band_cm1": [
+    2000.0,
+    4000.0
+  ],
+  "n_points_inv_band_si_all_angles": 8296,
+  "si_multiphonon_exclude_cm1": [
+    400.0,
+    1600.0
+  ],
+  "sic_reststrahlen_exclude_cm1": [
+    700.0,
+    1000.0
+  ],
+  "truncation_rule": "硅主反演谱段截断至 ν∈[2000.0,4000.0]（透明窗，C8）；ν<2000（多声子带边缘）不进入主反演；异常点降权 w=weight_anomaly；原始数据只读"
+}

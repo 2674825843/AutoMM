@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "reliability_two_angle_ftest",
+      "passed": true,
+      "detail": "{\"status\": \"PASS\", \"F_stat\": 0.0, \"F_critical\": 3.842582419279694, \"p_value\": 1.0, \"alpha\": 0.05, \"df1\": 1, \"df2\": 8278, \"accept_shared_t\": true, \"ss_shared\": 0.0608059154019643, \"ss_indep\": 0.0608059154019643, \"t_theta10_um\": 3.4507446594671896, \"t_theta15_um\": 3.446258474301775, \"t_mean_um\": 3.4485015668844823, \"eps12_percent\": 0.13009085477863216, \"n_tot\": 8296, \"eps12_threshold_percent\": 2.0}",
+      "tolerance": ""
+    },
+    {
+      "name": "reliability_dispersion",
+      "passed": true,
+      "detail": "{\"status\": \"PASS\", \"dispersion_models_t\": {\"N-SE\": 3.447668992836722, \"N-SE-delta+\": 3.430456220612246, \"N-SE-delta-\": 3.4650082813855345}, \"delta_t_disp_percent\": 0.5029278792377905, \"threshold_percent\": 2.0, \"delta_c_disp\": 0.005, \"note\": \"硅色散弱（Δn/n≈0.51%），Δt_disp 预期<1%；硅 Sellmeier 在主反演带全程有效（无 λ>5µm 缺口）\"}",
+      "tolerance": "2.0"
+    },
+    {
+      "name": "reliability_ci",
+      "passed": true,
+      "detail": "{\"t_low\": 3.4432356829005575, \"t_high\": 3.45246267852174, \"halfwidth_um\": 0.004613497810591172, \"halfwidth_percent\": 0.13381498688466645, \"sigma2\": 7.344596618186291e-06, \"n_tot\": 8296, \"n_params\": 17, \"chi2\": 3.841, \"status\": \"PASS\", \"threshold_percent\": 2.0, \"t_hat_um\": 3.447668992836722, \"method\": \"profile_likelihood_Jcurve（SSE(t) 曲率/夹逼区间）\"}",
+      "tolerance": "2.0"
+    },
+    {
+      "name": "reliability_anomaly",
+      "passed": true,
+      "detail": "{\"status\": \"PASS\", \"strategy_t\": {\"downweight\": 3.4478249507610386, \"drop\": 3.4478249507610386, \"keep\": 3.4478249507610386}, \"delta_t_anom_percent\": 0.0, \"threshold_percent\": 1.0, \"note\": \"硅片附件 3/4 无 R%>100 异常；异常点按 weight_anomaly 降权（不改原始数据），B2 策略沿用为鲁棒\"}",
+      "tolerance": "1.0"
+    },
+    {
+      "name": "multibeam_si",
+      "passed": true,
+      "detail": "{\"per_angle\": [{\"theta_deg\": 10.0, \"sse_two_beam\": 3.5962930237203583, \"sse_airy\": 3.594920318875021, \"rmse_two_beam\": 0.029444769669291312, \"rmse_airy\": 0.029439149599479852, \"improvement_percent\": 0.03816999438819575, \"needs_multibeam_correction\": false, \"threshold_percent\": 10.0}, {\"theta_deg\": 15.0, \"sse_two_beam\": 1.8346712966460124, \"sse_airy\": 1.8326386538442732, \"rmse_two_beam\": 0.021030992058479813, \"rmse_airy\": 0.021019338651793805, \"improvement_percent\": 0.11079057079353158, \"needs_multibeam_correction\": false, \"threshold_percent\": 10.0}], \"improvement_percent\": 0.11079057079353158, \"threshold_percent\": 10.0, \"needs_multibeam_correction\": false, \"decision\": \"two_beam_negligible\"}",
+      "tolerance": "10.0"
+    },
+    {
+      "name": "multibeam_sic",
+      "passed": true,
+      "detail": "{\"per_angle\": [{\"theta_deg\": 10.0, \"amplitude\": 0.003872233502029929, \"R01\": 0.19204070590587086, \"R12_from_amplitude\": 2.990135223953867e-05, \"R12_used\": 2.990135223953867e-05, \"Rbar\": 0.002396304820264129, \"theta_mb\": 0.05, \"criterion_met\": true}, {\"theta_deg\": 15.0, \"amplitude\": 0.003871534141545188, \"R01\": 0.1921009092136104, \"R12_from_amplitude\": 2.988563833806047e-05, \"R12_used\": 2.988563833806047e-05, \"Rbar\": 0.002396050562315109, \"theta_mb\": 0.05, \"criterion_met\": true}], \"Rbar_max\": 0.002396304820264129, \"theta_mb\": 0.05, \"sic_mb_verdict\": \"no_correction_needed\", \"prob02_reference\": {\"t_sic_um\": 7.2158, \"R01_ref\": 0.19, \"R12_ref\": 3.2e-05, \"Rbar_ref\": 0.0024657656011875906, \"content_hash\": \"27b0ce86…a12ea（prob02-conclusion-v1）\"}, \"note\": \"SiC 在 prob02 t̂ 处只读量级核实（不重新求解厚度）；Rbar<=θ_mb → 无显著多光束、无需修正\"}",
+      "tolerance": "0.05"
+    },
+    {
+      "name": "reliability_nsub_diag",
+      "passed": true,
+      "detail": "{\"n_sub_hat_amplitude\": 3.5576709414472134, \"main_t_decoupled\": true}",
+      "tolerance": "3.0"
+    }
+  ],
+  "method_reference": {
+    "snell": "(2.1)",
+    "phase": "(2.7)",
+    "fresnel": "(2.2)-(2.4)",
+    "two_beam": "(2.8)",
+    "airy": "(2.5)/(2.6)",
+    "sellmeier_si": "(5.1)",
+    "sellmeier_sic": "prob02 (4.1)",
+    "n1_reflectivity": "(3.1)/(3.2)",
+    "n2_coherence": "(3.3)/(3.4)",
+    "n3_parallelism": "(3.5)",
+    "n4_absorption": "(3.6)",
+    "extremum_invariance": "(3.7)/(3.8)",
+    "vp_decomposition": "(6.1)-(6.3)",
+    "vp_scan": "(6.4)/(6.5)",
+    "phase_freq_thickness": "(2.9)",
+    "mb_improvement": "(7.1)/(7.2)",
+    "ftest": "§7.2",
+    "disp_sensitivity": "§7.2",
+    "ci_profile": "§7.5"
+  }
+}

@@ -1,0 +1,207 @@
+version: assumption_v001
+status: accepted
+created_at: '2026-08-29T05:36:09.720394+00:00'
+parent_version: null
+assumptions:
+- id: A1
+  statement: 两光束干涉成立：仅考虑外延层上表面与衬底界面各一次反射/透射产生的两束相干光，忽略多次反射与衬底背面反射
+  type: mechanism_simplification
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L01
+  - L02
+  - L06
+  - L07
+  scope: 平行界面外延层，两光束基线；prob03 放宽为多光束
+  bias_direction: 高折射率对比/低吸收时忽略多次反射会低估反射率调制深度；极值位置一般保留（prob03 独立验证）
+  verification: 条纹对比度与极值位置比对；prob02 拟合残差
+  related_assumptions:
+  - A2
+  - A3
+  - A4
+  - A7
+  status: candidate
+- id: A2
+  statement: 光程差由 Snell 折射与平行平板几何确定：Δ = 2nt·cosθ' = 2t·sqrt(n² − n_air²sin²θ)
+  type: mechanism_simplification
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L06
+  - L07
+  - L17
+  scope: 厚度均匀、界面平行；入射角相对表面法线
+  bias_direction: 界面不平行或厚度不均匀导致条纹对比度下降、极值模糊
+  verification: 量纲检查；prob02 两入射角（10°/15°）厚度一致性
+  related_assumptions:
+  - A1
+  - A3
+  - A5
+  status: candidate
+- id: A3
+  statement: 干涉极值条件与厚度反演公式：同型相邻极值波数间隔 Δν = 1/(2·n·t·cosθ')，厚度 t = 1/(2·n·cosθ'·Δν)
+  type: mechanism_simplification
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L01
+  - L02
+  - L23
+  - L17
+  scope: 弱色散谱段；色散显著时需色散化修正（prob02）
+  bias_direction: 忽略色散直接套用常数 n 会引入厚度系统偏差
+  verification: 极限行为（t→0 条纹消失）；prob02 峰谷间隔 + 非线性最小二乘交叉验证
+  related_assumptions:
+  - A1
+  - A2
+  - A4
+  - A5
+  - A12
+  status: candidate
+- id: A4
+  statement: 反射相位跃变（半波损失）只改变峰/谷类型与干涉级次对应，在相邻同型极值间隔 Δν 中抵消
+  type: mechanism_simplification
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L06
+  - L07
+  scope: 外延层与衬底折射率为实数（弱吸收）；复折射率场景需用复 Fresnel 系数（prob03）
+  bias_direction: 峰/谷判定错误会引入半个周期的厚度系统误差
+  verification: 实测峰/谷类型与模型预测比对；prob02 拟合确认
+  related_assumptions:
+  - A1
+  - A3
+  - A6
+  status: candidate
+- id: A5
+  statement: 外延层折射率随波长变化：λ≤5µm 采用 4H-SiC Sellmeier（L09），λ>5µm 以 L24/L16 为参考、prob02
+    数据反演或分谱段策略确定
+  type: mechanism_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L09
+  - L11
+  - L24
+  - L08
+  scope: 4H-SiC 外延层；2.5–25 µm 谱段；近 Reststrahlen 区受 A7 约束
+  bias_direction: 色散模型选择与 λ>5µm 处理是 prob02 精度主要不确定度来源；外推可能高估/低估 n
+  verification: prob02 不同色散模型拟合残差与厚度稳定性比较；两入射角一致性
+  related_assumptions:
+  - A2
+  - A3
+  - A7
+  - A12
+  status: candidate
+- id: A6
+  statement: 外延层与衬底因掺杂载流子浓度不同而折射率不同（n ≠ n_sub），是界面反射与干涉的物理前提；n_sub 取值由文献/数据反演确定（prob02）
+  type: mechanism_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L14
+  - L15
+  - L16
+  scope: 轻掺外延层/重掺衬底；重掺衬底红外可能接近等离子体反射边
+  bias_direction: n 与 n_sub 差异过小则条纹对比度差、反演误差增大；衬底强吸收时两光束假设需谨慎
+  verification: 条纹对比度；prob02 中 n_sub 灵敏度分析
+  related_assumptions:
+  - A1
+  - A3
+  - A4
+  - A5
+  status: candidate
+- id: A7
+  statement: 忽略吸收的谱段边界：干涉反演谱段内吸收可忽略（实数折射率），但约 700–1000 cm⁻¹ Reststrahlen 区强吸收/强色散，该区两光束无吸收模型不适用
+  type: boundary_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L16
+  - L24
+  scope: 400–4000 cm⁻¹ 谱段；剔除或降权 Reststrahlen 区并记录处理策略（prob02 预处理）
+  bias_direction: Reststrahlen 区强行使用无吸收模型导致拟合残差剧增、厚度失真
+  verification: 实测反射谱在 700–1000 cm⁻¹ 行为；prob02 残差谱诊断
+  related_assumptions:
+  - A1
+  - A5
+  - A12
+  status: candidate
+- id: A8
+  statement: 外延层为平行平板、厚度均匀
+  type: boundary_assumption
+  key: false
+  evidence_type: project_assumption
+  reference_ids:
+  - L01
+  - L06
+  scope: 题面图 1 隐含平行结构；晶圆片局部均匀近似
+  bias_direction: 厚度梯度/界面不平行降低条纹对比度、模糊极值
+  verification: 条纹对比度；prob02 局部窗口反演一致性
+  related_assumptions:
+  - A2
+  status: candidate
+- id: A9
+  statement: 空气折射率 n_air ≈ 1
+  type: boundary_assumption
+  key: false
+  evidence_type: common_sense
+  reference_ids: []
+  scope: 常规大气条件
+  bias_direction: 可忽略（相对 n≈2.5 误差 <0.1%）
+  verification: 灵敏度可忽略
+  related_assumptions: []
+  status: candidate
+- id: A10
+  statement: 入射角已知且固定（prob02 附件 1/2 为 10°/15°）
+  type: data_assumption
+  key: false
+  evidence_type: team_decision
+  reference_ids: []
+  scope: 题面与附件说明一致
+  bias_direction: 入射角误差经 cosθ' 传播到厚度，prob02 可靠性分析小项
+  verification: 两入射角反演厚度一致性
+  related_assumptions:
+  - A2
+  status: candidate
+- id: A11
+  statement: 红外光在光程差尺度内保持相干，干涉条纹稳定形成
+  type: boundary_assumption
+  key: false
+  evidence_type: literature_fact
+  reference_ids:
+  - L06
+  - L07
+  scope: 微米量级厚度、光程差数十微米；FTIR 相干长度通常满足
+  bias_direction: 相干长度不足则条纹对比度下降
+  verification: 条纹对比度
+  related_assumptions:
+  - A1
+  status: candidate
+- id: A12
+  statement: 室温测量，折射率温度修正量小，按室温常数处理
+  type: boundary_assumption
+  key: false
+  evidence_type: literature_fact
+  reference_ids:
+  - L10
+  scope: 室温、无主动温控偏差
+  bias_direction: 温度漂移导致的折射率变化为二阶小量
+  verification: prob02 可靠性分析灵敏度小项
+  related_assumptions:
+  - A5
+  status: candidate
+formulation_versions:
+- formulation_v001
+active_formulation: formulation_v001
+accepted_formulation: formulation_v001
+tasks: []
+sanity_status: pending
+conclusion_id: ''
+conclusion_version: 0
+conclusion_hash: ''
+decision_reason: assumption_v001 完成 12 条假设（7 条关键），全部关键假设绑定 verified+used 文献，门禁 passed=true；假设间无冲突且与题目理解/符号表一致；接受后进入
+  mathematical_formulation
+decided_at: '2026-08-29T05:47:08.610794+00:00'

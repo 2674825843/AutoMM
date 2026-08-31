@@ -85,7 +85,19 @@ def _agent_prompt(agent: str, action: dict[str, Any], action_id: str) -> str:
 
 
 def invoke_agent(agent: str, action: dict[str, Any], action_id: str) -> tuple[dict[str, Any], dict[str, Any]]:
+    from .paper_quality import protected_snapshot, verify_protected_snapshot
+    guard_action = dict(action, agent=agent)
+    snapshot = protected_snapshot(guard_action)
+    try:
+        return _invoke_agent_process(agent, action, action_id)
+    finally:
+        verify_protected_snapshot(guard_action, snapshot)
+
+
+def _invoke_agent_process(agent: str, action: dict[str, Any], action_id: str) -> tuple[dict[str, Any], dict[str, Any]]:
     config = runtime_config()
+    if agent == 'paper-reviewer':
+        config = dict(config, read_only=True, sandbox='read-only', automatic_approval=False)
     provider = get_provider(config)
     try:
         if config.get("capability_probe_on_start", True):
@@ -181,14 +193,20 @@ def _validate_response_context(response: dict[str, Any], action: dict[str, Any])
 
 _ALLOWED_COMMANDS = {"record_artifact", "record_optional_stage", "record_conclusion", "clear_stale", "append_ledger", "record_figure_review", "record_sanity", "decide_assumption_version", "decide_formulation_version", "mark_cross_question_review", "transition"}
 _ALLOWED_COMMANDS.add('request_paper_rewrite')
+_ALLOWED_COMMANDS.update({'record_paper_review', 'record_paper_checkpoint'})
 _COMMAND_PRIORITY = {"record_artifact": 10, "record_optional_stage": 10, "record_conclusion": 10, "clear_stale": 10, "append_ledger": 10, "record_figure_review": 10, "record_sanity": 20, "decide_assumption_version": 20, "decide_formulation_version": 20, "mark_cross_question_review": 20, "transition": 30}
 _COMMAND_PRIORITY['request_paper_rewrite'] = 30
+_COMMAND_PRIORITY.update(record_paper_review=20, record_paper_checkpoint=20)
 
 
 def _transaction_paths(problem_id: str | None) -> list[Path]:
     paths = [RUNTIME_DIR / "workflow_state.json", RUNTIME_DIR / "events.jsonl", RUNTIME_DIR / "agent_commands.jsonl", ROOT / "reports" / "autoresearch" / "STATE.md", ROOT / "reports" / "autoresearch" / "experiment_ledger.md"]
     if problem_id:
         root = problem_dir(problem_id)
+        from .problems import load_problem
+        version = load_problem(problem_id).get('paper', {}).get('active_version')
+        if version:
+            paths.extend(root / 'paper/versions' / version / name for name in ('paper_review.json', 'planning_checkpoint.json', 'drafting_checkpoint.json'))
         if root.exists():
             paths.extend(path for path in root.rglob("*") if path.is_file() and (path.name in {"manifest.yaml", "problem_state.json", "dependency_graph.yaml", "figures.yaml"} or path.suffix == ".yaml"))
     return list(dict.fromkeys(paths))
@@ -209,6 +227,12 @@ def _restore(snapshot: dict[Path, bytes | None]) -> None:
 
 
 def _apply_one(name: str, args: dict[str, Any]) -> Any:
+    if name == 'record_paper_review':
+        from .paper_quality import record_paper_review
+        return record_paper_review(**args)
+    if name == 'record_paper_checkpoint':
+        from .paper_quality import record_paper_checkpoint
+        return record_paper_checkpoint(**args)
     if name == 'request_paper_rewrite':
         from .workflow import request_paper_rewrite
         return request_paper_rewrite(**args)
@@ -247,6 +271,27 @@ def apply_agent_commands(response: dict[str, Any], action: dict[str, Any]) -> li
     commands = response.get("commands", [])
     if any(command.get("name") not in _ALLOWED_COMMANDS for command in commands):
         raise HarnessInvariantError("Agent command 不在白名单内")
+    reviewer = action.get('agent') == 'paper-reviewer'
+    if response.get('status') in {'failed', 'blocked'} and not commands:
+        return []
+    if action.get('paper_phase') or any(c['name'] == 'record_paper_checkpoint' for c in commands):
+        from .problems import load_problem
+        current_paper = load_problem(action['problem_id']).get('paper', {})
+        if (action.get('agent') != 'paper-writer' or action.get('stage') != 'paper_writing'
+                or action.get('paper_version') != current_paper.get('active_version')
+                or len(commands) != 1 or commands[0]['name'] != 'record_paper_checkpoint'
+                or commands[0]['arguments']['phase'] != action.get('paper_phase')
+                or response.get('recommended_next_stage') is not None):
+            raise HarnessInvariantError('质量 Writer 只能提交当前阶段的受控检查点')
+    if reviewer or any(c['name'] == 'record_paper_review' for c in commands):
+        if (not reviewer or action.get('stage') != 'paper_validation' or len(commands) != 1
+                or commands[0]['name'] != 'record_paper_review'
+                or response.get('artifacts_created') or response.get('artifacts_updated')
+                or response.get('recommended_next_stage') is not None):
+            raise HarnessInvariantError('只读论文审阅者仅允许单独登记审阅报告')
+        from .problems import load_problem
+        if action.get('paper_version') != load_problem(action['problem_id']).get('paper', {}).get('active_version'):
+            raise HarnessInvariantError('审阅动作越出活动论文版本')
     if any(c['name'] == 'request_paper_rewrite' for c in commands):
         if action.get('user_authorized_rewrite') is not True or len(commands) != 1:
             raise HarnessInvariantError('重新写作命令必须由用户明确授权并单独执行')
@@ -280,7 +325,7 @@ def apply_agent_commands(response: dict[str, Any], action: dict[str, Any]) -> li
                     {"at": utc_now(), "action_id": response["action_id"], **record},
                 )
                 continue
-            if name not in {"mark_cross_question_review", "record_figure_review"}:
+            if name not in {"mark_cross_question_review", "record_figure_review", 'record_paper_review', 'record_paper_checkpoint'}:
                 args.setdefault("question_id", question_id)
             value = _apply_one(name, args)
             record = {"index": index, "name": name, "result": value}

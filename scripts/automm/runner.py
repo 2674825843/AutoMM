@@ -199,8 +199,12 @@ def execute_non_agent(action: dict[str, Any]) -> dict[str, Any]:
         "poll_email",
         "blocked",
         "start_queued_compute",
+        "paper_attention",
     }:
         return {"handled": name, "changed": False}
+    if name == 'assess_paper_quality':
+        from .paper_quality import assess_paper_quality
+        return {'handled': name, **assess_paper_quality(action['problem_id'])}
     if name == "advance_stage":
         return {
             "handled": name,
@@ -258,8 +262,11 @@ def execute_non_agent(action: dict[str, Any]) -> dict[str, Any]:
     if name == "prepare_paper_writing":
         prepared = prepare_paper_writing(action["problem_id"])
         problem = load_problem(action["problem_id"])
+        previous = problem.get('paper', {})
         problem["paper"] = {
-            "status": "drafting",
+            **previous,
+            **{key: prepared[key] for key in ('quality_contract', 'writer_revisions') if key in prepared},
+            "status": prepared.get('status', 'drafting'),
             "evidence": prepared["evidence"],
             "evidence_hash": prepared["evidence_hash"],
             "active_version": prepared["paper_version"],
@@ -267,6 +274,12 @@ def execute_non_agent(action: dict[str, Any]) -> dict[str, Any]:
             "draft": prepared["draft"],
             "prepared_at": utc_now(),
         }
+        if prepared.get('quality_contract'):
+            problem.setdefault('paper_quality_contracts', {})[prepared['paper_version']] = prepared['quality_contract']
+            if previous.get('active_version') != prepared['paper_version']:
+                for key in ('review_sha256', 'quality_acceptance_sha256', 'review_bindings', 'quality_status'):
+                    problem['paper'].pop(key, None)
+                problem['paper']['agent_failures'] = 0
         write_json(problem_dir(action["problem_id"]) / "problem_state.json", problem)
         return {"handled": name, "paper": problem["paper"]}
     if name == "validate_and_render_paper":
@@ -278,6 +291,8 @@ def execute_non_agent(action: dict[str, Any]) -> dict[str, Any]:
             raise RuntimeError("problem_state.paper 缺少 active_version")
         version_dir = problem_dir(problem_id) / "paper" / "versions" / version_name
         evidence = load_version_evidence(version_dir, paper.get('evidence_hash', ''))
+        from .paper_quality import check_review
+        check_review(version_dir, evidence)
         previous_render = read_json(version_dir / 'render_report.json')
         reusable = (previous_render.get('status') == 'PASS' and
                     previous_render.get('source_sha256') == digest(version_dir / 'paper.md') and
@@ -365,6 +380,8 @@ def run_once() -> dict[str, Any]:
             try:
                 response, meta = invoke_agent(action["agent"], action, action_id)
             except AgentTimeoutError as exc:
+                from .paper_quality import note_agent_failure
+                note_agent_failure(action, action_id, str(exc))
                 state = load_state()
                 note_recovery(
                     state,
@@ -392,6 +409,9 @@ def run_once() -> dict[str, Any]:
                 )
                 return {"action_id": action_id, "status": "retrying", "action": action, "error": str(exc)}
             agent_response = response
+            if response.get('status') in {'failed', 'blocked'}:
+                from .paper_quality import note_agent_failure
+                note_agent_failure(action, action_id, '; '.join(response.get('blocking_reasons', [])))
             computation_needs_sanity = (
                 action.get("stage") == "computation"
                 and response.get("status") in {"success", "warning"}
@@ -508,6 +528,9 @@ def run_once() -> dict[str, Any]:
         append_jsonl(journal, {"at": utc_now(), "action_id": action_id, "phase": "committed", "result": result})
         return {"action_id": action_id, "status": "completed", "action": action, "result": result}
     except Exception as exc:
+        if 'action' in locals():
+            from .paper_quality import note_agent_failure
+            note_agent_failure(action, action_id, str(exc))
         state = load_state()
         failure_class = classify_exception(exc)
         note_recovery(

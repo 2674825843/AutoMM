@@ -1,0 +1,63 @@
+{
+  "problem_id": "2025-cumcm-b",
+  "question_id": "prob03",
+  "assumption_version": "assumption_v001",
+  "formulation_version": "formulation_v002",
+  "robustness_criterion": "R7_window_sensitivity",
+  "method": "baseline_interference_decoupled_1d_scan(variable_projection, shared_t)",
+  "baseline_band_cm1": [
+    2000.0,
+    4000.0
+  ],
+  "baseline_t_hat_shared_um": 3.447668992836722,
+  "windows": [
+    {
+      "band_cm1": [
+        2000.0,
+        4000.0
+      ],
+      "t_hat_shared_um": 3.447668992836722,
+      "J_min": 0.0608059154019643,
+      "n_points": 8296,
+      "weighted_rmse": 0.0027073134682338083,
+      "delta_t_percent_from_base": 0.0
+    },
+    {
+      "band_cm1": [
+        1600.0,
+        4000.0
+      ],
+      "t_hat_shared_um": 3.4616008102486977,
+      "J_min": 0.4966745392431432,
+      "n_points": 9956,
+      "weighted_rmse": 0.007063069908549665,
+      "delta_t_percent_from_base": 0.40409382225852203
+    },
+    {
+      "band_cm1": [
+        1800.0,
+        4000.0
+      ],
+      "t_hat_shared_um": 3.4218414614768338,
+      "J_min": 0.14441448248674654,
+      "n_points": 9126,
+      "weighted_rmse": 0.0039780033261869385,
+      "delta_t_percent_from_base": -0.7491302504257346
+    },
+    {
+      "band_cm1": [
+        2200.0,
+        4000.0
+      ],
+      "t_hat_shared_um": 3.4317524300516133,
+      "J_min": 0.01607590756156433,
+      "n_points": 7466,
+      "weighted_rmse": 0.0014673839257432408,
+      "delta_t_percent_from_base": -0.46166156954680565
+    }
+  ],
+  "delta_t_win_percent": 0.7491302504257346,
+  "threshold_percent": 2.0,
+  "status": "PASS",
+  "note": "只读探针补登 formulation §8.5 R7（预注册但 computation 未单独执行）；主反演带取 [2000,4000]，另对 [1600,4000]/[1800,4000]/[2200,4000] 做敏感性；弱色散（Δn/n≈0.51%）下窗口边界变化对 t 影响应与 Δt_disp≈0.503% 同量级；不修改原始数据，未改动 model.py/compute.py（read-only probe）"
+}

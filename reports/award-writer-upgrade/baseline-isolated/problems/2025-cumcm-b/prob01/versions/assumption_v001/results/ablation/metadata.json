@@ -1,0 +1,58 @@
+{
+  "problem_id": "2025-cumcm-b",
+  "question_id": "prob01",
+  "assumption_version": "assumption_v001",
+  "formulation_version": "formulation_v001",
+  "created_at": "2026-08-29T07:26:01.108456+00:00",
+  "seed": 20260829,
+  "scenario": {
+    "t_true_um": 10.0,
+    "n_sub": 3.0,
+    "theta_deg": [
+      10.0,
+      15.0
+    ],
+    "nu_range_cm1": [
+      400.0,
+      4000.0
+    ],
+    "nu_points": 3601,
+    "weak_band_cm1": [
+      2000.0,
+      4000.0
+    ],
+    "reststrahlen_exclude_cm1": [
+      700.0,
+      1000.0
+    ],
+    "identifiability": {
+      "t_lo_um": 1.0,
+      "t_hi_um": 25.0,
+      "n_grid": 200,
+      "flatness_threshold": 0.05,
+      "eps": 1e-12
+    },
+    "dispersion_extension": "constant"
+  },
+  "input_parameters_yaml_hash": "1f74e51c3d64b08610e9fdfb531810c46eb468adb44951a4b98ebf6abf5d6ac7",
+  "ablation_config_yaml_hash": "25721ef958f1f267ef8af28af6ffc67bc3856561bb3a9d26edb289f6788039dd",
+  "unit_conventions": {
+    "t": "um",
+    "nu": "cm^-1",
+    "lambda": "um = 1e4 / nu",
+    "theta": "degree（三角函数内部转 rad）",
+    "n_sub": "dimensionless",
+    "R": "dimensionless（0-1，能量守恒）"
+  },
+  "formula_refs": {
+    "forward_model": "(3.5)/(3.6)",
+    "snell": "(2.1)-(2.3)",
+    "fresnel": "(3.1)-(3.3)",
+    "extremum": "(3.7)",
+    "spacing": "(3.8)-(3.10)",
+    "phase_method": "(3.11)-(3.13)",
+    "sellmeier": "(4.1)",
+    "period_ambiguity": "formula_validation §6"
+  },
+  "python": "3.13.9"
+}

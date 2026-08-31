@@ -1,0 +1,51 @@
+{
+  "problem_id": "2025-cumcm-b",
+  "question_id": "prob01",
+  "assumption_version": "assumption_v001",
+  "formulation_version": "formulation_v001",
+  "created_at": "2026-08-29T06:16:43.609915+00:00",
+  "seed": 20260829,
+  "scenario": {
+    "t_true_um": 10.0,
+    "n_sub": 3.0,
+    "theta_deg": [
+      10.0,
+      15.0
+    ],
+    "nu_range_cm1": [
+      400.0,
+      4000.0
+    ],
+    "nu_points": 3601,
+    "noise_sigma_percent": 0.0,
+    "dispersion_extension": "constant",
+    "sellmeier_boundary_um": 5.0,
+    "reststrahlen_exclude_cm1": [
+      700.0,
+      1000.0
+    ]
+  },
+  "input_parameters_yaml_hash": "1f74e51c3d64b08610e9fdfb531810c46eb468adb44951a4b98ebf6abf5d6ac7",
+  "task_config_yaml_hash": "4f97e8eb58e8b9eac557e6ccec6c0180f9791864efe42c10cc2c4349becdfcee",
+  "unit_conventions": {
+    "t": "um",
+    "nu": "cm^-1",
+    "lambda": "um = 1e4 / nu",
+    "theta": "degree（三角函数内部转 rad）",
+    "delta": "rad",
+    "delta_nu": "cm^-1"
+  },
+  "formula_refs": {
+    "forward_model": "(3.5)/(3.6)",
+    "snell": "(2.1)-(2.3)",
+    "optical_path": "(2.5)/(2.6)",
+    "phase": "(2.7)/(2.8)",
+    "fresnel": "(3.1)-(3.3)",
+    "extremum": "(3.7)",
+    "spacing": "(3.8)",
+    "thickness": "(3.10)",
+    "phase_method": "(3.11)-(3.13)",
+    "sellmeier": "(4.1)"
+  },
+  "python": "3.13.9"
+}

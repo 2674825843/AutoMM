@@ -1,0 +1,13 @@
+version: formulation_v002
+status: accepted
+created_at: '2026-08-30T06:29:20.711190+00:00'
+parent_version: formulation_v001
+content_hash: 2c9cba50b50926f404e71696de5b27078bbbd5b1208634cb798ceda59acbf72a
+decision_reason: formulation_v002 已验证且通过：对 formulation_v001 做两处必改勘误 (R1) 硅厚度基准 6.9
+  µm→对审定公式的忠实实现值 t̂=3.4477 µm（共享）/3.4507、3.4463 µm（每角），ε₁₂=0.130%；(R2) 精细度公式统一为 F=π√R̄/(1−R̄)（v001
+  代码漏 √R̄，0.032 应为 ≈0.319）。含多光束必要条件 N1–N4 严格推导、L17『多光束不改变极值位置』独立验证为成立、硅片两光束判定（R̄≈0.0101≤θ_mb=0.05、η_mb≈0.11%≪10%）与硅厚度
+  t̂=3.4477 µm、SiC 无需修正（R̄≈0.0024）。量纲、边界、等价性、守恒、单调性/极值、数值可解性与符号一致性均通过（formula_validation
+  §10）；无 NaN/Inf、无硬约束违反、无符号冲突。满足 sanity 对『formulation 与实现不一致必须失败』的修复要求，予以接受，进入 implementation
+  修正 finesse 代码并重新提交 computation。
+decided_at: '2026-08-30T07:41:15.947879+00:00'
+assumption_version: assumption_v001

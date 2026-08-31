@@ -1,0 +1,181 @@
+{
+  "experiments": {
+    "f0": {
+      "rows": [
+        {
+          "theta_deg": 10.0,
+          "t_nls_um": 10.000000000000016,
+          "rel_err_vs_true": 1.5987211554602255e-15,
+          "rmse_min": 0.0,
+          "rmse_depth_ratio": 67498033834.40445,
+          "success": true
+        },
+        {
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000000000000002,
+          "rel_err_vs_true": 1.7763568394002506e-16,
+          "rmse_min": 0.0,
+          "rmse_depth_ratio": 67521835168.01741,
+          "success": true
+        }
+      ],
+      "max_rel_err": 1.5987211554602255e-15,
+      "min_depth_ratio": 67498033834.40445,
+      "thresholds": {
+        "rel_err": 0.01,
+        "rmse_depth_ratio": 100.0
+      },
+      "passed": true
+    },
+    "a1": {
+      "rows": [
+        {
+          "theta_deg": 10.0,
+          "rmse_flatness": 0.0,
+          "rmse_constant": 0.0426761961367858,
+          "model_R_min": 0.18867341693610967,
+          "model_R_max": 0.19892481248796676,
+          "R_in_unit": true
+        },
+        {
+          "theta_deg": 15.0,
+          "rmse_flatness": 0.0,
+          "rmse_constant": 0.04264866156550649,
+          "model_R_min": 0.18873647083782985,
+          "model_R_max": 0.19898344032657894,
+          "R_in_unit": true
+        }
+      ],
+      "max_flatness": 0.0,
+      "flatness_threshold": 0.05,
+      "interpretation": "rmse(t) 平坦 -> 厚度不可辨识 -> 干涉叠加项是厚度信息的必要条件",
+      "passed": true
+    },
+    "a2": {
+      "rows": [
+        {
+          "theta_deg": 10.0,
+          "rmse_flatness": 0.0,
+          "rmse_constant": 0.04293761796427207,
+          "model_R_min": 0.18304644597161052,
+          "model_R_max": 0.19532871950138958,
+          "R_in_unit": true
+        },
+        {
+          "theta_deg": 15.0,
+          "rmse_flatness": 0.0,
+          "rmse_constant": 0.042922439677903546,
+          "model_R_min": 0.18311001502476665,
+          "model_R_max": 0.19538765812840592,
+          "R_in_unit": true
+        }
+      ],
+      "max_flatness": 0.0,
+      "flatness_threshold": 0.05,
+      "interpretation": "rmse(t) 平坦 -> 厚度不可辨识 -> 衬底界面反射项是干涉条纹的必要条件",
+      "passed": true
+    },
+    "a3": {
+      "rows": [
+        {
+          "theta_deg": 10.0,
+          "pol": "avg",
+          "t_nls_um": 10.000000000000016,
+          "rel_err_vs_true": 1.5987211554602255e-15,
+          "success": true
+        },
+        {
+          "theta_deg": 10.0,
+          "pol": "s",
+          "t_nls_um": 10.000209560405768,
+          "rel_err_vs_true": 2.095604057679168e-05,
+          "success": true
+        },
+        {
+          "theta_deg": 10.0,
+          "pol": "p",
+          "t_nls_um": 9.999789336683365,
+          "rel_err_vs_true": 2.1066331663455175e-05,
+          "success": true
+        },
+        {
+          "theta_deg": 10.0,
+          "pol": "pairwise_max_rel_diff",
+          "t_nls_um": null,
+          "rel_err_vs_true": null,
+          "success": true,
+          "pairwise_max_rel_diff": 4.202237224024685e-05
+        },
+        {
+          "theta_deg": 15.0,
+          "pol": "avg",
+          "t_nls_um": 10.000000000000002,
+          "rel_err_vs_true": 1.7763568394002506e-16,
+          "success": true
+        },
+        {
+          "theta_deg": 15.0,
+          "pol": "s",
+          "t_nls_um": 10.000596883218096,
+          "rel_err_vs_true": 5.968832180958117e-05,
+          "success": true
+        },
+        {
+          "theta_deg": 15.0,
+          "pol": "p",
+          "t_nls_um": 9.999398632482738,
+          "rel_err_vs_true": 6.013675172624744e-05,
+          "success": true
+        },
+        {
+          "theta_deg": 15.0,
+          "pol": "pairwise_max_rel_diff",
+          "t_nls_um": null,
+          "rel_err_vs_true": null,
+          "success": true,
+          "pairwise_max_rel_diff": 0.0001198250735358286
+        }
+      ],
+      "max_pairwise_rel_diff": 0.0001198250735358286,
+      "pol_pairwise_tol": 0.01,
+      "interpretation": "s/p/avg 厚度一致 -> 相位 delta 与偏振无关（A4）-> 偏振平均是非关键简化",
+      "passed": true
+    },
+    "a4": {
+      "rows": [
+        {
+          "theta_deg": 10.0,
+          "single_t0_um": 10.438409213063995,
+          "single_t_nls_um": 10.599214069379254,
+          "single_rel_err_vs_true": 0.05992140693792543,
+          "single_rmse": 0.06145565788010344,
+          "single_success": true,
+          "multi_t_nls_um": 10.000000000000016,
+          "multi_rel_err_vs_true": 1.5987211554602255e-15,
+          "multi_rmse": 5.070297171470634e-15,
+          "multi_success": true
+        },
+        {
+          "theta_deg": 15.0,
+          "single_t0_um": 10.468149549532413,
+          "single_t_nls_um": 10.602884845372534,
+          "single_rel_err_vs_true": 0.06028848453725342,
+          "single_rmse": 0.06136568799918283,
+          "single_success": true,
+          "multi_t_nls_um": 10.000000000000002,
+          "multi_rel_err_vs_true": 1.7763568394002506e-16,
+          "multi_rmse": 6.460137999459492e-16,
+          "multi_success": true
+        }
+      ],
+      "max_single_init_rel_err": 0.06028848453725342,
+      "max_multi_init_rel_err": 1.5987211554602255e-15,
+      "thresholds": {
+        "single_init_err": 0.02,
+        "multi_init_err": 0.01
+      },
+      "interpretation": "单初值落入周期歧义局部极小 -> 多初值模块必要（formula_validation §6）",
+      "passed": true
+    }
+  }
+}

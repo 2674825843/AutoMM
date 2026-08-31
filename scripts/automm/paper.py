@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any, Callable
 
-from .common import CONFIG_DIR, ROOT, read_yaml, relative, utc_now, write_json, write_text
+from .common import CONFIG_DIR, ROOT, hash_json, read_json, read_yaml, relative, utc_now, write_json, write_text
 from .paper_integrity import load_version_evidence
 from .paper_semantics import audit_public_docx, prepare_publication
 from .problems import load_problem, problem_dir, question_manifest
@@ -290,6 +290,17 @@ def create_paper_version(problem_id: str) -> tuple[str, Path]:
 
 def validate_paper_markdown(problem_id: str, version_dir: Path, evidence: dict[str, Any]) -> dict[str, Any]:
     """确定性检查论文的结构、事实来源、引用、图表与警告披露。"""
+    from .paper_quality import publication_evidence, quality_contract, validate_plan
+    if quality_contract(version_dir, evidence):
+        result = validate_plan(version_dir, evidence)
+        publication = prepare_publication((version_dir / 'paper.md').read_text(encoding='utf-8'), publication_evidence(version_dir, evidence))
+        result['errors'].extend(publication['issues'])
+        result.update(status='NEEDS_REVISION' if result['errors'] else 'PASS',
+                      problem_id=problem_id, paper_version=version_dir.name,
+                      evidence_hash=evidence['evidence_hash'], checked_at=utc_now())
+        write_json(version_dir / 'publication_manifest.json', publication['manifest'])
+        write_json(version_dir / 'validation.json', result)
+        return result
     draft_path = version_dir / "paper.md"
     if not draft_path.is_file():
         raise RuntimeError(f"论文 Markdown 不存在：{draft_path}")
@@ -638,17 +649,52 @@ def prepare_paper_writing(problem_id: str) -> dict[str, Any]:
     from .paper_delivery import build_support_dependencies
 
     previous = load_problem(problem_id).get('paper', {})
+    if previous.get('active_version') and previous.get('status') not in {'needs_revision', 'not_started', None}:
+        version_dir = problem_dir(problem_id) / 'paper/versions' / previous['active_version']
+        load_version_evidence(version_dir, previous.get('evidence_hash'))
+        return dict(previous, paper_version=previous['active_version'], problem_id=problem_id,
+                    version_dir=relative(version_dir), draft=relative(version_dir / 'paper.md'),
+                    evidence=relative(version_dir / 'evidence_pack.json'))
     expected = previous.get('rewrite_evidence_hash') or previous.get('evidence_hash')
     evidence = build_evidence_pack(problem_id, persist=False)
     if expected is not None and expected != evidence['evidence_hash']:
         raise RuntimeError('授权后证据发生变化，须重新复核后才能准备论文版本')
     dependencies = build_support_dependencies(evidence)
     _persist_evidence_pack(problem_id, evidence)
-    version_name, version_dir = create_paper_version(problem_id)
-    draft = generate_evidence_markdown(problem_id, version_dir, evidence)
+    preparation_key = hash_json({'problem': problem_id, 'evidence': evidence['evidence_hash'],
+                                 'previous': previous.get('active_version'), 'reason': previous.get('rewrite_reason')})
+    recovered = [p.parent for p in (problem_dir(problem_id) / 'paper/versions').glob('paper_v*/preparation.json')
+                 if read_json(p).get('key') == preparation_key]
+    quality = {}
+    if recovered:
+        version_dir = recovered[-1]
+        version_name = version_dir.name
+    else:
+        version_name, version_dir = create_paper_version(problem_id)
+        settings = read_yaml(CONFIG_DIR / 'paper.yaml', {})
+        write_json(version_dir / 'preparation.json', {'key': preparation_key, 'complete': False,
+                   'quality': bool(settings.get('writing_rules') or previous.get('quality_contract')),
+                   'max_writer_revisions': previous.get('quality_contract', {}).get('max_writer_revisions', settings.get('max_writer_revisions', 3))})
+    reservation = read_json(version_dir / 'preparation.json')
+    if (version_dir / 'writer_manifest.json').is_file():
+        load_version_evidence(version_dir, evidence['evidence_hash'])
+        writer = read_json(version_dir / 'writer_manifest.json')
+        if writer.get('quality_contract'):
+            quality = {'quality_contract': writer['quality_contract'],
+                       'writer_revisions': writer['quality_contract']['writer_revisions'], 'status': 'planning'}
+        draft = version_dir / 'paper.md'
+    else:
+        if reservation.get('quality'):
+            from .paper_quality import prepare_quality_version
+            quality = prepare_quality_version(version_dir, evidence, previous=previous)
+            draft = version_dir / 'paper.md'
+        else:
+            draft = generate_evidence_markdown(problem_id, version_dir, evidence)
     write_json(version_dir / 'evidence_pack.json', evidence)
     write_json(version_dir / 'support_dependencies.json', dependencies)
+    write_json(version_dir / 'preparation.json', dict(reservation, complete=True))
     return {
+        **quality,
         "problem_id": problem_id,
         "paper_version": version_name,
         "version_dir": relative(version_dir),
@@ -809,6 +855,8 @@ def render_paper(
     markdown = version_dir / "paper.md"
     if not markdown.is_file():
         raise RuntimeError(f"论文 Markdown 不存在：{markdown}")
+    from .paper_quality import check_review, publication_evidence, quality_audit_hashes
+    check_review(version_dir, load_version_evidence(version_dir))
     pandoc_setting = str(settings.get("pandoc_executable", "pandoc"))
     pandoc = shutil.which(pandoc_setting) or (pandoc_setting if Path(pandoc_setting).is_file() else None)
     if not pandoc:
@@ -822,6 +870,7 @@ def render_paper(
     source = source_bytes.decode('utf-8')
     source_hash = hashlib.sha256(source_bytes).hexdigest()
     evidence = load_version_evidence(version_dir)
+    quality_hashes = quality_audit_hashes(version_dir, evidence)
     figure_sources = []
     for figure in evidence.get('figures', []):
         local = (version_dir / figure['path']).resolve()
@@ -831,7 +880,9 @@ def render_paper(
                 not chosen.is_file() or _sha256(chosen) != figure.get('sha256')):
             raise RuntimeError(f'渲染图片来源与证据哈希不匹配：{figure["path"]}')
         figure_sources.append((chosen, figure['sha256']))
-    publication = prepare_publication(source, evidence, pandoc=str(pandoc))
+    publication = prepare_publication(source, publication_evidence(version_dir, evidence), pandoc=str(pandoc))
+    if quality_hashes:
+        publication['manifest']['quality_audit'] = quality_hashes
     if publication['issues']:
         raise RuntimeError('论文公开内容门禁未通过：' + '；'.join(publication['issues']))
     write_json(render_source, publication['pandoc_ast'])
@@ -879,6 +930,7 @@ def render_paper(
         "errors": [],
         'template': template_info,
         'styles': style_report,
+        'quality_audit': quality_hashes,
     }
     if (version_dir / 'support_dependencies.json').is_file():
         report['support_dependencies_sha256'] = _sha256(version_dir / 'support_dependencies.json')
@@ -896,10 +948,18 @@ def render_paper(
         inspection = inspect_rendered_paper(version_dir, int(settings.get("minimum_pdf_pages", 12)))
         report.update(inspection)
         report["pdf_sha256"] = _sha256(pdf_path)
+        check_review(version_dir, evidence)
+        if quality_hashes != quality_audit_hashes(version_dir, evidence):
+            raise RuntimeError('渲染期间质量审阅来源发生变化')
         report["status"] = "PASS"
     except (OSError, RuntimeError, TimeoutError, ValueError) as exc:
+        report['status'] = 'FAILED_RENDER'
         if pdf_path.exists():
             pdf_path.unlink()
         report["errors"].append(str(exc))
+        from .failure_policy import HarnessInvariantError
+        if isinstance(exc, HarnessInvariantError):
+            write_json(version_dir / 'render_report.json', report)
+            raise
     write_json(version_dir / "render_report.json", report)
     return report
