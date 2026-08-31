@@ -48,6 +48,48 @@ def test_key_assumption_requires_verified_used_reference(initialized_problem: tu
     assert check_key_assumptions(problem_id, "prob01")["passed"] is True
 
 
+def test_key_assumption_accepts_cross_question_used_source(initialized_problem: tuple[str, Path]) -> None:
+    from automm.research import check_key_assumptions
+
+    problem_id, _ = initialized_problem
+    version_dir = create_assumption_version(problem_id, "prob01")
+    version = read_yaml(version_dir / "version.yaml")
+    # 关键假设引用一个"跨问复用来源"：不在本问池，但在题目级 citations.yaml 登记为 verified+used。
+    # 该场景模拟 prob03 的 inherited/跨问假设（如 C16 引用前问 L01/L06/L07），不应被误判为无文献支撑。
+    version["assumptions"] = [{"id": "a1", "key": True, "reference_ids": ["L06"]}]
+    write_yaml(version_dir / "version.yaml", version)
+    # 本问池放一篇 used 以满足 minimum 数量门禁；题目级 citations.yaml 记录跨问已用来源（真实格式）。
+    pool_path = problem_dir(problem_id) / "prob01" / "shared" / "literature_pool.yaml"
+    pool = read_yaml(pool_path)
+    pool["items"] = [{"id": "ref-p", "verified": True, "status": "used"}]
+    write_yaml(pool_path, pool)
+    citations_path = problem_dir(problem_id) / "citations.yaml"
+    citations = read_yaml(citations_path, {"references": []})
+    citations["references"] = [{"citation_id": "L06", "usage_status": "used", "metadata_status": "verified"}]
+    write_yaml(citations_path, citations)
+    assert check_key_assumptions(problem_id, "prob01")["passed"] is True
+
+
+def test_key_assumption_rejects_new_c_level_in_citations(initialized_problem: tuple[str, Path]) -> None:
+    from automm.research import check_key_assumptions
+
+    problem_id, _ = initialized_problem
+    version_dir = create_assumption_version(problem_id, "prob01")
+    version = read_yaml(version_dir / "version.yaml")
+    version["assumptions"] = [{"id": "a1", "key": True, "reference_ids": ["L48"]}]
+    write_yaml(version_dir / "version.yaml", version)
+    pool_path = problem_dir(problem_id) / "prob01" / "shared" / "literature_pool.yaml"
+    pool = read_yaml(pool_path)
+    pool["items"] = [{"id": "ref-p", "verified": True, "status": "used"}]
+    write_yaml(pool_path, pool)
+    citations_path = problem_dir(problem_id) / "citations.yaml"
+    citations = read_yaml(citations_path, {"references": []})
+    # C 级 new：verified 但未 used → 关键假设文献仍不满足，应被门禁拒绝。
+    citations["references"] = [{"citation_id": "L48", "usage_status": "new", "metadata_status": "verified"}]
+    write_yaml(citations_path, citations)
+    assert check_key_assumptions(problem_id, "prob01")["passed"] is False
+
+
 def test_png_quality_and_stable_id(initialized_problem: tuple[str, Path], project_root: Path) -> None:
     problem_id, _ = initialized_problem
     figure_path = project_root / "problems" / problem_id / "prob01" / "figure.png"

@@ -1,0 +1,108 @@
+problem_id: 2025-cumcm-b
+question_id: prob03
+status: locally_completed
+stage: locally_completed
+dependencies: []
+active_assumption_version: 1
+active_formulation_version: 2
+accepted_formulation_version: 2
+consecutive_rejections: 0
+literature_refreshes: 0
+literature_refresh_required: false
+conclusion:
+  conclusion_id: prob03-conclusion-v1
+  version: 1
+  content_hash: b4ec18c5aba228312923ce3761ed410987afdb630da235c839dd00bea2f6c598
+  updated_at: '2026-08-30T13:16:22.882293+00:00'
+sanity:
+  level_1_4: PASS_WITH_WARNING
+  level_5: PASS
+  level_6: PASS_WITH_WARNING
+optional_stages:
+  robustness:
+    decision: completed
+    reason: prob03 robustness 复核完成：formulation_v002 §8.5 预注册判据 R1–R8 全部在阈值内通过（R1 两角
+      0.130%≤2%、R2 色散 0.503%≤2%、R3 CI 0.134%≤2%、R4 异常 0.0%≤1%、R5 多光束 0.111%≤10%、R6
+      n_sub 解耦 0.0%、R7 窗口 0.749%≤2%（只读探针补登）、R8 唯一性次小候选≈1.020 为报告项由 §7.6 判据保障全局唯一）；结论
+      STABLE，送至 sanity-checker 执行 Level 6 验收。
+  ablation:
+    decision: completed
+    reason: ablation 适用并已完成：formulation_v002 主反演（基线-干涉分解 + 一维相位频率扫描 variable projection，两角共享
+      t）含可解释、可分离的公式项/算法模块/约束方向（色散项 N-SE、基线多项式 p、包络多项式 q、两角共享 t 约束、多光束 Airy 高阶项），REQUEST.md
+      要求复杂算法必要性证据，robustness 已覆盖输入/情景不确定性、ablation 补充模型内部组件必要性，二者互补。预注册方案 ablation_v001（核心结论+消融判据运行前固定，ablation/
+      目录），隔离任务 bd175bb7b9a82f35e054（stage=ablation，supervised worker，returncode=0，feasible_incumbent=true）执行
+      F0 完整模型对照 + A1 色散项 / A2 多光束(Airy)高阶项 / A3 基线多项式项 / A4 两角共享 t 约束，5/5 判据通过，conclusion=components_confirmed：A1
+      Δt=0.446%≤2%、A2 Δt=0.300%≤1%（L17 极值不变性/Q1 定量）、A3 Δt=0.574%≤2%（RMSE +9.5%，基线项为拟合优度必要组件）、A4
+      每角偏差 0.089%≤2% 且 ε12=0.130%≤2%（共享为安全一致性约束）。消融结论/汇总表/3 张消融图（自动质检+视觉复核 passed）已归档
+      ablation/、results/ablation/ 与 figures.yaml；未删除任何不利情景，模型组件必要性证据供论文/Q1 引用。ablation
+      为最后一个可选阶段，required artifacts 全部满足，提交局部完成。
+artifacts:
+  problem_understanding: true
+  literature: true
+  assumptions: true
+  formulation: true
+  implementation: true
+  computation: true
+  visualization: true
+  sanity_check: true
+  robustness: true
+  ablation: true
+  cross_question_review: false
+notification:
+  sent: true
+  attempts: 2
+  status: skipped_disabled
+stale:
+  value: false
+  caused_by: []
+accepted_assumption_version: 1
+sanity_history:
+- at: '2026-08-30T06:29:20.491143+00:00'
+  level: level_1_4
+  status: NEEDS_REVISION
+  reason: prob03 主 computation 任务 f1c4e3ed425ff6b0e73f 消费完成（formulation_v001 / assumption_v001，results/silicon_mb_verify）：L1–L2
+    硬门禁通过（hash 追踪链 code/config/input 与 task.json/implementation.md §7 完全一致；9 数值文件全有限无
+    NaN/Inf；原始数据只读；无硬约束违反），主结果 t̂(共享)=3.4477 µm、每角 3.4507/3.4463 µm、ε₁₂=0.130%、n̂_sub(幅值弱辨识)=3.558；全部可靠性判据
+    PASS（two_angle F=0/p=1.0、dispersion 0.503%≤2%、ci 0.134%≤2%、anomaly 0.0%≤1%、multibeam_si
+    two_beam_negligible η_mb≈0.11%、multibeam_sic no_correction_needed R̄≈0.0024、nsub
+    解耦 diag PASS；checks_failed=[]）。但 L3 发现两处 formulation 与实现不一致，依硬门禁「formulation 与实现不一致必须失败」判
+    NEEDS_REVISION：(1) formulation §13.1/§0/§7.2 硅厚度探针值 t̂≈6.9µm 与对审定公式的忠实实现 t̂≈3.4477µm
+    不一致（§13.1 的 RMSE 2.58e-3 应属 t≈3.45、1.11e-2 应属 t≈6.9，差因子 2 相位频率/标签伪影；带内约 4–6 个极大与
+    t≈3.45µm 相符）；(2) formulation (3.2) 精细度公式 F=π√R̄/(1−R̄) 与代码 finesse=π·R̄/(1−R̄)
+    不一致（报告 0.032 vs 应得 ≈0.319，差约 √R̄ 倍，仅诊断不改多光束判定）。模型本身有效（非 VERSION_REJECTED），属当前版本可修复：返回
+    mathematical_formulation 修订 §13.1/§0/§7.2 厚度基准为 3.4477µm、复核 §13.2/§13.4 探针值，并统一
+    (3.2) 精细度公式与代码。computation 结果 t̂=3.4477µm 予以保留（为对审定公式的正确输出）。
+  failure_type: formula_boundary_dimension_solvability
+- at: '2026-08-30T11:41:40.210336+00:00'
+  level: level_1_4
+  status: PASS_WITH_WARNING
+  reason: prob03 主 computation 任务 7e209043973692d067ed 消费完成（formulation_v002 / assumption_v001，results/silicon_mb_verify）：L1–L4
+    硬门禁通过——hash 追踪链（code_hash=482f5abb10c276c9d073dd7b7177ce342cf0a0d2d0b455370a899ec566142873
+    与 task.json/implementation.md §7 一致、source_config_hash/input_hash 一致）完整、机器级 L2-finite
+    通过（10 数值文件全有限无 NaN/Inf，failures=[]）、公式-代码逐条一致（R1 硅厚度基准 t̂=3.4477µm 修正 v001 的 6.9µm
+    因子2 伪影；R2 finesse=π·√R̄/(1−R̄) 修正 v001 漏 √R̄，finesse=0.3186 与公式一致）、单位一致、原始数据只读、无硬约束违反。主结果
+    t̂(共享)=3.4477 µm、每角 3.4507/3.4463 µm、ε₁₂=0.130%、n̂_sub(幅值弱辨识)=3.558；J(t) 曲线全局唯一极小在
+    t=3.45µm（J_shared=0.0608），未达 formulation §13.1 声称的『4 倍余量』（次小候选比≈1.020，弱色散下周期邻近候选接近简并，作为报告项而非硬门禁）。全部可靠性判据
+    PASS（two_angle F=0/p=1.0、dispersion 0.503%≤2%、ci 0.134%≤2%、anomaly 0.0%≤1%、multibeam_si
+    two_beam_negligible η_mb≈0.11%、multibeam_sic no_correction_needed Rbar≈0.0024、nsub
+    解耦 diag PASS；checks_failed=[]）。v001 判 NEEDS_REVISION 的两项 core 缺陷（R1/R2）已在 v002
+    修复并复核通过；模型有效、无 VERSION_REJECTED、无 NEEDS_REVISION。技术债（bootstrap CI 用轮廓似然替代、n_sub
+    弱可辨识 B7、uniqueness 次小候选接近简并、multibeam_improvement 基线差异、λ>5µm SiC 色散缺口 B6、L43-L47
+    全文待复核、附件2 数据契约偏差）均为既有/登记事项或非阻断。合并 config_hash 因 config/gates.yaml、workflow.yaml
+    在 computation 后被修改而漂移（post-hoc 配置变更；code/input/source_config 链完好），作质量告警登记不触发修订。判定
+    PASS_WITH_WARNING，推进至 sanity_check 阶段。
+  failure_type: null
+- at: '2026-08-30T12:43:16.524150+00:00'
+  level: level_6
+  status: PASS_WITH_WARNING
+  reason: prob03 Level 6（robustness 验收）独立复核通过：robustness 判据 R1–R8 由 formulation_v002
+    §8.5 预注册并先于 computation 固定（parameters.yaml），R1–R7 全部在阈值内（R1 eps12=0.130%≤2%、R2
+    Δt_disp=0.503%≤2%、R3 CI 半宽 0.134%≤2%、R4 Δt_anom=0.0%≤1%、R5 η_mb=0.111%≤10%、R6
+    n_sub 解耦 0.0%、R7 Δt_win=0.749%≤2%），checks_failed=[]；独立复算 R7=0.749% 与登记值一致，探针只读、复用
+    model.py、未改数据/代码/结果。R8 唯一性次小候选≈1.020 为报告项（弱色散周期歧义），全局唯一性由 §7.6 预注册判据确认。主结果 t̂=3.4477
+    µm/每角 3.4507/3.4463 µm（ε12=0.130%），多光束判定两光束适用（硅 R̄≈0.0101、η_mb≈0.11%；SiC R̄_max≈0.0024
+    no_correction_needed），与 prob02 结论一致；物理/常识一致（t 由相位频率确定、与 n_sub 解耦；硅色散弱且带内无 λ>5µm
+    缺口；噪声二阶小量）。硬门禁（L2-finite 10 文件全有限无 NaN/Inf、单位/量纲、公式-实现一致 R1/R2 已修复、原始数据只读、追踪链完整、feasible_incumbent=true）全部通过。技术债（bootstrap
+    CI 未跑用轮廓似然、n_sub 弱可辨识 B7、uniqueness 近简并、multibeam 基线差异、λ>5µm SiC 色散缺口 B6、L43-L47
+    全文待复核、附件2 数据契约偏差）均为既有/登记事项，非阻断。判定 PASS_WITH_WARNING。
+  failure_type: null

@@ -1,0 +1,212 @@
+{
+  "feasible_incumbent": true,
+  "task": "prob03-silicon-multibeam-thickness",
+  "passed": true,
+  "theta_deg": [
+    10.0,
+    15.0
+  ],
+  "material": "silicon（附件3/4）",
+  "n_sub_hat_amplitude": 3.5576709414472134,
+  "dispersion_model": "N-SE",
+  "inv_band_cm1": [
+    2000.0,
+    4000.0
+  ],
+  "main_variable_projection": {
+    "mode": "baseline_interference_decoupled_1d_scan",
+    "t_hat_shared_um": 3.447668992836722,
+    "t_hat_per_angle_um": [
+      3.4507446594671896,
+      3.446258474301775
+    ],
+    "J_min_shared": 0.0608059154019643,
+    "J_min_per_angle": [
+      0.02750783940008829,
+      0.03329807600187601
+    ],
+    "uniqueness_second_min_ratio": 1.0200082131853192,
+    "p_baseline_deg": 3,
+    "q_envelope_deg": 1,
+    "polynomial_basis": "centered_orthogonalized_chebyshev",
+    "nsub_estimates": [
+      {
+        "theta_deg": 10.0,
+        "amplitude": 0.013358147502739727,
+        "n_sub": 3.5508389457277896,
+        "R1": 0.3008094838958694,
+        "R2": 0.0003033541187139986
+      },
+      {
+        "theta_deg": 15.0,
+        "amplitude": 0.014830714824180765,
+        "n_sub": 3.5645029371666372,
+        "R1": 0.300823407077499,
+        "R2": 0.0003739200817595108
+      }
+    ]
+  },
+  "multibeam_conditions_si": {
+    "t_um": 3.447668992836722,
+    "amplitude": 0.014094431163460246,
+    "n_ref": 3.429266378797206,
+    "n_sub_hat": 3.5576709414472134,
+    "conditions": {
+      "N1": {
+        "criterion": "Rbar=sqrt(R01*R12) <= theta_mb",
+        "R01": 0.3008094838958694,
+        "R12": 0.0003377166963494597,
+        "Rbar": 0.010079106365739922,
+        "finesse": 0.31861072890531794,
+        "theta_mb": 0.05,
+        "criterion_met": true
+      },
+      "N2": {
+        "coherence_length_um": 10373.44398340249,
+        "opd_single_roundtrip_um": 23.61561576202653,
+        "m_max_coh": 439,
+        "criterion_met": true
+      },
+      "N3": {
+        "alpha_bound_rad": 5.839642764480458e-05,
+        "alpha_bound_deg": 0.0033458688426883884,
+        "criterion_met": true,
+        "note": "实际晶圆片含不平度/厚度梯度（C3），紧平行度压制高次、佐证两光束；不作硬门禁"
+      },
+      "N4": {
+        "extinction_k": 0.0,
+        "kappa": 0.0,
+        "m_max_abs": 1000000000,
+        "criterion_met": true
+      },
+      "all_conditions_met": true,
+      "note": "N1–N4 为标准+阈值登记（formulation §3.6）；全部满足才可能显著多光束，任一不满足都可能抑制多光束"
+    }
+  },
+  "multibeam_improvement_si": {
+    "per_angle": [
+      {
+        "theta_deg": 10.0,
+        "sse_two_beam": 3.5962930237203583,
+        "sse_airy": 3.594920318875021,
+        "rmse_two_beam": 0.029444769669291312,
+        "rmse_airy": 0.029439149599479852,
+        "improvement_percent": 0.03816999438819575,
+        "needs_multibeam_correction": false,
+        "threshold_percent": 10.0
+      },
+      {
+        "theta_deg": 15.0,
+        "sse_two_beam": 1.8346712966460124,
+        "sse_airy": 1.8326386538442732,
+        "rmse_two_beam": 0.021030992058479813,
+        "rmse_airy": 0.021019338651793805,
+        "improvement_percent": 0.11079057079353158,
+        "needs_multibeam_correction": false,
+        "threshold_percent": 10.0
+      }
+    ],
+    "improvement_percent": 0.11079057079353158,
+    "threshold_percent": 10.0,
+    "needs_multibeam_correction": false,
+    "decision": "two_beam_negligible"
+  },
+  "multibeam_decision_si": "two_beam_negligible",
+  "sic_multibeam_recheck": {
+    "per_angle": [
+      {
+        "theta_deg": 10.0,
+        "amplitude": 0.003872233502029929,
+        "R01": 0.19204070590587086,
+        "R12_from_amplitude": 2.990135223953867e-05,
+        "R12_used": 2.990135223953867e-05,
+        "Rbar": 0.002396304820264129,
+        "theta_mb": 0.05,
+        "criterion_met": true
+      },
+      {
+        "theta_deg": 15.0,
+        "amplitude": 0.003871534141545188,
+        "R01": 0.1921009092136104,
+        "R12_from_amplitude": 2.988563833806047e-05,
+        "R12_used": 2.988563833806047e-05,
+        "Rbar": 0.002396050562315109,
+        "theta_mb": 0.05,
+        "criterion_met": true
+      }
+    ],
+    "Rbar_max": 0.002396304820264129,
+    "theta_mb": 0.05,
+    "sic_mb_verdict": "no_correction_needed",
+    "prob02_reference": {
+      "t_sic_um": 7.2158,
+      "R01_ref": 0.19,
+      "R12_ref": 3.2e-05,
+      "Rbar_ref": 0.0024657656011875906,
+      "content_hash": "27b0ce86…a12ea（prob02-conclusion-v1）"
+    },
+    "note": "SiC 在 prob02 t̂ 处只读量级核实（不重新求解厚度）；Rbar<=θ_mb → 无显著多光束、无需修正"
+  },
+  "two_angle_consistency": {
+    "status": "PASS",
+    "F_stat": 0.0,
+    "F_critical": 3.842582419279694,
+    "p_value": 1.0,
+    "alpha": 0.05,
+    "df1": 1,
+    "df2": 8278,
+    "accept_shared_t": true,
+    "ss_shared": 0.0608059154019643,
+    "ss_indep": 0.0608059154019643,
+    "t_theta10_um": 3.4507446594671896,
+    "t_theta15_um": 3.446258474301775,
+    "t_mean_um": 3.4485015668844823,
+    "eps12_percent": 0.13009085477863216,
+    "n_tot": 8296,
+    "eps12_threshold_percent": 2.0
+  },
+  "dispersion_sensitivity": {
+    "status": "PASS",
+    "dispersion_models_t": {
+      "N-SE": 3.447668992836722,
+      "N-SE-delta+": 3.430456220612246,
+      "N-SE-delta-": 3.4650082813855345
+    },
+    "delta_t_disp_percent": 0.5029278792377905,
+    "threshold_percent": 2.0,
+    "delta_c_disp": 0.005,
+    "note": "硅色散弱（Δn/n≈0.51%），Δt_disp 预期<1%；硅 Sellmeier 在主反演带全程有效（无 λ>5µm 缺口）"
+  },
+  "ci_profile_likelihood": {
+    "t_low": 3.4432356829005575,
+    "t_high": 3.45246267852174,
+    "halfwidth_um": 0.004613497810591172,
+    "halfwidth_percent": 0.13381498688466645,
+    "sigma2": 7.344596618186291e-06,
+    "n_tot": 8296,
+    "n_params": 17,
+    "chi2": 3.841,
+    "status": "PASS",
+    "threshold_percent": 2.0,
+    "t_hat_um": 3.447668992836722,
+    "method": "profile_likelihood_Jcurve（SSE(t) 曲率/夹逼区间）"
+  },
+  "anomaly_impact": {
+    "status": "PASS",
+    "strategy_t": {
+      "downweight": 3.4478249507610386,
+      "drop": 3.4478249507610386,
+      "keep": 3.4478249507610386
+    },
+    "delta_t_anom_percent": 0.0,
+    "threshold_percent": 1.0,
+    "note": "硅片附件 3/4 无 R%>100 异常；异常点按 weight_anomaly 降权（不改原始数据），B2 策略沿用为鲁棒"
+  },
+  "checks_failed": [],
+  "notes": [
+    "prob03：硅片（附件3/4）多光束判定 + 厚度反演（formulation_v002）",
+    "Q1 多光束必要条件 N1-N4：Rbar=sqrt(R01*R12)<=theta_mb、相干长度、界面平行度、吸收限制",
+    "Q2 硅片：主反演=基线-干涉分解 + 一维相位频率扫描（variable projection，两角共享 t），t 由相位频率唯一确定、与 n_sub 解耦",
+    "Q3 SiC 重新判定：prob02 对照（Rbar<=theta_mb → 无显著多光束、无需修正）"
+  ]
+}

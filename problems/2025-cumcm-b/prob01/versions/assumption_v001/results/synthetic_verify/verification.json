@@ -1,0 +1,131 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "forward_model_R_in_unit[theta=10°]",
+      "passed": true,
+      "detail": "R_clean ∈ [0.124494, 0.252852]（theta=10.0°）",
+      "tolerance": "0 <= R <= 1"
+    },
+    {
+      "name": "spacing_constant_n_approx[theta=10°]",
+      "passed": true,
+      "detail": "Δν_obs=188.0000 vs Δν_theory(常数 n)=196.2421 cm^-1（rel=4.20e-02，A3 文档化色散偏差）",
+      "tolerance": "rel < 0.1（基线）"
+    },
+    {
+      "name": "method_a_t_error[theta=10°]",
+      "passed": true,
+      "detail": "t_A=10.438409 um vs t_true=10.0 um（rel=4.38e-02，极值数=11，n_eff=2.55378）",
+      "tolerance": "rel < 0.1（基线）"
+    },
+    {
+      "name": "phase_gap_law_match[theta=10°]",
+      "passed": true,
+      "detail": "Δg_obs=499.8906 vs Δg_theory=500.0000 cm^-1（rel=2.19e-04）",
+      "tolerance": "rel < 0.01（(3.13) 间隔律）"
+    },
+    {
+      "name": "phase_method_t_error[theta=10°]",
+      "passed": true,
+      "detail": "t_phase=10.002189 um vs t_true=10.0 um（rel=2.19e-04，pairs=10）",
+      "tolerance": "rel < 0.01"
+    },
+    {
+      "name": "phase_g_monotonic[theta=10°]",
+      "passed": true,
+      "detail": "g(nu) 在弱色散谱段单调递增：True",
+      "tolerance": "g' > 0（(3.13) 成立前提）"
+    },
+    {
+      "name": "nls_full_success[theta=10°]",
+      "passed": true,
+      "detail": "NLS status=1，nfev=4，rmse=0.000e+00",
+      "tolerance": "success=True"
+    },
+    {
+      "name": "nls_full_t_error[theta=10°]",
+      "passed": true,
+      "detail": "t_NLS=10.000000 um vs t_true=10.0 um（rel=0.00e+00）",
+      "tolerance": "rel < 0.01"
+    },
+    {
+      "name": "nls_band_consistency[theta=10°]",
+      "passed": true,
+      "detail": "t_NLS(full)=10.000000 vs t_NLS(weak)=10.000000 um（rel=0.00e+00）",
+      "tolerance": "rel < 0.01"
+    },
+    {
+      "name": "forward_model_R_in_unit[theta=15°]",
+      "passed": true,
+      "detail": "R_clean ∈ [0.124581, 0.252889]（theta=15.0°）",
+      "tolerance": "0 <= R <= 1"
+    },
+    {
+      "name": "spacing_constant_n_approx[theta=15°]",
+      "passed": true,
+      "detail": "Δν_obs=188.0000 vs Δν_theory(常数 n)=196.8012 cm^-1（rel=4.47e-02，A3 文档化色散偏差）",
+      "tolerance": "rel < 0.1（基线）"
+    },
+    {
+      "name": "method_a_t_error[theta=15°]",
+      "passed": true,
+      "detail": "t_A=10.468150 um vs t_true=10.0 um（rel=4.68e-02，极值数=11，n_eff=2.55378）",
+      "tolerance": "rel < 0.1（基线）"
+    },
+    {
+      "name": "phase_gap_law_match[theta=15°]",
+      "passed": true,
+      "detail": "Δg_obs=500.0236 vs Δg_theory=500.0000 cm^-1（rel=4.72e-05）",
+      "tolerance": "rel < 0.01（(3.13) 间隔律）"
+    },
+    {
+      "name": "phase_method_t_error[theta=15°]",
+      "passed": true,
+      "detail": "t_phase=9.999529 um vs t_true=10.0 um（rel=4.71e-05，pairs=10）",
+      "tolerance": "rel < 0.01"
+    },
+    {
+      "name": "phase_g_monotonic[theta=15°]",
+      "passed": true,
+      "detail": "g(nu) 在弱色散谱段单调递增：True",
+      "tolerance": "g' > 0（(3.13) 成立前提）"
+    },
+    {
+      "name": "nls_full_success[theta=15°]",
+      "passed": true,
+      "detail": "NLS status=1，nfev=3，rmse=0.000e+00",
+      "tolerance": "success=True"
+    },
+    {
+      "name": "nls_full_t_error[theta=15°]",
+      "passed": true,
+      "detail": "t_NLS=10.000000 um vs t_true=10.0 um（rel=0.00e+00）",
+      "tolerance": "rel < 0.01"
+    },
+    {
+      "name": "nls_band_consistency[theta=15°]",
+      "passed": true,
+      "detail": "t_NLS(full)=10.000000 vs t_NLS(weak)=10.000000 um（rel=0.00e+00）",
+      "tolerance": "rel < 0.01"
+    },
+    {
+      "name": "two_angle_consistency",
+      "passed": true,
+      "detail": "t(10°)=10.000000 vs t(15°)=10.000000 um（rel=0.00e+00）",
+      "tolerance": "rel < 0.02"
+    }
+  ],
+  "method_reference": {
+    "forward_model": "(3.5)/(3.6)",
+    "snell": "(2.1)-(2.3)",
+    "optical_path": "(2.5)/(2.6)",
+    "phase": "(2.7)/(2.8)",
+    "fresnel": "(3.1)-(3.3)",
+    "extremum": "(3.7)",
+    "spacing": "(3.8)",
+    "thickness": "(3.10)",
+    "phase_method": "(3.11)-(3.13)",
+    "sellmeier": "(4.1)"
+  }
+}

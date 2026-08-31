@@ -1,0 +1,180 @@
+{
+  "feasible_incumbent": false,
+  "task": "prob02-epitaxy-thickness",
+  "passed": false,
+  "theta_deg": [
+    10.0,
+    15.0
+  ],
+  "n_sub_init": 2.55,
+  "n_sub_hat": 2.621484323707155,
+  "dispersion_model": "N-SE",
+  "inv_band_cm1": [
+    2000.0,
+    4000.0
+  ],
+  "joint_P2_main": {
+    "t_um": 0.30522423125143117,
+    "success": true,
+    "status": 2,
+    "cost": 0.11504360434315516,
+    "optimality": 2.78833098827811e-07,
+    "nfev": 40,
+    "message": "`ftol` termination condition is satisfied.",
+    "t0_um": 0.6378015040039773,
+    "max_residual": 0.012110761750488225,
+    "rmse": 0.005266376037903342,
+    "jac": {
+      "shape": [
+        8296,
+        2
+      ],
+      "frobenius_norm": 10.993532364117733
+    },
+    "n_obs": 8296,
+    "n_params": 2,
+    "n_sub": 2.621484323707155
+  },
+  "joint_P1_crosscheck": {
+    "t_um": 0.30522422805072164,
+    "success": true,
+    "status": 2,
+    "cost": 0.11504360434315479,
+    "optimality": 1.5305968791654547e-08,
+    "nfev": 11,
+    "message": "`ftol` termination condition is satisfied.",
+    "t0_um": 0.6378015040039773,
+    "max_residual": 0.012110762023524901,
+    "rmse": 0.005266376037903333,
+    "jac": {
+      "shape": [
+        8296,
+        1
+      ],
+      "frobenius_norm": 4.5264917784077
+    },
+    "n_obs": 8296,
+    "n_params": 1
+  },
+  "per_angle_m2_m3": {
+    "angles": [
+      {
+        "theta_deg": 10.0,
+        "spacing": {
+          "delta_nu_median": 30.373999999999796,
+          "t_spacing_um": 64.6083978031437,
+          "n_eff": 2.5537909892631983,
+          "extrema_count": 22
+        },
+        "phase": {
+          "t_phase_um": 62.19318245833435,
+          "delta_g_median": 80.39466389020527,
+          "g_pairs": 21,
+          "g_monotonic": true
+        }
+      },
+      {
+        "theta_deg": 15.0,
+        "spacing": {
+          "delta_nu_median": 35.19499999999971,
+          "t_spacing_um": 55.917221518717504,
+          "n_eff": 2.5537909892631983,
+          "extrema_count": 30
+        },
+        "phase": {
+          "t_phase_um": 53.82701712011269,
+          "delta_g_median": 92.89015567856404,
+          "g_pairs": 29,
+          "g_monotonic": true
+        }
+      }
+    ]
+  },
+  "two_angle_consistency": {
+    "status": "FAIL",
+    "F_stat": 905.0383842252633,
+    "F_critical": 3.8425803865240336,
+    "p_value": 0.0,
+    "alpha": 0.05,
+    "df1": 1,
+    "df2": 8293,
+    "accept_shared_t": false,
+    "ss_shared": 0.23008720868631033,
+    "ss_indep": 0.20744784289093712,
+    "t_theta10_um": 0.3102166478799017,
+    "t_theta15_um": 0.2348324599472631,
+    "t_mean_um": 0.27252455391358243,
+    "eps12_percent": 27.66142971342794,
+    "eps12_threshold_percent": 2.0,
+    "n_sub_hat": 2.621484323707155
+  },
+  "dispersion_sensitivity": {
+    "status": "FAIL",
+    "dispersion_models_t": {
+      "N-SE": 0.30522423125143117,
+      "N-SE-delta+": 0.35133497741449965,
+      "N-SE-delta-": 0.3008006095420077
+    },
+    "delta_t_disp_percent": 15.10717087369264,
+    "threshold_percent": 2.0,
+    "delta_c_disp": 0.005,
+    "t_truncated_um": 0.30522423125143117,
+    "t_full_um": 0.6640016429086114,
+    "delta_t_inv_band_percent": 117.54552061157759,
+    "note": "Δt_inv_band 为谱段截断合理性证据（v001 实测约 37%），不作主判据"
+  },
+  "nsub_local_sensitivity": {
+    "status": "PASS",
+    "t_base_um": 0.30522423125143117,
+    "n_sub_hat": 2.621484323707155,
+    "t_nsub_up_um": 0.21778922240696896,
+    "delta_t_nsub_percent": 28.646155806822833,
+    "threshold_percent": 3.0,
+    "perturbation_nsub": 0.1,
+    "note": "诊断项（非硬门禁）；v002 实测约 1-1.7%；文献 L26/L30/L31 作 n_sub 合理范围交叉参照"
+  },
+  "bootstrap_ci_analytic": {
+    "status": "PASS",
+    "t_base_um": 0.30522423125143117,
+    "sigma_t": 0.0012001997098262532,
+    "ci_halfwidth_um": 0.002352391431259456,
+    "ci_halfwidth_percent": 0.770709265648589,
+    "threshold_percent": 2.0,
+    "method": "analytic_covariance_lm_jacobian_projected_to_t（含 n_sub 相关项）"
+  },
+  "anomaly_impact": {
+    "status": "PASS",
+    "strategy_t": {
+      "downweight": 0.3052242244190261,
+      "drop": 0.3052242244190261,
+      "keep": 0.3052242244190261
+    },
+    "delta_t_anom_percent": 0.0,
+    "threshold_percent": 1.0
+  },
+  "multibeam_diagnostic": {
+    "two_beam_rmse": [
+      0.005412083483873983,
+      0.005116520840256926
+    ],
+    "airy_rmse": [
+      0.005410989570700524,
+      0.005128023375250123
+    ],
+    "improvement_percent": 0.02021242238259636,
+    "needs_multibeam_correction": false,
+    "threshold_percent": 10.0,
+    "t_used_um": 0.30522423125143117,
+    "note": "prob03 深究 Airy 修正；prob02 仅诊断并记录（v001 实测改进 0.14%<10%）"
+  },
+  "checks_failed": [
+    "reliability_two_angle_ftest",
+    "reliability_dispersion"
+  ],
+  "notes": [
+    "prob02 实测数据反演（formulation_v002）：主反演谱段截断 ν∈[2000,4000]（Sellmeier 已知区）、M1 色散化全谱 NLS 多初值（P2 联合 (t,n_sub)，两角共享 t）为主方法；M1-P1/M2/M3 交叉验证；两角一致性改嵌套 F 检验（§7.1）",
+    "色散模型 N-SE（带内纯 Sellmeier，L09）；λ>5µm 仅作 Δt_inv_band 背景（5-17µm 缺口代理，L26 待取数）",
+    "Reststrahlen [700,1000] 剔除（w=0）；附件2 反射率 >100% 异常点降权（w=weight_anomaly），不修改原始数据",
+    "可靠性判据 §7.1-§7.6（F 检验/带内色散敏感性+Δt_inv_band/n_sub 局部灵敏度/噪声 CI（解析协方差）/异常点影响/多光束诊断），阈值见 parameters.yaml"
+  ]
+}

@@ -206,6 +206,16 @@ def check_key_assumptions(problem_id: str, question_id: str) -> dict[str, Any]:
     )
     pool = load_pool(problem_id, question_id)
     references = {item.get("id"): item for item in pool.get("items", [])}
+    # 跨问复用来源：题目级 citations.yaml 登记了前问已 verified+used 的文献（通常不在本问池，
+    # 因为本问池只记录本问新增条目）。关键假设若引用这类前问来源（inherited/跨问），须被门禁认可，
+    # 否则会被误判为"无 verified+used 文献"。setdefault 保证本问池条目优先，不覆盖。
+    for entry in read_yaml(problem_dir(problem_id) / "citations.yaml", {"references": []}).get("references", []):
+        rid = entry.get("id") or entry.get("citation_id")
+        if not rid:
+            continue
+        status = entry.get("usage_status") or entry.get("status")
+        verified = bool(entry.get("verified") or entry.get("metadata_status") == "verified")
+        references.setdefault(rid, {"verified": verified, "status": status})
     errors = []
     minimum = int(config_section("research", problem_id, question_id).get("minimum_items_per_question", 1))
     used_verified = [item for item in pool.get("items", []) if item.get("status") == "used" and item.get("verified")]

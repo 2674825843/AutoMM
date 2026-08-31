@@ -1,0 +1,33 @@
+# prob01 ablation 任务执行配置（ablation 阶段由 supervised worker 执行）
+# 场景与执行设置：合成基准场景 + 消融实验参数（预注册方案见
+# ablation/preregistration.md，判据在 ablation.py PREREGISTERED 中运行前固定）。
+# 分层合并：本文件作为 make_task_spec 的 config_path 合并进有效配置（compute 段生效）。
+compute:
+  task_timeout_seconds: 900
+  memory_per_worker_gb: 1
+scenario:
+  # 合成基准场景（与 computation 阶段 synthetic_verify / robustness 阶段一致，保证可对比）
+  t_true_um: 10.0            # 已知厚度（µm）
+  n_sub: 3.0                 # 衬底折射率（A6；扰动基准）
+  theta_deg: [10.0, 15.0]    # 两入射角（A10）
+  nu_min_cm1: 400.0
+  nu_max_cm1: 4000.0
+  nu_points: 3601            # 谱点（间隔 1 cm^-1，与附件量级一致）
+  seed: 20260829             # 随机种子（可复现；本方案为确定性实验，种子仅作元数据）
+ablation:
+  # 预注册方案参数（与 ablation.py PREREGISTERED / ablation/preregistration.md 一致）
+  nu_range_cm1: [400.0, 4000.0]
+  weak_band_cm1: [2000.0, 4000.0]
+  reststrahlen_exclude_cm1: [700.0, 1000.0]
+  # 可辨识性度量（A1/A2）：rmse(t) 网格参数与平坦度阈值
+  identifiability:
+    t_lo_um: 1.0
+    t_hi_um: 25.0
+    n_grid: 200
+    flatness_threshold: 0.05
+  # 判据阈值（与预注册方案一致）
+  f0_rel_err_threshold: 0.01     # F0：NLS 相对真值误差 <= 1%
+  f0_rmse_depth_ratio: 100.0     # F0：rmse 深度比（t_true 处全局极小）
+  a3_pol_pairwise_tol: 0.01      # A3：s/p/avg 厚度最大相对差 <= 1%
+  a4_single_init_err_threshold: 0.02  # A4：单初值误差 > 2%（落入局部极小）
+  a4_multi_init_err_threshold: 0.01   # A4：多初值误差 <= 1%

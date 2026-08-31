@@ -1,0 +1,46 @@
+{
+  "attachment1": {
+    "path": "E:\\项目\\AutoMM\\data\\2025_cumcm_B\\附件1.xlsx",
+    "sha256": "b42f8bdabe7497951284cd044386c3cdf9d349b5e8ef4baaa0336e65ff84c67b",
+    "log": {
+      "n_points": 7469,
+      "reststrahlen_range": [
+        700.0,
+        1000.0
+      ],
+      "n_reststrahlen_excluded": 623,
+      "anomaly_rule": "R% > 100.0 或 R% < 0.0（超界）",
+      "n_anomaly": 0,
+      "n_anomaly_upper": 0,
+      "n_anomaly_lower": 0,
+      "weight_anomaly": 0.05,
+      "n_valid_points": 6846,
+      "note": "原始数据只读；反射率 %->0-1 归一；Reststrahlen 区 w=0；异常点降权 w=weight_anomaly"
+    }
+  },
+  "attachment2": {
+    "path": "E:\\项目\\AutoMM\\data\\2025_cumcm_B\\附件2.xlsx",
+    "sha256": "2e67444b61b90826c1ffe043fb0f3e7d3470fac9a005f8842f231ef3d64b34d1",
+    "log": {
+      "n_points": 7469,
+      "reststrahlen_range": [
+        700.0,
+        1000.0
+      ],
+      "n_reststrahlen_excluded": 623,
+      "anomaly_rule": "R% > 100.0 或 R% < 0.0（超界）",
+      "n_anomaly": 262,
+      "n_anomaly_upper": 262,
+      "n_anomaly_lower": 0,
+      "weight_anomaly": 0.05,
+      "n_valid_points": 7108,
+      "note": "原始数据只读；反射率 %->0-1 归一；Reststrahlen 区 w=0；异常点降权 w=weight_anomaly"
+    }
+  },
+  "inv_band_cm1": [
+    2000.0,
+    4000.0
+  ],
+  "n_points_inv_band_all_angles": 8296,
+  "truncation_rule": "主反演谱段截断至 ν∈[2000.0,4000.0]（Sellmeier 已知区）；ν<2000 与 Reststrahlen 不进入主反演；异常点降权 w=weight_anomaly"
+}

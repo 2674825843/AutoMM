@@ -1,0 +1,198 @@
+{
+  "solver": "scipy.optimize.least_squares",
+  "joint_P2": {
+    "best": {
+      "t_um": 0.30522423125143117,
+      "success": true,
+      "status": 2,
+      "cost": 0.11504360434315516,
+      "optimality": 2.78833098827811e-07,
+      "nfev": 40,
+      "message": "`ftol` termination condition is satisfied.",
+      "t0_um": 0.6378015040039773,
+      "max_residual": 0.012110761750488225,
+      "rmse": 0.005266376037903342,
+      "jac": {
+        "shape": [
+          8296,
+          2
+        ],
+        "frobenius_norm": 10.993532364117733
+      },
+      "n_obs": 8296,
+      "n_params": 2,
+      "n_sub": 2.621484323707155
+    },
+    "starts": [
+      {
+        "t_um": 1.2929846564835379,
+        "success": true,
+        "status": 3,
+        "cost": 0.25257101116238295,
+        "optimality": 0.0006786479558787057,
+        "nfev": 66,
+        "message": "`xtol` termination condition is satisfied.",
+        "t0_um": 1.2919463087248322,
+        "max_residual": 0.01647494685524306,
+        "rmse": 0.007803193520181333,
+        "jac": {
+          "shape": [
+            8296,
+            2
+          ],
+          "frobenius_norm": 9.304512112125938
+        },
+        "n_obs": 8296,
+        "n_params": 2,
+        "n_sub": 2.5610109115707296
+      },
+      {
+        "t_um": 57.574325517727736,
+        "success": true,
+        "status": 2,
+        "cost": 0.3469072292243678,
+        "optimality": 0.0005819978291592107,
+        "nfev": 342,
+        "message": "`ftol` termination condition is satisfied.",
+        "t0_um": 58.01009978922352,
+        "max_residual": 0.024253905598922182,
+        "rmse": 0.009145075625854383,
+        "jac": {
+          "shape": [
+            8296,
+            2
+          ],
+          "frobenius_norm": 9.115407870608456
+        },
+        "n_obs": 8296,
+        "n_params": 2,
+        "n_sub": 2.5544779644741777
+      },
+      {
+        "t_um": 0.30522423125143117,
+        "success": true,
+        "status": 2,
+        "cost": 0.11504360434315516,
+        "optimality": 2.78833098827811e-07,
+        "nfev": 40,
+        "message": "`ftol` termination condition is satisfied.",
+        "t0_um": 0.6378015040039773,
+        "max_residual": 0.012110761750488225,
+        "rmse": 0.005266376037903342,
+        "jac": {
+          "shape": [
+            8296,
+            2
+          ],
+          "frobenius_norm": 10.993532364117733
+        },
+        "n_obs": 8296,
+        "n_params": 2,
+        "n_sub": 2.621484323707155
+      },
+      {
+        "t_um": 2.2588705356550913,
+        "success": true,
+        "status": 2,
+        "cost": 0.3001317403092646,
+        "optimality": 0.004601481904416089,
+        "nfev": 35,
+        "message": "`ftol` termination condition is satisfied.",
+        "t0_um": 1.946091113445687,
+        "max_residual": 0.01834353404160685,
+        "rmse": 0.00850621957926557,
+        "jac": {
+          "shape": [
+            8296,
+            2
+          ],
+          "frobenius_norm": 9.250794080381203
+        },
+        "n_obs": 8296,
+        "n_params": 2,
+        "n_sub": 2.5495387547977093
+      },
+      {
+        "t_um": 57.57417441445071,
+        "success": true,
+        "status": 2,
+        "cost": 0.3469072290975816,
+        "optimality": 0.00048783240612343593,
+        "nfev": 222,
+        "message": "`ftol` termination condition is satisfied.",
+        "t0_um": 57.35595498450266,
+        "max_residual": 0.024253603478095964,
+        "rmse": 0.00914507562418323,
+        "jac": {
+          "shape": [
+            8296,
+            2
+          ],
+          "frobenius_norm": 9.115407390474806
+        },
+        "n_obs": 8296,
+        "n_params": 2,
+        "n_sub": 2.554478185411706
+      },
+      {
+        "t_um": 58.54472818074964,
+        "success": true,
+        "status": 2,
+        "cost": 0.3470042097845418,
+        "optimality": 0.0005882955030698858,
+        "nfev": 185,
+        "message": "`ftol` termination condition is satisfied.",
+        "t0_um": 58.664244593944375,
+        "max_residual": 0.02438243747837654,
+        "rmse": 0.009146353824327125,
+        "jac": {
+          "shape": [
+            8296,
+            2
+          ],
+          "frobenius_norm": 9.117534409857996
+        },
+        "n_obs": 8296,
+        "n_params": 2,
+        "n_sub": 2.554186847317192
+      }
+    ],
+    "scan": {
+      "t0_best": 1.2919463087248322,
+      "rmse_best": 0.008092086875725867
+    },
+    "n_starts": 6,
+    "period_um": 0.6541448047208549
+  },
+  "joint_P1": {
+    "best": {
+      "t_um": 0.30522422805072164,
+      "success": true,
+      "status": 2,
+      "cost": 0.11504360434315479,
+      "optimality": 1.5305968791654547e-08,
+      "nfev": 11,
+      "message": "`ftol` termination condition is satisfied.",
+      "t0_um": 0.6378015040039773,
+      "max_residual": 0.012110762023524901,
+      "rmse": 0.005266376037903333,
+      "jac": {
+        "shape": [
+          8296,
+          1
+        ],
+        "frobenius_norm": 4.5264917784077
+      },
+      "n_obs": 8296,
+      "n_params": 1
+    },
+    "n_starts": 3
+  },
+  "tolerances": {
+    "ftol": 1e-10,
+    "xtol": 1e-10,
+    "gtol": 1e-10,
+    "max_nfev": 400
+  },
+  "scan": 150
+}

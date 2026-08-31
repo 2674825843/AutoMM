@@ -1,0 +1,170 @@
+# prob03 文献池（多光束干涉必要条件 + 硅外延层厚度计算）
+# 与 problems/2025-cumcm-b/citations.yaml 的题目级引用登记同步；字段一致。
+# hypothesis_family 假设族编号：
+#   H1 多光束干涉（Airy）公式及其必要条件（反射率阈值、相干长度/相干性、界面平行度、吸收限制）
+#   H2 硅外延层红外反射干涉测厚（标准与经典方法）
+#   H3 双层结构干涉质量与多光束判定（硅片附件3/4是否出现多光束）
+#   H4 多光束对测厚精度的影响与修正（含 SiC 修正、FFT/Airy 反演）
+# 说明：本问在 prob01（F1-F5，L01-L24）/ prob02（G1-G4，L25-L42）基础上新增 L43-L50。
+# 复用的已有来源（不重复编号，仅在 literature.md 叙述中引用）：
+#   H1: L06(Born&Wolf Airy)、L07(Hecht)、L46(Soler)、L47(Monzón)
+#   H2: L03(ASTM F95)、L04(SEMI MF95)、L12/L13(硅折射率)、L32(Zhou)、L44(Severin)、L45(Sato)
+#   H3: L43(Sun 双层结构)、L50(Lv SiC+Si 建模)、L17(多光束不改变极值位置，候选主张需验证)
+#   H4: L25(Sensors 色散+多光束)、L33-L41(方法族)、L48(Yan 多光束反演)、L49(Zeng FFT 修正)
+question_id: prob03
+dry: false
+dry_reason: null
+updated_at: "2026-08-29T21:00:00+00:00"
+items:
+  - citation_id: L43
+    id: L43
+    title: "An improved method for measuring epi-wafer thickness based on the infrared interference principle: Addressing interference quality and multiple interferences in double-layer structures"
+    authors: [Sun, Jiaxing, Li, Zhisong, Zhang, Haojie, Song, Jinlong, Zhai, Tianbao]
+    year: 2023
+    source: Results in Physics
+    doi: 10.1016/j.rinp.2023.107146
+    url: https://doi.org/10.1016/j.rinp.2023.107146
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: [H3, H4]
+    summary: 外延片双层结构（外延层-衬底）红外干涉反射率建模，直接处理"干涉质量"与"多次干涉（多光束）"对测厚的影响。
+    supported_claims: [双层结构内多光束改变反射谱形状需区分两光束/多光束, 干涉质量与多次干涉综合建模以提升测厚精度]
+    applicability: prob03 方法级 A 级关键证据；与"硅片(附件3/4)是否多光束+硅外延层测厚"的双层结构设定一致；正文细节待复核
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（作者/年份/卷期页）+ DOAJ 开放索引；A 级开放获取；公式值需 formulation 阶段对照原文复核
+  - citation_id: L44
+    id: L44
+    title: On the Infrared Thickness Measurement of Epitaxially Grown Silicon Layers
+    authors: [Severin, P. J.]
+    year: 1970
+    source: Applied Optics
+    doi: 10.1364/AO.9.002381
+    url: https://doi.org/10.1364/AO.9.002381
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: H2
+    summary: 外延生长硅层红外测厚的经典方法（反射干涉条纹与厚度/折射率关系）。
+    supported_claims: [硅外延层与衬底折射率差异产生红外干涉条纹可用于测厚, 红外反射测硅外延层厚度的经典方法]
+    applicability: 硅(prob03)红外反射测厚 A 级经典来源，与 prob01 L01/L02 的 SiC 方法同源；正文未全文核验，公式值需对照原文
+    statement_class: literature_fact
+    notes: Crossref/PubMed 元数据核验（DOI 10.1364/AO.9.002381，PubMed 20094266）
+  - citation_id: L45
+    id: L45
+    title: Infrared interference spectra observed in silicon epitaxial wafers
+    authors: [Sato, K., Ishikawa, Y., Sugawara, K.]
+    year: 1966
+    source: Solid-State Electronics
+    doi: 10.1016/0038-1101(66)90117-1
+    url: https://doi.org/10.1016/0038-1101(66)90117-1
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: H2
+    summary: 硅外延晶圆片的红外干涉光谱实测/观测（方法级证据）。
+    supported_claims: [硅晶圆片红外干涉谱的形态与测厚可行性, 干涉条纹特征与外延层厚度/结构关系]
+    applicability: 对应 prob03 硅片(附件3/4)场景；确认硅片红外反射干涉谱形态；正文未全文核验
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（作者/年份/卷期页）
+  - citation_id: L46
+    id: L46
+    title: Multiple reflections in an approximately parallel plate
+    authors: [Soler, F. J. P.]
+    year: 1997
+    source: Optics Communications
+    doi: 10.1016/S0030-4018(97)00138-7
+    url: https://doi.org/10.1016/S0030-4018(97)00138-7
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: H1
+    summary: 近似平行板（非严格平行）多次反射干涉分析——界面不平行破坏严格平行板假设下的多光束干涉。
+    supported_claims: [平行度是产生/维持多光束干涉的必要几何条件, 界面不平行(楔形/不平度)破坏多光束干涉]
+    applicability: prob03"多光束干涉必要条件——界面平行度"的 A 级理论依据；正文未全文核验
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（作者/年份/卷期页）
+  - citation_id: L47
+    id: L47
+    title: Influence of coating thickness on the performance of a Fabry–Perot interferometer
+    authors: [Monzón, J. J., Sánchez-Soto, L. L., Bernabeu, E.]
+    year: 1991
+    source: Applied Optics
+    doi: 10.1364/AO.30.004126
+    url: https://doi.org/10.1364/AO.30.004126
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: H1
+    summary: Fabry–Perot 干涉仪性能（条纹锐度/精细度、对比度）随反射膜层厚度/反射率变化的关系。
+    supported_claims: [界面反射率与多光束干涉条纹锐度/对比度定量联系, 反射率→多光束显著/两光束近似的量化依据]
+    applicability: prob03"多光束干涉必要条件——界面强度反射率阈值、条纹锐度/对比度"的 A 级依据；正文未全文核验
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（作者/年份/卷期页）
+  - citation_id: L48
+    id: L48
+    title: High-Precision Thickness Inversion of SiC Epitaxial Layers via Multi-Beam Interferometric Spectroscopy and Nonlinear Optimization
+    authors: [Yan, Yinglan, Xu, Yilin, Zhang, Xinrui]
+    year: 2026
+    source: 2026 11th International Conference on Intelligent Computing and Signal Processing (ICSP)
+    doi: 10.1109/icsp69961.2026.11540578
+    url: https://doi.org/10.1109/icsp69961.2026.11540578
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: H4
+    summary: 多光束干涉光谱 + 非线性优化的 SiC 外延层厚度高精度反演（会议论文）。
+    supported_claims: [多光束干涉光谱用于 SiC 厚度反演（方法对照）]
+    applicability: H4 多光束反演候选；正文未核验，不单独支撑关键公式
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（IEEE 会议）
+  - citation_id: L49
+    id: L49
+    title: High-precision thickness measurement of epitaxial layers via FFT-based inversion algorithm for multi-beam interference correction
+    authors: [Zeng, Hanyu, Zhou, Shiyao, Lin, Qianshan, Huang, Haojin]
+    year: 2026
+    source: IET Conference Proceedings
+    doi: 10.1049/icp.2025.4617
+    url: https://doi.org/10.1049/icp.2025.4617
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: H4
+    summary: FFT 反演 + 多光束干涉修正的外延层厚度高精度测量（会议论文）。
+    supported_claims: [FFT 反演与多光束修正结合用于测厚（方法对照）]
+    applicability: H4 多光束修正/FFT 反演候选，与 prob02 主方法呼应；正文未核验，不单独支撑关键公式
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（IET 会议）
+  - citation_id: L50
+    id: L50
+    title: Research on Thickness Modeling of Silicon Carbide and Silicon Wafer Epitaxial Layer Based on Infrared Interference Method
+    authors: [Lv, Simin, Zhang, Shouxin]
+    year: 2026
+    source: Proceedings of the 1st International Conference on Smart System Design, Application and Mechatronics
+    doi: 10.5220/0015112300005244
+    url: https://doi.org/10.5220/0015112300005244
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: [H2, H3]
+    summary: 基于红外干涉方法的碳化硅（SiC）与硅（Si）晶圆外延层厚度建模（会议论文）。
+    supported_claims: [SiC 与 Si 外延层厚度建模方法对照]
+    applicability: 同时覆盖 SiC 与 Si 外延层厚度建模，与 prob03 场景高度相关；C 级会议论文，仅作方法对照
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（SCITEPRESS 会议）

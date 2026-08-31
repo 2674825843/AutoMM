@@ -1,0 +1,15 @@
+version: formulation_v001
+status: accepted
+created_at: '2026-08-30T04:33:25.500875+00:00'
+parent_version: null
+content_hash: ef99309c8f1e7c942180803df24d8ad9f9b91144647c0258506241c7b286e975
+decision_reason: prob03 formulation_v001 完成（assumption_v001）：从一般 Airy 多光束公式严格推导多光束必要条件
+  N1–N4（界面反射率 Rbar≤0.05、相干长度、界面平行度、吸收限制），并独立验证 L17『多光束不改变极值位置』成立（无吸收平移板极值严格在 δ=mπ，与
+  R01·R12 无关），从而量化多光束对厚度精度影响为 O(Rbar²)（不影响 t、只影响对比度/残差）。据此判定硅片（附件3/4）与 SiC（附件1/2）均不出现显著多光束（硅
+  Rbar≈0.009~0.025、η_mb≈0.02%；SiC Rbar≈0.0025 更小），两光束模型适用；硅片厚度主法为 prob02 的 baseline-robust
+  variable projection（只读探针 t̂≈6.9 µm、两角一致 ε12≈0.15%），SiC 无需修正、prob02 结论维持（C15/C17）。公式体系自洽、量纲正确、极限合理、可解、全局唯一（t≈6.9
+  显著优于 t≈3.55 半周期歧义假极小），无 NaN/Inf、无硬约束违反、无单位/符号冲突。可进入 implementation 阶段，把 Airy 正模型、必要条件判据、variable
+  projection 扫描、多光束诊断与 SiC 复核落地为可复现代码。非关键保留项（R12/n_sub 弱可辨识、硅衬底折射率定量、R̄ 精确值、Δt_disp、吸收带边界残差诊断）由
+  computation 阶段以实测残差与可靠性判据量化，不阻断交付。
+decided_at: '2026-08-30T04:58:02.091449+00:00'
+assumption_version: assumption_v001

@@ -1,0 +1,118 @@
+# prob01 模型参数（formulation_v001）
+# 对应 formulation.md / formula_validation.md；供 implementation/computation 阶段（prob02 反演）使用。
+# 单位约定：t[um]、nu[cm^-1]、lambda[um]=1e4/nu、theta[deg]（计算转 rad）、delta_nu[cm^-1]。
+parameters:
+  - name: theta
+    meaning: 红外光入射角（空气侧，相对表面法线）
+    unit: degree
+    value: null
+    domain: "[0, 90)"
+    role: input
+    source: 题面；prob02 附件 1/2 取 10 和 15
+    note: prob01 建模作为给定参数；prob02 两入射角一致性检验
+  - name: n_air
+    meaning: 空气（入射介质）折射率
+    unit: dimensionless
+    value: 1.0
+    domain: "≈ 1"
+    role: input
+    source: 假设 A9（common_sense）
+    note: 误差远小于其他不确定度来源
+  - name: n_sub
+    meaning: 衬底折射率
+    unit: dimensionless
+    value: null
+    domain: "> 1"
+    role: parameter_to_estimate
+    source: 假设 A6；prob02 文献取值/数据反演
+    note: 重掺衬底红外可能接近等离子体反射边；prob02 灵敏度分析
+  - name: n_epi
+    meaning: 外延层折射率（色散）
+    unit: dimensionless
+    value: null
+    domain: "> 1"
+    role: model_function
+    source: 假设 A5；L09 Sellmeier（lambda<=5 um）+ prob02 分谱段/反演
+    formula: "n^2 = 6.79485 + 0.15558/(lambda^2 - 0.03535) - 0.02296*lambda^2"
+    note: Sellmeier 适用 lambda<=5 um（nu>=2000 cm^-1）；lambda>5 um 无现成体材料公式
+  - name: t
+    meaning: 外延层厚度（待求）
+    unit: um
+    value: null
+    domain: "> 0"
+    role: output
+    source: 反演目标
+    formula: "t = 1e4 / (2*n*cos(theta_prime)*delta_nu)"
+    note: prob02 主反演输出；峰谷间隔初值 + 全谱 NLS
+  - name: delta
+    meaning: 相邻反射光束相位差（含光程差相位与反射相位跃变）
+    unit: rad
+    value: null
+    domain: "实数"
+    role: derived
+    formula: "delta = 4*pi*1e-4 * n * t * nu * cos(theta_prime)"
+    note: (2.8)；弱色散时随 nu 单调递增
+  - name: delta_nu
+    meaning: 相邻干涉极值（峰或谷）的波数间隔
+    unit: cm^-1
+    value: null
+    domain: "> 0"
+    role: derived_observable
+    formula: "delta_nu = 1e4 / (2*n*t*cos(theta_prime))"
+    note: (3.8)/(3.10)；prob02 由实测峰谷定位
+  - name: R_1
+    meaning: 空气/外延层界面强度反射率（局部中间量）
+    unit: dimensionless
+    value: null
+    domain: "[0, 1)"
+    role: derived
+    source: Fresnel（L06/L07）；prob03 登记 R_01 的前置
+    note: s/p 偏振公式见 formulation.md (3.1)-(3.3)
+  - name: R_2
+    meaning: 外延层/衬底界面强度反射率（局部中间量）
+    unit: dimensionless
+    value: null
+    domain: "[0, 1)"
+    role: derived
+    source: Fresnel（L06/L07）；prob03 登记 R_12 的前置
+    note: s/p 偏振公式见 formulation.md (3.1)-(3.3)
+  - name: nu_range
+    meaning: 题目谱段（波数）
+    unit: cm^-1
+    value: [400, 4000]
+    domain: "> 0"
+    role: domain
+    source: 题面附件说明
+    note: 实测附件约 399.7-4000.1
+  - name: reststrahlen_exclude
+    meaning: 近 Reststrahlen 区（两光束无吸收模型不适用，prob02 剔除/降权）
+    unit: cm^-1
+    value: [700, 1000]
+    domain: "> 0"
+    role: domain
+    source: 假设 A7；L16/L24
+    note: 对应约 10-14.3 um；prob02 预处理记录处理策略
+  - name: sellmeier_boundary
+    meaning: Sellmeier 色散模型适用上界（波长）
+    unit: um
+    value: 5.0
+    domain: "> 0"
+    role: domain
+    source: L09（经 L11 核验）；假设 A5
+    note: nu >= 2000 cm^-1；lambda>5 um 由 prob02 分谱段/数据反演确定
+  - name: inversion_method
+    meaning: 反演方法选择（prob02 实现）
+    unit: none
+    value: null
+    domain: "[extremum_spacing, full_spectrum_nls]"
+    role: team_decision
+    source: 本版本 §3.6；L17 同题方法佐证
+    note: 峰谷间隔解析初值 + 全谱非线性最小二乘主方法；两入射角一致性交叉验证
+  - name: comparison_criteria
+    meaning: 模型比较标准（计算结果前固定）
+    unit: none
+    value: null
+    domain: null
+    role: team_decision
+    source: 本版本 §5.2
+    note: 约束满足度、题目指标、解释性、复杂度、运行预算、鲁棒性

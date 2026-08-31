@@ -1,0 +1,107 @@
+{
+  "checked_at": "2026-08-29T16:28:32.812122+00:00",
+  "directory": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion",
+  "task_id": "0670bb687607edb7dd91",
+  "task_status": "succeeded",
+  "automated_scope": [
+    "L1",
+    "L2-finite"
+  ],
+  "automated_status": "NEEDS_REVISION",
+  "failures": [
+    "数值文件存在非有限值或无法读取：problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion/dispersion_ref.json"
+  ],
+  "warnings": [
+    "L3 量纲与公式、L4 常识与文献、L5 跨小问一致性和条件性 L6 实验须由 sanity-checker 审查"
+  ],
+  "quality_status": "needs_revision",
+  "numeric_files": [
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion/dispersion_ref.json",
+      "numeric_count": 21,
+      "finite": false,
+      "missing_numeric_count": 2,
+      "infinite_numeric_count": 0,
+      "empty_numeric": false,
+      "minimum": 0.39993550099628067,
+      "maximum": 2000.0
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion/metadata.json",
+      "numeric_count": 4,
+      "finite": true,
+      "missing_numeric_count": 0,
+      "infinite_numeric_count": 0,
+      "empty_numeric": false,
+      "minimum": 3.0,
+      "maximum": 20260829.0
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion/preprocessing.json",
+      "numeric_count": 18,
+      "finite": true,
+      "missing_numeric_count": 0,
+      "infinite_numeric_count": 0,
+      "empty_numeric": false,
+      "minimum": 0.0,
+      "maximum": 7469.0
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion/reflectance_theta10.csv",
+      "numeric_count": 29876,
+      "finite": true,
+      "missing_numeric_count": 0,
+      "infinite_numeric_count": 0,
+      "empty_numeric": false,
+      "minimum": 0.0,
+      "maximum": 4000.122
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion/reflectance_theta15.csv",
+      "numeric_count": 29876,
+      "finite": true,
+      "missing_numeric_count": 0,
+      "infinite_numeric_count": 0,
+      "empty_numeric": false,
+      "minimum": 0.0,
+      "maximum": 4000.122
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion/result.json",
+      "numeric_count": 53,
+      "finite": true,
+      "missing_numeric_count": 0,
+      "infinite_numeric_count": 0,
+      "empty_numeric": false,
+      "minimum": -69.00612246955811,
+      "maximum": 200.0
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion/solver_status.json",
+      "numeric_count": 79,
+      "finite": true,
+      "missing_numeric_count": 0,
+      "infinite_numeric_count": 0,
+      "empty_numeric": false,
+      "minimum": 1e-10,
+      "maximum": 400.0
+    },
+    {
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion/verification.json",
+      "numeric_count": 0,
+      "finite": true,
+      "missing_numeric_count": 0,
+      "infinite_numeric_count": 0,
+      "empty_numeric": true,
+      "minimum": null,
+      "maximum": null
+    }
+  ],
+  "manual_levels_pending": [
+    "L2-model-constraints",
+    "L3",
+    "L4",
+    "L5",
+    "L6-conditional"
+  ]
+}

@@ -1,0 +1,11 @@
+version: formulation_v001
+status: accepted
+created_at: '2026-08-29T15:09:11.201680+00:00'
+parent_version: null
+content_hash: 49ff516080f7d95b27d90b5a46820bce56b44d8c498f6766e50dbf7276351eb8
+decision_reason: prob02 formulation_v001 完成：基于 prob01-conclusion-v1 两光束模型，落地 B1–B13（数据预处理
+  B1–B3、分段色散 B6、色散化反演算法 B8–B10、可靠性 B11–B13），含逐步推导、候选模型 M1–M4、求解策略论证（精确 NLS/LM，无需 MILP/启发式）与计算前固定的比较标准/可靠性判据；formula_validation
+  量纲/边界/极限/等价/守恒/单调/可解/符号/文献一致性全部通过，数值复核无 NaN/Inf、无硬约束违反、无单位维度错误；仅两光束近似残差与 n_sub 可辨识性、λ>5µm
+  色散定量影响等属 PASS_WITH_WARNING 技术债，留 implementation/computation 阶段量化，不阻断接受。建议接受并进入 implementation。
+decided_at: '2026-08-29T15:17:11.957194+00:00'
+assumption_version: assumption_v001

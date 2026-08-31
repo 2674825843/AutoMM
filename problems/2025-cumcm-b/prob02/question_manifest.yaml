@@ -1,0 +1,120 @@
+problem_id: 2025-cumcm-b
+question_id: prob02
+status: locally_completed
+stage: locally_completed
+dependencies: []
+active_assumption_version: 1
+active_formulation_version: 3
+accepted_formulation_version: 3
+consecutive_rejections: 0
+literature_refreshes: 0
+literature_refresh_required: false
+conclusion:
+  conclusion_id: prob02-conclusion-v1
+  version: 1
+  content_hash: 27b0ce8689e1eb2b345e5803309ea80bb6b84a620f189ed6cd589e75f23a12ea
+  updated_at: '2026-08-29T20:23:50.448937+00:00'
+sanity:
+  level_1_4: PASS_WITH_WARNING
+  level_5: PASS
+  level_6: PASS_WITH_WARNING
+optional_stages:
+  robustness:
+    decision: completed
+    reason: robustness 适用并完成：formulation_v003 §7.1–§7.6 预注册可靠性判据（阈值计算前登记于 parameters.yaml）已在
+      computation 阶段完整执行并归档于 results/thickness_inversion_v003/result.json——C2 色散 Δt_disp=0.507%≤2%、C4
+      n_sub 解耦 0.0%（物理 NLS 1.92%≤3%）、C5 CI 半宽 0.091%≤2%、C7 异常点 0.0%≤1%、C8 多光束改善 0.0%≤10%（两光束适用）、C6
+      全局极小唯一 全部 PASS；仅 C1 两角嵌套 F 检验统计显著（F=5.25,p=0.022）但 ε₁₂=0.165%≪τ₁₂=2%，按 formulation
+      §7.1/§14 路由为 B11（测量点差异/膜厚梯度）记录并解释，不构成模型修订触发。结论=STABLE（t̂(共享)=7.2158 µm、每角 7.2214/7.2095
+      µm、ε₁₂=0.165%、n̂_sub=2.588 弱可辨识）。判定与敏感性可视化图已归档 robustness/（decision/preregistration/experiment_matrix/conclusion）与
+      figures/，交 sanity-checker 执行 Level 6。
+  ablation:
+    decision: completed
+    reason: ablation 适用并完成：formulation_v003 主方法 M1（基线-干涉分解 + 一维相位-频率扫描，variable projection，N-SE，p=3/q=1，两角共享
+      t，t 与 n_sub 解耦）含可解释、可分离的公式项/算法模块，REQUEST.md 要求复杂算法必要性证据，robustness 已覆盖输入/情景不确定性、本阶段补充模型组件必要性，二者互补。预注册方案
+      ablation_v001（ablation/decision.md、preregistration.md、experiment_matrix.yaml，判据运行前固定），隔离任务
+      1d41cd2ff79a3ec91cbd 执行 F0+A1–A4（色散消融、基线多项式消融、相位-频率方法消融、两角共享-t 消融），全部判据符合预期
+      conclusion=components_confirmed：A1 Δt_disp=8.44%>1%（色散必要）、A2 Δt_base=5.55%>1%
+      且 RMSE 升 7.03×（基线-稳健分解必要）、A3 Δt_vp=5.44%>1%（相位-频率方法必要）、A4 每角 t̂≈共享 t̂ 且 ε12=0.165%≤2%（两角共享-t
+      良性一致约束，不扭曲 t̂）。消融结论/汇总表/3 张消融图（自动质检+视觉复核 passed）已归档 ablation/、results/ablation/
+      与 figures.yaml；compution v003 的 t̂=7.2158 µm 仍为主交付，本阶段不改变已接受的 formulation_v003，未触发模型修订。Level
+      5 待全部小问局部完成后执行。
+artifacts:
+  problem_understanding: true
+  literature: true
+  assumptions: true
+  formulation: true
+  implementation: true
+  computation: true
+  visualization: true
+  sanity_check: true
+  robustness: true
+  ablation: true
+  cross_question_review: false
+notification:
+  sent: true
+  attempts: 2
+  status: skipped_disabled
+stale:
+  value: false
+  caused_by: []
+accepted_assumption_version: 1
+sanity_history:
+- at: '2026-08-29T16:35:41.190773+00:00'
+  level: level_1_4
+  status: NEEDS_REVISION
+  reason: prob02 实测数据反演任务 0670bb687607edb7dd91 消费完成：L1-L4 硬门禁通过（hash 追踪链与 task.json/implementation.md
+    §7 一致、关键结果有限无 NaN/Inf、公式-代码逐条一致、物理/文献合理、原始数据未修改、无硬约束违反），计算链路实现正确且完全可追踪。但无可行 incumbent（feasible_incumbent=false）：可靠性判据
+    §7.1-§7.6 中 two_angle(6.56%/τ2%)、dispersion(37.41%/τ2%)、nsub(69.01%/τ0.5%)、ci(3.51%/τ2%)
+    四项超阈值，仅 anomaly(0.91%/τ1%) 通过、multibeam 无需修正。色散模型选择（B6 的 λ>5µm 5-17µm 缺口代理）与 n_sub（B7
+    数值未定/可辨识性弱）是厚度反演的两大不确定度来源，远超预注册阈值；当前模型无法给出满足可靠性要求的稳健厚度。判定 NEEDS_REVISION，返回 mathematical_formulation
+    修订（谱段截断/色散模型改进与拟合/n_sub 固定与可辨识性重构/多光束评估），并配套 assumption/literature 支持（L26 全文 n/k
+    表、n_sub 文献取值）。
+  failure_type: quality_warning
+- at: '2026-08-29T17:32:51.833079+00:00'
+  level: level_1_4
+  status: NEEDS_REVISION
+  reason: prob02 实测数据反演任务 1295103e6926a59e5ed2 消费完成（formulation_v002 / assumption_v001，results/thickness_inversion_v002）：L1–L4
+    硬门禁大体通过（config/input hash 链与 task.json 一致、关键结果有限无 NaN/Inf、公式-代码逐条一致、物理/文献合理、原始数据未修改、无硬约束违反、机器级
+    L2-finite 检查通过，v001 的 dispersion_ref NaN 警示已用 null 修复）。但无可行 incumbent（feasible_incumbent=false）：可靠性判据
+    §7.1–§7.6 中 two_angle_ftest(27.66%/τ2%) 与 dispersion(15.11%/τ2%) 两项 FAIL，nsub
+    诊断 28.65%（>τ3% 但判据逻辑缺陷误标 PASS），仅 ci(0.77%)、anomaly(0.0%) 通过、multibeam 无需修正；且主方法
+    M1(t=0.305µm) 与 M2/M3(≈54–65µm)、formulation §13.1 探针(t=2.254µm) 相互矛盾，两角度不一致并较
+    v001 恶化（6.56%→27.66%）。当前两光束+带内 Sellmeier 模型在弱对比度、n_sub≈n 强相关情形下可辨识性不足，无法给出满足预注册阈值的稳健厚度。判定
+    NEEDS_REVISION，返回 mathematical_formulation 修订（两角度一致性建模与稳健初值、带内 Δt_disp 收敛、n_sub
+    可辨识性/mode 选择、M1 与 M2/M3 量级冲突根因、弱对比度/膜厚梯度结构假设），并配套 assumption/literature 支持（L26
+    全文 n/k 表、n_sub 文献取值与掺杂机制）。
+  failure_type: quality_warning
+- at: '2026-08-29T18:41:38.670760+00:00'
+  level: level_1_4
+  status: PASS_WITH_WARNING
+  reason: prob02 实测反演任务 30bedd3be5a2c9a36d3a 消费完成（formulation_v003 / assumption_v001，results/thickness_inversion_v003）：L1–L4
+    硬门禁通过——hash 追踪链（code_hash=3c8599d6547f2a8456613a148a62f3433255297cc9f654ad244144c317abcf8e
+    与 task.json/implementation.md §7 一致、config/input hash 一致）完整、机器级 L2-finite 通过（8
+    文件全有限无 NaN/Inf，v001 的 dispersion_ref NaN 已用 null 修复）、公式-代码逐条一致、单位一致、原始数据只读、无硬约束违反。主结果
+    t̂(共享)=7.2158 µm、每角 7.2214/7.2095 µm、ε₁₂=0.165%、n̂_sub=2.588；主拟合加权 RMSE≈6.3e-4。只读
+    FFT 数据探针独立证实带内真实干涉周期 Δg≈657/698、Δν≈247/263 cm⁻¹→t≈7.2–8.0 µm，与主结果一致。可靠性判据 5/6
+    通过：dispersion(0.51%≤2%)、ci(0.091%≤2%)、anomaly(0.0%≤1%)、nsub 解耦(diag PASS)、multibeam(pass)
+    全部通过；仅 reliability_two_angle_ftest 判 FAIL（F=5.251>F_crit=3.843，p=0.022），但裸偏差 ε₁₂=0.165%≪τ₁₂=2%，属大样本下统计显著性与实际意义分离，formulation
+    §7.1/§14 明确将其路由为 B11（测量点差异/膜厚梯度）记录并解释，不构成模型修订触发。v001/v002 曾超阈判据（ε₁₂ 27.66%→0.165%、Δt_disp
+    15.11%→0.51%、n_sub 69%→解耦0%、CI 3.51%→0.091%、M1 0.305µm→7.216µm 正确盆地）全部回到阈值内，确认
+    formulation_v003 变量投影重构消除了 v002 的模型可辨识性结构缺陷。技术债（λ>5µm 色散缺口 B6、n_sub 弱可辨识 B7、M2/M3
+    噪声周期方法债、物理 NLS 交叉校验 5.5% 偏差、L25-L32 全文待复核、多光束 Airy 留 prob03 B13）均为既有/登记事项，留后续与论文阶段处理，不阻断推进。
+  failure_type: null
+- at: '2026-08-29T19:46:40.351714+00:00'
+  level: level_6
+  status: PASS_WITH_WARNING
+  reason: prob02 Level 6（robustness 验收）独立复核通过（降级审查模式，复用已有产物、不发起新计算）：robustness 判据
+    C1–C8 由 formulation_v003 §7.1–§7.6 预注册判据在 computation 阶段执行并归档 results/thickness_inversion_v003/result.json
+    + robustness/（decision/preregistration/experiment_matrix/conclusion），无需另启重复任务。C2
+    色散 0.507%≤2% PASS、C4 n_sub 解耦 0.0%（物理 NLS 1.92%≤3%）PASS、C5 CI 半宽 0.091%≤2% PASS、C6
+    全局极小唯一 PASS、C7 异常点 0.0%≤1% PASS、C8 多光束改善 0.0%≤10%（两光束适用）PASS、R8 基线/包络阶数 p=2..5.q=0..2
+    稳定；仅 C1 两角嵌套 F 检验统计显著（F=5.25>F_crit=3.843，p=0.022）但 ε12=0.165%≪τ12=2%，按 formulation
+    §7.1/§14 路由为 B11（测量点差异/膜厚梯度）记录并解释，不构成模型修订触发。机器级 L2-finite 通过（8 数值文件全有限无 NaN/Inf，failures=[]），hash
+    追踪链（code/config/input）与 task.json/implementation.md §7 一致，原始数据只读；result.json feasible_incumbent=false
+    系 compute.py 将 F 检验判为硬失败置 passed=false，sanity-checker 独立验收判定主结果 t̂=7.2158 µm（ε12=0.165%、n̂_sub=2.588）可行可追踪，维持
+    PASS_WITH_WARNING。物理/常识一致（t 由相位频率确定、与 n_sub 解耦；色散为最大不确定度来源但带内 0.507%<2%；噪声二阶小量；异常点降权无影响）。v001/v002
+    曾超阈判据全部回到阈值内，确认 formulation_v003 变量投影重构消除模型可辨识性结构缺陷。技术债（bootstrap CI 未跑、M2/M3
+    噪声周期、物理 NLS 交叉校验 5.5%、λ>5µm 色散缺口 B6、n_sub 弱可辨识 B7、L25-L32 全文待复核、多光束 Airy 留 prob03
+    B13）均为既有/登记事项，不阻断推进。ablation 尚 pending，交由 ablation-analyst；Level 5 待全部小问局部完成后执行。
+  failure_type: null

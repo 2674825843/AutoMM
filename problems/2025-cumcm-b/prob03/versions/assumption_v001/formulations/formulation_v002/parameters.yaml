@@ -1,0 +1,421 @@
+# prob03 模型参数（formulation_v002）
+# 对应 formulation.md / formula_validation.md；供 implementation/computation 阶段使用。
+# 单位约定：t[um]、nu[cm^-1]、lambda[um]=1e4/nu、theta[deg]（计算转 rad）、delta_nu[cm^-1]、delta[rad]。
+# 本版主题：多光束（Airy）干涉必要条件推导 + 硅片（附件3/4）两光束测厚 + SiC（附件1/2）多光束重新判定。
+# 关键结论：透明谱段多光束不改变极值位置（δ=mπ），不影响厚度；硅片 Rbar=√(R01·R12)≈0.0101≤θ_mb=0.05（两光束充分），
+#           η_mb≈0.11%≪τ_mb=10%；SiC Rbar≈0.0024（更弱，无需修正）。
+# 修订说明（v001→v002）：
+#   R1：硅厚度基准由 v001 伪影 6.9 µm 更正为对审定公式的忠实实现值 t̂=3.4477 µm（共享）/3.4507、3.4463 µm（每角），ε12=0.130%。
+#   R2：finesse 公式须为 π*sqrt(Rbar)/(1-Rbar)（标准等厚干涉精细度）；v001 实现 `π*Rbar/(1-Rbar)` 漏 sqrt 为 bug（0.032 应为 0.319）。
+#   R3：以错误基准给出的探针值（Rbar≈0.009-0.025、F≈0.30-0.50、eta_mb≈0.02%、窗口值 t∈[6.7,7.0]um）以实测为准（Rbar≈0.0101、F≈0.319、eta_mb≈0.11%）。
+parameters:
+  - name: data_inputs_si
+    meaning: 硅外延层实测红外反射率谱（附件 3/4）
+    unit: none
+    value: null
+    domain: "附件3=10°（Si），附件4=15°（Si）"
+    role: input
+    source: data/2025_cumcm_B/附件3.xlsx、附件4.xlsx（C6）
+    note: 第 1 列波数 cm^-1，第 2 列反射率 %；第一行表头；7469 数据行；附件 3/4 均无 R%>100 异常
+  - name: data_inputs_sic
+    meaning: SiC 外延层实测红外反射率谱（附件 1/2，Q3 重新判定用）
+    unit: none
+    value: null
+    domain: "附件1=10°（SiC），附件2=15°（SiC）"
+    role: input
+    source: data/2025_cumcm_B/附件1.xlsx、附件2.xlsx（C15；prob02 复用）
+    note: prob02 已反演 t=7.2158µm、n_sub=2.588；本问仅做多光束量级重新判定
+  - name: nu_range
+    meaning: 实测波数范围
+    unit: cm^-1
+    value: [399.67, 4000.12]
+    domain: "> 0"
+    role: domain
+    source: 附件实测；C6
+    note: 波数升序；附件 2 原为降序，反演前重排
+  - name: nu_step
+    meaning: 波数等间隔网格步长
+    unit: cm^-1
+    value: 0.482
+    domain: "> 0"
+    role: domain
+    source: 附件实测；C6
+    note: 约 0.482；7469 点
+  - name: nu_inv_si
+    meaning: 硅主反演带（透明谱段，截断后）
+    unit: cm^-1
+    value: [2000.0, 4000.0]
+    domain: "nu_lo>=2000 且 <=4000"
+    role: domain
+    source: C8；硅主反演带内干涉条纹最干净、残差最小（对审定公式实测 [2000,4000] 拟合残差最低）
+    note: nu<2000（多声子带边缘/慢变基线趋势）不进入主反演（w=0）；另对 [1600,4000]/[1800,4000]/[2200,4000] 做窗口敏感性（§8/§14.4，由 computation 实测）
+  - name: nu_inv_sic
+    meaning: SiC 主反演带（prob02 复用）
+    unit: cm^-1
+    value: [2000.0, 4000.0]
+    domain: "nu_lo>=nu_c(2000) 且 <=4000"
+    role: domain
+    source: prob02 B6；L09 Sellmeier 有效区
+    note: nu<2000（lambda>5um）为 SiC 色散缺口区，不进入主反演
+  - name: nu_c
+    meaning: SiC Sellmeier 色散分界波数
+    unit: cm^-1
+    value: 2000.0
+    domain: "> 0"
+    role: domain
+    source: prob02 B6；L09
+    note: 对应 lambda_c=5 um；prob03 仅用于 SiC 重新判定（C15）
+  - name: theta
+    meaning: 红外光入射角（空气侧）
+    unit: degree
+    value: [10.0, 15.0]
+    domain: "[0, 90)"
+    role: input
+    source: 题面；附件 3=10°、附件 4=15°
+    note: 两入射角共享同一晶圆片与同一厚度 t（C9/C11）
+  - name: n_air
+    meaning: 空气折射率
+    unit: dimensionless
+    value: 1.0
+    domain: "≈ 1"
+    role: input
+    source: 假设（common_sense/inherited）；C1
+    note: 误差远小于其他不确定度来源
+  - name: n_epi_si
+    meaning: 硅外延层折射率（色散函数，Sellmeier）
+    unit: dimensionless
+    value: null
+    domain: "> 1（带内约 3.422-3.439，均值≈3.43）"
+    role: model_function
+    source: L12/L13（硅 Sellmeier，C7/C8）
+    formula: "n_epi^2 = 1 + 10.6684293*lam^2/(lam^2-0.301516485^2) + 0.0030434748*lam^2/(lam^2-1.13475115^2) + 1.54133408*lam^2/(lam^2-1104.0^2)，lam[um]"
+    note: 主模型 N-SE（Sellmeier，λ≤约11µm，覆盖主反演带）；带内色散弱（Δn/n≈0.51%，实测 Δt_disp≈0.503%≤2%）；本版 t 由相位频率确定，n 只用于计算相位/周期；系数经 L13（Palik）交叉核验，待 implementation 对照原文复核
+  - name: n_sub_si
+    meaning: 硅衬底折射率（由干涉幅值弱辨识，不参与 t 主反演；解耦）
+    unit: dimensionless
+    value: null
+    domain: "> 1（弱可辨识，对审定公式实测约 3.558；与 n_epi 差 Δn≈0.13）"
+    role: parameter_to_estimate
+    source: C7；L12/L13、L45（掺杂机制）
+    formula: "由 R12 反演：sqrt(R12)=|n_epi-n_sub|/(n_epi+n_sub)；n_sub≈n_epi*(1+sqrt(R12))/(1-sqrt(R12))（R01 同理）"
+    note: 弱可辨识（由幅值 A=√(C²+S²) 反演，幅值弱信号 → 范围 3.5-3.7）；t 与 n_sub 结构解耦，不进入 t 的目标；实测 n_sub_hat≈3.558；必要时回退文献取值并记录 t 对 n_sub 灵敏度（预期趋近 0）
+  - name: n_sub_si_init
+    meaning: 硅 n_sub 估计初值（由幅值反演，非求解器变量）
+    unit: dimensionless
+    value: 3.56
+    domain: "> 1"
+    role: solver_config
+    source: 对审定公式实测（formulation §14.2）；L12/L13
+    note: 由干涉幅值 A≈0.0141 反演 R12≈3.38e-4 得到；n_sub 弱可辨识，仅作物理正模型交叉校验初值（解耦，不影响 t）
+  - name: n_sic
+    meaning: SiC 外延层折射率（色散，复用 prob02）
+    unit: dimensionless
+    value: null
+    domain: "> 1（带内约 2.55）"
+    role: model_function
+    source: prob02 B6；L09 Sellmeier
+    formula: "nu in [2000,4000]: n^2=6.79485+0.15558/(lambda^2-0.03535)-0.02296*lambda^2"
+    note: Q3 重新判定用；SiC 的 R01≈0.19、R12≈3.0e-5（对审定公式实测）
+  - name: t
+    meaning: 外延层厚度（硅主反演目标）
+    unit: um
+    value: null
+    domain: "> 0（主反演扫描区间 [2.0, 12.0]）"
+    role: output
+    source: 反演目标（C12；§7）
+    formula: "t = 1/(2*1e-4*Delta_g)；主反演 t = argmin J(t)（variable projection，(7.5)）"
+    note: 主反演输出；由干涉相位频率（一维扫描）唯一确定；对审定公式实测 t̂(共享)=3.4477 µm、每角 3.4507/3.4463 µm（主带 [2000,4000]），ε12=0.130%；v001 的 6.9 µm 为因子 2 标签伪影（R1），本版已修正
+  - name: t_sic_ref
+    meaning: SiC 厚度结果（prob02 对照）
+    unit: um
+    value: 7.2158
+    domain: "> 0"
+    role: reference
+    source: prob02-conclusion-v1（C17，content_hash=27b0ce86…a12ea）
+    note: Q3 重新判定基准；若该结论变化，prob03 置 stale 重审
+  - name: delta
+    meaning: 相邻反射光束相位差（含光程差相位与反射相位跃变）
+    unit: rad
+    value: null
+    domain: 实数
+    role: derived
+    formula: "delta = 4*pi*1e-4 * n_epi(nu) * t * nu * cos(theta_prime) + phi"
+    note: (3.7)；phi 为相位跃变（0/π），只决定峰/谷类型；主体线性于 g=n_epi*nu*cos(theta_prime)
+  - name: g
+    meaning: 相位函数 g(nu)=n_epi(nu)*nu*cos(theta_prime(nu))
+    unit: cm^-1
+    value: null
+    domain: "> 0"
+    role: derived
+    formula: "g = n_epi*nu*cos(theta_prime)"
+    note: 干涉项在 g 空间具有恒定周期 Delta_g=1/(2*1e-4*t)；本版以 g 空间频率/周期确定 t
+  - name: Delta_g
+    meaning: 干涉项在 g 空间的周期（厚度 t 的相位频率观测量）
+    unit: cm^-1
+    value: null
+    domain: "> 0"
+    role: derived_observable
+    formula: "Delta_g = 1/(2*1e-4*t)  <=>  t = 1/(2*1e-4*Delta_g)"
+    note: (3.9)；主反演由 J(t) 扫描直接求 t，不必显式提取 Delta_g；用于周期图初值核实；t=3.4477 时 Δg≈1450.5
+  - name: delta_nu
+    meaning: 相邻干涉极值（峰或谷）的波数间隔
+    unit: cm^-1
+    value: null
+    domain: "> 0"
+    role: derived_observable
+    formula: "delta_nu = 1e4 / (2*n_epi*cos(theta_prime)*t)"
+    note: 硅 t=3.4477 对应约 423 cm^-1；本版不再以个别极值间隔作为主判据（交叉验证用，防噪声周期）
+  - name: delta_t_amb
+    meaning: 厚度周期歧义周期（随参考波数变化）
+    unit: um
+    value: null
+    domain: "> 0"
+    role: derived
+    formula: "delta_t_amb = 1 / (2*1e-4*n_epi(nu0)*nu0*cos(theta_prime(nu0)))"
+    note: (7.6)；nu0=2000≈2.08um、3000≈1.38um、4000≈1.04um；色散（g 随 nu 变化）打破周期等价，扫描可区分（t=3.4477 全局唯一；t≈6.9 为倍周期假极小，RMSE 高约 4.3 倍；最近候选比值≈1.020 为报告项而非硬门禁）
+  - name: R_01
+    meaning: 空气/外延层界面强度反射率（Fresnel）
+    unit: dimensionless
+    value: null
+    domain: "[0, 1)（硅 s/p 平均约 0.3008，SiC 约 0.19）"
+    role: derived
+    source: Fresnel（L06/L07，prob01 3.1-3.3）；C1/C2
+    formula: "R01=|r01|^2，r01=(n_air*cosθ-n_epi*cosθ')/(n_air*cosθ+n_epi*cosθ')（s/p 分别计算再平均）"
+    note: 主方法中作基线 B 的一部分由多项式吸收；多光束判定用 R01；硅 n≈3.43 → R01≈0.30（高于 SiC 的 0.19）
+  - name: R_12
+    meaning: 外延层/衬底界面强度反射率（由干涉幅值 A 反演，弱辨识）
+    unit: dimensionless
+    value: null
+    domain: "[0, 1)（硅对审定公式实测约 3.38e-4，SiC 约 3.0e-5）"
+    role: derived
+    source: Fresnel；由 A=2(1-R01)√(R01 R12) 反演（C2/C7）
+    formula: "R12 = (A/(2*(1-R01)*sqrt(R01)))^2"
+    note: 硅弱（幅值弱信号 → R12 弱可辨识，对审定公式实测 3.38e-4），SiC 更弱（约 3.0e-5）；不影响 t（相位频率确定）；多光束判定主用
+  - name: finesse
+    meaning: 多光束干涉精细度
+    unit: dimensionless
+    value: null
+    domain: ">0（低反射率时数学值 <1，表示近两光束区；全局符号 domain 记为 >=1，建议改为 >0）"
+    role: derived
+    source: L47；C2；global_symbols.yaml（finesse）
+    formula: "finesse = pi*sqrt(Rbar)/(1-Rbar)，Rbar=sqrt(R01*R12)"
+    note: 标准等厚干涉精细度定义（见 formula_validation §4.1/§7，R2）；对 Rbar=0.0101 → finesse≈0.319（正确公式）。v001 代码 `pi*Rbar/(1-Rbar)` 漏 sqrt 为 bug（报 0.032），实现须修正为 `pi*sqrt(Rbar)/(1-Rbar)`。硅 0.319、SiC 约 0.154；均 <1（Rbar≈0.0101/0.0024≪1）→ 近正弦条纹（两光束区），未达 F≫1 的 Fabry-Perot 锐峰区；作为多光束判定物理量级佐证，不计入硬门禁
+  - name: sqrt_R01R12
+    meaning: 界面反射率几何平均 Rbar=√(R01·R12)（多光束显著性主控量）
+    unit: dimensionless
+    value: null
+    domain: "[0, 1)"
+    role: derived
+    source: L47；C2
+    formula: "sqrt(R01*R12)"
+    note: 硅对审定公式实测 0.0101、SiC 约 0.0024；判据：≤θ_mb=0.05 则两光束近似充分（两光束对高阶误差 O(Rbar)≈≤1%）
+  - name: theta_mb
+    meaning: 多光束显著性的 Rbar=√(R01·R12) 阈值（必要条件 N1）
+    unit: none
+    value: 0.05
+    domain: "[0,1)"
+    role: team_decision
+    source: 本版 §4.1/§8.2（C2/C11；project_assumption）
+    note: Rbar<=θ_mb 时高次项贡献相对两光束 <O(θ_mb)（≤~5%），两光束可忽略；硅 0.0101、SiC 0.0024 均通过；主判据为 η_mb≤τ_mb
+  - name: tau_mb
+    meaning: 多光束需修正的残差改善率阈值（Airy vs 两光束）
+    unit: percent
+    value: 10.0
+    domain: "> 0"
+    role: reliability_gate
+    source: prob02 B13 判定范式（C11）；本版 §8.1/§8.2
+    note: η_mb=(SSE_2b-SSE_Airy)/SSE_2b*100%；>τ_mb 则多光束显著、需修正；否则两光束适用（硅对审定公式实测 η_mb≈0.11%）
+  - name: nc1_parallelism
+    meaning: 必要条件 N3（界面近似平行）诊断
+    unit: none
+    value: null
+    domain: "α≪λ/(2nDcosθ')≈0.0033°，或条纹对比度高、峰形对称"
+    role: diagnostic
+    source: C3/L46
+    note: 硅片满足（§14 实测条纹清晰、对比度平滑）；紧平行度压制高次、佐证两光束；不作硬门禁，出峰形/残差诊断
+  - name: nc2_coherence
+    meaning: 必要条件 N2（相干长度覆盖）诊断
+    unit: none
+    value: null
+    domain: "m_max_coh>=2"
+    role: diagnostic
+    source: C4/L06/L07；prob01 A11 继承
+    formula: "L_c≈1/(2*delta_nu_res)；m_max_coh=floor(L_c/(2*n*t*cosθ'))"
+    note: 硅与 FTIR（Δν_res≈0.482 cm^-1）下 L_c≈1.04e4 µm≫光程差（单程 OPD≈2.3e1 µm，t=3.4477），m_max^coh≈439；相干充分；不作硬门禁
+  - name: nc3_absorption
+    meaning: 必要条件 N4（吸收不抑制多光束）诊断
+    unit: none
+    value: null
+    domain: "k≈0 或 m_max_abs>=2"
+    role: diagnostic
+    source: C5/L16；prob01 A7/prob02 B3
+    formula: "m_max_abs=floor(1/(kappa))，kappa=4*pi*k*nu*t*cosθ'"
+    note: 硅透明窗 k≈0（吸收不抑制）；SiC Reststrahlen [700,1000]、硅多声子带 <1500 区吸收强、已剔除/降权
+  - name: mb_decision_si
+    meaning: 硅片（附件3/4）多光束判定结果
+    unit: none
+    value: negligible
+    domain: "[negligible, significant]"
+    role: output
+    source: 本版 §8.2（Rbar=√(R01R12)≈0.0101≤θ_mb=0.05；η_mb≈0.11%≪τ_mb=10%）
+    note: 判定两光束适用；若 computation 实测 η_mb>τ_mb 则改为 significant 并启用 §8.4 修正
+  - name: mb_decision_sic
+    meaning: SiC（附件1/2）多光束重新判定结果
+    unit: none
+    value: no_correction_needed
+    domain: "[no_correction_needed, corrected]"
+    role: output
+    source: 本版 §8.3（Rbar=√(R01R12)≈0.0024≤θ_mb=0.05；prob02 B13 改善率≤10%）
+    note: SiC 无需多光束修正，prob02 t=7.2158µm 维持；若 prob02 结论变化则重审（C17）
+  - name: baseline_poly_deg
+    meaning: 基线 B(nu) 多项式阶数 p
+    unit: none
+    value: 3
+    domain: "[1, 6]（默认 3，计算前固定）"
+    role: solver_config
+    source: 本版 §7.1/§14（prob02 §5.5）
+    note: 吸收 DC 基线及其色散趋势；防止过度吸收干涉，用留出/残差谱周期检查；多项式基用中心化+正交化 Chebyshev（防绝对厚度对基敏感）
+  - name: envelope_poly_deg
+    meaning: 干涉包络 C/S 多项式阶数 q
+    unit: none
+    value: 1
+    domain: "[0, 2]（默认 1，计算前固定）"
+    role: solver_config
+    source: 本版 §7.1（prob02 §5.5）
+    note: C/S 吸收 A*cos(phi) 与 A*sin(phi) 的缓变；q 过大可能过拟合；幅值弱信号 → n_sub 弱可辨识（解耦，不影响 t）
+  - name: t_scan_range
+    meaning: 硅主反演一维扫描区间
+    unit: um
+    value: [2.0, 12.0]
+    domain: "> 0；须覆盖周期图主峰（约 3.45）与相邻周期歧义"
+    role: solver_config
+    source: 本版 §7.3/§14.1（g 空间周期图 + Δt_amb）；C12
+    note: 先由 g 空间周期图粗估主峰（t≈3.45），再取 [主峰-若干*Δt_amb, 主峰+若干*Δt_amb] 并落到 [t_lo,t_hi]；t≈6.9 为倍周期假极小（RMSE 高约 4.3 倍）
+  - name: t_scan_step
+    meaning: 硅主反演一维扫描步长（后抛物线精化）
+    unit: um
+    value: 0.01
+    domain: "> 0"
+    role: solver_config
+    source: 本版 §7.3
+    note: 步长 <=0.01 保证全局极小捕获与唯一性判定分辨率
+  - name: dispersion_model
+    meaning: 硅主反演色散模型选择
+    unit: none
+    value: N-SE
+    domain: "[N-SE, N-const]"
+    role: team_decision
+    source: L12/L13（C7/C8）；本版 §6.1
+    note: N-SE=硅 Sellmeier（主，带内 n≈3.42-3.44）；N-const=常数 n≈3.43（基线 S5，B10 精神）；硅色散弱（Δn/n≈0.51%），实测 Δt_disp≈0.503%≤2%
+  - name: inversion_method
+    meaning: 硅主反演方法
+    unit: none
+    value: variable_projection_periodicity
+    domain: "[variable_projection_periodicity, full_spectrum_nls, airy_correction, constant_n_baseline]"
+    role: team_decision
+    source: 本版 §7（C12）；prob02 方法族；薄膜干涉标准频率法
+    note: S1 主=variable projection；S2=Airy 多光束判定模型；S3=物理正模型 NLS 交叉校验；S5=常数 n 基线
+  - name: mode
+    meaning: t 与 n_sub 的解耦模式
+    unit: none
+    value: frequency_decoupled
+    domain: "[frequency_decoupled, joint_P2, P1]"
+    role: team_decision
+    source: 本版 §7.4（C7）
+    note: 主模式=频率解耦：t 由相位频率确定，n_sub 由幅值事后弱辨识（不进入 t 目标）
+  - name: target_tolerance
+    meaning: 线性 LS 残差/扫描收敛容差
+    unit: none
+    value: 1e-10
+    domain: "> 0"
+    role: solver_config
+    source: 本项目惯例；prob02 task_config
+    note: 用于线性 LS 的 rcond/精度与抛物线精化
+  - name: tau_12
+    meaning: 两入射角一致性裸偏差报告阈值
+    unit: percent
+    value: 2.0
+    domain: "> 0"
+    role: reliability_gate
+    source: 本版 §8/§10；B11
+    note: 主判据为嵌套 F 检验（alpha=0.05）；τ12 作为裸偏差报告/解释阈值（对审定公式实测 ε12≈0.130%）
+  - name: alpha_ftest
+    meaning: 两角一致性嵌套 F 检验显著性水平
+    unit: none
+    value: 0.05
+    domain: "(0,1)"
+    role: reliability_gate
+    source: 统计学标准（§8）
+    note: F<=F_alpha(1,N_tot-3) 接受共享 t（一致性 PASS；实测 F=0、p=1.0）
+  - name: tau_ci
+    meaning: 厚度 95% CI 半宽阈值
+    unit: percent
+    value: 2.0
+    domain: "> 0"
+    role: reliability_gate
+    source: 本版 §8；SSE(t) 曲率/轮廓似然或 bootstrap B>=200
+    note: CI 半宽<=tau_ci（对审定公式实测半宽≈0.134%）
+  - name: tau_nsub_diag
+    meaning: n_sub 灵敏度诊断阈值（因解耦预期接近 0）
+    unit: percent
+    value: 3.0
+    domain: "> 0"
+    role: reliability_diagnostic
+    source: 本版 §7.4（C7）
+    note: t 与 n_sub 解耦后，n_sub 变化对 t 的影响应接近 0；该值为诊断上限，观察解耦是否成立
+  - name: tau_anom
+    meaning: 异常点处理对厚度影响阈值
+    unit: percent
+    value: 1.0
+    domain: "> 0"
+    role: reliability_gate
+    source: prob02 B2；本版 §5.3
+    note: delta_t_anom<=tau_anom；硅片附件 3/4 未检出 R%>100 异常（处理策略沿用，不改原始数据；实测 Δt_anom=0.0%）
+  - name: reststrahlen_exclude_sic
+    meaning: SiC 近 Reststrahlen 区（prob02 复用）
+    unit: cm^-1
+    value: [700, 1000]
+    domain: "> 0"
+    role: domain
+    source: prob02 B3；L16/L26
+    note: SiC 强吸收，无吸收模型不适用；Q3 重新判定沿用（w=0）
+  - name: multiphonon_exclude_si
+    meaning: 硅多声子吸收带（约 600-1500 cm^-1）
+    unit: cm^-1
+    value: [400, 1600]
+    domain: "> 0"
+    role: domain
+    source: C8；L12/L13/L44/L45
+    note: 硅在该区吸收/色散显著，无吸收模型不适用；主反演带截断至 ν>=2000（带边缘剔除/降权）
+  - name: weight_anomaly
+    meaning: 异常点权重
+    unit: none
+    value: 0.05
+    domain: "[0,1]"
+    role: solver_config
+    source: prob02 v001 实现；B2
+    note: 异常点按此降权（不修改原始数据）；硅片无异常，沿用策略作鲁棒
+  - name: uniqueness_second_min_ratio
+    meaning: J(t) 全局极小唯一性：次小候选/最小 J 比值
+    unit: none
+    value: null
+    domain: "> 1（越接近 1 表示周期邻近候选越接近简并）"
+    role: diagnostic
+    source: 本版 §7.6；对审定公式实测 ≈1.020
+    note: 弱色散下周期邻近候选接近简并；全局唯一性以预注册判据（§7.6：全局极小唯一 + 嵌套 F 检验）确认，该比值作为报告项而非硬门禁，不翻转模型结论
+  - name: comparison_criteria
+    meaning: 模型比较标准（计算结果前固定）
+    unit: none
+    value: null
+    domain: null
+    role: team_decision
+    source: 本版 §9.2
+    note: 约束满足度、题目指标、解释性、复杂度、运行预算、鲁棒性
+  - name: seed
+    meaning: 随机种子（bootstrap/MC、求解扰动）
+    unit: none
+    value: 20260830
+    domain: "> 0"
+    role: solver_config
+    source: 本项目惯例（AUTOMM_SEED 优先）
+    note: 保证可复现；prob03 与 prob01/prob02 一致

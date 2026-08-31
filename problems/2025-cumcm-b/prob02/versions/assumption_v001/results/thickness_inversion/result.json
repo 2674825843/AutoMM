@@ -1,0 +1,105 @@
+{
+  "feasible_incumbent": false,
+  "task": "prob02-epitaxy-thickness",
+  "passed": false,
+  "theta_deg": [
+    10.0,
+    15.0
+  ],
+  "n_sub_used": 3.0,
+  "dispersion_model": "N-L26",
+  "joint_P1": {
+    "t_um": 2.170221630983406,
+    "success": true,
+    "status": 2,
+    "cost": 31.096007359527924,
+    "optimality": 0.2591924317620971,
+    "nfev": 75,
+    "message": "`ftol` termination condition is satisfied.",
+    "t0_um": 2.165829145728643,
+    "max_residual": 0.25059463929122744,
+    "rmse": 0.05173748583743563
+  },
+  "joint_P2": {
+    "t_um": 2.418986164570106,
+    "success": true,
+    "status": 2,
+    "cost": 16.479038979598457,
+    "optimality": 0.005004877033965521,
+    "nfev": 32,
+    "message": "`ftol` termination condition is satisfied.",
+    "t0_um": 2.165829145728643,
+    "max_residual": 0.2066456166717088,
+    "rmse": 0.03766334997640495,
+    "n_sub": 2.5264547505216486
+  },
+  "two_angle_consistency": {
+    "status": "FAIL",
+    "t_theta10_um": 2.3038956441167513,
+    "t_theta15_um": 2.1575618359846347,
+    "t_mean_um": 2.2307287400506928,
+    "eps12_percent": 6.559910468037956,
+    "threshold_percent": 2.0
+  },
+  "dispersion_sensitivity": {
+    "status": "FAIL",
+    "dispersion_models_t": {
+      "N-const": 2.9662885933855807,
+      "N-L26": 2.170221630983406,
+      "N-scaled": 2.154411593802115
+    },
+    "delta_t_disp_percent": 37.409865794009924,
+    "threshold_percent": 2.0,
+    "base_model": "N-L26"
+  },
+  "nsub_sensitivity": {
+    "status": "FAIL",
+    "t_base_um": 2.170221630983406,
+    "t_nsub_pos_percent": 7.443774938242653,
+    "t_nsub_neg_percent": -69.00612246955811,
+    "delta_t_nsub_percent": 69.00612246955811,
+    "threshold_percent": 0.5,
+    "nsub_perturbation": 0.2
+  },
+  "bootstrap_ci": {
+    "status": "FAIL",
+    "t_base_um": 2.3038705867609632,
+    "sigma_residual": 0.04576119103923595,
+    "n_bootstrap": 200,
+    "ci_low_um": 2.168236058962082,
+    "ci_high_um": 2.3298314673176983,
+    "ci_halfwidth_percent": 3.507041786205641,
+    "threshold_percent": 2.0
+  },
+  "anomaly_impact": {
+    "status": "PASS",
+    "strategy_t": {
+      "downweight": 2.170221630983406,
+      "drop": 2.1715220788505984,
+      "keep": 2.1518153429285243
+    },
+    "delta_t_anom_percent": 0.908051769493438,
+    "threshold_percent": 1.0
+  },
+  "multibeam_diagnostic": {
+    "two_beam_rmse": 0.040774759619159835,
+    "airy_rmse": 0.04071673449872189,
+    "improvement_percent": 0.14230646846212644,
+    "needs_multibeam_correction": false,
+    "threshold_percent": 10.0,
+    "t_used_um": 2.3038956441167513,
+    "note": "prob03 深究 Airy 修正；prob02 仅诊断并记录"
+  },
+  "checks_failed": [
+    "reliability_two_angle",
+    "reliability_dispersion",
+    "reliability_nsub",
+    "reliability_ci"
+  ],
+  "notes": [
+    "prob02 实测数据反演：M1 色散化全谱 NLS 多初值（主）、M2 色散相位法（初值/交叉验证）、M3 常数 n 基线（对照）",
+    "色散模型 N-L26；λ<=5um Sellmeier（L09）、λ>5um n_ref 锚点插值（L26 初值，5-17um 为文档化缺口代理）",
+    "Reststrahlen [700,1000] cm^-1 剔除（w=0）；附件2 反射率 >100% 异常点降权（w=weight_anomaly），不修改原始数据",
+    "可靠性判据 §7.1-§7.6（两角度一致性/色散敏感性/n_sub 敏感性/噪声 CI/异常点影响/多光束诊断），阈值见 parameters.yaml"
+  ]
+}

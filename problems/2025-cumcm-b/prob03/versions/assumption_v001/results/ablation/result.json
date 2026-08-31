@@ -1,0 +1,80 @@
+{
+  "feasible_incumbent": true,
+  "task": "prob03-ablation-components",
+  "passed": true,
+  "conclusion": "components_confirmed",
+  "ablation_version": "ablation_v001",
+  "ref_t_hat_f0_um": 3.447668992836722,
+  "experiments": {
+    "F0": {
+      "ablate": "无（完整模型内部对照）",
+      "t_hat_um": 3.447668992836722,
+      "t_hat_per_angle_um": [],
+      "J_min": 0.0608059154019643,
+      "weighted_rmse": 0.0027072100073610365,
+      "R_range": {
+        "R_min": 0.2857488157133453,
+        "R_max": 0.31509090084187547,
+        "in_unit_interval": true
+      },
+      "uniqueness_second_min_ratio": null,
+      "n_sub_hat": 3.5576709414472134,
+      "passed": true,
+      "pass_detail": {
+        "t_in_range": true,
+        "R_in_unit_interval": true
+      }
+    },
+    "A1": {
+      "ablate": "色散模型 N-SE → N-const",
+      "t_hat_um": 3.4630383364930606,
+      "delta_t_percent": 0.4457894214401621,
+      "criterion_max_percent": 2.0,
+      "passed": true,
+      "weighted_rmse": 0.002699521154847882,
+      "uniqueness_second_min_ratio": 1.0184395349866562
+    },
+    "A2": {
+      "ablate": "加 Airy 高阶谐波列 cos2δ/sin2δ、cos3δ/sin3δ",
+      "t_hat_um": 3.4373094078166133,
+      "delta_t_percent": 0.300480847831763,
+      "criterion_max_percent": 1.0,
+      "passed": true,
+      "weighted_rmse": 0.002571899620210476,
+      "J_min": 0.054883363873994014,
+      "extra_harmonics": [
+        2,
+        3
+      ]
+    },
+    "A3": {
+      "ablate": "基线多项式 p=3 → p=0（仅常数 DC 基线）",
+      "t_hat_um": 3.4278722306445815,
+      "delta_t_percent": 0.5742071594828997,
+      "criterion_max_percent": 2.0,
+      "passed": true,
+      "weighted_rmse": 0.0029652727953802397
+    },
+    "A4": {
+      "ablate": "两角共享 t 约束：shared=True → False（每角独立 t）",
+      "t_hat_per_angle_um": [
+        3.4507446594671896,
+        3.446258474301775
+      ],
+      "t_hat_shared_ref_um": 3.447668992836722,
+      "delta_t_vs_shared_percent": 0.08921003254250967,
+      "eps12_percent": 0.13009085477863216,
+      "criterion_max_percent": 2.0,
+      "eps12_max_percent": 2.0,
+      "passed": true
+    }
+  },
+  "notes": [
+    "prob03 ablation_v001：完整模型内部对照（F0）+ A1 色散项 / A2 多光束（Airy）高阶项",
+    "  / A3 基线多项式项 / A4 两角共享 t 约束",
+    "每次只改变一个目标项，数据/随机种子/其余配置一致；主反演=基线-干涉分解",
+    "  + 一维相位频率扫描（variable projection）",
+    "A1/A3/A4 检验复杂度项对 t̂ 是否贡献；A2 检验多光束（Airy）高阶是否改变 t̂",
+    "  （L17 极值不变性/Q1 定量）"
+  ]
+}

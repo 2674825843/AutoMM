@@ -1,0 +1,27 @@
+{
+  "feasible_incumbent": true,
+  "task": "prob01-ablation-components",
+  "preregistration_version": "ablation_v001",
+  "t_true_um": 10.0,
+  "n_sub": 3.0,
+  "theta_deg": [
+    10.0,
+    15.0
+  ],
+  "seed": 20260829,
+  "criteria_passed": {
+    "f0": true,
+    "a1": true,
+    "a2": true,
+    "a3": true,
+    "a4": true
+  },
+  "conclusion": "components_confirmed",
+  "failed_checks": [],
+  "notes": [
+    "prob01 无实测数据；本实验基于正模型合成谱检验模型公式项与算法模块的必要性",
+    "观测谱始终用完整模型 (3.5) avg 生成；各消融只改变反演模型/初值策略（每次只改变一个目标项）",
+    "判据在运行前固定（ablation_v001，见 ablation/preregistration.md），实测与预期不一致记为 components_partially_confirmed，如实报告反证项",
+    "A1/A2 的「厚度不可辨识」是预期结论（组件必要性的正向证据），不是实验失败"
+  ]
+}

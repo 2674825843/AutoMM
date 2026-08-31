@@ -1,0 +1,506 @@
+{
+  "experiments": {
+    "e1": {
+      "rows": [
+        {
+          "perturbation_percent": -20.0,
+          "n_sub_used": 2.4000000000000004,
+          "theta_deg": 10.0,
+          "t_nls_um": 9.999797451460504,
+          "rel_err_vs_true": 2.0254853949630558e-05,
+          "success": true
+        },
+        {
+          "perturbation_percent": -20.0,
+          "n_sub_used": 2.4000000000000004,
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000086489839806,
+          "rel_err_vs_true": 8.648983980563685e-06,
+          "success": true
+        },
+        {
+          "perturbation_percent": -10.0,
+          "n_sub_used": 2.7,
+          "theta_deg": 10.0,
+          "t_nls_um": 9.999802474314727,
+          "rel_err_vs_true": 1.975256852730922e-05,
+          "success": true
+        },
+        {
+          "perturbation_percent": -10.0,
+          "n_sub_used": 2.7,
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000069969975195,
+          "rel_err_vs_true": 6.996997519514991e-06,
+          "success": true
+        },
+        {
+          "perturbation_percent": -5.0,
+          "n_sub_used": 2.8499999999999996,
+          "theta_deg": 10.0,
+          "t_nls_um": 9.999880023878639,
+          "rel_err_vs_true": 1.19976121361276e-05,
+          "success": true
+        },
+        {
+          "perturbation_percent": -5.0,
+          "n_sub_used": 2.8499999999999996,
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000023813239533,
+          "rel_err_vs_true": 2.3813239533154727e-06,
+          "success": true
+        },
+        {
+          "perturbation_percent": 0.0,
+          "n_sub_used": 3.0,
+          "theta_deg": 10.0,
+          "t_nls_um": 10.000000000000016,
+          "rel_err_vs_true": 1.5987211554602255e-15,
+          "success": true
+        },
+        {
+          "perturbation_percent": 0.0,
+          "n_sub_used": 3.0,
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000000000000002,
+          "rel_err_vs_true": 1.7763568394002506e-16,
+          "success": true
+        },
+        {
+          "perturbation_percent": 5.0,
+          "n_sub_used": 3.1500000000000004,
+          "theta_deg": 10.0,
+          "t_nls_um": 10.000154003626848,
+          "rel_err_vs_true": 1.5400362684836467e-05,
+          "success": true
+        },
+        {
+          "perturbation_percent": 5.0,
+          "n_sub_used": 3.1500000000000004,
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000017922421147,
+          "rel_err_vs_true": 1.7922421147176237e-06,
+          "success": true
+        },
+        {
+          "perturbation_percent": 10.0,
+          "n_sub_used": 3.3000000000000003,
+          "theta_deg": 10.0,
+          "t_nls_um": 10.000336240687488,
+          "rel_err_vs_true": 3.362406874884982e-05,
+          "success": true
+        },
+        {
+          "perturbation_percent": 10.0,
+          "n_sub_used": 3.3000000000000003,
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000075874481048,
+          "rel_err_vs_true": 7.587448104828809e-06,
+          "success": true
+        },
+        {
+          "perturbation_percent": 20.0,
+          "n_sub_used": 3.5999999999999996,
+          "theta_deg": 10.0,
+          "t_nls_um": 10.000767627183142,
+          "rel_err_vs_true": 7.676271831424941e-05,
+          "success": true
+        },
+        {
+          "perturbation_percent": 20.0,
+          "n_sub_used": 3.5999999999999996,
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000294670486829,
+          "rel_err_vs_true": 2.946704868289629e-05,
+          "success": true
+        }
+      ],
+      "max_rel_err": 7.676271831424941e-05,
+      "threshold": 0.03,
+      "passed": true
+    },
+    "e2": {
+      "rows": [
+        {
+          "perturbation_percent": -20.0,
+          "theta_base_deg": 10.0,
+          "theta_used_deg": 8.0,
+          "t_nls_um": 9.991677905483815,
+          "rel_err_vs_true": 0.000832209451618482,
+          "success": true
+        },
+        {
+          "perturbation_percent": -10.0,
+          "theta_base_deg": 10.0,
+          "theta_used_deg": 9.0,
+          "t_nls_um": 9.995612805733833,
+          "rel_err_vs_true": 0.00043871942661670714,
+          "success": true
+        },
+        {
+          "perturbation_percent": -5.0,
+          "theta_base_deg": 10.0,
+          "theta_used_deg": 9.5,
+          "t_nls_um": 9.997750079785808,
+          "rel_err_vs_true": 0.0002249920214191903,
+          "success": true
+        },
+        {
+          "perturbation_percent": 0.0,
+          "theta_base_deg": 10.0,
+          "theta_used_deg": 10.0,
+          "t_nls_um": 10.000000000000016,
+          "rel_err_vs_true": 1.5987211554602255e-15,
+          "success": true
+        },
+        {
+          "perturbation_percent": 5.0,
+          "theta_base_deg": 10.0,
+          "theta_used_deg": 10.5,
+          "t_nls_um": 10.002362109106073,
+          "rel_err_vs_true": 0.00023621091060732624,
+          "success": true
+        },
+        {
+          "perturbation_percent": 10.0,
+          "theta_base_deg": 10.0,
+          "theta_used_deg": 11.0,
+          "t_nls_um": 10.004835925868937,
+          "rel_err_vs_true": 0.0004835925868936997,
+          "success": true
+        },
+        {
+          "perturbation_percent": 20.0,
+          "theta_base_deg": 10.0,
+          "theta_used_deg": 12.0,
+          "t_nls_um": 10.010116637094804,
+          "rel_err_vs_true": 0.0010116637094803593,
+          "success": true
+        },
+        {
+          "perturbation_percent": -20.0,
+          "theta_base_deg": 15.0,
+          "theta_used_deg": 12.0,
+          "t_nls_um": 9.98158731892281,
+          "rel_err_vs_true": 0.001841268107719074,
+          "success": true
+        },
+        {
+          "perturbation_percent": -10.0,
+          "theta_base_deg": 15.0,
+          "theta_used_deg": 13.5,
+          "t_nls_um": 9.990307674117126,
+          "rel_err_vs_true": 0.0009692325882873831,
+          "success": true
+        },
+        {
+          "perturbation_percent": -5.0,
+          "theta_base_deg": 15.0,
+          "theta_used_deg": 14.25,
+          "t_nls_um": 9.99503342939779,
+          "rel_err_vs_true": 0.0004966570602210396,
+          "success": true
+        },
+        {
+          "perturbation_percent": 0.0,
+          "theta_base_deg": 15.0,
+          "theta_used_deg": 15.0,
+          "t_nls_um": 10.000000000000002,
+          "rel_err_vs_true": 1.7763568394002506e-16,
+          "success": true
+        },
+        {
+          "perturbation_percent": 5.0,
+          "theta_base_deg": 15.0,
+          "theta_used_deg": 15.75,
+          "t_nls_um": 10.005205053295045,
+          "rel_err_vs_true": 0.0005205053295044948,
+          "success": true
+        },
+        {
+          "perturbation_percent": 10.0,
+          "theta_base_deg": 15.0,
+          "theta_used_deg": 16.5,
+          "t_nls_um": 10.010646131607086,
+          "rel_err_vs_true": 0.0010646131607085607,
+          "success": true
+        },
+        {
+          "perturbation_percent": 20.0,
+          "theta_base_deg": 15.0,
+          "theta_used_deg": 18.0,
+          "t_nls_um": 10.022225903307618,
+          "rel_err_vs_true": 0.0022225903307617756,
+          "success": true
+        }
+      ],
+      "max_rel_err": 0.0022225903307617756,
+      "threshold": 0.02,
+      "passed": true
+    },
+    "e3": {
+      "rows": [
+        {
+          "dispersion_model": "sellmeier",
+          "theta_deg": 10.0,
+          "t_nls_um": 10.000000000000016,
+          "rel_err_vs_true": 1.5987211554602255e-15,
+          "success": true
+        },
+        {
+          "dispersion_model": "sellmeier",
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000000000000002,
+          "rel_err_vs_true": 1.7763568394002506e-16,
+          "success": true
+        },
+        {
+          "dispersion_model": "piecewise_constant",
+          "theta_deg": 10.0,
+          "t_nls_um": 10.025761243986603,
+          "rel_err_vs_true": 0.0025761243986602623,
+          "success": true
+        },
+        {
+          "dispersion_model": "piecewise_constant",
+          "theta_deg": 15.0,
+          "t_nls_um": 10.026689342104142,
+          "rel_err_vs_true": 0.0026689342104141644,
+          "success": true
+        },
+        {
+          "dispersion_model": "constant",
+          "theta_deg": 10.0,
+          "t_nls_um": 10.094254579408807,
+          "rel_err_vs_true": 0.009425457940880655,
+          "success": true
+        },
+        {
+          "dispersion_model": "constant",
+          "theta_deg": 15.0,
+          "t_nls_um": 10.09568869447567,
+          "rel_err_vs_true": 0.009568869447567074,
+          "success": true
+        }
+      ],
+      "s1_max_rel_err": 1.5987211554602255e-15,
+      "alt_max_bias": 0.009568869447567074,
+      "thresholds": {
+        "s1_rel_err": 0.01,
+        "alt_bias": 0.05
+      },
+      "passed": true
+    },
+    "e4": {
+      "rows": [
+        {
+          "sigma_percent": 0.5,
+          "theta_deg": 10.0,
+          "reps": 100,
+          "n_success": 100,
+          "convergence_rate": 1.0,
+          "mean_t_um": 10.000002966742631,
+          "std_t_um": 0.0002447426473160885,
+          "ci_halfwidth_um": 0.0004661628811568619,
+          "ci_halfwidth_rel": 4.661628811568619e-05
+        },
+        {
+          "sigma_percent": 0.5,
+          "theta_deg": 15.0,
+          "reps": 100,
+          "n_success": 100,
+          "convergence_rate": 1.0,
+          "mean_t_um": 9.99999133414449,
+          "std_t_um": 0.0002981058791232187,
+          "ci_halfwidth_um": 0.0005787218000961047,
+          "ci_halfwidth_rel": 5.787218000961047e-05
+        },
+        {
+          "sigma_percent": 1.0,
+          "theta_deg": 10.0,
+          "reps": 100,
+          "n_success": 100,
+          "convergence_rate": 1.0,
+          "mean_t_um": 9.999964137582394,
+          "std_t_um": 0.0005571759537730782,
+          "ci_halfwidth_um": 0.0011479596637435918,
+          "ci_halfwidth_rel": 0.00011479596637435918
+        },
+        {
+          "sigma_percent": 1.0,
+          "theta_deg": 15.0,
+          "reps": 100,
+          "n_success": 100,
+          "convergence_rate": 1.0,
+          "mean_t_um": 9.999980362692465,
+          "std_t_um": 0.0005663114673419926,
+          "ci_halfwidth_um": 0.0010225759461448547,
+          "ci_halfwidth_rel": 0.00010225759461448546
+        },
+        {
+          "sigma_percent": 2.0,
+          "theta_deg": 10.0,
+          "reps": 100,
+          "n_success": 100,
+          "convergence_rate": 1.0,
+          "mean_t_um": 9.999917007790748,
+          "std_t_um": 0.0010814599413842122,
+          "ci_halfwidth_um": 0.002238445000172007,
+          "ci_halfwidth_rel": 0.0002238445000172007
+        },
+        {
+          "sigma_percent": 2.0,
+          "theta_deg": 15.0,
+          "reps": 100,
+          "n_success": 100,
+          "convergence_rate": 1.0,
+          "mean_t_um": 10.000000538086248,
+          "std_t_um": 0.0009798783826999273,
+          "ci_halfwidth_um": 0.001944750498765302,
+          "ci_halfwidth_rel": 0.0001944750498765302
+        }
+      ],
+      "criteria": {
+        "ci_halfwidth_rel": {
+          "0.5": 0.02,
+          "1.0": 0.04,
+          "2.0": 0.08
+        },
+        "convergence_rate": 1.0,
+        "note": "噪声 σ=0.5/1.0/2.0% 的 NLS 厚度 95% CI 半宽分别 ≤ 2%/4%/8%；收敛率 100%（失败运行计入）"
+      },
+      "passed": true
+    },
+    "e5": {
+      "rows": [
+        {
+          "cutoff_cm1": [
+            1800.0,
+            4000.0
+          ],
+          "theta_deg": 10.0,
+          "t_nls_um": 10.0,
+          "rel_change_vs_base_cutoff": 0.0,
+          "success": true
+        },
+        {
+          "cutoff_cm1": [
+            1800.0,
+            4000.0
+          ],
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000000000000004,
+          "rel_change_vs_base_cutoff": 1.7763568394002496e-16,
+          "success": true
+        },
+        {
+          "cutoff_cm1": [
+            1900.0,
+            4000.0
+          ],
+          "theta_deg": 10.0,
+          "t_nls_um": 10.0,
+          "rel_change_vs_base_cutoff": 0.0,
+          "success": true
+        },
+        {
+          "cutoff_cm1": [
+            1900.0,
+            4000.0
+          ],
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000000000000004,
+          "rel_change_vs_base_cutoff": 1.7763568394002496e-16,
+          "success": true
+        },
+        {
+          "cutoff_cm1": [
+            2000.0,
+            4000.0
+          ],
+          "theta_deg": 10.0,
+          "t_nls_um": 10.0,
+          "rel_change_vs_base_cutoff": 0.0,
+          "success": true
+        },
+        {
+          "cutoff_cm1": [
+            2000.0,
+            4000.0
+          ],
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000000000000005,
+          "rel_change_vs_base_cutoff": 0.0,
+          "success": true
+        },
+        {
+          "cutoff_cm1": [
+            2100.0,
+            4000.0
+          ],
+          "theta_deg": 10.0,
+          "t_nls_um": 10.0,
+          "rel_change_vs_base_cutoff": 0.0,
+          "success": true
+        },
+        {
+          "cutoff_cm1": [
+            2100.0,
+            4000.0
+          ],
+          "theta_deg": 15.0,
+          "t_nls_um": 10.000000000000007,
+          "rel_change_vs_base_cutoff": 1.7763568394002496e-16,
+          "success": true
+        },
+        {
+          "cutoff_cm1": [
+            2000.0,
+            3800.0
+          ],
+          "theta_deg": 10.0,
+          "t_nls_um": 10.000000000000004,
+          "rel_change_vs_base_cutoff": 3.552713678800501e-16,
+          "success": true
+        },
+        {
+          "cutoff_cm1": [
+            2000.0,
+            3800.0
+          ],
+          "theta_deg": 15.0,
+          "t_nls_um": 10.0,
+          "rel_change_vs_base_cutoff": 5.329070518200748e-16,
+          "success": true
+        },
+        {
+          "cutoff_cm1": [
+            2000.0,
+            3600.0
+          ],
+          "theta_deg": 10.0,
+          "t_nls_um": 10.0,
+          "rel_change_vs_base_cutoff": 0.0,
+          "success": true
+        },
+        {
+          "cutoff_cm1": [
+            2000.0,
+            3600.0
+          ],
+          "theta_deg": 15.0,
+          "t_nls_um": 10.0,
+          "rel_change_vs_base_cutoff": 5.329070518200748e-16,
+          "success": true
+        }
+      ],
+      "max_rel_change": 5.329070518200748e-16,
+      "threshold": 0.02,
+      "base_cutoff_cm1": [
+        2000.0,
+        4000.0
+      ],
+      "passed": true
+    }
+  }
+}

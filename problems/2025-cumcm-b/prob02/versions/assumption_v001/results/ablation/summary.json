@@ -1,0 +1,52 @@
+{
+  "preregistration_version": "ablation_v001",
+  "rows": [
+    {
+      "id": "F0",
+      "name": "完整模型对照",
+      "t_hat_um": 7.215791464723568,
+      "rmse": 0.0006256558827549941,
+      "metric": null,
+      "unit": null,
+      "verdict": "PASS"
+    },
+    {
+      "id": "A1",
+      "name": "色散模型消融",
+      "t_hat_um": 7.8248080579830335,
+      "rmse": null,
+      "metric": 8.440052574091345,
+      "unit": "percent",
+      "verdict": "CONFIRMS_CONTRIBUTION"
+    },
+    {
+      "id": "A2",
+      "name": "基线多项式消融",
+      "t_hat_um": 7.615976410072124,
+      "rmse": 0.004397516483820257,
+      "metric": 5.5459605132018055,
+      "unit": "percent",
+      "verdict": "CONFIRMS_CONTRIBUTION"
+    },
+    {
+      "id": "A3",
+      "name": "相位-频率方法消融",
+      "t_hat_um": 7.608235913291019,
+      "rmse": 0.008599733722225913,
+      "metric": 5.4386888879207,
+      "unit": "percent",
+      "verdict": "CONFIRMS_CONTRIBUTION"
+    },
+    {
+      "id": "A4",
+      "name": "两角共享-t 消融",
+      "t_hat_um": 7.215791464723568,
+      "rmse": null,
+      "metric": 0.16505190136253994,
+      "unit": "percent",
+      "verdict": "BENIGN_CONSISTENT"
+    }
+  ],
+  "conclusion": "components_confirmed",
+  "components_confirmed": true
+}

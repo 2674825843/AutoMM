@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "criteria": [
+    {
+      "name": "f0",
+      "passed": true,
+      "metric": "max_rel_err / min_depth_ratio",
+      "measured": [
+        1.5987211554602255e-15,
+        67498033834.40445
+      ],
+      "threshold": [
+        0.01,
+        100.0
+      ],
+      "note": "F0 对照：NLS 厚度相对真值最大误差 <= 1% 且 rmse(t) 深度比 >= 100（t_true 处全局极小）"
+    },
+    {
+      "name": "a1",
+      "passed": true,
+      "metric": "max_flatness",
+      "measured": 0.0,
+      "threshold": 0.05,
+      "note": "A1 干涉项消融：rmse(t) 网格平坦度 <= 5% -> 厚度不可辨识 -> 干涉项必要"
+    },
+    {
+      "name": "a2",
+      "passed": true,
+      "metric": "max_flatness",
+      "measured": 0.0,
+      "threshold": 0.05,
+      "note": "A2 衬底界面反射消融：rmse(t) 网格平坦度 <= 5% -> 厚度不可辨识 -> 衬底反射项必要"
+    },
+    {
+      "name": "a3",
+      "passed": true,
+      "metric": "max_pairwise_rel_diff",
+      "measured": 0.0001198250735358286,
+      "threshold": 0.01,
+      "note": "A3 偏振平均消融：s/p/avg 三种反演厚度最大相对差 <= 1% -> 偏振平均为非关键简化"
+    },
+    {
+      "name": "a4",
+      "passed": true,
+      "metric": "max_single_init_rel_err / max_multi_init_rel_err",
+      "measured": [
+        0.06028848453725342,
+        1.5987211554602255e-15
+      ],
+      "threshold": [
+        0.02,
+        0.01
+      ],
+      "note": "A4 多初值模块消融：单初值误差 > 2%（落入周期歧义局部极小）且多初值 <= 1% -> 多初值模块必要"
+    }
+  ],
+  "method_reference": {
+    "forward_model": "(3.5)/(3.6)",
+    "snell": "(2.1)-(2.3)",
+    "fresnel": "(3.1)-(3.3)",
+    "extremum": "(3.7)",
+    "spacing": "(3.8)-(3.10)",
+    "phase_method": "(3.11)-(3.13)",
+    "sellmeier": "(4.1)",
+    "period_ambiguity": "formula_validation §6"
+  }
+}

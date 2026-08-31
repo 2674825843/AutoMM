@@ -1,0 +1,27 @@
+{
+  "feasible_incumbent": true,
+  "task": "prob01-robustness-sensitivity",
+  "preregistration_version": "robustness_v001",
+  "t_true_um": 10.0,
+  "n_sub": 3.0,
+  "theta_deg": [
+    10.0,
+    15.0
+  ],
+  "seed": 20260829,
+  "criteria_passed": {
+    "e1": true,
+    "e2": true,
+    "e3": true,
+    "e4": true,
+    "e5": true
+  },
+  "conclusion": "stable",
+  "failed_criteria": [],
+  "notes": [
+    "prob01 无实测数据；本实验基于正模型合成谱检验方法层稳健性（t_true=10um 基准），直接支撑 prob02 实测反演的不确定度控制",
+    "正模型生成谱始终使用基准参数（无噪，除非实验本身是噪声实验）；反演输入按实验设计扰动（模拟 prob02 参数估计误差）",
+    "判据在运行前固定（robustness_v001，见 robustness/preregistration.md），实测未通过判据记为 conditionally_stable，不删除不利情景",
+    "E4 失败运行（NLS 不收敛/异常）计入收敛率，不静默删除"
+  ]
+}

@@ -15,6 +15,9 @@ sys.path.insert(0, str(SOURCE_ROOT / "scripts"))
 
 
 def _copy_static_tree() -> None:
+    template = SOURCE_ROOT / '数模论文标准模板.docx'
+    if template.is_file():
+        shutil.copy2(template, ISOLATED_ROOT / template.name)
     for name in ("config", "templates", "agents", "skills", "scripts"):
         source = SOURCE_ROOT / name
         target = ISOLATED_ROOT / name

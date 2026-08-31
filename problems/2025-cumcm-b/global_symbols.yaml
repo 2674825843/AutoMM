@@ -1,0 +1,109 @@
+symbols:
+- name: t
+  meaning: 外延层厚度
+  unit: um
+  type: float
+  domain: "> 0"
+  first_appearance: prob01
+- name: n
+  meaning: 外延层折射率（与掺杂载流子浓度和波长相关，非常数）
+  unit: dimensionless
+  type: float
+  domain: "> 1"
+  first_appearance: prob01
+- name: n_sub
+  meaning: 衬底折射率
+  unit: dimensionless
+  type: float
+  domain: "> 1"
+  first_appearance: prob01
+- name: n_air
+  meaning: 空气（入射介质）折射率
+  unit: dimensionless
+  type: float
+  domain: "≈ 1"
+  first_appearance: prob01
+- name: theta
+  meaning: 红外光入射角（相对表面法线，空气侧）
+  unit: degree
+  type: float
+  domain: "[0, 90)"
+  first_appearance: prob01
+- name: theta_prime
+  meaning: 外延层内折射角（相对表面法线）
+  unit: degree
+  type: float
+  domain: "[0, 90)"
+  first_appearance: prob01
+- name: lambda
+  meaning: 真空中红外光波长
+  unit: um
+  type: float
+  domain: "> 0"
+  first_appearance: prob01
+- name: nu
+  meaning: 波数
+  unit: cm^-1
+  type: float
+  domain: "> 0（实测约 399.7–4000.1）"
+  first_appearance: prob01
+- name: R
+  meaning: 干涉光谱反射率（实测数据）
+  unit: percent
+  type: float
+  domain: "≥ 0（附件2 个别值 >100 属异常，需预处理核实）"
+  first_appearance: prob02
+- name: m
+  meaning: 干涉级次（整数）
+  unit: dimensionless
+  type: int
+  domain: "≥ 0"
+  first_appearance: prob01
+- name: delta_nu
+  meaning: 相邻干涉极值（峰或谷）的波数间隔
+  unit: cm^-1
+  type: float
+  domain: "> 0"
+  first_appearance: prob02
+- name: N_c
+  meaning: 掺杂载流子浓度
+  unit: cm^-3
+  type: float
+  domain: "> 0"
+  first_appearance: prob01
+- name: r_01
+  meaning: 空气/外延层界面振幅反射系数（Fresnel）
+  unit: dimensionless
+  type: complex
+  domain: "|r_01| < 1"
+  first_appearance: prob03
+- name: r_12
+  meaning: 外延层/衬底界面振幅反射系数（Fresnel）
+  unit: dimensionless
+  type: complex
+  domain: "|r_12| < 1"
+  first_appearance: prob03
+- name: R_01
+  meaning: 空气/外延层界面强度反射率
+  unit: dimensionless
+  type: float
+  domain: "[0, 1)"
+  first_appearance: prob03
+- name: R_12
+  meaning: 外延层/衬底界面强度反射率
+  unit: dimensionless
+  type: float
+  domain: "[0, 1)"
+  first_appearance: prob03
+- name: finesse
+  meaning: 多光束干涉精细度（F=π√R̄/(1−R̄)；低反射率两光束区 <1，高反射率锐共振区 ≥1）
+  unit: dimensionless
+  type: float
+  domain: "> 0"
+  first_appearance: prob03
+- name: delta
+  meaning: 相邻反射光束间的相位差（含光程差相位与反射相位跃变）
+  unit: rad
+  type: float
+  domain: "实数"
+  first_appearance: prob01

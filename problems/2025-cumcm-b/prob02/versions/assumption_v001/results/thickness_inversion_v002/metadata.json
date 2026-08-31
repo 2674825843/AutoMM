@@ -1,0 +1,48 @@
+{
+  "problem_id": "2025-cumcm-b",
+  "question_id": "prob02",
+  "assumption_version": "assumption_v001",
+  "formulation_version": "formulation_v002",
+  "created_at": "2026-08-29T17:13:58.622065+00:00",
+  "seed": 20260829,
+  "scenario": {
+    "theta_deg": [
+      10.0,
+      15.0
+    ],
+    "n_sub_init": 2.55,
+    "dispersion_model": "N-SE",
+    "inv_band_cm1": [
+      2000.0,
+      4000.0
+    ],
+    "attachment1": "E:\\项目\\AutoMM\\data\\2025_cumcm_B\\附件1.xlsx",
+    "attachment2": "E:\\项目\\AutoMM\\data\\2025_cumcm_B\\附件2.xlsx"
+  },
+  "input_parameters_yaml_hash": "1b38c92f8bc06b7fd50217ff2e51e6aa183bd42f2a0779d8d90e607964ecf2ed",
+  "task_config_yaml_hash": "48187afc9bb80638e1e45133b4ab3f0353d02b54a06d1b58096da3b99c0d4472",
+  "unit_conventions": {
+    "t": "um",
+    "nu": "cm^-1",
+    "lambda": "um = 1e4 / nu",
+    "theta": "degree（三角函数内部转 rad）",
+    "delta": "rad",
+    "delta_nu": "cm^-1",
+    "r": "dimensionless（R% / 100 归一）"
+  },
+  "formula_refs": {
+    "forward_model": "(2.3)/(2.4)",
+    "snell": "(2.1)",
+    "phase": "(2.2)",
+    "fresnel": "(2.3) 内 Fresnel s/p",
+    "extremum": "(6.1)",
+    "spacing": "(6.1) 方法 A",
+    "phase_method": "(6.1)/(6.2)",
+    "nls": "(5.1)",
+    "sellmeier": "(4.1)",
+    "disp_band_trunc": "(3.1)/(3.2)",
+    "ftest": "(7.1)",
+    "reliability": "(7.1)-(7.6)"
+  },
+  "python": "3.12.14"
+}

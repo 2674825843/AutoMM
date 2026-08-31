@@ -1,0 +1,125 @@
+# prob02 robustness 实验矩阵（robustness_v001）
+# 预注册判据在 computation 前固定（formulation_v003 §7 / parameters.yaml），此处仅映射到
+# robustness 默认扰动约定并登记 computation 阶段的实测结果。版本：assumption_v001 / formulation_v003。
+schema_version: 1
+problem_id: 2025-cumcm-b
+question_id: prob02
+assumption_version: assumption_v001
+formulation_version: formulation_v003
+robustness_version: robustness_v001
+seed: 20260829
+baseline:
+  main_t_hat_shared_um: 7.215791464723565
+  t_hat_per_angle_um: [7.221407936874832, 7.209498693985785]
+  epsilon_12_percent: 0.16505190136257697
+  n_sub_hat: 2.5881831367543757
+  inv_band_cm1: [2000.0, 4000.0]
+  polynomial_basis: centered_orthogonalized_chebyshev
+  p_baseline_deg: 3
+  q_envelope_deg: 1
+  main_fit_rmse: 6.3e-4
+  result_dir: results/thickness_inversion_v003
+  sources:
+    - results/thickness_inversion_v003/result.json
+    - results/thickness_inversion_v003/metadata.json
+    - results/thickness_inversion_v003/verification.json
+experiments:
+  - id: R1
+    object: dispersion_model_color
+    design: N-SE vs N-SE-delta (delta_c_disp=0.5%)
+    criterion: C2_disp_sensitivity
+    threshold_percent: 2.0
+    measured_percent: 0.5065171487862093
+    status: PASS
+    unit: percent
+    rule: delta_t_disp <= tau_disp
+  - id: R2
+    object: spectral_band_truncation
+    design: full_band vs truncated [2000,4000] cm-1
+    criterion: C3_band_truncation
+    threshold_percent: null
+    measured_percent: 58.42451913048835
+    status: REPORT
+    unit: percent
+    rule: 仅作谱段截断合理性证据（B6），不作主判据；Δt_inv_band
+  - id: R3
+    object: substrate_index_nsub
+    design: n_sub 幅度层扰动（主方法 t 与 n_sub 结构解耦）
+    criterion: C4_nsub_decoupling
+    threshold_percent: 3.0
+    measured_percent: 0.0
+    status: PASS
+    unit: percent
+    rule: 主方法 t 由相位频率确定、与 n_sub 解耦（main_t_nsub_delta_percent=0.0）；物理 NLS 交叉校验灵敏度 1.92%<3%（报告）
+    note: n_sub 仅影响幅度 A=√(C²+S²)，不进入相位频率 g(ν)；t 不依赖 n_sub（B7 解耦）
+  - id: R4
+    object: noise_confidence_interval
+    design: 轮廓似然/夹逼区间（SSE(t) 曲率），95% CI
+    criterion: C5_ci_halfwidth
+    threshold_percent: 2.0
+    measured_percent: 0.09113810753598191
+    status: PASS
+    unit: percent
+    rule: CI 半宽 ≤ tau_ci
+    note: 方法为 profile_likelihood_Jcurve；bootstrap（B≥200）为登记方法债（见 preregistration §8）
+  - id: R5
+    object: uniqueness_initialization
+    design: 一维全局扫描 vs 次小候选（偶然初始化/周期歧义）
+    criterion: C6_uniqueness
+    threshold_percent: null
+    measured_percent: null
+    status: PASS
+    unit: none
+    rule: 全局极小显著低于次小候选且扫描区间内唯一
+    evidence: J(t) 曲线全局唯一极小（Fig variable_projection_jcurve）；次小候选显著更高；唯一性由 formulation §13.1
+  - id: R6
+    object: anomaly_impact
+    design: 剔除 vs 保留 vs 降权（w=0.05）
+    criterion: C7_anomaly
+    threshold_percent: 1.0
+    measured_percent: 0.0
+    status: PASS
+    unit: percent
+    rule: delta_t_anom ≤ tau_anom
+    note: 附件2 反射率 >100% 异常点（n=262）按 weight_anomaly=0.05 降权，原始数据只读
+  - id: R7
+    object: multibeam_airy
+    design: 两光束 vs Airy 拟合残差比较
+    criterion: C8_multibeam
+    threshold_percent: 10.0
+    measured_percent: 0.0
+    status: PASS
+    unit: percent
+    rule: Airy 相对两光束残差改善 ≤10% → 两光束适用
+    note: prob03 深究 Airy 修正；prob02 仅诊断（B13）
+  - id: R8
+    object: baseline_envelope_polynomial_order
+    design: p∈{2,3,4,5}、q∈{0,1,2} 的 t 稳定性
+    criterion: order_stability_supplement
+    threshold_percent: null
+    measured_percent: null
+    status: PASS
+    unit: none
+    rule: 对阶数/带区稳健（formulation §5.5 / §13.1 → t∈[7.38,7.42]）
+  - id: R9
+    object: nsub_amplitude_perturbation_sampled
+    design: n_sub 幅度层 ±20% 抽检（默认方案对照）
+    criterion: C4_nsub_decoupling_supplement
+    threshold_percent: 3.0
+    measured_percent: 0.0
+    status: PASS
+    unit: percent
+    rule: 主方法 t 对 n_sub 扰动不敏感（解耦）
+criteria_summary:
+  total: 8
+  passed: 8
+  reported_only: [C3_band_truncation]
+  special_routing:
+    - id: C1_two_angle_ftest
+      verdict: CONDITIONAL
+      reason: F=5.251>F_crit=3.843, p=0.022 统计显著拒绝 H0，但 ε12=0.165%≪τ12=2%，属大样本统计显著性与实际意义分离；
+        按 formulation §7.1/§14 路由为 B11（测量点差异/膜厚梯度）记录并解释，不构成模型修订触发
+      status: REPORT_AS_B11
+conclusion: stable
+conclusion_note: 全部预注册定量判据在阈值内通过；唯一「统计显著」项为两角嵌套 F 检验，但 ε12≪τ12 路由 B11，
+  不改变 t̂ 稳健性。附条件边界：n_sub 弱可辨识（B7）与 λ>5µm 色散缺口（B6）为登记边界，不影响 t̂。

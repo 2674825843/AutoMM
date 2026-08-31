@@ -180,7 +180,9 @@ def _validate_response_context(response: dict[str, Any], action: dict[str, Any])
 
 
 _ALLOWED_COMMANDS = {"record_artifact", "record_optional_stage", "record_conclusion", "clear_stale", "append_ledger", "record_figure_review", "record_sanity", "decide_assumption_version", "decide_formulation_version", "mark_cross_question_review", "transition"}
+_ALLOWED_COMMANDS.add('request_paper_rewrite')
 _COMMAND_PRIORITY = {"record_artifact": 10, "record_optional_stage": 10, "record_conclusion": 10, "clear_stale": 10, "append_ledger": 10, "record_figure_review": 10, "record_sanity": 20, "decide_assumption_version": 20, "decide_formulation_version": 20, "mark_cross_question_review": 20, "transition": 30}
+_COMMAND_PRIORITY['request_paper_rewrite'] = 30
 
 
 def _transaction_paths(problem_id: str | None) -> list[Path]:
@@ -207,6 +209,9 @@ def _restore(snapshot: dict[Path, bytes | None]) -> None:
 
 
 def _apply_one(name: str, args: dict[str, Any]) -> Any:
+    if name == 'request_paper_rewrite':
+        from .workflow import request_paper_rewrite
+        return request_paper_rewrite(**args)
     if name == "transition":
         return transition(target_stage=args.pop("target_stage"), reason=args.pop("reason"), **args)
     if name == "record_artifact":
@@ -242,6 +247,9 @@ def apply_agent_commands(response: dict[str, Any], action: dict[str, Any]) -> li
     commands = response.get("commands", [])
     if any(command.get("name") not in _ALLOWED_COMMANDS for command in commands):
         raise HarnessInvariantError("Agent command 不在白名单内")
+    if any(c['name'] == 'request_paper_rewrite' for c in commands):
+        if action.get('user_authorized_rewrite') is not True or len(commands) != 1:
+            raise HarnessInvariantError('重新写作命令必须由用户明确授权并单独执行')
     problem_id, question_id = action.get("problem_id"), action.get("question_id")
     if problem_id and question_id:
         _, manifest = question_manifest(problem_id, question_id)

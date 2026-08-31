@@ -1,0 +1,944 @@
+figures:
+- stable_id: prob01_fig_reflectance_spectrum_1d4fb899d1
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: reflectance_spectrum
+  title: 两光束干涉合成反射率谱（t_true=10.0 µm，n_sub=3.0）
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_reflectance_spectrum_1d4fb899d1.png
+  source_hash: fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - R
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1567
+    height: 994
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T06:32:45.118032+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1567×994 px、暗边框 0.0%）+ 视觉复核：双入射角谱线、峰标注、Reststrahlen/Sellmeier
+      边界清晰，图例无遮挡、单位完整
+    reviewed_at: '2026-08-29T06:33:48.502359+00:00'
+- stable_id: prob01_fig_dispersion_curve_d85564d2fc
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: dispersion_curve
+  title: 外延层 4H-SiC 折射率色散模型 n(ν)
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_dispersion_curve_d85564d2fc.png
+  source_hash: fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - n
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1566
+    height: 1068
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T06:32:45.413113+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed + 视觉复核：Sellmeier 与常数延伸分段明确、双轴 λ/ν 换算正确、边界与 Reststrahlen 区标注无重叠
+    reviewed_at: '2026-08-29T06:33:48.531424+00:00'
+- stable_id: prob01_fig_phase_function_gap_459c486470
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: phase_function_gap
+  title: 色散化相位法：g(ν) 单调性与同型极值间隔律（θ=10°）
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_phase_function_gap_459c486470.png
+  source_hash: fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - g
+  - delta_g
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1809
+    height: 926
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T06:32:45.818239+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed + 视觉复核：g(ν) 单调性与 Δg 恒定律（≈500 cm^-1）双面板机制清晰，轴/单位/图例完整
+    reviewed_at: '2026-08-29T06:33:48.561906+00:00'
+- stable_id: prob01_fig_thickness_methods_compare_5eac465fc8
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: thickness_methods_compare
+  title: 三种反演方法的厚度估计与 t_true=10.0 µm 对比（相对偏差标注）
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_thickness_methods_compare_5eac465fc8.png
+  source_hash: fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py
+  x: null
+  y:
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1538
+    height: 985
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T06:32:46.072654+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed + 视觉复核：三方法×两入射角分组柱状图含偏差标注，t_true 参考线与 ±1% 容差带清晰，颜色区分明确
+    reviewed_at: '2026-08-29T06:33:48.590052+00:00'
+- stable_id: prob01_fig_spacing_constant_n_bias_2245b6eda4
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: spacing_constant_n_bias
+  title: 方法 A 常数 n 近似的系统偏差：实测间隔 vs 理论间隔（色散效应 ~4%）
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_spacing_constant_n_bias_2245b6eda4.png
+  source_hash: fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py
+  x: spacing_index
+  y:
+  - delta_nu
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1531
+    height: 1002
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T06:32:46.348086+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed + 视觉复核：实测 vs 常数 n 理论间隔对比与 4.2–4.7% 偏差说明框（axes 左下角）无数据遮挡
+    reviewed_at: '2026-08-29T06:33:48.622256+00:00'
+- stable_id: prob01_fig_nls_multistart_e64919ab13
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: nls_multistart
+  title: 全谱 NLS 多初值：周期歧义局部极小 vs 全局解（rmse≈0，t=10.000 µm）
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_nls_multistart_e64919ab13.png
+  source_hash: fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py
+  x: t0_um
+  y:
+  - rmse
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1605
+    height: 994
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T06:32:46.660216+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed + 视觉复核：全局解（rmse≈0）与局部极小分离清晰，t0→t 标注与周期歧义竖线可读，图例符号一致
+    reviewed_at: '2026-08-29T06:33:48.656646+00:00'
+- stable_id: prob01_fig_response_surface_d0691c5dd8
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: response_surface
+  title: 两光束干涉反射率随波数与入射角的三维响应面（配 2D 等高线）
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_response_surface_d0691c5dd8.png
+  source_hash: fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - theta_deg
+  - R
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1741
+    height: 1057
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T06:32:49.675370+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed + 视觉复核：3D 响应面视角可读（elev=26° azim=-62°）无关键遮挡，θ=10°/15° 测量线标注，2D
+      等高线配套消歧，第三维为真实入射角变量
+    reviewed_at: '2026-08-29T06:33:48.693244+00:00'
+- stable_id: prob01_fig_sensitivity_tornado_6983566848
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: sensitivity_tornado
+  title: prob01 robustness 敏感性 tornado 汇总（E1–E5）
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_sensitivity_tornado_6983566848.png
+  source_hash: dbabf7786353f08e369e1883f455c5727a6ef4bda0d87c6a810ea09442dd9d5e
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_robustness_figures.py
+  x: factor
+  y:
+  - max_rel_impact_percent
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1514
+    height: 865
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T07:01:01.770486+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（非空白、暗边框 0.0、1514×865）+ 结构复核：E1–E5 五因素横条 tornado 图，实测影响 vs
+      预注册阈值竖线标注清晰，文本无重叠
+    reviewed_at: '2026-08-29T07:02:26.295198+00:00'
+- stable_id: prob01_fig_noise_robustness_ci_30d4fa737f
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: noise_robustness_ci
+  title: E4 噪声稳健性：NLS 厚度估计 95% CI（σ=0.5/1.0/2.0%）
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_noise_robustness_ci_30d4fa737f.png
+  source_hash: dbabf7786353f08e369e1883f455c5727a6ef4bda0d87c6a810ea09442dd9d5e
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_robustness_figures.py
+  x: sigma_percent
+  y:
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1561
+    height: 942
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T07:01:02.162796+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（非空白、暗边框 0.0、1561×942）+ 结构复核：σ=0.5/1/2% × θ=10/15° 的 t 均值与
+      95% CI 误差棒，t_true 参考线清晰，图例无重叠
+    reviewed_at: '2026-08-29T07:02:26.352029+00:00'
+- stable_id: prob01_fig_ablation_summary_ee3c34dcfa
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: ablation_summary
+  title: prob01 ablation 判据汇总（F0 + A1–A4）
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_summary_ee3c34dcfa.png
+  source_hash: 2e1994965ac8af0dd4a6fe52e5a273ef0c3dd2b5a1e1dc102d92354a2d0cbec2
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_ablation_figures.py
+  x: experiment
+  y:
+  - metric_percent
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 2039
+    height: 1319
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T07:29:25.706912+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（2039×1319 px、暗边框 0.0、非空白）+ 结构复核：F0+A1–A4 五组判据横向条形（实测 vs 阈值竖线标注），A4
+      单初值退化（6.03%）与多初值对照（≈0%）语义区分明确，数值与 summary.json 一致，文本无重叠
+    reviewed_at: '2026-08-29T07:41:19.713172+00:00'
+- stable_id: prob01_fig_ablation_polarization_da59250d1b
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: ablation_polarization
+  title: A3 偏振一致性：avg/s/p 反演厚度 vs t_true
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_polarization_da59250d1b.png
+  source_hash: 2e1994965ac8af0dd4a6fe52e5a273ef0c3dd2b5a1e1dc102d92354a2d0cbec2
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_ablation_figures.py
+  x: theta_deg
+  y:
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1682
+    height: 960
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T07:29:26.088261+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1682×960 px、暗边框 0.0、非空白）+ 结构复核：avg/s/p 三种偏振 × θ=10°/15° 分组柱状图，t_true=10.0
+      µm 参考线与 ±1% 容差带清晰，数值标注（10.0000/10.0002/9.9998 量级）与 summary.json 一致，图例无重叠
+    reviewed_at: '2026-08-29T07:41:19.851565+00:00'
+- stable_id: prob01_fig_ablation_init_strategy_7c59622d5a
+  question_id: prob01
+  assumption_version: assumption_v001
+  kind: ablation_init_strategy
+  title: A4 初值策略对比：单初值局部极小 vs 多初值全局解
+  path: problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_init_strategy_7c59622d5a.png
+  source_hash: 2e1994965ac8af0dd4a6fe52e5a273ef0c3dd2b5a1e1dc102d92354a2d0cbec2
+  script: problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_ablation_figures.py
+  x: theta_deg
+  y:
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 2413
+    height: 963
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T07:29:26.474532+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（2413×963 px、暗边框 0.0、非空白）+ 结构复核：单初值（t≈10.60，偏差 ~6% 落入周期歧义局部极小）vs
+      多初值（t=10.000，偏差 ~0）分组柱状图，t_true 参考线与 t0→t 标注可读，与 implementation §6.1 预警方向量级一致，图例无重叠
+    reviewed_at: '2026-08-29T07:41:19.898408+00:00'
+- stable_id: prob02_fig_reflectance_spectrum_6b2265d217
+  question_id: prob02
+  assumption_version: assumption_v001
+  formulation_version: formulation_v003
+  kind: reflectance_spectrum
+  title: 附件 1/2 碳化硅晶圆片实测反射率谱（两入射角）
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reflectance_spectrum_6b2265d217.png
+  source_hash: badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - R
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1560
+    height: 992
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T19:30:55.361379+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1560×992、暗边框 0.0、非空白）+ 视觉复核：两角实测谱、Reststrahlen 区强反射峰、附件2 反射率>100%
+      异常点（n=262，红×）与主反演带 [2000,4000]/Sellmeier 边界标注清晰，图例无遮挡、单位（R% / cm^-1）完整
+    reviewed_at: '2026-08-29T19:34:22.201967+00:00'
+- stable_id: prob02_fig_model_fit_0ca711689b
+  question_id: prob02
+  assumption_version: assumption_v001
+  formulation_version: formulation_v003
+  kind: model_fit
+  title: 两入射角实测谱与两光束物理正模型 (2.3) 拟合对比
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_model_fit_0ca711689b.png
+  source_hash: badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - R_obs
+  - R_model
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1780
+    height: 1100
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T19:30:56.388785+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1780×1100、暗边框 0.0）+ 视觉复核：θ=10/15° 双面板实测 R_obs 与两光束物理正模型 (2.3)
+      R_model 叠加，残差 RMSE 注解框，标题/图例/单位准确（未误标为 variable projection，后者见 J(t) 图）
+    reviewed_at: '2026-08-29T19:34:22.307906+00:00'
+- stable_id: prob02_fig_thickness_estimate_efa7359eb9
+  question_id: prob02
+  assumption_version: assumption_v001
+  formulation_version: formulation_v003
+  kind: thickness_estimate
+  title: prob02 外延层厚度结果（formulation_v003，两角共享 t_hat = 7.2158 µm）
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_thickness_estimate_efa7359eb9.png
+  source_hash: badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py
+  x: null
+  y:
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1523
+    height: 956
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T19:30:57.374471+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1523×956、暗边框 0.0）+ 视觉复核：共享 t̂ 与每角 t̂ 柱状 + 共享 t̂ 的 95% CI 误差棒
+      + ε12=0.165% 与实际意义分离（B11）说明框，物理 NLS 交叉校验 P1/P2 标记可读，图例/单位完整
+    reviewed_at: '2026-08-29T19:34:22.420363+00:00'
+- stable_id: prob02_fig_dispersion_curve_af50244106
+  question_id: prob02
+  assumption_version: assumption_v001
+  formulation_version: formulation_v003
+  kind: dispersion_curve
+  title: 外延层 4H-SiC 折射率色散模型 n(ν)：带内取 N-SE（Sellmeier）
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_dispersion_curve_af50244106.png
+  source_hash: badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - n
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1552
+    height: 1068
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T19:30:59.452581+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1552×1068、暗边框 0.0）+ 视觉复核：带内 N-SE（Sellmeier）、λ>5µm 缺口代理、N-const
+      基线三线区分明确，y 轴范围覆盖全线（含缺口峰值），顶轴 λ[µm] 换算正确，Reststrahlen/反演带阴影，图例无重叠
+    reviewed_at: '2026-08-29T19:34:22.535321+00:00'
+- stable_id: prob02_fig_reliability_summary_78cd97014b
+  question_id: prob02
+  assumption_version: assumption_v001
+  formulation_version: formulation_v003
+  kind: reliability_summary
+  title: prob02 可靠性判据汇总（实测 vs 预注册阈值；绿=通过 / 红=超阈；白点标记为实测值）
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reliability_summary_78cd97014b.png
+  source_hash: badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py
+  x: metric
+  y:
+  - impact_percent
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1776
+    height: 987
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T19:31:00.718455+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1776×987、暗边框 0.0）+ 视觉复核：可接受带 [0,τ]+实测值条形+阈值黑标 bullet 图，六判据全部低于阈值（绿=通过）；Δt_inv_band/F
+      检验 B11 路由/多光束诊断说明置于子轴下方，无遮挡、无文本重叠
+    reviewed_at: '2026-08-29T19:34:22.722520+00:00'
+- stable_id: prob02_fig_variable_projection_jcurve_7a9a903650
+  question_id: prob02
+  assumption_version: assumption_v001
+  formulation_version: formulation_v003
+  kind: variable_projection_jcurve
+  title: 主反演目标函数 J(t) 与全局唯一性
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_variable_projection_jcurve_7a9a903650.png
+  source_hash: badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py
+  x: t_um
+  y:
+  - J
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1822
+    height: 1035
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T19:31:03.144566+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1822×1035、暗边框 0.0）+ 视觉复核：J(t) 全局唯一极小（J_min≈0.0032）+95% CI
+      带+次小候选（高 1.75×）+右侧对数局部深谷，唯一性证据清晰、图例无重叠
+    reviewed_at: '2026-08-29T19:34:22.820756+00:00'
+- stable_id: prob02_fig_g_space_phase_gap_f500d9c0db
+  question_id: prob02
+  assumption_version: assumption_v001
+  formulation_version: formulation_v003
+  kind: g_space_phase_gap
+  title: 相位频率（g 空间）测厚机制与 M2/M3 噪声周期对照
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_g_space_phase_gap_f500d9c0db.png
+  source_hash: badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py
+  x: spacing_index
+  y:
+  - delta_nu
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1848
+    height: 960
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T19:31:05.615344+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1848×960、暗边框 0.0）+ 视觉复核：去基线干涉条纹与同型极大（Δν≈253 cm^-1）定位；由 Δg
+      反演 t≈7.1–7.6 µm（主方法）vs M2/M3 噪声周期 54–65 µm（错误）机制对照清楚，单位/图例完整
+    reviewed_at: '2026-08-29T19:34:22.946865+00:00'
+- stable_id: prob02_fig_nsub_decoupling_39b4128d09
+  question_id: prob02
+  assumption_version: assumption_v001
+  formulation_version: formulation_v003
+  kind: nsub_decoupling
+  title: n_sub 幅值弱可辨识性与 t-n_sub 解耦
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_nsub_decoupling_39b4128d09.png
+  source_hash: badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py
+  x: theta_deg
+  y:
+  - n_sub
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 2057
+    height: 1072
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T19:31:06.788129+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（2057×1072、暗边框 0.0）+ 视觉复核：左侧由幅值 A=√(C²+S²)≈0.0039 弱辨识 n̂_sub≈2.588；右侧主方法
+      t 与 n_sub 解耦（0.0% 敏感度）vs 物理 NLS ±0.10 交叉校验（1.92% 诊断）；x 轴标签不重叠，底部说明完整
+    reviewed_at: '2026-08-29T19:34:23.059336+00:00'
+- stable_id: prob02_fig_response_surface_cfe5827835
+  question_id: prob02
+  assumption_version: assumption_v001
+  formulation_version: formulation_v003
+  kind: response_surface
+  title: 两光束干涉反射率随波数与入射角的三维响应面（配 2D 等高线）
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_response_surface_cfe5827835.png
+  source_hash: badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - theta_deg
+  - R
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1801
+    height: 1063
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T19:31:10.254399+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1801×1063、暗边框 0.0）+ 视觉复核：3D R(ν,θ) 视角可读（elev=28/azim=-62）无关键遮挡、第三维为真实入射角变量（语义有用），2D
+      等高线配套消歧，θ=10°/15° 测量线标注，静态 PNG 可读
+    reviewed_at: '2026-08-29T19:34:23.186857+00:00'
+- stable_id: prob02_fig_methods_compare_99386076f5
+  question_id: prob02
+  assumption_version: assumption_v001
+  formulation_version: formulation_v003
+  kind: methods_compare
+  title: prob02 各方法厚度估计量级对照（对数轴；M1 主交付；M2/M3 对噪声周期失效）
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_methods_compare_99386076f5.png
+  source_hash: badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py
+  x: method
+  y:
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1746
+    height: 1009
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T19:31:11.233240+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1746×1009、暗边框 0.0）+ 视觉复核：对数轴量级对照 M1（7.22）/M1-P1（6.82）/M1-P2（6.97）vs
+      M2（58.01）/M3（60.26），每角范围竖线标注，底部方法债说明框完整，图例/单位无重叠
+    reviewed_at: '2026-08-29T19:34:23.304894+00:00'
+- stable_id: prob02_fig_ablation_summary_dcd697b29e
+  question_id: prob02
+  assumption_version: assumption_v001
+  kind: ablation_summary
+  title: prob02 ablation 判据汇总（F0 + A1–A4）
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_summary_dcd697b29e.png
+  source_hash: 6e0be69e586de124b851429f806736ae26bb5c4880f3d05528c5fae350dfaf60
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_ablation_figures.py
+  x: experiment
+  y:
+  - metric_percent
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 2870
+    height: 1319
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T20:21:45.498668+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（2870×1319 px、暗边框 0.0、非空白、无警告）+ 视觉复核：F0 + A1–A4 五组判据横向条形（A1/A2/A3
+      实测 Δt 均超过 τ=1% 阈值竖线、A4 ε12=0.165%≤τ=2%、F0 为 t_hat 参考），色彩编码正确（贡献确认绿 / 良性一致绿），数值与
+      summary.json 一致，无文本重叠、图例与单位完整。
+    reviewed_at: '2026-08-29T20:23:50.094550+00:00'
+- stable_id: prob02_fig_ablation_thickness_d29e3fc1f0
+  question_id: prob02
+  assumption_version: assumption_v001
+  kind: ablation_thickness
+  title: prob02 ablation 厚度对照（F0 + A1–A4）
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_thickness_d29e3fc1f0.png
+  source_hash: 6e0be69e586de124b851429f806736ae26bb5c4880f3d05528c5fae350dfaf60
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_ablation_figures.py
+  x: experiment
+  y:
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 2256
+    height: 1037
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T20:21:46.111661+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（2256×1037 px、暗边框 0.0、非空白、无警告）+ 视觉复核：F0 完整模型（对照）与 A1–A4 各消融项厚度柱状，F0
+      参考线与 ±1% 参考带清晰，Δt%（8.44/5.55/5.44）与 ε12 标注可读，A4（0.087% 良性约束）与 A1–A3（贡献确认）语义区分明确，数值与
+      result.json 一致，无文本重叠。
+    reviewed_at: '2026-08-29T20:23:50.225059+00:00'
+- stable_id: prob02_fig_ablation_shared_t_14e5362fa7
+  question_id: prob02
+  assumption_version: assumption_v001
+  kind: ablation_shared_t
+  title: A4 两角共享-t 对照：每角独立 t̂ 与共享 t̂ 一致
+  path: problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_shared_t_14e5362fa7.png
+  source_hash: 6e0be69e586de124b851429f806736ae26bb5c4880f3d05528c5fae350dfaf60
+  script: problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_ablation_figures.py
+  x: config
+  y:
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 2633
+    height: 1070
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-29T20:21:46.744359+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（2633×1070 px、暗边框 0.0、非空白、无警告）+ 视觉复核：共享 t_hat 与 θ=10°/15° 每角独立
+      t_hat 柱状，共享参考线清晰，ε12=0.165%≤2% 标注，纵轴尺度（±0.2%）合理，各单位/图例完整，无文本重叠；A4 良性一致约束语义清楚。
+    reviewed_at: '2026-08-29T20:23:50.353184+00:00'
+- stable_id: prob03_fig_reflectance_spectrum_41a3800f70
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: reflectance_spectrum
+  title: 附件 3/4 硅晶圆片实测反射率谱（两入射角，无 R%>100 异常点）
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reflectance_spectrum_41a3800f70.png
+  source_hash: 4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - R
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1560
+    height: 992
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T12:18:37.741390+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1560×992 px、暗边框 0.0、非空白）+ 视觉复核：附件 3/4 实测谱清晰，多声子带[400,1600]与主反演带[2000,4000]阴影标注，硅附件无
+      R%>100 异常点；图例无遮挡、单位完整。
+    reviewed_at: '2026-08-30T13:16:21.594202+00:00'
+- stable_id: prob03_fig_model_fit_3e94d2fac7
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: model_fit
+  title: 两入射角实测谱与两光束物理正模型 (2.8) 拟合对比
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_model_fit_3e94d2fac7.png
+  source_hash: 4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - R_obs
+  - R_model
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1780
+    height: 1100
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T12:18:38.307477+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1780×1100 px、暗边框 0.0、非空白）+ 视觉复核：θ=10°/15° 双面板实测 R_obs 与两光束物理正模型
+      (2.8) 叠加，残差 RMSE（2.944e-02/2.103e-02）注解框注明；标题/图例/单位一致。
+    reviewed_at: '2026-08-30T13:16:21.687533+00:00'
+- stable_id: prob03_fig_thickness_estimate_59f1546ed7
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: thickness_estimate
+  title: prob03 硅外延层厚度结果（formulation_v002，两角共享 t_hat = 3.4477 µm）
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_thickness_estimate_59f1546ed7.png
+  source_hash: 4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py
+  x: null
+  y:
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1538
+    height: 956
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T12:18:38.676694+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1538×956 px、暗边框 0.0、非空白）+ 视觉复核：共享 t̂=3.4477 µm 与每角（3.4507/3.4463
+      µm）柱状 + 95% CI 误差棒（±0.0046 µm），ε12=0.130%≤τ12=2%、F=0/p=1.0 说明框完整；单位/图例完整。
+    reviewed_at: '2026-08-30T13:16:21.788157+00:00'
+- stable_id: prob03_fig_dispersion_curve_aac3dcebea
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: dispersion_curve
+  title: 硅外延层折射率色散模型 n(ν)：带内取 N-SE（Sellmeier），色散弱（Δn/n≈0.51%）
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_dispersion_curve_aac3dcebea.png
+  source_hash: 4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - n
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1566
+    height: 1068
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T12:18:39.161020+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1566×1068 px、暗边框 0.0、非空白）+ 视觉复核：带内 N-SE（Sellmeier）实线、N-const
+      点线区分明确，y 轴覆盖全线，多声子带/主反演带阴影，顶轴 λ[µm] 换算正确；图例无重叠。
+    reviewed_at: '2026-08-30T13:16:21.881917+00:00'
+- stable_id: prob03_fig_reliability_summary_50b4f34a17
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: reliability_summary
+  title: prob03 可靠性判据汇总（实测 vs 预注册阈值；绿=通过 / 红=超阈；白点标记为实测值）
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reliability_summary_50b4f34a17.png
+  source_hash: 4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py
+  x: metric
+  y:
+  - impact_percent
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1783
+    height: 987
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T12:18:39.871732+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1783×987 px、暗边框 0.0、非空白）+ 视觉复核：可接受带 [0,τ]+实测条形+阈值黑标 bullet
+      图，五判据全部低于阈值（绿=通过）；F 检验 B11 路由、η_mb 两光束适用、轮廓似然 CI 与 n̂_sub 弱可辨识说明置子轴下方无遮挡。
+    reviewed_at: '2026-08-30T13:16:21.975594+00:00'
+- stable_id: prob03_fig_variable_projection_jcurve_4b30b360a4
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: variable_projection_jcurve
+  title: 主反演目标函数 J(t) 与全局唯一性
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_variable_projection_jcurve_4b30b360a4.png
+  source_hash: 4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py
+  x: t_um
+  y:
+  - J
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1780
+    height: 1035
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T12:18:41.186154+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1780×1035 px、暗边框 0.0、非空白）+ 视觉复核：t̂=3.4477 µm 全局唯一极小（J_min=0.0608）+
+      95% CI 带 + 次小候选（t≈3.70，J 高约 1.020×，报告项）清晰；右侧对数局部深谷直观。
+    reviewed_at: '2026-08-30T13:16:22.079269+00:00'
+- stable_id: prob03_fig_mb_conditions_9571a5012b
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: mb_conditions
+  title: 多光束干涉必要条件 N1–N4 与硅片判定
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_mb_conditions_9571a5012b.png
+  source_hash: 4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py
+  x: condition
+  y:
+  - Rbar
+  - finesse
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 3384
+    height: 1072
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T12:18:42.332052+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（3384×1072 px、暗边框 0.0、非空白）+ 视觉复核：左侧 Rbar（0.0101）与 F（0.3186）相对
+      θ_mb=0.05 阈值条形；右侧 N1–N4+η_mb 通过表清晰，无文本重叠；底部判定说明完整。
+    reviewed_at: '2026-08-30T13:16:22.184720+00:00'
+- stable_id: prob03_fig_sic_multibeam_recheck_4cbb136f9c
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: sic_multibeam_recheck
+  title: 多光束显著性跨材料对照：硅/SiC 均 Rbar<<θ_mb → 无显著多光束、无需修正（Q3）
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_sic_multibeam_recheck_4cbb136f9c.png
+  source_hash: 4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py
+  x: material
+  y:
+  - Rbar
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1749
+    height: 1009
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T12:18:43.257400+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1749×1009 px、暗边框 0.0、非空白）+ 视觉复核：对数轴柱状对比硅（0.01008）/SiC（0.00240）/SiC
+      对照 prob02（0.00247），远低于 θ_mb=0.05 红线；图例置右上、说明框无重叠；SiC 无需修正。
+    reviewed_at: '2026-08-30T13:16:22.292603+00:00'
+- stable_id: prob03_fig_response_surface_06cfec9b1e
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: response_surface
+  title: 两光束干涉反射率随波数与入射角的三维响应面（配 2D 等高线）
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_response_surface_06cfec9b1e.png
+  source_hash: 4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py
+  x: nu_cm1
+  y:
+  - theta_deg
+  - R
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1796
+    height: 1063
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T12:18:45.716843+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1796×1063 px、暗边框 0.0、非空白）+ 视觉复核：视角 elev=28°/azim=-62° 无遮挡、深度可辨，第三维为真实入射角变量；2D
+      等高线配套消歧，θ=10°/15° 测量线标注；静态 PNG 可读。
+    reviewed_at: '2026-08-30T13:16:22.397847+00:00'
+- stable_id: prob03_fig_phase_freq_gspace_a936624612
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: phase_freq_gspace
+  title: 相位频率（g 空间）测厚机制与条纹计数
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_phase_freq_gspace_a936624612.png
+  source_hash: 4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py
+  x: spacing_index
+  y:
+  - delta_nu
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 1562
+    height: 1058
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T12:18:47.562571+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（1562×1058 px、暗边框 0.0、非空白）+ 视觉复核：左面板用两光束物理正模型 (2.8) 去基线定位同型极大（n=5，Δν≈419
+      cm^-1）；右面板由 Δg 反演 t 均≈3.45 µm（与 t̂=3.4477 一致），标注倍周期假极小 6.9 µm（v001 伪影，已排除）；机制清楚、单位/图例完整。
+    reviewed_at: '2026-08-30T13:16:22.504999+00:00'
+- stable_id: prob03_fig_ablation_summary_9f93c3dd2d
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: ablation_summary
+  title: prob03 ablation 判据汇总（F0 + A1–A4）
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_summary_9f93c3dd2d.png
+  source_hash: 137f29dd381d27128e4566956f6dbc9000ce19232e2344fd5d2a08dca2d4452b
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_ablation_figures.py
+  x: experiment
+  y:
+  - metric_percent
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 3754
+    height: 1220
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T13:12:59.496260+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（非空白、暗边框 0.0、≥800×480）+ 视觉复核：A1–A4 实测 Δt% 全部低于预注册阈值（A1 0.446%≤2%、A2
+      0.300%≤1%、A3 0.574%≤2%、A4 0.089%≤2%），log 轴与阈值黑标清晰，数值与 summary.json/result.json
+      一致，无文本重叠、单位完整。
+    reviewed_at: '2026-08-30T13:16:22.605693+00:00'
+- stable_id: prob03_fig_ablation_t_consistency_ec44908369
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: ablation_t_consistency
+  title: prob03 ablation 厚度对照（F0 + A1–A4）
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_t_consistency_ec44908369.png
+  source_hash: 137f29dd381d27128e4566956f6dbc9000ce19232e2344fd5d2a08dca2d4452b
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_ablation_figures.py
+  x: experiment
+  y:
+  - t_um
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 2776
+    height: 1070
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T13:12:59.979810+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（非空白、暗边框 0.0、≥800×480）+ 视觉复核：F0 + A1–A4 厚度柱状均落在 F0 ±1% 参考带内（A4
+      含每角独立 t̂），F0 参考线、±1% 带与数值标注清晰，与 result.json 一致；图例/单位完整。
+    reviewed_at: '2026-08-30T13:16:22.715722+00:00'
+- stable_id: prob03_fig_ablation_rmse_ce4b523efa
+  question_id: prob03
+  assumption_version: assumption_v001
+  formulation_version: formulation_v002
+  kind: ablation_rmse
+  title: prob03 ablation 拟合优度对照（加权 RMSE）
+  path: problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_rmse_ce4b523efa.png
+  source_hash: 137f29dd381d27128e4566956f6dbc9000ce19232e2344fd5d2a08dca2d4452b
+  script: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_ablation_figures.py
+  x: experiment
+  y:
+  - weighted_rmse
+  included_in_summary: true
+  quality_status: passed
+  quality:
+    width: 2500
+    height: 1070
+    dark_border_ratio: 0.0
+    warnings: []
+  created_at: '2026-08-30T13:13:00.438686+00:00'
+  visual_review:
+    status: passed
+    reason: 自动质检 passed（非空白、暗边框 0.0、≥800×480）+ 视觉复核：加权 RMSE 对照显示基线 p=0 上升（+9.5%）、Airy
+      高阶下降（−5.0%），F0 参考线与数值标注清晰，与 result.json 一致；无文本重叠。
+    reviewed_at: '2026-08-30T13:16:22.828972+00:00'

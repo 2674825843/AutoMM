@@ -1,0 +1,55 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "name": "reliability_two_angle_ftest",
+      "passed": false,
+      "detail": "{\"status\": \"FAIL\", \"F_stat\": 905.0383842252633, \"F_critical\": 3.8425803865240336, \"p_value\": 0.0, \"alpha\": 0.05, \"df1\": 1, \"df2\": 8293, \"accept_shared_t\": false, \"ss_shared\": 0.23008720868631033, \"ss_indep\": 0.20744784289093712, \"t_theta10_um\": 0.3102166478799017, \"t_theta15_um\": 0.2348324599472631, \"t_mean_um\": 0.27252455391358243, \"eps12_percent\": 27.66142971342794, \"eps12_threshold_percent\": 2.0, \"n_sub_hat\": 2.621484323707155}",
+      "tolerance": "None"
+    },
+    {
+      "name": "reliability_dispersion",
+      "passed": false,
+      "detail": "{\"status\": \"FAIL\", \"dispersion_models_t\": {\"N-SE\": 0.30522423125143117, \"N-SE-delta+\": 0.35133497741449965, \"N-SE-delta-\": 0.3008006095420077}, \"delta_t_disp_percent\": 15.10717087369264, \"threshold_percent\": 2.0, \"delta_c_disp\": 0.005, \"t_truncated_um\": 0.30522423125143117, \"t_full_um\": 0.6640016429086114, \"delta_t_inv_band_percent\": 117.54552061157759, \"note\": \"Δt_inv_band 为谱段截断合理性证据（v001 实测约 37%），不作主判据\"}",
+      "tolerance": "2.0"
+    },
+    {
+      "name": "reliability_nsub_diag",
+      "passed": true,
+      "detail": "{\"status\": \"PASS\", \"t_base_um\": 0.30522423125143117, \"n_sub_hat\": 2.621484323707155, \"t_nsub_up_um\": 0.21778922240696896, \"delta_t_nsub_percent\": 28.646155806822833, \"threshold_percent\": 3.0, \"perturbation_nsub\": 0.1, \"note\": \"诊断项（非硬门禁）；v002 实测约 1-1.7%；文献 L26/L30/L31 作 n_sub 合理范围交叉参照\"}",
+      "tolerance": "3.0"
+    },
+    {
+      "name": "reliability_ci",
+      "passed": true,
+      "detail": "{\"status\": \"PASS\", \"t_base_um\": 0.30522423125143117, \"sigma_t\": 0.0012001997098262532, \"ci_halfwidth_um\": 0.002352391431259456, \"ci_halfwidth_percent\": 0.770709265648589, \"threshold_percent\": 2.0, \"method\": \"analytic_covariance_lm_jacobian_projected_to_t（含 n_sub 相关项）\"}",
+      "tolerance": "2.0"
+    },
+    {
+      "name": "reliability_anomaly",
+      "passed": true,
+      "detail": "{\"status\": \"PASS\", \"strategy_t\": {\"downweight\": 0.3052242244190261, \"drop\": 0.3052242244190261, \"keep\": 0.3052242244190261}, \"delta_t_anom_percent\": 0.0, \"threshold_percent\": 1.0}",
+      "tolerance": "1.0"
+    },
+    {
+      "name": "reliability_multibeam",
+      "passed": true,
+      "detail": "{\"two_beam_rmse\": [0.005412083483873983, 0.005116520840256926], \"airy_rmse\": [0.005410989570700524, 0.005128023375250123], \"improvement_percent\": 0.02021242238259636, \"needs_multibeam_correction\": false, \"threshold_percent\": 10.0, \"t_used_um\": 0.30522423125143117, \"note\": \"prob03 深究 Airy 修正；prob02 仅诊断并记录（v001 实测改进 0.14%<10%）\"}",
+      "tolerance": "10.0"
+    }
+  ],
+  "method_reference": {
+    "forward_model": "(2.3)/(2.4)",
+    "snell": "(2.1)",
+    "phase": "(2.2)",
+    "fresnel": "(2.3) 内 Fresnel s/p",
+    "extremum": "(6.1)",
+    "spacing": "(6.1) 方法 A",
+    "phase_method": "(6.1)/(6.2)",
+    "nls": "(5.1)",
+    "sellmeier": "(4.1)",
+    "disp_band_trunc": "(3.1)/(3.2)",
+    "ftest": "(7.1)",
+    "reliability": "(7.1)-(7.6)"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "problem_id": "2025-cumcm-b",
+  "paper_version": "paper_v004",
+  "status": "passed",
+  "evidence": "problems/2025-cumcm-b/paper/evidence/evidence_pack.json",
+  "evidence_hash": "6374ef02fd5a459dc6388aff56c1d4e7f0c36a4b8ad40ee46b3c3ef77b769025",
+  "active_version": "paper_v004",
+  "version_dir": "problems/2025-cumcm-b/paper/versions/paper_v004",
+  "draft": "problems/2025-cumcm-b/paper/versions/paper_v004/paper.md",
+  "prepared_at": "2026-08-30T17:17:44.129603+00:00",
+  "validation": "problems/2025-cumcm-b/paper/versions/paper_v004/validation.json",
+  "render_report": "problems/2025-cumcm-b/paper/versions/paper_v004/render_report.json",
+  "docx": "problems/2025-cumcm-b/paper/versions/paper_v004/paper.docx",
+  "pdf": "problems/2025-cumcm-b/paper/versions/paper_v004/paper.pdf",
+  "tex": "problems/2025-cumcm-b/paper/versions/paper_v004/paper.tex",
+  "completed_at": "2026-08-30T17:21:55.580283+00:00"
+}

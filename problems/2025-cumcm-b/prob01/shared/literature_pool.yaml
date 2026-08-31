@@ -1,0 +1,469 @@
+# prob01 文献池（两光束干涉厚度模型）
+# 与 problems/2025-cumcm-b/citations.yaml 的题目级引用登记同步；字段一致。
+# hypothesis_family 假设族编号：
+#   F1 两光束干涉模型与厚度公式（关键）
+#   F2 折射率色散（Sellmeier/Cauchy/数据表）
+#   F3 掺杂/自由载流子对红外折射率的影响
+#   F4 厚度反演算法族（峰谷间隔初值 + 非线性拟合/迭代/包络）
+#   F5 多光束干涉（prob03 预留）
+question_id: prob01
+dry: false
+dry_reason: null
+updated_at: "2026-08-29T05:33:00+00:00"
+items:
+  - citation_id: L01
+    id: L01
+    title: Thickness Measurement of Epitaxial Films by the Infrared Interference Method
+    authors: [Albert, M. P., Combs, J. F.]
+    year: 1962
+    source: Journal of The Electrochemical Society
+    doi: 10.1149/1.2425534
+    url: https://doi.org/10.1149/1.2425534
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F1
+    summary: 外延层厚度红外干涉（两光束）测定方法的经典奠基文献。
+    supported_claims: [外延层厚度可由红外反射干涉条纹测定（经典方法）, 条纹间距与厚度、折射率、折射角相关]
+    applicability: 与本题图 1 两光束干涉设定一致；原文按常数折射率处理，本问需色散化
+    statement_class: literature_fact
+    notes: 正文未获取全文，公式值在 formulation 阶段对照原文/教科书复核
+  - citation_id: L02
+    id: L02
+    title: The Infrared Interference Method of Measuring Epitaxial Layer Thickness
+    authors: [Schumann, P. A.]
+    year: 1969
+    source: Journal of The Electrochemical Society
+    doi: 10.1149/1.2411860
+    url: https://doi.org/10.1149/1.2411860
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F1
+    summary: 红外干涉法测外延层厚度的系统方法论述（反射率-波数关系与极值分析）。
+    supported_claims: [红外干涉测厚方法的系统论述]
+    applicability: 与 L01 交叉佐证两光束干涉测厚公式结构
+    statement_class: literature_fact
+    notes: 正文未获取全文
+  - citation_id: L03
+    id: L03
+    title: "ASTM F95-89(2000): Standard Test Method for Thickness of Lightly Doped Silicon Epitaxial Layers on Heavily Doped Silicon Substrates Using an Infrared Dispersive Spectrophotometer"
+    authors: [ASTM International]
+    year: 2000
+    source: ASTM International
+    doi: null
+    url: https://www.antpedia.com/standard/1062503967-11.html
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F1
+    summary: 轻掺杂硅外延层（重掺杂衬底）红外反射测厚的 ASTM 标准方法。
+    supported_claims: [红外反射测厚已被标准化（硅场景）, 外延层-衬底折射率差异产生干涉的前提成立]
+    applicability: 硅场景（prob03 最贴近）；SiC 场景借用公式结构并更换材料参数
+    statement_class: literature_fact
+    notes: 标准正文未获取，公式细节待 formulation 阶段对照
+  - citation_id: L04
+    id: L04
+    title: "SEMI MF95 (MF009500): Test Method for Thickness of Lightly Doped Silicon Epitaxial Layers on Heavily Doped Silicon Substrates Using an Infrared Dispersive Spectrophotometer"
+    authors: [SEMI]
+    year: 2013
+    source: SEMI International Standards
+    doi: null
+    url: https://store-dev2.semi.org/ko-kr/products/mf009500-semi-mf95-test-method-for-thickness-of-lightly-doped-silicon-epitaxial-layers-on-heavily-doped-silicon-substrates-using-an-infrared-dispersive-spectrophotometer
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F1
+    summary: 与 ASTM F95 同源的 SEMI 版硅外延层红外反射测厚标准。
+    supported_claims: [硅外延层厚度红外反射标准化测试方法（SEMI 版）]
+    applicability: 与 L03 同源，作为最新 SEMI 版本引用
+    statement_class: literature_fact
+    notes: 标准正文未获取
+  - citation_id: L05
+    id: L05
+    title: "Thickness Measurement of Thin (1.0-µm) Epitaxial Silicon Layers by Infrared Reflectance"
+    authors: [Weeks, S. P.]
+    year: 1983
+    source: "Silicon Processing (ASTM STP 804)"
+    doi: 10.1520/stp36186s
+    url: https://doi.org/10.1520/stp36186s
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F1
+    summary: 红外反射法测量薄至 1 µm 量级外延硅层（ASTM STP）。
+    supported_claims: [红外反射法对微米量级外延层厚度可行]
+    applicability: 佐证本题厚度量级（微米级）的可行性；薄层时条纹少、需精细极值定位
+    statement_class: literature_fact
+    notes: 正文未获取全文
+  - citation_id: L06
+    id: L06
+    title: "Principles of Optics: Electromagnetic Theory of Propagation, Interference and Diffraction of Light (7th ed.)"
+    authors: [Born, M., Wolf, E.]
+    year: 1999
+    source: Cambridge University Press
+    doi: null
+    url: https://franklin.library.upenn.edu/catalog/FRANKLIN_9926551463503681
+    authority_tier: B
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: [F1, F5]
+    summary: 光学权威教材：薄膜干涉、Fresnel 系数、两光束与多光束（Airy）干涉公式。
+    supported_claims: [薄膜干涉与 Fresnel 反射系数权威出处, 相位跃变（半波损失）处理, 多光束 Airy 公式（prob03 基准）]
+    applicability: prob01 两光束模型与 prob03 多光束公式的理论基准
+    statement_class: literature_fact
+    notes: 教科书引用
+  - citation_id: L07
+    id: L07
+    title: "Optics (5th ed., Global Edition)"
+    authors: [Hecht, E.]
+    year: 2017
+    source: Pearson
+    doi: null
+    url: https://discover.libraryhub.jisc.ac.uk/search?q=9781292096933
+    authority_tier: B
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F1
+    summary: 光学教材：薄膜干涉极值条件与反射相位跃变。
+    supported_claims: [薄膜干涉极值条件与半波损失教材级处理, 两光束干涉光强 I=I1+I2+2√(I1 I2) cos δ]
+    applicability: formulation 阶段判定峰/谷与干涉级次对应关系
+    statement_class: literature_fact
+    notes: 教科书引用
+  - citation_id: L08
+    id: L08
+    title: Refractive Index, Dispersion, and Birefringence of Silicon Carbide Polytypes
+    authors: [Shaffer, P. T. B.]
+    year: 1971
+    source: Applied Optics
+    doi: 10.1364/AO.10.001034
+    url: https://doi.org/10.1364/AO.10.001034
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F2
+    summary: SiC 多型体折射率、色散与双折射的经典测量（Sellmeier 形式）。
+    supported_claims: [SiC 色散可用 Sellmeier 形式描述（6H/β 多型数据）]
+    applicability: 6H/β-SiC；4H 色散以 L09 为准，本条目作形式与历史参考
+    statement_class: literature_fact
+    notes: 具体系数未在正文核验
+  - citation_id: L09
+    id: L09
+    title: "4H-SiC: a new nonlinear material for midinfrared lasers"
+    authors: [Wang, S., Zhan, M., Wang, G., et al.]
+    year: 2013
+    source: Laser & Photonics Reviews
+    doi: 10.1002/lpor.201300068
+    url: https://doi.org/10.1002/lpor.201300068
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F2
+    summary: 4H-SiC Sellmeier 色散公式（e 光 0.405–2.325 µm：n²=6.79485+0.15558/(λ²−0.03535)−0.02296λ²；o 光至 5 µm）。
+    supported_claims: [4H-SiC 折射率色散 Sellmeier 公式, 0.405–5 µm 谱段测量数据]
+    applicability: 题目 2.5–25 µm 仅部分覆盖（λ≤5 µm）；λ>5 µm 色散数据有限，需 L16/L24 与数据反演补充
+    statement_class: literature_fact
+    notes: 公式经 RefractiveIndex.INFO（L11）交叉核验
+  - citation_id: L10
+    id: L10
+    title: Temperature dependence of refractive indices for 4H- and 6H-SiC
+    authors: [Xu, C., Wang, S., Wang, G., et al.]
+    year: 2014
+    source: Journal of Applied Physics
+    doi: 10.1063/1.4868576
+    url: https://doi.org/10.1063/1.4868576
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F2
+    summary: 4H/6H-SiC 折射率温度依赖。
+    supported_claims: [折射率随温度变化（有温度导数数据）]
+    applicability: 室温测量条件下温度修正量小；温度不确定度作为可靠性分析小项
+    statement_class: literature_fact
+    notes: 数值细节未在正文核验
+  - citation_id: L11
+    id: L11
+    title: Refractiveindex.info database of optical constants
+    authors: [Polyanskiy, M. N.]
+    year: 2024
+    source: Scientific Data
+    doi: 10.1038/s41597-023-02898-2
+    url: https://doi.org/10.1038/s41597-023-02898-2
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F2
+    summary: 光学常数数据库（聚合 SiC/Si 等 n(λ)/k(λ) 数据与原始文献索引）。
+    supported_claims: [作为 n(λ) 参数查询与交叉核验入口]
+    applicability: 门户性质；数值使用必须回溯源文献（L09/L24）并核对谱段
+    statement_class: literature_fact
+    notes: 数据库页面 https://refractiveindex.info
+  - citation_id: L12
+    id: L12
+    title: Refractive index of silicon and germanium and its wavelength and temperature derivatives
+    authors: [Li, H. H.]
+    year: 1980
+    source: Journal of Physical and Chemical Reference Data
+    doi: 10.1063/1.555624
+    url: https://doi.org/10.1063/1.555624
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F2
+    summary: 硅/锗折射率色散及温度导数权威数据（中红外 n_Si≈3.42–3.44 量级）。
+    supported_claims: [硅中红外折射率与色散数据来源]
+    applicability: prob03 硅片模型基线；色散弱可近似常数或采用其数据
+    statement_class: literature_fact
+    notes: 数值需在假设阶段从原文取表
+  - citation_id: L13
+    id: L13
+    title: "Handbook of Optical Constants of Solids (Vol. 1-3)"
+    authors: [Palik, E. D. (ed.)]
+    year: 1998
+    source: Academic Press
+    doi: null
+    url: https://shop.elsevier.com/books/handbook-of-optical-constants-of-solids/palik/978-0-08-054721-3
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F2
+    summary: 硅、SiC 等材料红外光学常数（n,k）权威汇编。
+    supported_claims: [多种材料红外光学常数数据表]
+    applicability: 与 L12 互补（公式 vs 数据表）
+    statement_class: literature_fact
+    notes: 章节数值按卷引用
+  - citation_id: L14
+    id: L14
+    title: Infrared Absorption in n-Type Silicon
+    authors: [Spitzer, W., Fan, H. Y.]
+    year: 1957
+    source: Physical Review
+    doi: 10.1103/PhysRev.108.268
+    url: https://doi.org/10.1103/PhysRev.108.268
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F3
+    summary: 掺杂（自由载流子）显著改变硅红外光学性质的经典实验。
+    supported_claims: [自由载流子（Drude 类）影响红外折射率/吸收的物理事实]
+    applicability: 支撑题面"折射率随掺杂浓度变化"的物理事实；定量依赖留待假设阶段
+    statement_class: literature_fact
+    notes: 经典文献
+  - citation_id: L15
+    id: L15
+    title: From Transport Measurements to Infrared Reflectance Spectra of n-Type Doped 4H-SiC Layer Stacks
+    authors: [Pernot, J., Camassel, J., Peyre, H., Robert, J.-L.]
+    year: 2003
+    source: Materials Science Forum
+    doi: 10.4028/www.scientific.net/msf.433-436.403
+    url: https://doi.org/10.4028/www.scientific.net/msf.433-436.403
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F3
+    summary: n 型掺杂 4H-SiC 层叠结构红外反射谱与自由载流子（等离子体）效应。
+    supported_claims: [掺杂浓度差异 → 红外折射率/反射差异（衬底/外延层对比的关键依据）]
+    applicability: 重掺衬底在红外出现等离子体反射边；prob02 衬底折射率取值依据
+    statement_class: literature_fact
+    notes: 会议论文集（ICSCRM），正文细节未核验
+  - citation_id: L16
+    id: L16
+    title: Temperature dependence of the anisotropy of the infrared dielectric properties and phonon-plasmon coupling in n-doped 4H-SiC
+    authors: [Chahal, J. S., Rahbany, N., El-Helou, Y., Wu, K.-T., Bruyant, A., Zgheib, C., Kazan, M.]
+    year: 2023
+    source: Journal of Physics and Chemistry of Solids
+    doi: 10.1016/j.jpcs.2023.111861
+    url: https://doi.org/10.1016/j.jpcs.2023.111861
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F3
+    summary: n 掺杂 4H-SiC 红外介电性质各向异性与声子-等离子体耦合。
+    supported_claims: [Reststrahlen 区（~700–1000 cm⁻¹）强色散/吸收行为]
+    applicability: 两光束"无吸收"简化在近 Reststrahlen 区需说明边界；全谱段色散模型选择依据
+    statement_class: literature_fact
+    notes: 正文细节未核验
+  - citation_id: L17
+    id: L17
+    title: 基于色散修正与全谱拟合的红外干涉测厚模型研究
+    authors: [王晨茜, 孙嘉妍, 陈怡佳, 杜睿]
+    year: 2026
+    source: 数学建模及其应用
+    doi: null
+    url: https://d.wanfangdata.com.cn/periodical/sxjmjyqyy202601012
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: [F1, F4, F5]
+    summary: 与本题同题的已发表解法：Snell 光程差 + Sellmeier 色散 + Fresnel s/p + 峰谷间隔初值 + 非线性最小二乘。
+    supported_claims: [双光束干涉+色散修正的反射率-波数模型, 峰谷间隔初值与非线性拟合反演, 多光束仅改峰形/对比度不改变极值位置（候选结论，prob03 需独立验证）]
+    applicability: 与 F1/F2/F4 高度一致，最贴近题面的方法级证据
+    statement_class: literature_fact
+    notes: C 级期刊（非 Crossref 收录），CNKI 全文页核验（东南大学）
+  - citation_id: L18
+    id: L18
+    title: Non-destructive measurement of SiC Epitaxial Layer Thickness Using FTIR Spectroscopy with Cauchy Dispersion Optimization
+    authors: [Zheng, Y.]
+    year: 2025
+    source: Highlights in Science, Engineering and Technology
+    doi: 10.54097/ghqks114
+    url: https://doi.org/10.54097/ghqks114
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: [F2, F4]
+    summary: FTIR + Cauchy 色散优化测 SiC 外延层厚度。
+    supported_claims: [Cauchy 色散可作为 Sellmeier 之外备选色散模型（方法候选）]
+    applicability: F4 反演算法族候选；谱段适用性待核验
+    statement_class: literature_fact
+    notes: 正文未核验
+  - citation_id: L19
+    id: L19
+    title: Precise Measurement of Silicon Carbide Epitaxial Layer Thickness Based on Infrared Interferometric Spectroscopy and Nonlinear Iterative Inversion
+    authors: [Ling, H.]
+    year: 2026
+    source: Proceedings of the 1st International Conference on Smart System Design, Application and Mechatronics
+    doi: 10.5220/0015107600005244
+    url: https://doi.org/10.5220/0015107600005244
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: F4
+    summary: 红外干涉光谱 + 非线性迭代反演测 SiC 外延层厚度。
+    supported_claims: [非线性迭代反演思路（方法候选）]
+    applicability: F4 反演算法族候选
+    statement_class: literature_fact
+    notes: 正文未核验
+  - citation_id: L20
+    id: L20
+    title: Precise Measurement of Silicon Carbide Epitaxial Layer Thickness
+    authors: [Wu, M., Hu, Y., Han, Z.]
+    year: 2026
+    source: Proceedings of the 1st International Conference on Smart System Design, Application and Mechatronics
+    doi: 10.5220/0015109000005244
+    url: https://doi.org/10.5220/0015109000005244
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: F4
+    summary: SiC 外延层厚度精确测量（同会议论文）。
+    supported_claims: [SiC 外延层厚度测量方法（检索线索）]
+    applicability: F4 候选，价值有限
+    statement_class: literature_fact
+    notes: 正文未核验
+  - citation_id: L21
+    id: L21
+    title: Accurate SiC Epitaxial Thickness Measurement via Hybrid Deep Learning and Physical Interference Model for Power Device Applications
+    authors: [Li, M., Wang, H., Zhang, Z.]
+    year: 2025
+    source: Journal of Nanoelectronics and Optoelectronics
+    doi: 10.1166/jno.2025.3844
+    url: https://doi.org/10.1166/jno.2025.3844
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: F4
+    summary: 物理干涉模型 + 深度学习混合测厚。
+    supported_claims: [深度学习混合路线（方法对照）]
+    applicability: 与纯物理反演差异大，仅作方法对照
+    statement_class: literature_fact
+    notes: 正文未核验
+  - citation_id: L22
+    id: L22
+    title: "cumcm-2025b-sic-epitaxy: 2025 年高教社杯全国大学生数学建模竞赛 B 题解题文档"
+    authors: [jiebro0721 (GitHub 用户)]
+    year: 2025
+    source: GitHub
+    doi: null
+    url: https://github.com/jiebro0721/cumcm-2025b-sic-epitaxy
+    authority_tier: D
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: F1
+    summary: 同题公开解题文档（光程差 Δ=2t√(n²−n₀²sin²θ₁)、半波损失相减抵消、两光束光强叠加）。
+    supported_claims: [仅作方法对照线索与题面理解，不支撑关键假设]
+    applicability: D 级来源，禁止用于关键假设/公式
+    statement_class: literature_fact
+    notes: 未经同行评审；附件结构与本题分解一致
+  - citation_id: L23
+    id: L23
+    title: Determination of Refractive Index and Film Thickness from Interference Fringes
+    authors: [Harrick, N. J.]
+    year: 1971
+    source: Applied Optics
+    doi: 10.1364/AO.10.002344
+    url: https://doi.org/10.1364/AO.10.002344
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: [F1, F4]
+    summary: 由干涉条纹同时确定折射率与膜厚（包络法/条纹间距法基础）。
+    supported_claims: [条纹间距 + 包络联合反演折射率与厚度]
+    applicability: 支撑 prob02 的峰谷间隔 + 包络反演思路
+    statement_class: literature_fact
+    notes: 正文未获取全文
+  - citation_id: L24
+    id: L24
+    title: Self-consistent optical constants of SiC thin films
+    authors: [Larruquert, J. I., Pérez-Marín, A. P., García-Cortés, S., Rodríguez-de Marcos, L., Aznárez, J. A., Méndez, J. A.]
+    year: 2011
+    source: Journal of the Optical Society of America A
+    doi: 10.1364/JOSAA.28.002340
+    url: https://opg.optica.org/josaa/abstract.cfm?URI=josaa-28-11-2340
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: F2
+    summary: SiC 薄膜 0.006–131.7 µm 全波段自洽光学常数（n,k）。
+    supported_claims: [覆盖题目 2.5–25 µm 全谱段的色散/吸收参考数据（含 reststrahlen 区）]
+    applicability: 薄膜数据与体单晶有差异；作全谱段参考与数据反演初值，不直接替代体材料参数
+    statement_class: literature_fact
+    notes: DOI 为 Optica 标准编号，经出版方页解析

@@ -1,0 +1,53 @@
+{
+  "checked_at": "2026-08-30T17:21:33.736825+00:00",
+  "paper_version": "paper_v004",
+  "source_sha256": "f5b23dc442398cf5ea82b58698a0e96eb67dcb690fc2e7ab93e1eeabff27c6f3",
+  "docx_sha256": "4d4bb5df1c7345ed5c82fc94b7cb39cbb10b41d640f65c4170179dc5ae7917b9",
+  "tex_sha256": "1c7caa41450a2ed3e20abeb5c2e34a71fa5bb7c2d83422d5dd493476331d5bd1",
+  "pandoc": [
+    {
+      "command": [
+        "E:\\anaconda\\Library\\bin\\pandoc.EXE",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v004\\paper.render.md",
+        "--from",
+        "markdown+tex_math_dollars",
+        "--resource-path",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v004;E:\\项目\\AutoMM",
+        "--to",
+        "docx",
+        "--output",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v004\\paper.docx",
+        "--number-sections",
+        "--reference-doc",
+        "E:\\项目\\AutoMM\\templates\\cumcm_reference.docx"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "E:\\anaconda\\Library\\bin\\pandoc.EXE",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v004\\paper.render.md",
+        "--from",
+        "markdown+tex_math_dollars",
+        "--resource-path",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v004;E:\\项目\\AutoMM",
+        "--to",
+        "latex",
+        "--output",
+        "E:\\项目\\AutoMM\\problems\\2025-cumcm-b\\paper\\versions\\paper_v004\\paper.tex",
+        "--number-sections"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    }
+  ],
+  "status": "PASS",
+  "errors": [],
+  "docx_media_count": 38,
+  "docx_omml_count": 697,
+  "pdf_pages": 39,
+  "pdf_blank_pages": [],
+  "pdf_non_a4_pages": [],
+  "pdf_sha256": "429cdbba4e0cbe8b3ed81b215d5142545b3165d7ea29c6e3cf3810030e21799d"
+}

@@ -1,0 +1,14 @@
+version: formulation_v002
+status: accepted
+created_at: '2026-08-29T16:35:41.420507+00:00'
+parent_version: formulation_v001
+content_hash: 53661f5069b347f4848fcb2a6e60443091b11dc3ead234e4b5fb2dee2db07410
+decision_reason: prob02 formulation_v002 修订完成：基于 prob01-conclusion-v1 两光束模型与 v001，针对
+  sanity 路由 NEEDS_REVISION 作三项核心修订——①主反演谱段截断至 ν∈[2000,4000] cm⁻¹（Sellmeier 色散已知区），消除
+  v001 全谱 λ>5µm 色散缺口代理引起的 Δt_disp=37.41% 超阈伪影；②n_sub 与 t 联合反演（P2），消除固定合成值 3.0 引起的
+  Δt_nsub=69.01% 伪影，以 t–n_sub 联合置信区间表达；③两角一致性改嵌套 F 检验（α=0.05）。含逐步推导、候选模型 M1/M1-P1/M2/M3/M4、求解策略论证（精确
+  NLS/LM，无需 MILP/启发式）与计算前固定的比较标准/可靠性判据；formula_validation 量纲/边界/极限/等价/守恒/单调/可解/符号/文献一致性全部通过（两项
+  PASS_WITH_WARNING：弱对比度 n_sub 可辨识性、带内两光束近似残差），无 NaN/Inf、无硬约束违反、无单位/维度错误、无公式-符号冲突；实测只读探针确认带内联合反演
+  t≈2.254µm、RMSE≈0.0088（较 v001 全谱降约 5 倍）。建议接受并进入 implementation 落地谱段截断、P2 联合反演与统计判据。
+decided_at: '2026-08-29T16:49:05.227747+00:00'
+assumption_version: assumption_v001

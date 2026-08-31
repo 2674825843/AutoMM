@@ -1,0 +1,19 @@
+questions:
+- prob01
+- prob02
+- prob03
+edges:
+- from: prob01
+  to: prob02
+  type: soft_conclusion_dependency
+  conclusion_id: prob01-conclusion-v1
+  version: 1
+  content_hash: 828203556617be979f7345dce7c274dd1850b62fe950a6e108015ad161b070a6
+  description: prob02 的厚度确定算法与可靠性分析以 prob01 的两光束干涉厚度模型为基础
+- from: prob02
+  to: prob03
+  type: soft_conclusion_dependency
+  conclusion_id: prob02-conclusion-v1
+  version: 1
+  content_hash: 27b0ce8689e1eb2b345e5803309ea80bb6b84a620f189ed6cd589e75f23a12ea
+  description: prob03 的硅片厚度模型以 prob01 模型为基线，并以 prob02 的 SiC 厚度结果作为对照与修正基准

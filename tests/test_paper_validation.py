@@ -70,6 +70,10 @@ def _valid_markdown() -> str:
 |---|---|---|
 | t | 厚度 | um |
 
+: 符号说明
+
+<!-- evidence:ev_artifact_result -->
+
 ## 数据说明与预处理
 
 对异常值进行规则化筛查。
@@ -118,6 +122,19 @@ def test_complete_evidence_closed_markdown_passes(tmp_path: Path) -> None:
     assert result["status"] == "PASS"
     assert result["errors"] == []
     assert read_json(version / "validation.json")["status"] == "PASS"
+
+
+def test_public_figure_reference_contract_passes(tmp_path: Path) -> None:
+    text = _valid_markdown().replace('![prob01_fit 拟合结果](fit.png)',
+                                    '![拟合结果](fit.png){#prob01_fit}').replace(
+                                        '图 prob01_fit 展示', '@fig:prob01_fit 展示')
+    write_text(tmp_path / 'paper.md', text)
+    assert _validate('paper-demo', tmp_path, _evidence())['status'] == 'PASS'
+
+
+def test_qa_prose_is_rejected_before_publication(tmp_path: Path) -> None:
+    write_text(tmp_path / 'paper.md', _valid_markdown() + '\n自动质检 passed，暗边框 0.0。\n')
+    assert _validate('paper-demo', tmp_path, _evidence())['status'] == 'NEEDS_REVISION'
 
 
 def test_paraphrased_warning_passes_with_stable_warning_marker(tmp_path: Path) -> None:

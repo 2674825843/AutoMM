@@ -21,3 +21,5 @@ Agent 超时只影响当前 action，保留日志和草稿并重试当前阶段�
 每个小问完成后发送通知。全部小问完成并通过跨问审查后，Runner 构建 Evidence Pack，Paper Writer 按竞赛论文结构生成 Markdown，再由确定性门禁检查证据、引用、图表、warning 和章节覆盖。通过后用 Pandoc 生成 DOCX/TEX，并由 Microsoft Word 从 DOCX 导出 PDF；四类正文产物和检查报告按 `paper_vNNN` 保留。
 
 工作流为 `cross_question_review → paper_writing → paper_validation → completed`。内容失败回 `paper_writing` 创建新版本；渲染失败停留在 `paper_validation` 重试同一版本。只有 final DOCX/PDF/TEX 发布成功后才进入 completed，随后仍生成 `final_summary.md` 作为研究归档索引。
+
+论文阶段新增原生模板样式、题注、公开内容和交付包门禁；对外只交付 Word 与支撑材料，PDF/TEX/Markdown 继续内部归档。交付先准备临时目录并检查来源哈希，再发布，失败不得进入 completed。重新写作只能由用户明确授权的受控命令启动，不自动重开已完成项目。

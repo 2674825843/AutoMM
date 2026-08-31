@@ -25,6 +25,40 @@ AGENT_BY_STAGE = {
 }
 
 
+def request_paper_rewrite(problem_id: str, reason: str, question_id: str | None = None) -> dict:
+    """由已授权命令事务调用；仅重开论文阶段，不放宽常规阶段迁移。"""
+    from .paper import build_evidence_pack
+
+    state = load_state()
+    problem = load_problem(problem_id)
+    if state.get('active_problem') != problem_id or state.get('current_stage') != 'completed':
+        raise RuntimeError('重新写作仅适用于当前已完成项目')
+    if state.get('control') != 'paused':
+        raise RuntimeError('重新写作前必须暂停工作流')
+    if question_id is not None or any(t.get('status') not in TERMINAL for t in list_tasks()):
+        raise RuntimeError('存在冲突中的小问或计算任务')
+    final = problem_dir(problem_id) / 'paper' / 'final'
+    if final.exists() and any(final.iterdir()):
+        raise RuntimeError('必须先可恢复撤下旧正式交付')
+    evidence = build_evidence_pack(problem_id, persist=False)
+    previous = problem.get('paper', {})
+    if evidence['evidence_hash'] != previous.get('evidence_hash'):
+        raise RuntimeError('已验收证据发生变化，不能直接重写论文')
+    problem.setdefault('paper_history', []).append(dict(previous, withdrawn_at=utc_now(), reason=reason))
+    problem['paper'] = {'status': 'needs_revision', 'rewrite_reason': reason,
+                        'rewrite_evidence_hash': evidence['evidence_hash'],
+                        'previous_version': previous.get('active_version')}
+    problem['status'] = 'active'
+    problem['summary_status'] = 'pending'
+    problem['completion_notification'] = 'pending'
+    problem['current_question'] = None
+    write_json(problem_dir(problem_id) / 'problem_state.json', problem)
+    state.update(current_stage='paper_writing', current_question=None, last_action=reason,
+                 recovery_status='normal', failure_class=None, blocking=[])
+    save_state(state, event='paper_rewrite_requested', details={'problem_id': problem_id, 'reason': reason})
+    return problem['paper']
+
+
 def stages(problem_id: str | None = None, question_id: str | None = None) -> list[str]:
     return list(config_section("workflow", problem_id, question_id).get("stages", []))
 
@@ -421,6 +455,8 @@ def transition(
         paper = problem.get("paper", {})
         if paper.get("status") != "passed" or not paper.get("docx") or not paper.get("pdf"):
             raise RuntimeError("论文及渲染未通过，不能进入 completed")
+        if paper.get('delivery_status') != 'PASS' or not paper.get('delivery'):
+            raise RuntimeError('论文交付包未通过，不能进入 completed')
         problem["status"] = "completed"
         write_json(problem_dir(problem_id) / "problem_state.json", problem)
         question_id = None

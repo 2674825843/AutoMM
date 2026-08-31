@@ -1,0 +1,29 @@
+# prob02 ablation 任务执行配置（ablation 阶段由 supervised worker 执行）
+# 场景与执行设置：实测数据反演（附件 1/2）+ 消融实验参数（预注册方案见
+# ablation/preregistration.md，判据在 ablation.py PREREGISTERED 中运行前固定）。
+# 分层合并：本文件作为 make_task_spec 的 config_path 合并进有效配置（compute 段生效）。
+compute:
+  task_timeout_seconds: 900
+  memory_per_worker_gb: 2
+scenario:
+  # 实测数据（附件 1/2）+ 入射角（两角共享同一晶圆片同一厚度 t，B11）
+  attachment1: data/2025_cumcm_B/附件1.xlsx   # θ=10°
+  attachment2: data/2025_cumcm_B/附件2.xlsx   # θ=15°
+  theta_deg: [10.0, 15.0]
+  seed: 20260829         # 随机种子（可复现；AUTOMM_SEED 优先；本方案为确定性实验）
+ablation:
+  # 预注册方案参数（与 ablation.py PREREGISTERED / ablation/preregistration.md 一致）
+  inv_band_cm1: [2000.0, 4000.0]         # 主反演谱段 ν_inv（v003 (3.1)，Sellmeier 已知区，B6）
+  reststrahlen_exclude_cm1: [700.0, 1000.0]  # B3：近 Reststrahlen 区（w=0）
+  weight_anomaly: 0.05                   # B2：异常点降权（反射率 >100%）
+  t_scan_range_um: [3.0, 20.0]           # 主反演一维扫描区间
+  t_scan_step_um: 0.01                   # 扫描步长
+  baseline_poly_deg: 3                   # B(ν) 基线多项式阶数 p（默认 3）
+  envelope_poly_deg: 1                   # C/S(ν) 包络多项式阶数 q（默认 1）
+  # 消融阈值（与预注册方案一致；运行前固定，不能事后修改）
+  tau_disp_abl_percent: 1.0              # A1：Δt_disp_abl > 1% -> 色散贡献
+  tau_baseline_abl_percent: 1.0          # A2：Δt_base_abl > 1% 或 RMSE 显著上升
+  tau_vp_abl_percent: 1.0                # A3：Δt_vp_abl > 1% -> 相位-频率方法贡献
+  tau_shared_abl_percent: 2.0            # A4：每角 vs 共享 t̂ 最大相对差 <= 2%
+  eps12_threshold_percent: 2.0           # A4：ε₁₂ <= 2% -> 共享-t 为良性一致约束
+  rmse_ratio_threshold: 2.0              # A2：主拟合 RMSE 相对 F0 上升 > 2×

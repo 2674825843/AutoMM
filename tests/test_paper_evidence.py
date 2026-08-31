@@ -121,6 +121,29 @@ def test_evidence_pack_selects_only_accepted_reviewed_material(project_root: Pat
     assert (root / "paper" / "evidence" / "evidence_pack.md").is_file()
 
 
+def test_preparation_freezes_dependency_snapshot_and_returns_version_evidence(project_root):
+    paper = _paper_module()
+    problem_id, root = _eligible_problem(project_root)
+    prepared = paper.prepare_paper_writing(problem_id)
+    version = project_root / prepared['version_dir']
+    assert prepared['evidence'] == (version / 'evidence_pack.json').relative_to(project_root).as_posix()
+    dependencies = read_json(version / 'support_dependencies.json')
+    assert dependencies['evidence_hash'] == prepared['evidence_hash']
+    assert any(x['path'] == 'scripts/requirements.txt' and len(x['sha256']) == 64 for x in dependencies['files'])
+
+
+def test_cli_validation_uses_version_snapshot_not_shared_evidence(project_root, monkeypatch, capsys):
+    import build_paper
+    paper = _paper_module()
+    problem_id, root = _eligible_problem(project_root)
+    prepared = paper.prepare_paper_writing(problem_id)
+    write_json(root / 'paper/evidence/evidence_pack.json', {'evidence_hash': 'other'})
+    monkeypatch.setattr('sys.argv', ['build_paper.py', 'validate', '--problem-id', problem_id,
+                                   '--version', prepared['paper_version']])
+    build_paper.main()
+    assert '"status": "PASS"' in capsys.readouterr().out
+
+
 def test_evidence_hash_is_stable_when_only_build_timestamp_changes(
     project_root: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

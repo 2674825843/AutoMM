@@ -1,0 +1,211 @@
+{
+  "feasible_incumbent": true,
+  "task": "prob01-synthetic-verification",
+  "passed": true,
+  "t_true_um": 10.0,
+  "n_sub": 3.0,
+  "theta_deg": [
+    10.0,
+    15.0
+  ],
+  "seed": 20260829,
+  "estimates": {
+    "theta_10": {
+      "theta_deg": 10.0,
+      "spacing": {
+        "delta_nu_median": 188.0,
+        "t_spacing_um": 10.438409213063995,
+        "n_eff": 2.553783920407532,
+        "extrema_count": 11
+      },
+      "phase": {
+        "t_phase_um": 10.00218946185139,
+        "delta_g_median": 499.89055921490217,
+        "g_pairs": 10,
+        "g_monotonic": true
+      },
+      "nls_full": {
+        "best": {
+          "t_um": 10.0,
+          "success": true,
+          "status": 1,
+          "cost": 0.0,
+          "optimality": 0.0,
+          "nfev": 4,
+          "message": "`gtol` termination condition is satisfied.",
+          "t0_um": 10.00218946185139,
+          "max_residual": 0.0,
+          "rmse": 0.0
+        },
+        "period_um_estimate": 0.901204725423698,
+        "n_starts": 4
+      },
+      "nls_weak": {
+        "best": {
+          "t_um": 10.0,
+          "success": true,
+          "status": 1,
+          "cost": 0.0,
+          "optimality": 0.0,
+          "nfev": 6,
+          "message": "`gtol` termination condition is satisfied.",
+          "t0_um": 9.78426890237865,
+          "max_residual": 0.0,
+          "rmse": 0.0
+        },
+        "period_um_estimate": 0.6541403106853436,
+        "n_starts": 4
+      },
+      "checks": {
+        "forward_model_R_in_unit": {
+          "passed": true,
+          "detail": "R_clean ∈ [0.124494, 0.252852]（theta=10.0°）",
+          "tolerance": "0 <= R <= 1"
+        },
+        "spacing_constant_n_approx": {
+          "passed": true,
+          "detail": "Δν_obs=188.0000 vs Δν_theory(常数 n)=196.2421 cm^-1（rel=4.20e-02，A3 文档化色散偏差）",
+          "tolerance": "rel < 0.1（基线）"
+        },
+        "method_a_t_error": {
+          "passed": true,
+          "detail": "t_A=10.438409 um vs t_true=10.0 um（rel=4.38e-02，极值数=11，n_eff=2.55378）",
+          "tolerance": "rel < 0.1（基线）"
+        },
+        "phase_gap_law_match": {
+          "passed": true,
+          "detail": "Δg_obs=499.8906 vs Δg_theory=500.0000 cm^-1（rel=2.19e-04）",
+          "tolerance": "rel < 0.01（(3.13) 间隔律）"
+        },
+        "phase_method_t_error": {
+          "passed": true,
+          "detail": "t_phase=10.002189 um vs t_true=10.0 um（rel=2.19e-04，pairs=10）",
+          "tolerance": "rel < 0.01"
+        },
+        "phase_g_monotonic": {
+          "passed": true,
+          "detail": "g(nu) 在弱色散谱段单调递增：True",
+          "tolerance": "g' > 0（(3.13) 成立前提）"
+        },
+        "nls_full_success": {
+          "passed": true,
+          "detail": "NLS status=1，nfev=4，rmse=0.000e+00",
+          "tolerance": "success=True"
+        },
+        "nls_full_t_error": {
+          "passed": true,
+          "detail": "t_NLS=10.000000 um vs t_true=10.0 um（rel=0.00e+00）",
+          "tolerance": "rel < 0.01"
+        },
+        "nls_band_consistency": {
+          "passed": true,
+          "detail": "t_NLS(full)=10.000000 vs t_NLS(weak)=10.000000 um（rel=0.00e+00）",
+          "tolerance": "rel < 0.01"
+        }
+      },
+      "passed": true
+    },
+    "theta_15": {
+      "theta_deg": 15.0,
+      "spacing": {
+        "delta_nu_median": 188.0,
+        "t_spacing_um": 10.468149549532413,
+        "n_eff": 2.553783920407532,
+        "extrema_count": 11
+      },
+      "phase": {
+        "t_phase_um": 9.99952915606864,
+        "delta_g_median": 500.0235948962827,
+        "g_pairs": 10,
+        "g_monotonic": true
+      },
+      "nls_full": {
+        "best": {
+          "t_um": 10.0,
+          "success": true,
+          "status": 1,
+          "cost": 0.0,
+          "optimality": 0.0,
+          "nfev": 3,
+          "message": "`gtol` termination condition is satisfied.",
+          "t0_um": 9.99952915606864,
+          "max_residual": 0.0,
+          "rmse": 0.0
+        },
+        "period_um_estimate": 0.9038258126143265,
+        "n_starts": 4
+      },
+      "nls_weak": {
+        "best": {
+          "t_um": 10.0,
+          "success": true,
+          "status": 1,
+          "cost": 0.0,
+          "optimality": 0.0,
+          "nfev": 6,
+          "message": "`gtol` termination condition is satisfied.",
+          "t0_um": 9.812145511095048,
+          "max_residual": 0.0,
+          "rmse": 0.0
+        },
+        "period_um_estimate": 0.6560040384373645,
+        "n_starts": 4
+      },
+      "checks": {
+        "forward_model_R_in_unit": {
+          "passed": true,
+          "detail": "R_clean ∈ [0.124581, 0.252889]（theta=15.0°）",
+          "tolerance": "0 <= R <= 1"
+        },
+        "spacing_constant_n_approx": {
+          "passed": true,
+          "detail": "Δν_obs=188.0000 vs Δν_theory(常数 n)=196.8012 cm^-1（rel=4.47e-02，A3 文档化色散偏差）",
+          "tolerance": "rel < 0.1（基线）"
+        },
+        "method_a_t_error": {
+          "passed": true,
+          "detail": "t_A=10.468150 um vs t_true=10.0 um（rel=4.68e-02，极值数=11，n_eff=2.55378）",
+          "tolerance": "rel < 0.1（基线）"
+        },
+        "phase_gap_law_match": {
+          "passed": true,
+          "detail": "Δg_obs=500.0236 vs Δg_theory=500.0000 cm^-1（rel=4.72e-05）",
+          "tolerance": "rel < 0.01（(3.13) 间隔律）"
+        },
+        "phase_method_t_error": {
+          "passed": true,
+          "detail": "t_phase=9.999529 um vs t_true=10.0 um（rel=4.71e-05，pairs=10）",
+          "tolerance": "rel < 0.01"
+        },
+        "phase_g_monotonic": {
+          "passed": true,
+          "detail": "g(nu) 在弱色散谱段单调递增：True",
+          "tolerance": "g' > 0（(3.13) 成立前提）"
+        },
+        "nls_full_success": {
+          "passed": true,
+          "detail": "NLS status=1，nfev=3，rmse=0.000e+00",
+          "tolerance": "success=True"
+        },
+        "nls_full_t_error": {
+          "passed": true,
+          "detail": "t_NLS=10.000000 um vs t_true=10.0 um（rel=0.00e+00）",
+          "tolerance": "rel < 0.01"
+        },
+        "nls_band_consistency": {
+          "passed": true,
+          "detail": "t_NLS(full)=10.000000 vs t_NLS(weak)=10.000000 um（rel=0.00e+00）",
+          "tolerance": "rel < 0.01"
+        }
+      },
+      "passed": true
+    }
+  },
+  "checks_failed": [],
+  "notes": [
+    "prob01 无实测数据；本任务为公式/算法数值验证（合成数据，正模型自洽）",
+    "色散延伸策略 constant：lambda>5.0 um 用 n(boundary) 常数延续（prob02 数据反演确定）",
+    "Reststrahlen 区 [700.0, 1000.0] cm^-1 本问无吸收模型不适用，已排除在方法 A 谱段之外",
+    "方法 A (3.9) 常数 n 近似在 2000-4000 cm^-1 引入约 4% 色散偏差（A3 文档化），作为基线/初值；相位法 (3.13) 与全谱 NLS 为色散修正主方法"
+  ]
+}

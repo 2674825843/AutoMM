@@ -43,6 +43,20 @@
             "additionalProperties": false,
             "required": ["name", "arguments"],
             "properties": {
+              "name": {"type": "string", "const": "request_paper_rewrite"},
+              "arguments": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["reason"],
+                "properties": {"reason": {"type": "string", "minLength": 1}}
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "arguments"],
+            "properties": {
               "name": {"type": "string", "const": "transition"},
               "arguments": {
                 "type": "object",

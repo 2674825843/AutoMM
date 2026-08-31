@@ -1,0 +1,229 @@
+{
+  "feasible_incumbent": false,
+  "task": "prob02-epitaxy-thickness",
+  "passed": false,
+  "theta_deg": [
+    10.0,
+    15.0
+  ],
+  "n_sub_hat_amplitude": 2.5881831367543757,
+  "dispersion_model": "N-SE",
+  "inv_band_cm1": [
+    2000.0,
+    4000.0
+  ],
+  "main_variable_projection": {
+    "mode": "baseline_interference_decoupled_1d_scan",
+    "t_hat_shared_um": 7.215791464723565,
+    "t_hat_per_angle_um": [
+      7.221407936874832,
+      7.209498693985785
+    ],
+    "J_min_shared": 0.003247430072960726,
+    "J_min_per_angle": [
+      0.000642436146354677,
+      0.0026029353042617506
+    ],
+    "uniqueness_second_min_ratio": 1.016971979203867,
+    "p_baseline_deg": 3,
+    "q_envelope_deg": 1,
+    "polynomial_basis": "centered_orthogonalized_chebyshev",
+    "nsub_estimates": [
+      {
+        "theta_deg": 10.0,
+        "amplitude": 0.0038722133456407415,
+        "n_sub": 2.588187426336018,
+        "R1": 0.19204070590587086,
+        "R2": 2.9901040945437203e-05
+      },
+      {
+        "theta_deg": 15.0,
+        "amplitude": 0.0038715194009897435,
+        "n_sub": 2.5881788471727334,
+        "R1": 0.1921009092136104,
+        "R2": 2.988541076415609e-05
+      }
+    ]
+  },
+  "physical_nls_crosscheck": {
+    "t_vp_main_um": 7.215791464723565,
+    "P1": {
+      "t_um": 6.815903555081165,
+      "success": true,
+      "status": 2,
+      "cost": 0.3422308696458659,
+      "optimality": 4.421533616996275e-05,
+      "nfev": 32,
+      "message": "`ftol` termination condition is satisfied.",
+      "t0_um": 7.215791464723565,
+      "max_residual": 0.01990329492348994,
+      "rmse": 0.009083228019544065,
+      "jac": {
+        "shape": [
+          8296,
+          1
+        ],
+        "frobenius_norm": 2.830410167421554
+      },
+      "n_obs": 8296,
+      "n_params": 1
+    },
+    "P2": {
+      "t_um": 6.974728265212131,
+      "success": true,
+      "status": 2,
+      "cost": 0.34122593038262816,
+      "optimality": 7.680042226539176e-05,
+      "nfev": 36,
+      "message": "`ftol` termination condition is satisfied.",
+      "t0_um": 7.215791464723565,
+      "max_residual": 0.02207327103389431,
+      "rmse": 0.00906988205318491,
+      "jac": {
+        "shape": [
+          8296,
+          2
+        ],
+        "frobenius_norm": 9.336165725373247
+      },
+      "n_obs": 8296,
+      "n_params": 2,
+      "n_sub": 2.540978447471089
+    },
+    "consistent_with_main": false,
+    "note": "物理正模型 NLS 从主 t̂ 起点局部拟合（不从此远处启动），作交叉校验/诊断（v003 §6.4）"
+  },
+  "per_angle_m2_m3": {
+    "angles": [
+      {
+        "theta_deg": 10.0,
+        "spacing": {
+          "delta_nu_median": 30.373999999999796,
+          "t_spacing_um": 64.6083978031437,
+          "n_eff": 2.5537909892631983,
+          "extrema_count": 22
+        },
+        "phase": {
+          "t_phase_um": 62.19318245833435,
+          "delta_g_median": 80.39466389020527,
+          "g_pairs": 21,
+          "g_monotonic": true
+        }
+      },
+      {
+        "theta_deg": 15.0,
+        "spacing": {
+          "delta_nu_median": 35.19499999999971,
+          "t_spacing_um": 55.917221518717504,
+          "n_eff": 2.5537909892631983,
+          "extrema_count": 30
+        },
+        "phase": {
+          "t_phase_um": 53.82701712011269,
+          "delta_g_median": 92.89015567856404,
+          "g_pairs": 29,
+          "g_monotonic": true
+        }
+      }
+    ]
+  },
+  "two_angle_consistency": {
+    "status": "FAIL",
+    "F_stat": 5.2509477036494125,
+    "F_critical": 3.84258241927782,
+    "p_value": 0.021959816955255396,
+    "alpha": 0.05,
+    "df1": 1,
+    "df2": 8278,
+    "accept_shared_t": false,
+    "ss_shared": 0.003247430072960726,
+    "ss_indep": 0.0032453714506164274,
+    "t_theta10_um": 7.221407936874832,
+    "t_theta15_um": 7.209498693985785,
+    "t_mean_um": 7.215453315430309,
+    "eps12_percent": 0.16505190136257697,
+    "n_tot": 8296,
+    "eps12_threshold_percent": 2.0
+  },
+  "dispersion_sensitivity": {
+    "status": "PASS",
+    "dispersion_models_t": {
+      "N-SE": 7.215791464723565,
+      "N-SE-delta+": 7.1797385754170415,
+      "N-SE-delta-": 7.252340685913041
+    },
+    "delta_t_disp_percent": 0.5065171487862093,
+    "threshold_percent": 2.0,
+    "delta_c_disp": 0.005,
+    "t_truncated_um": 7.215791464723565,
+    "t_full_um": 3.0,
+    "delta_t_inv_band_percent": 58.42451913048835,
+    "note": "Δt_inv_band 为谱段截断合理性证据（v002 在错误盆地约 117%），不作主判据"
+  },
+  "nsub_decoupled_sensitivity": {
+    "status": "DIAGNOSTIC",
+    "main_t_decoupled": true,
+    "main_t_nsub_delta_percent": 0.0,
+    "physical_nls_t_by_nsub": {
+      "nsub_amp": 6.815903555081165,
+      "nsub_amp_plus": 6.867671473695098,
+      "nsub_amp_minus": 6.954551911453689
+    },
+    "physical_nls_t_sensitivity_percent": 1.9214573626517053,
+    "t_hat_um": 7.215791464723565,
+    "n_sub_hat_amp": 2.5881831367543757,
+    "threshold_percent": 3.0,
+    "note": "主方法 t 由相位频率确定、与 n_sub 解耦（B7）；物理正模型 NLS 仅作交叉校验灵敏度报告"
+  },
+  "ci_profile_likelihood": {
+    "t_low": 7.20898951824634,
+    "t_high": 7.222142189815724,
+    "halfwidth_um": 0.006576335784691967,
+    "halfwidth_percent": 0.09113810753598191,
+    "sigma2": 3.922490727093521e-07,
+    "n_tot": 8296,
+    "n_params": 17,
+    "chi2": 3.841,
+    "status": "PASS",
+    "threshold_percent": 2.0,
+    "t_hat_um": 7.215791464723565,
+    "method": "profile_likelihood_Jcurve（SSE(t) 曲率/夹逼区间；bootstrap 留 computation 备选）"
+  },
+  "anomaly_impact": {
+    "status": "PASS",
+    "strategy_t": {
+      "downweight": 7.216238885985326,
+      "drop": 7.216238885985326,
+      "keep": 7.216238885985326
+    },
+    "delta_t_anom_percent": 0.0,
+    "threshold_percent": 1.0,
+    "note": "异常点按 weight_anomaly 降权（默认 0.05），原始数据不修改（B2）"
+  },
+  "multibeam_diagnostic": {
+    "two_beam_rmse": [
+      0.013003652556885022,
+      0.007661721765507661
+    ],
+    "airy_rmse": [
+      0.013005365101961968,
+      0.007664250207980441
+    ],
+    "improvement_percent": 0.0,
+    "needs_multibeam_correction": false,
+    "threshold_percent": 10.0,
+    "t_used_um": 7.215791464723565,
+    "n_sub_used": 2.5881831367543757,
+    "note": "prob03 深究 Airy 修正；prob02 仅诊断并记录"
+  },
+  "checks_failed": [
+    "reliability_two_angle_ftest"
+  ],
+  "notes": [
+    "prob02 实测数据反演（formulation_v003）：主反演 = 基线-干涉分解 + 一维相位频率扫描（variable projection，两角共享 t），t 由干涉相位频率唯一确定、与 n_sub 解耦",
+    "多相位频率（g 空间）测厚：t = 1/(2×1e-4·Δg)（B10）；基线/包络用中心化正交化多项式基（p=3/q=1）",
+    "色散模型 N-SE（带内纯 Sellmeier，L09）；λ>5µm 仅作 Δt_inv_band 背景（5-17µm 缺口代理，L26 待取数）",
+    "Reststrahlen [700,1000] 剔除（w=0）；附件2 反射率 >100% 异常点降权（w=weight_anomaly），不修改原始数据",
+    "可靠性判据 §7.1-§7.6（两角一致性嵌套 F 检验/带内色散敏感性+Δt_inv_band/n_sub 解耦诊断/噪声轮廓似然 CI/异常点影响/多光束诊断），阈值见 parameters.yaml"
+  ]
+}

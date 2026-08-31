@@ -1,0 +1,10 @@
+version: formulation_v001
+status: accepted
+created_at: '2026-08-29T05:47:11.672513+00:00'
+parent_version: null
+content_hash: bee86f0e8d8fa58309897c9f751968f3f940fa0286fbf1ea20a934adb1482277
+decision_reason: formulation_v001 完成两光束干涉测厚正模型与反演公式的完整推导：量纲/极限/守恒/可解性/符号一致性全部通过（守恒为
+  PASS_WITH_WARNING，残差 O(R1R2)≈0.1% 留 prob02 残差检验）；公式逐条追溯 A1-A9 假设与 L01/L02/L06/L07/L09/L17/L23
+  文献；比较标准与求解策略（精确 NLS，无必要引入启发式）已固定；接受后进入 implementation
+decided_at: '2026-08-29T05:55:08.427699+00:00'
+assumption_version: assumption_v001

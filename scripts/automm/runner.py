@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import shutil
 import subprocess
 import sys
 import traceback
@@ -29,6 +28,8 @@ from .common import (
 )
 from .failure_policy import AgentTimeoutError, classify_exception, note_recovery
 from .paper import prepare_paper_writing, render_paper, validate_paper_markdown
+from .paper_delivery import publish_paper
+from .paper_integrity import digest, load_version_evidence, verify_rendered_version
 from .problems import (
     create_assumption_version,
     create_formulation_version,
@@ -276,8 +277,18 @@ def execute_non_agent(action: dict[str, Any]) -> dict[str, Any]:
         if not version_name:
             raise RuntimeError("problem_state.paper 缺少 active_version")
         version_dir = problem_dir(problem_id) / "paper" / "versions" / version_name
-        evidence = read_json(problem_dir(problem_id) / "paper" / "evidence" / "evidence_pack.json")
-        validation = validate_paper_markdown(problem_id, version_dir, evidence)
+        evidence = load_version_evidence(version_dir, paper.get('evidence_hash', ''))
+        previous_render = read_json(version_dir / 'render_report.json')
+        reusable = (previous_render.get('status') == 'PASS' and
+                    previous_render.get('source_sha256') == digest(version_dir / 'paper.md') and
+                    previous_render.get('evidence_hash') == evidence['evidence_hash'])
+        if reusable:
+            rendered = verify_rendered_version(version_dir, evidence)
+            validation = read_json(version_dir / 'validation.json')
+            if validation.get('status') != 'PASS' or validation.get('evidence_hash') != evidence['evidence_hash']:
+                raise RuntimeError('已验收渲染缺少匹配证据的内容 PASS 报告')
+        else:
+            validation = validate_paper_markdown(problem_id, version_dir, evidence)
         paper["validation"] = relative(version_dir / "validation.json")
         if validation["status"] != "PASS":
             paper["status"] = "needs_revision"
@@ -285,7 +296,8 @@ def execute_non_agent(action: dict[str, Any]) -> dict[str, Any]:
             write_json(problem_dir(problem_id) / "problem_state.json", problem)
             transition(target_stage="paper_writing", problem_id=problem_id, reason="论文内容门禁未通过，创建新版本修订")
             return {"handled": name, "paper": paper, "validation": validation}
-        rendered = render_paper(version_dir)
+        if not reusable:
+            rendered = render_paper(version_dir)
         paper["render_report"] = relative(version_dir / "render_report.json")
         if rendered["status"] != "PASS":
             paper["status"] = "render_failed"
@@ -293,34 +305,16 @@ def execute_non_agent(action: dict[str, Any]) -> dict[str, Any]:
             write_json(problem_dir(problem_id) / "problem_state.json", problem)
             return {"handled": name, "paper": paper, "validation": validation, "render": rendered}
         final_dir = problem_dir(problem_id) / "paper" / "final"
-        if final_dir.exists() and any(final_dir.iterdir()):
-            current = read_json(final_dir / "manifest.json", {})
-            if current.get("paper_version") != version_name:
-                raise RuntimeError("paper/final 已指向其他通过版本，拒绝覆盖")
-        else:
-            final_dir.mkdir(parents=True, exist_ok=True)
-            for filename in (
-                "paper.md",
-                "paper.docx",
-                "paper.tex",
-                "paper.pdf",
-                "writer_manifest.json",
-                "validation.json",
-                "render_report.json",
-            ):
-                source = version_dir / filename
-                if source.is_file():
-                    shutil.copy2(source, final_dir / filename)
         paper.update(
             {
                 "status": "passed",
                 "docx": relative(version_dir / "paper.docx"),
                 "pdf": relative(version_dir / "paper.pdf"),
                 "tex": relative(version_dir / "paper.tex"),
-                "completed_at": utc_now(),
             }
         )
-        write_json(final_dir / "manifest.json", {"problem_id": problem_id, "paper_version": version_name, **paper})
+        published = publish_paper(version_dir, evidence, {'problem_id': problem_id, **paper}, final_dir)
+        paper.update({key: published[key] for key in ('status', 'completed_at', 'delivery', 'delivery_status')})
         problem["paper"] = paper
         write_json(problem_dir(problem_id) / "problem_state.json", problem)
         transition(target_stage="completed", problem_id=problem_id, reason="论文内容与 DOCX/PDF/TEX 渲染门禁全部通过")

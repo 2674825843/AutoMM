@@ -1,0 +1,328 @@
+version: assumption_v001
+status: accepted
+created_at: '2026-08-29T20:48:25.098403+00:00'
+parent_version: null
+assumptions:
+- id: C1
+  statement: 平面平行板多次反射-透射的反射强度服从 Airy 公式，以界面强度反射率 R_01（空气/外延层）、R_12（外延层/衬底）与相邻束相位差
+    δ 表示；当 R_01·R_12 → 0 时无穷级数退化为两光束叠加 I = I1 + I2 + 2√(I1·I2)·cos δ
+  type: mechanism_simplification
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L06
+  - L07
+  - L43
+  scope: 外延层-衬底双层结构；硅片(附件3/4)与SiC(附件1/2)；复振幅采用复 Fresnel 系数 r_01/r_12
+  bias_direction: 若真实 R_01·R_12 不可忽略而采用两光束模型，会低估条纹对比度并引入拟合残差/厚度偏差（C13 量化）
+  verification: Airy 正模型与两光束模型对附件3/4的全谱拟合残差、峰形与条纹对比度比较
+  related_assumptions:
+  - C2
+  - C4
+  - C5
+  - C13
+  - C16
+  status: candidate
+- id: C2
+  statement: 多光束显著性与界面反射率乘积 R_01·R_12 及条纹精细度 F = π√R̄/(1−R̄) 相关；"两光束近似 vs 多光束显著"以
+    R_01·R_12 是否低于阈值量化（两光束残差约0.2%、R_01·R_12~1e-3 时可近似两光束）；阈值由物理推导（Fresnel 按 n/n_sub/θ）与数据判定共同确定并登记
+  type: boundary_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L47
+  - L43
+  scope: 硅片与 SiC 分别评估；透明谱段
+  bias_direction: 若 R_01·R_12 相对高而误用两光束，将低估多光束修正需求
+  verification: Fresnel 公式计算 R_01/R_12；条纹对比度与峰形核验
+  related_assumptions:
+  - C1
+  - C3
+  - C4
+  - C5
+  - C11
+  status: candidate
+- id: C3
+  statement: 严格多光束干涉要求两界面近似平行（平行板）；界面呈楔形或不平度使子孔径相位不一致、高次干涉被平均/抵消，退化为两光束或对比度下降；附件3/4硅片需评估界面平行度
+  type: boundary_assumption
+  key: false
+  evidence_type: literature_fact
+  reference_ids:
+  - L46
+  scope: 硅外延层宏观平整度
+  bias_direction: 界面不平行 → 高次干涉被抑制、多光束被误判为不显著
+  verification: 条纹对比度随波数/位置变化；Airy 峰形对称性
+  related_assumptions:
+  - C1
+  - C2
+  - C5
+  - C9
+  status: candidate
+- id: C4
+  statement: 多光束各阶反射光程差为 2m·n·t·cosθ′（m=1,2,…），须光源相干长度 L_c ≥ 最高阶光程差；FTIR 的 L_c 由光谱分辨率
+    Δν 决定（量级 L_c≈1/(2Δν)），可维持干涉级次上限 m_max 受相干长度约束
+  type: boundary_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L06
+  - L07
+  scope: 附件3/4硅外延层；FTIR 分辨率决定 L_c
+  bias_direction: 相干长度不足 → 高次干涉被洗掉、实际等效两光束
+  verification: 由光谱分辨率估计 L_c 并与最大光程差比较；多光束模型预测与实测峰形对照
+  related_assumptions:
+  - C1
+  - C2
+  - C5
+  - C16
+  status: inherited
+- id: C5
+  statement: 外延层/衬底消光系数 k 使高次反射衰减、削减有效干涉级次；吸收越强越抑制多光束；硅在中红外透明区 k 很小、多光束相对更易出现；SiC
+    近 Reststrahlen 区(约700-1000 cm^-1)吸收/色散强、多光束被抑制
+  type: boundary_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L16
+  - L43
+  scope: 硅透明区；SiC 近 Reststrahlen 区
+  bias_direction: 低估吸收 → 高估可达干涉级次、高估多光束显著性
+  verification: 消光系数/光谱吸收数据；硅透明窗与 SiC Reststrahlen 区反射谱行为
+  related_assumptions:
+  - C1
+  - C2
+  - C8
+  - C15
+  status: inherited
+- id: C6
+  statement: 附件3(硅,10°)/附件4(硅,15°)为同一块硅晶圆片实测红外反射率光谱，结构同附件1/2：第1列波数ν(cm^-1，等间隔步长≈0.482)，第2列反射率(%)；反演时
+    R_model=R%/100 归一，λ[µm]=1e4/ν；原始数据只读、预处理写日志
+  type: data_assumption
+  key: false
+  evidence_type: project_assumption
+  reference_ids: []
+  scope: 附件3(10°)、附件4(15°)；400-4000 cm^-1；7469 行×2 列
+  bias_direction: 归一化/单位换算错误导致厚度量纲或数值整体偏移；按全局符号表一致处理
+  verification: 量纲与数值检查；与附件1/2格式、全局符号表一致
+  related_assumptions:
+  - C7
+  - C13
+  status: candidate
+- id: C7
+  statement: 硅外延层(轻掺)与衬底(重掺)因掺杂载流子浓度不同而折射率不同(n≠n_sub)，是界面反射与干涉条纹的物理前提；硅中红外折射率基线 n≈3.42-3.44，衬底
+    n_sub 由文献取值+数据反演确定并做灵敏度分析
+  type: mechanism_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L44
+  - L45
+  - L03
+  - L04
+  - L12
+  - L13
+  scope: 硅外延层-衬底；红外透明窗(C8)
+  bias_direction: n 与 n_sub 差异过小 → 界面反射率低、条纹对比度差、测厚误差增大
+  verification: 条纹对比度；n_sub 灵敏度分析；两入射角一致性
+  related_assumptions:
+  - C6
+  - C8
+  - C10
+  - C13
+  status: candidate
+- id: C8
+  statement: 硅在中红外存在声子(约600 cm^-1 Reststrahlen)与多声子吸收带(约600-1500 cm^-1)，该区吸收/色散显著、无吸收模型不适用；反演谱段应选硅透明区(约1500-4000
+    cm^-1，以数据判定)，必要时剔除/降权吸收带并记录策略；透明区吸收可忽略(实数折射率)
+  type: boundary_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L44
+  - L45
+  - L12
+  - L13
+  scope: 400-4000 cm^-1 内选择硅透明窗；与 SiC Reststrahlen 边界(B3)相区别
+  bias_direction: 在吸收带使用无吸收模型 → 拟合残差剧增、厚度失真；剔除会减少可用条纹数
+  verification: 反射谱在吸收带行为；谱段截断前后厚度稳定性与残差谱诊断
+  related_assumptions:
+  - C6
+  - C7
+  - C10
+  status: candidate
+- id: C9
+  statement: 外延层两界面平行、表面平整，厚度 t 在测量区域内均匀，可作平行平板处理；入射角已知且测量过程固定(10°/15°)；室温测量、折射率温度修正量小（并入可靠性小项）
+  type: boundary_assumption
+  key: false
+  evidence_type: project_assumption
+  reference_ids:
+  - L06
+  - L07
+  scope: 题面图1隐含平行结构；大面积晶圆片局部均匀近似
+  bias_direction: 界面不平行或厚度梯度会降低条纹对比度、模糊极值；通过拟合残差与局部窗口反演一致性诊断
+  verification: 条纹对比度；局部窗口反演一致性
+  related_assumptions:
+  - C3
+  - C7
+  - C8
+  status: candidate
+- id: C10
+  statement: 附件3/4硅片是否出现多光束干涉必须由实测数据判定，不能预设；判定依据包括条纹对比度(干涉质量)、峰形(Airy峰更锐/非对称 vs 两光束余弦)、两光束
+    vs 多光束(Airy)正模型全谱拟合残差改善率、及必要条件(C2-C5)是否满足；L17候选主张须独立推导验证、不预先采信
+  type: validation_assumption
+  key: true
+  evidence_type: project_assumption
+  reference_ids:
+  - L43
+  - L17
+  scope: 附件3/4(硅)；与附件1/2(SiC)分别判定
+  bias_direction: 预设(假定出现/不出现)会导致模型选型与结果误差
+  verification: 残差改善率、对比度、峰形指标量化
+  related_assumptions:
+  - C1
+  - C2
+  - C8
+  - C11
+  - C12
+  - C14
+  status: candidate
+- id: C11
+  statement: 以"两光束 vs 多光束(Airy)全谱拟合残差改善率"、"条纹对比度/可见度"与"峰形偏离余弦程度"为量化判据：若多光束修正使残差改善率超过阈值(如>10%，复用
+    prob02 B13 判据)且对比度高、峰形明显非余弦，则判定多光束显著；否则两光束适用；阈值与谱段由 formulation 阶段结合 R_01·R_12
+    与数据确定并登记
+  type: boundary_assumption
+  key: false
+  evidence_type: team_decision
+  reference_ids:
+  - L43
+  scope: 硅片与 SiC 分别设定
+  bias_direction: 阈值过严/过松 → 误判多光束显著/不显著
+  verification: 改善率、对比度、峰形指标；两入射角一致
+  related_assumptions:
+  - C10
+  - C12
+  - C14
+  - C15
+  status: candidate
+- id: C12
+  statement: 若判定硅片未出现显著多光束(两光束适用)，则沿用 prob01 两光束模型(C16)+prob02 色散化反演方法计算硅厚度并做可靠性分析；若判定出现显著多光束，则采用多光束(Airy)正模型全谱拟合/FFT
+    修正反演(C14)；实际硅厚度数值由 computation 阶段产出(agent_inference)
+  type: algorithm_assumption
+  key: true
+  evidence_type: agent_inference
+  reference_ids:
+  - L43
+  - L44
+  - L45
+  scope: 附件3/4硅外延层
+  bias_direction: 方法分支选择错误 → 厚度偏差或不可靠
+  verification: 两模型残差对比、厚度结果、两入射角一致性
+  related_assumptions:
+  - C7
+  - C8
+  - C10
+  - C11
+  - C13
+  status: candidate
+- id: C13
+  statement: 多光束改变反射谱形状(峰值锐度、对比度、非对称性)，若用两光束模型拟合会引入残余偏差；其对干涉极值位置/周期(进而厚度)的系统性影响需量化——L17『多光束不改变极值位置』为候选主张须独立推导验证
+  type: mechanism_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L43
+  - L48
+  - L49
+  - L17
+  scope: 硅片(附件3/4)与SiC(附件1/2)若判定出现多光束(C15)
+  bias_direction: 忽略显著多光束 → 厚度出现系统性偏差；影响量级随 R_01·R_12 增大而增大
+  verification: 两光束 vs 多光束拟合结果对比与残差谱；极值位置/周期位移量
+  related_assumptions:
+  - C1
+  - C10
+  - C12
+  - C14
+  status: candidate
+- id: C14
+  statement: 若判定多光束显著，采用 Airy 多光束正模型做色散化全谱反演(含界面反射率 R_01/R_12、复振幅 r_01/r_12、精细度 F)，或用
+    FFT 提取真实干涉周期后修正(L49)，得到消除多光束影响后的厚度与残差；修正方法以 prob02 方法族+L25/L48/L49 为参考
+  type: algorithm_assumption
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L25
+  - L48
+  - L49
+  - L50
+  scope: 硅片与 SiC(如判定出现多光束)
+  bias_direction: 修正不准确/参数错配 → 残留偏差；需以残差与两入射角一致性验证
+  verification: 修正前后厚度、拟合残差、两入射角一致性
+  related_assumptions:
+  - C12
+  - C13
+  - C15
+  status: candidate
+- id: C15
+  statement: prob02 已显示其谱段多光束改善率≤10%(两光束适用)，但 SiC 与硅的多光束结论须分别判定；prob03 以同一判定标准(C2/C5/C11)重新评估附件1/2；若判定
+    SiC 也出现显著多光束，采用 C14 修正并给出修正后厚度；若判定不出现，记录不适用理由；SiC 修正前后对照以 prob02-conclusion-v1
+    为基准
+  type: validation_assumption
+  key: true
+  evidence_type: agent_inference
+  reference_ids:
+  - L25
+  - L43
+  scope: 附件1/2(SiC)；以 prob02 结果作对照
+  bias_direction: 若与 prob02 的两光束认定不一致，须解释(材料差异/谱段差异)并记录
+  verification: 改善率/对比度/峰形重新评估；与 prob02 结果对照
+  related_assumptions:
+  - C10
+  - C11
+  - C13
+  - C14
+  - C17
+  status: candidate
+- id: C16
+  statement: prob01 的两光束干涉模型(光程差 Δ=2t√(n²-sin²θ)，同型相邻极值波数间隔 Δν=1/(2 n t cosθ′)，反射相位跃变只改变峰/谷类型、在相邻同型极值间隔中抵消，厚度由色散化相位法与全谱
+    NLS 反演确定)作为 prob03 的基线与对照；多光束必要条件的推导从此基线出发(R_01·R_12→0 极限)
+  type: mechanism_simplification
+  key: true
+  evidence_type: literature_fact
+  reference_ids:
+  - L01
+  - L06
+  - L07
+  scope: prob03 全部；多光束情形由 C1-C5 扩展
+  bias_direction: 两光束基线忽略多光束，需以 C13/C14 修正或说明不适用(C10/C15)
+  verification: 与 prob01 结论一致性；公式极限行为
+  related_assumptions:
+  - C1
+  - C4
+  - C13
+  status: inherited
+- id: C17
+  statement: prob03 的 SiC 修正(C15)以 prob02 的 SiC 厚度结果(t̂=7.2158 µm、ε12=0.165%、n̂_sub=2.588，prob02-conclusion-v1)作为修正前后对照与基准；若该结论后续变化，prob03
+    会被置 stale 并重新审查(dependency_graph 已登记 prob02→prob03 软依赖)
+  type: cross_question_assumption
+  key: false
+  evidence_type: project_assumption
+  reference_ids:
+  - L25
+  scope: 附件1/2 SiC 修正对照
+  bias_direction: prob02 结论变化使 prob03 失效(stale 重审)
+  verification: 结论 hash 一致性 / dependency 追踪
+  related_assumptions:
+  - C15
+  status: inherited
+formulation_versions:
+- formulation_v001
+- formulation_v002
+active_formulation: formulation_v002
+accepted_formulation: formulation_v002
+tasks: []
+sanity_status: pending
+conclusion_id: ''
+conclusion_version: 0
+conclusion_hash: ''
+decision_reason: assumption_v001 定稿：多光束干涉必要条件(Airy->反射率阈值->平行度->相干长度->吸收限制)、硅片(附件3/4)数据契约/多光束判定/厚度计算分支、SiC
+  修正对照；文献门禁通过(含跨问复用来源)；依据 assumption-manager act-c6fa2 建议
+decided_at: '2026-08-30T04:34:50.326104+00:00'

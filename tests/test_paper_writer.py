@@ -97,6 +97,14 @@ def test_generator_builds_complete_valid_paper_from_whitelisted_evidence(project
     assert "prob01_fit" in text and "[@L01]" in text
     assert "机密虚构结论" not in text
     assert "TODO" not in text and "待填写" not in text
+    assert 'visual_review' not in text and 'sanity' not in text
+    abstract = text.split('## 关键词')[0]
+    assert '**10.2 um**' in abstract and '**0.8%**' in abstract
+    assert '参数反演' not in abstract
+    from automm.paper_semantics import nodes, plain, prepare_publication
+    abstract_ast = prepare_publication(abstract, evidence)['pandoc_ast']
+    emphasized = [plain(node['c']) for node in nodes(abstract_ast) if node['t'] == 'Strong']
+    assert '10.2 um' in emphasized and '0.8%' in emphasized
     assert paper.validate_paper_markdown("paper-demo", version, evidence)["status"] == "PASS"
     manifest = read_json(version / "writer_manifest.json")
     assert manifest["evidence_hash"] == evidence["evidence_hash"]

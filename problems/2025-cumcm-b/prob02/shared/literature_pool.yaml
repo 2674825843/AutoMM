@@ -1,0 +1,355 @@
+# prob02 文献池（SiC 外延层厚度确定算法与可靠性分析）
+# 与 problems/2025-cumcm-b/citations.yaml 的题目级引用登记同步；字段一致。
+# hypothesis_family 假设族编号：
+#   G1 SiC 折射率色散 / 全谱段光学常数（λ>5 µm 延伸）
+#   G2 掺杂/自由载流子对衬底与外延层折射率的影响（支撑 n_sub）
+#   G3 厚度反演算法族（极值定位、周期估计、全谱拟合、色散补偿）
+#   G4 多光束干涉对测厚精度的影响与修正（prob02 SiC 部分 + prob03 预留）
+# 说明：本问在 prob01（L01-L24）基础上新增 L25-L42；prob01 的 F1-F5 见 prob01 池。
+question_id: prob02
+dry: false
+dry_reason: null
+updated_at: "2026-08-29T14:30:00+00:00"
+items:
+  - citation_id: L25
+    id: L25
+    title: Dispersion Compensation and Multi-Beam Interference Correction Algorithm for Thickness Measurement of SiC Epitaxial Layer
+    authors: [Liu, Lu, Shi, Weiwei, Xu, Shibo, Wang, Xiaofan]
+    year: 2026
+    source: Sensors
+    doi: 10.3390/s26102965
+    url: https://doi.org/10.3390/s26102965
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: [G3, G4]
+    summary: 提出"色散补偿 + 多光束干涉修正"的 SiC 外延层厚度测量算法，直接对口 prob02 的色散与多光束修正需求。
+    supported_claims: [色散补偿与多光束修正结合用于 SiC 厚度测量, prob02 需在色散修正前提下考虑多光束影响]
+    applicability: 与 prob02 的色散化反演方向及"消除多光束影响"要求高度一致；正文未逐点核验，公式值在 formula 阶段对照原文
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（作者/年份/卷期页）；A 级开放获取期刊
+  - citation_id: L26
+    id: L26
+    title: "Optical properties of 4H-SiC and 6H-SiC from infrared to vacuum ultraviolet spectral range ellipsometry (0.05–8.5 eV)"
+    authors: [Mainali, Madan K., Dulal, Prabin, Shrestha, Bishal, Amonette, Emily, Shan, Ambalanath, Podraza, Nikolas J.]
+    year: 2024
+    source: Surface Science Spectra
+    doi: 10.1116/6.0003676
+    url: https://doi.org/10.1116/6.0003676
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: [G1, G2]
+    summary: 4H/6H-SiC 在 0.05–8.5 eV（约 0.146–24.8 µm）的 n/k 光学常数，覆盖题目 2.5–25 µm 谱段（含 λ>5 µm 与 reststrahlen 区）。
+    supported_claims: [4H/6H-SiC 全谱段光学常数来源, 支撑 λ>5 µm 色散延伸与 n(λ) 数据反演初值]
+    applicability: 椭偏测量，与体单晶有差异；作为色散模型初值与谱段适用性依据，具体 n(λ) 由 prob02 反演确定
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（作者/年份/卷期）；正文 n/k 数据表需在 assignment/formula 阶段对照原文取数
+  - citation_id: L27
+    id: L27
+    title: "Infrared to vacuum ultraviolet optical properties of 3C, 4H and 6H silicon carbide measured by spectroscopic ellipsometry"
+    authors: [Lindquist, O. P. A., Schubert, M., Arwin, H., Järrendahl, K.]
+    year: 2004
+    source: Thin Solid Films
+    doi: 10.1016/j.tsf.2004.01.008
+    url: https://doi.org/10.1016/j.tsf.2004.01.008
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: G1
+    summary: 3C/4H/6H-SiC 从红外到真空紫外的跨谱段光学性质（椭偏测量），为不同多型体提供 n/k。
+    supported_claims: [SiC 多种型体跨谱段光学性质可用椭偏测量获得]
+    applicability: 与 L26 互为印证；多型体/薄膜数据，作为色散初值与谱段参考
+    statement_class: literature_fact
+    notes: Crossref 元数据核验；正文未逐点核验
+  - citation_id: L28
+    id: L28
+    title: Infrared Optical Properties of 3C, 4H and 6H Silicon Carbide
+    authors: [Lindquist, O. P. A., Arwin, H., Henry, A., Järrendahl, K.]
+    year: 2003
+    source: Materials Science Forum
+    doi: 10.4028/www.scientific.net/MSF.433-436.329
+    url: https://doi.org/10.4028/www.scientific.net/MSF.433-436.329
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: G1
+    summary: 3C/4H/6H-SiC 的红外光学性质，偏红外谱段。
+    supported_claims: [SiC 多型体红外光学性质数据]
+    applicability: 偏红外谱段，与 L27 配套；作为 infra 谱段色散参考
+    statement_class: literature_fact
+    notes: Crossref 元数据核验；正文未逐点核验
+  - citation_id: L29
+    id: L29
+    title: Temperature-dependent infrared optical properties of 3C-, 4H- and 6H-SiC
+    authors: [Tong, Zhen, Liu, Linhua, Li, Liangsheng, Bao, Hua]
+    year: 2018
+    source: "Physica B: Condensed Matter"
+    doi: 10.1016/j.physb.2018.02.023
+    url: https://doi.org/10.1016/j.physb.2018.02.023
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: G1
+    summary: 3C/4H/6H-SiC 的温度依赖红外光学性质。
+    supported_claims: [SiC 红外光学性质随温度变化（有温度依赖数据）]
+    applicability: 量化温度不确定度对 n(λ) 的影响（prob02 可靠性分析小项）；室温下修正量小
+    statement_class: literature_fact
+    notes: Crossref 元数据核验；数值细节未在正文核验
+  - citation_id: L30
+    id: L30
+    title: Investigation of longitudinal-optical phonon-plasmon coupled modes in SiC epitaxial film using Fourier transform infrared reflection
+    authors: [Sunkari, Swapna, Mazzola, M. S., Mazzola, J. P., Das, Hrishikesh, Wyatt, J. L.]
+    year: 2005
+    source: Journal of Electronic Materials
+    doi: 10.1007/s11664-005-0103-8
+    url: https://doi.org/10.1007/s11664-005-0103-8
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: G2
+    summary: 用 FTIR 反射研究 SiC 外延层中 LO 声子-等离子体耦合模，将掺杂（自由载流子）与反射光谱直接关联。
+    supported_claims: [掺杂/自由载流子改变 SiC 外延层红外反射谱（声子-等离子体耦合机制）]
+    applicability: 支撑衬底（重掺）与外延层（轻掺）折射率差异的谱学证据；机制明确、定量关系需 prob02 数据反演
+    statement_class: literature_fact
+    notes: Crossref 元数据核验；正文未逐点核验
+  - citation_id: L31
+    id: L31
+    title: Improved Resolution of Epitaxial Thin Film Doping Using FTIR Reflectance Spectroscopy
+    authors: [Mazzola, Michael S., Sunkari, Swapna G., Mazzola, Janice, Das, Hrishikesh, Melnychuck, Galyna, Koshka, Yaroslav, Wyatt, Jeffery L., Zhang, Jie]
+    year: 2005
+    source: Materials Science Forum
+    doi: 10.4028/www.scientific.net/msf.483-485.397
+    url: https://doi.org/10.4028/www.scientific.net/msf.483-485.397
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: G2
+    summary: 用 FTIR 反射光谱提高外延薄膜掺杂浓度的分辨能力，支撑"FTIR 反射谱可反演掺杂→折射率"链路。
+    supported_claims: [FTIR 反射光谱可反演掺杂/自由载流子（进而影响折射率）]
+    applicability: 与 L30 配套，支撑 n_sub 受掺杂影响的机制；数值需 prob02 反演
+    statement_class: literature_fact
+    notes: Crossref 元数据核验；正文未逐点核验
+  - citation_id: L32
+    id: L32
+    title: Fundamentals of epitaxial silicon film thickness measurements using emission and reflection Fourier transform infrared spectroscopy
+    authors: [Zhou, Zhen-Hong, Yang, Isabel, Yu, Fuzhong, Reif, Rafael]
+    year: 1993
+    source: Journal of Applied Physics
+    doi: 10.1063/1.354023
+    url: https://doi.org/10.1063/1.354023
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: used
+    status: used
+    hypothesis_family: G3
+    summary: 外延膜厚度的红外发射/反射 FTIR 测量基础（测量原理与谱图解释）。
+    supported_claims: [FTIR 反射测厚的方法级基础（硅场景），与其他来源共同支撑算法主干]
+    applicability: 硅场景（prob03 最贴近）；SiC 场景借用公式结构并更换材料参数与色散模型
+    statement_class: literature_fact
+    notes: Crossref 元数据核验；正文未逐点核验
+  - citation_id: L33
+    id: L33
+    title: Infrared Thickness Measurement of SiC/Si Epitaxial Layers with Multibeam Interference Modeling
+    authors: [Wang, Keli, Liang, Jialiang]
+    year: 2025
+    source: 2025 5th International Conference on Mechanical Automation and Electronic Information Engineering (MAEIE)
+    doi: 10.1109/maeie68099.2025.11405873
+    url: https://doi.org/10.1109/maeie68099.2025.11405873
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: [G3, G4]
+    summary: SiC/Si 外延层多光束干涉建模测厚（会议论文）。
+    supported_claims: [多光束干涉建模用于 SiC/Si 测厚（方法对照）]
+    applicability: G4 多光束修正候选；正文未核验，不单独支撑关键公式
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（IEEE 会议）
+  - citation_id: L34
+    id: L34
+    title: "High-precision thickness measurement of SiC epitaxial layers by infrared interference: from two-beam to multi-beam modeling"
+    authors: [Wu, Shengkai, Sun, Xu, Yang, Zihang]
+    year: 2026
+    source: Second International Conference on Communication, Information, and Digital Technologies (CIDT 2025)
+    doi: 10.1117/12.3095442
+    url: https://doi.org/10.1117/12.3095442
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: [G3, G4]
+    summary: 双光束→多光束建模精确测 SiC 外延层厚度（会议论文）。
+    supported_claims: [从双光束过渡到多光束建模测厚（方法对照）]
+    applicability: G4 候选；正文未核验
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（SPIE 会议）
+  - citation_id: L35
+    id: L35
+    title: A method for determining the thickness of semiconductor epitaxial layers under multibeam interference—taking SiC as an example
+    authors: [Yang, Baoyu]
+    year: 2026
+    source: Fifth International Conference on Computer Technology, Information Engineering, and Electron Materials (CTIEEM 2025)
+    doi: 10.1117/12.3109325
+    url: https://doi.org/10.1117/12.3109325
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: [G3, G4]
+    summary: 多光束干涉条件下半导体外延层厚度确定方法（以 SiC 为例）。
+    supported_claims: [多光束干涉测厚方法（方法对照）]
+    applicability: G4 候选；正文未核验
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（SPIE 会议）
+  - citation_id: L36
+    id: L36
+    title: Robust Spectral Signal Processing-Based Framework for Infrared Interferometry-Driven SiC Epitaxial Thickness Estimation
+    authors: [Zhang, Yibo]
+    year: 2026
+    source: 2026 IEEE International Conference on Power, Electronics and Green Energy (ICPEGE)
+    doi: 10.1109/icpege67691.2026.11451559
+    url: https://doi.org/10.1109/icpege67691.2026.11451559
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: G3
+    summary: 基于鲁棒光谱信号处理的红外干涉 SiC 外延层厚度估计框架（会议论文）。
+    supported_claims: [鲁棒光谱信号处理用于测厚（方法对照）]
+    applicability: G3 光谱处理候选；正文未核验
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（IEEE 会议）
+  - citation_id: L37
+    id: L37
+    title: Non-destructive thickness measurement algorithm for SiC epitaxial layers based on infrared interferometry
+    authors: [Bao, Tianyan, Deng, Shuangshuang, Liu, Wenqian, Jiao, Liyuan]
+    year: 2026
+    source: International Conference on Optoelectronic Materials and Devices (ICOMD 2025)
+    doi: 10.1117/12.3110071
+    url: https://doi.org/10.1117/12.3110071
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: G3
+    summary: 基于红外干涉的 SiC 外延层无损伤测厚算法（会议论文）。
+    supported_claims: [无损伤测厚算法（方法对照）]
+    applicability: G3 候选；正文未核验
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（SPIE 会议）
+  - citation_id: L38
+    id: L38
+    title: Spectral Numerical Computation and Multi-Beam Correction for Epitaxial Layer Thickness Measurement
+    authors: [Deng, Qiwen, Xing, Chunbo]
+    year: 2026
+    source: 2026 International Conference on Computer Intelligence and Software Engineering (CICSE)
+    doi: 10.1109/cicse70286.2026.11620986
+    url: https://doi.org/10.1109/cicse70286.2026.11620986
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: [G3, G4]
+    summary: 外延层厚度测量的光谱数值计算与多光束修正（会议论文）。
+    supported_claims: [光谱数值计算 + 多光束修正（方法对照）]
+    applicability: G3/G4 候选；正文未核验
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（IEEE 会议）
+  - citation_id: L39
+    id: L39
+    title: Measurement and algorithm for silicon carbide epitaxial layer thickness via interference spectroscopy
+    authors: [Leng, Anqi, Bai, Xueqing, An, Siwei, Xiao, Yadan, Chen, Yan, Xu, Zhenqin]
+    year: 2026
+    source: Third International Conference on Big Data, Computational Intelligence, and Applications (BDCIA 2025)
+    doi: 10.1117/12.3104227
+    url: https://doi.org/10.1117/12.3104227
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: G3
+    summary: 干涉光谱测 SiC 外延层厚度及算法（会议论文）。
+    supported_claims: [干涉光谱测厚算法（方法对照）]
+    applicability: G3 候选；正文未核验
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（SPIE 会议）
+  - citation_id: L40
+    id: L40
+    title: "PROGRESSIVE MODELING FOR SILICON CARBIDE EPITAXIAL LAYER THICKNESS MEASUREMENT: FROM DUAL-BEAM THEORY TO MULTI-BEAM INTERFERENCE CORRECTION"
+    authors: [Gao, QiMin, Luo, YiYi]
+    year: 2026
+    source: World Journal of Engineering Research
+    doi: 10.61784/wjer3104
+    url: https://doi.org/10.61784/wjer3104
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: [G3, G4]
+    summary: SiC 外延层厚度测量的渐进建模：从双光束理论到多光束干涉修正（会议/期刊论文）。
+    supported_claims: [双光束→多光束渐进建模（方法对照）]
+    applicability: G4 候选；正文未核验
+    statement_class: literature_fact
+    notes: Crossref 元数据核验
+  - citation_id: L41
+    id: L41
+    title: Quantitative Inversion of Silicon Carbide Epitaxial Layer Thickness Based on Dual-Beam Interference Theory and Experimental Algorithm Validation
+    authors: [Liu, Xiaoyi]
+    year: 2026
+    source: Proceedings of the 1st International Conference on Advanced Computation, Engineering Intelligence and Information Processing
+    doi: 10.5220/0014915300005134
+    url: https://doi.org/10.5220/0014915300005134
+    authority_tier: C
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: G3
+    summary: 基于双光束干涉理论的 SiC 外延层厚度定量反演与实验验证（会议论文）。
+    supported_claims: [双光束理论定量反演测厚（方法对照）]
+    applicability: G3 候选；正文未核验
+    statement_class: literature_fact
+    notes: Crossref 元数据核验（SCITEPRESS）
+  - citation_id: L42
+    id: L42
+    title: Nonlinear optical properties of 6H-SiC and 4H-SiC in an extensive spectral range
+    authors: [Guo, Xiao, Peng, Zeyu, Ding, Pengbo, Li, Long, Chen, Xinyi, Wei, Haoyun, Tong, Zhen, Guo, Liang]
+    year: 2021
+    source: Optical Materials Express
+    doi: 10.1364/ome.415915
+    url: https://doi.org/10.1364/ome.415915
+    authority_tier: A
+    metadata_status: verified
+    verified: true
+    usage_status: new
+    status: new
+    hypothesis_family: G1
+    summary: 4H/6H-SiC 在大谱段范围的（主要为非线性）光学性质。
+    supported_claims: [大谱段光学性质参考（与 G1 相关）]
+    applicability: 作同谱段参考与候选；非线性性质为主，不用于关键线性色散公式
+    statement_class: literature_fact
+    notes: Crossref 元数据核验；正文未逐点核验

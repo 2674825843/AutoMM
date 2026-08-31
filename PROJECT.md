@@ -34,4 +34,14 @@ Harness invariant（非法迁移、事务不一致、schema/context 不匹配、
 
 ## 文件和依赖
 
+## 原生模板论文与交付（2026-08）
+
+论文渲染使用项目根目录的 `数模论文标准模板.docx`，按原生 Word Styles 绑定正文、公式、图表和题注；缺失样式严格失败。图题在图下，表题在表上，内部图表/证据标识只进入源稿及审计。
+
+内部产物保留于 `problems/<problem_id>/paper/versions/paper_vNNN`；`paper/final` 同时包含内部发布索引和对外交付。对外入口是 `paper/final/交付`，仅包含 `论文.docx` 和 `支撑材料`（代码、图片、获准分发的数据及运行说明）。全部内容先在独立临时 final 中准备并核验，再单次原子发布；只有内容、渲染及交付全部通过才完成。
+
+用户要求重写已完成项目时，先暂停 daemon 并可恢复撤下旧正式交付，再调用 `scripts/build_paper.py rewrite --problem-id <id> --confirm-rewrite`。该入口使用受控命令事务核验当前证据未变；不开放任意 completed 回退、不重跑计算。证据变化需先复核，不允许刷新哈希绕过检查。
+
+数据分发白名单由新论文版本的 `support_inputs.json` 指定，条目含 path、sha256、redistribution_allowed；不明权限默认排除。该文件属于用户授权的发布配置，不由 Writer 自行授权。
+
 项目内路径使用相对路径和 `pathlib`。Python 依赖写入 `scripts/requirements.txt`，仅安装到项目虚拟环境。论文阶段要求 Pandoc 和 Microsoft Word。运行前通过 `compileall`、Ruff、配置校验和故障注入测试。

@@ -1,0 +1,55 @@
+# prob02 ablation 实验矩阵（机器可读，与 ablation.py PREREGISTERED 一致）
+# 版本：ablation_v001（预注册，运行前固定；实验参数与 configs/ablation_config.yaml 对应）
+preregistration_version: ablation_v001
+base_scenario:
+  theta_deg: [10.0, 15.0]
+  inv_band_cm1: [2000.0, 4000.0]
+  reststrahlen_exclude_cm1: [700.0, 1000.0]
+  weight_anomaly: 0.05
+  t_scan_range_um: [3.0, 20.0]
+  t_scan_step_um: 0.01
+  baseline_poly_deg: 3
+  envelope_poly_deg: 1
+  dispersion_model: N-SE
+  polynomial_basis: centered_orthogonalized_chebyshev
+  seed: 20260829
+experiments:
+  f0:
+    name: 完整模型对照
+    design: "附件 1/2 实测（预处理后）；完整 M1（N-SE, p=3/q=1）variable projection（共享 t）"
+    criterion: "t̂ 落在 FFT 周期图佐证物理带区间且 J(t) 全局唯一、R∈[0,1]、无 NaN/Inf"
+  a1:
+    name: 色散模型消融
+    remove: "N-SE（Sellmeier）替换为 N-const（常数 n=Sellmeier(5µm)，B10 基线）"
+    design: "附件 1/2 实测；variable projection（N-const，共享 t）"
+    criterion: "Δt_disp_abl=|t̂_A1−t̂_F0|/t̂_F0 > 1% -> 色散贡献（B10 约 4.2–4.7% 偏差）"
+  a2:
+    name: 基线多项式消融
+    remove: "基线多项式 p=3 替换为 p=0（常数基线，不吸收慢变 DC 背景）"
+    design: "附件 1/2 实测；variable projection（N-SE, p=0, q=1, 共享 t）"
+    criterion: "Δt_base_abl=|t̂_A2−t̂_F0|/t̂_F0 > 1% 或 RMSE 显著上升（>2×F0）-> 基线-稳健分解贡献"
+  a3:
+    name: 相位-频率方法消融
+    remove: "variable projection（t 由相位-频率确定）替换为全谱幅值 NLS（v002 M1，invert_nls_multistart，网格扫描初值）"
+    design: "附件 1/2 实测；完整正模型 (2.3)/(2.4) 全谱幅值 NLS（t 由幅值/绝对基线确定）"
+    criterion: "Δt_vp_abl=|t̂_A3−t̂_F0|/t̂_F0 > 1% -> 相位-频率方法贡献（cross-check 约 5.5%）"
+  a4:
+    name: 两角共享-t 消融
+    remove: "两角共享 t（M_shared）替换为每角独立 t（M_indep，shared=False）"
+    design: "附件 1/2 实测；variable projection（N-SE, p=3/q=1, shared=False）"
+    criterion: "每角 t̂ 与共享 t̂ 最大相对差 <= 2% 且 ε₁₂ <= 2% -> 共享-t 为良性一致约束（不扭曲 t̂）"
+thresholds:
+  tau_disp_abl_percent: 1.0
+  tau_baseline_abl_percent: 1.0
+  tau_vp_abl_percent: 1.0
+  tau_shared_abl_percent: 2.0
+  rmse_ratio_threshold: 2.0
+  note: "τ 值在运行前固定（configs/ablation_config.yaml）；A1/A2/A3 的偏置/退化是预期结论而非失败"
+inversion:
+  full_model: "variable projection（基线-干涉分解 + 一维相位-频率扫描，v003 §5/§6）"
+  amplitude_nls: "invert_nls_multistart（全谱幅值 NLS，v002 M1；网格扫描初值 + 多初值）"
+outputs:
+  result_json: "F0 + A1-A4 各实验判定、conclusion（components_confirmed/partially_confirmed）、feasible_incumbent"
+  summary_json: "汇总表（各实验 t̂、RMSE、Δt/ε₁₂、约束满足度、判定）"
+  checks_json: "预注册判据逐条检查（预期 vs 实测）"
+  metadata_json: "场景、种子、输入/配置 hash、单位约定、公式引用"

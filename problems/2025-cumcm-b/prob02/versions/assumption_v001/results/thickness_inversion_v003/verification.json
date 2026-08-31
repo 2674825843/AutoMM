@@ -1,0 +1,62 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "name": "reliability_two_angle_ftest",
+      "passed": false,
+      "detail": "{\"status\": \"FAIL\", \"F_stat\": 5.2509477036494125, \"F_critical\": 3.84258241927782, \"p_value\": 0.021959816955255396, \"alpha\": 0.05, \"df1\": 1, \"df2\": 8278, \"accept_shared_t\": false, \"ss_shared\": 0.003247430072960726, \"ss_indep\": 0.0032453714506164274, \"t_theta10_um\": 7.221407936874832, \"t_theta15_um\": 7.209498693985785, \"t_mean_um\": 7.215453315430309, \"eps12_percent\": 0.16505190136257697, \"n_tot\": 8296, \"eps12_threshold_percent\": 2.0}",
+      "tolerance": "None"
+    },
+    {
+      "name": "reliability_dispersion",
+      "passed": true,
+      "detail": "{\"status\": \"PASS\", \"dispersion_models_t\": {\"N-SE\": 7.215791464723565, \"N-SE-delta+\": 7.1797385754170415, \"N-SE-delta-\": 7.252340685913041}, \"delta_t_disp_percent\": 0.5065171487862093, \"threshold_percent\": 2.0, \"delta_c_disp\": 0.005, \"t_truncated_um\": 7.215791464723565, \"t_full_um\": 3.0, \"delta_t_inv_band_percent\": 58.42451913048835, \"note\": \"Δt_inv_band 为谱段截断合理性证据（v002 在错误盆地约 117%），不作主判据\"}",
+      "tolerance": "2.0"
+    },
+    {
+      "name": "reliability_ci",
+      "passed": true,
+      "detail": "{\"t_low\": 7.20898951824634, \"t_high\": 7.222142189815724, \"halfwidth_um\": 0.006576335784691967, \"halfwidth_percent\": 0.09113810753598191, \"sigma2\": 3.922490727093521e-07, \"n_tot\": 8296, \"n_params\": 17, \"chi2\": 3.841, \"status\": \"PASS\", \"threshold_percent\": 2.0, \"t_hat_um\": 7.215791464723565, \"method\": \"profile_likelihood_Jcurve（SSE(t) 曲率/夹逼区间；bootstrap 留 computation 备选）\"}",
+      "tolerance": "2.0"
+    },
+    {
+      "name": "reliability_anomaly",
+      "passed": true,
+      "detail": "{\"status\": \"PASS\", \"strategy_t\": {\"downweight\": 7.216238885985326, \"drop\": 7.216238885985326, \"keep\": 7.216238885985326}, \"delta_t_anom_percent\": 0.0, \"threshold_percent\": 1.0, \"note\": \"异常点按 weight_anomaly 降权（默认 0.05），原始数据不修改（B2）\"}",
+      "tolerance": "1.0"
+    },
+    {
+      "name": "reliability_nsub_diag",
+      "passed": true,
+      "detail": "{\"status\": \"DIAGNOSTIC\", \"main_t_decoupled\": true, \"main_t_nsub_delta_percent\": 0.0, \"physical_nls_t_by_nsub\": {\"nsub_amp\": 6.815903555081165, \"nsub_amp_plus\": 6.867671473695098, \"nsub_amp_minus\": 6.954551911453689}, \"physical_nls_t_sensitivity_percent\": 1.9214573626517053, \"t_hat_um\": 7.215791464723565, \"n_sub_hat_amp\": 2.5881831367543757, \"threshold_percent\": 3.0, \"note\": \"主方法 t 由相位频率确定、与 n_sub 解耦（B7）；物理正模型 NLS 仅作交叉校验灵敏度报告\"}",
+      "tolerance": "3.0"
+    },
+    {
+      "name": "reliability_multibeam",
+      "passed": true,
+      "detail": "{\"two_beam_rmse\": [0.013003652556885022, 0.007661721765507661], \"airy_rmse\": [0.013005365101961968, 0.007664250207980441], \"improvement_percent\": 0.0, \"needs_multibeam_correction\": false, \"threshold_percent\": 10.0, \"t_used_um\": 7.215791464723565, \"n_sub_used\": 2.5881831367543757, \"note\": \"prob03 深究 Airy 修正；prob02 仅诊断并记录\"}",
+      "tolerance": "10.0"
+    }
+  ],
+  "method_reference": {
+    "forward_model": "(2.3)/(2.4)",
+    "snell": "(2.1)",
+    "phase": "(2.2)",
+    "fresnel": "(2.3) 内 Fresnel s/p",
+    "extremum": "(6.1)",
+    "spacing": "(6.1) 方法 A",
+    "phase_method": "(6.1)/(6.2)",
+    "vp_decomposition": "(5.1)-(5.3)",
+    "vp_design_matrix": "(5.4)",
+    "vp_linear_ls": "(5.5)",
+    "vp_scan": "(5.6)/(5.7)",
+    "phase_freq_thickness": "(5.8)/(5.9)",
+    "sellmeier": "(4.1)",
+    "disp_band_trunc": "(3.1)/(3.2)",
+    "ftest": "(7.1)",
+    "disp_sensitivity": "(7.2)/(7.3)",
+    "nsub_amplitude": "§7.3",
+    "ci_profile": "§7.4",
+    "reliability": "(7.1)-(7.6)"
+  }
+}

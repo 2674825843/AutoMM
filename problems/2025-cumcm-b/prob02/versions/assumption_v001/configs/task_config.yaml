@@ -1,0 +1,39 @@
+# prob02 计算任务执行配置（computation 阶段由 supervised worker 执行）
+# 场景与执行设置：实测数据反演、反演算法选项、可靠性采样与容差、超时/资源。
+# 分层合并：本文件作为 make_task_spec 的 config_path 合并进有效配置（compute 段生效）。
+# 版本：formulation_v003（主反演 = 基线-干涉分解 + 一维相位频率扫描（variable projection），两角共享 t；
+#       t 与 n_sub 解耦；n_sub 由干涉幅值弱辨识；两角一致性改对相位-频率拟合的嵌套 F 检验）。
+compute:
+  task_timeout_seconds: 1200
+  memory_per_worker_gb: 2
+scenario:
+  # 实测数据（附件 1/2）+ 入射角（两角共享同一晶圆片同一厚度 t，B11）
+  attachment1: data/2025_cumcm_B/附件1.xlsx   # θ=10°
+  attachment2: data/2025_cumcm_B/附件2.xlsx   # θ=15°
+  theta_deg: [10.0, 15.0]
+  dispersion_model: N-SE # 主模型（B6/v003）：带内纯 Sellmeier（L09）；λ>5µm 仅作 Δt_inv_band 背景
+  seed: 20260829         # 随机种子（可复现；AUTOMM_SEED 优先）
+  inversion:
+    inv_band_lo: 2000.0       # 主反演谱段下界 ν_inv（v003 (3.1)，Sellmeier 已知区）
+    inv_band_hi: 4000.0       # 主反演谱段上界 ν_inv（实测上界）
+    prominence_rel: 5.0e-4    # find_peaks 峰突出阈值（极值定位，抑制噪声伪峰，B8/仅 M2/M3）
+    # 主反演一维扫描（variable projection，v003 §6.2）
+    t_scan_lo: 3.0            # 扫描区间下界 t_lo（formulation §13.3 周期图主峰≈7.5 ± 周期歧义；t_scan_range）
+    t_scan_hi: 20.0           # 扫描区间上界 t_hi
+    t_scan_step: 0.01         # 扫描步长（≤0.01µm，保证全局极小捕获与唯一性分辨率）
+    baseline_poly_deg: 3      # B(ν) 基线多项式阶数 p（formulation §5.5，默认 3，计算前固定）
+    envelope_poly_deg: 1      # C(ν)/S(ν) 包络多项式阶数 q（formulation §5.5，默认 1，计算前固定）
+    weight_anomaly: 0.05      # 异常点降权权重（B2，(3.2)）
+    nls_ftol: 1.0e-10
+    nls_xtol: 1.0e-10
+    nls_gtol: 1.0e-10
+    nls_max_nfev: 400
+  reliability:
+    tau_12: 2.0           # 两角一致性裸偏差"报告/解释"阈值（B11，(7.1)；主判据为嵌套 F 检验 alpha_ftest)
+    alpha_ftest: 0.05     # 嵌套 F 检验显著性水平（§7.1）
+    tau_disp: 2.0         # 带内色散模型敏感性阈值 N-SE vs N-SE-delta（B6，(7.2)）
+    delta_c_disp: 0.005   # Sellmeier 系数可复现性扰动半宽（N-SE-delta，c_disp=1±0.5%）
+    tau_ci: 2.0           # 95% CI 半宽阈值（B12，(7.4)，轮廓似然由 J(t) 曲线）
+    tau_nsub_diag: 3.0    # n_sub 灵敏度诊断阈值（B7，(7.3)，本版解耦诊断非硬门禁）
+    tau_anom: 1.0         # 异常点影响（B2，(7.5)）
+    multibeam_improve_threshold: 10.0  # Airy 残差改善>阈值则判定需多光束修正（B13，(7.6)）

@@ -1,0 +1,72 @@
+# prob03 计算任务规格（computation 阶段由 Runner/resource-manager 提交）
+# 本文件是 implementation 阶段的交付物之一：描述 computation 阶段应提交的唯一任务。
+# 提交方式：Runner 使用 sys.executable 作为 command[0]（{python} 占位符），
+# 通过 scripts/compute_dispatcher.py submit 调用 make_task_spec/submit_task；
+# implementation 阶段禁止自行创建正式 task（tasks.py 也会拒绝 stage=implementation）。
+# 版本：formulation_v002（主反演 = 基线-干涉分解 + 一维相位频率扫描（variable projection），两角共享 t；
+#       t 与 n_sub 解耦；多光束必要条件 N1–N4 + η_mb 判据（B13）；SiC 仅重新判定（prob02 对照，C17））。
+# v002 较 v001：硅厚度基准更正为 t̂≈3.4477 µm（R1）；finesse 统一为 π√R̄/(1−R̄)（R2，代码已修正）。
+# 小问：prob03 = Q1（多光束必要条件推导）+ Q2（硅片附件3/4 多光束判定 + 厚度）+ Q3（SiC 重新判定）。
+#
+# 提交等价命令：
+#   python scripts/compute_dispatcher.py submit \
+#     --problem-id 2025-cumcm-b --question-id prob03 --stage computation \
+#     --code-path problems/2025-cumcm-b/prob03/versions/assumption_v001/code/compute.py \
+#     --config-path problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_config.yaml \
+#     --input-path problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/parameters.yaml \
+#     --assumption-version assumption_v001 --formulation-version formulation_v002 \
+#     --output-directory problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify \
+#     --working-directory . --timeout-seconds 1200 --seed 20260830 \
+#     -- {python} problems/2025-cumcm-b/prob03/versions/assumption_v001/code/compute.py \
+#       --config problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_config.yaml \
+#       --input problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/parameters.yaml \
+#       --output problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify
+problem_id: 2025-cumcm-b
+question_id: prob03
+stage: computation
+assumption_version: assumption_v001
+formulation_version: formulation_v002
+code_path: problems/2025-cumcm-b/prob03/versions/assumption_v001/code/compute.py
+config_path: problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_config.yaml
+input_path: problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/parameters.yaml
+output_directory: problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify
+working_directory: .
+timeout_seconds: 1200
+seed: 20260830
+backend: local
+dependencies:
+  - data/2025_cumcm_B/附件1.xlsx
+  - data/2025_cumcm_B/附件2.xlsx
+  - data/2025_cumcm_B/附件3.xlsx
+  - data/2025_cumcm_B/附件4.xlsx
+command:
+  - "{python}"
+  - "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/compute.py"
+  - "--config"
+  - "problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_config.yaml"
+  - "--input"
+  - "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/parameters.yaml"
+  - "--output"
+  - "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify"
+expected_outputs:
+  - result.json
+  - solver_status.json
+  - verification.json
+  - metadata.json
+  - preprocessing.json
+  - dispersion_ref.json
+  - mb_conditions.json
+  - reflectance_theta10.csv
+  - reflectance_theta15.csv
+failure_conditions:
+  - process 非零退出：code_runtime（先 compileall/ruff/探针复现，再考虑重试或修订）
+  - result.json 缺失或 feasible_incumbent=false：反演/判据未通过，交由 sanity/降级路由（不盲目重跑）
+  - 输出目录与 spec 不一致或被其他任务锁定：harness_invariant，必须人工对账
+  - 附件缺失/sha256 与 README 不符：数据契约违反，交由 input_missing 审批
+notes:
+  - 版本 v002：主反演 = 基线-干涉分解 + 一维相位频率扫描（variable projection），两角共享 t；t 与 n_sub 结构解耦
+  - 多光束必要条件 N1–N4（Rbar<=theta_mb=0.05、相干长度、界面平行度、吸收限制）；主判据 η_mb<=tau_mb=10%（§7.2）
+  - finesse=π√R̄/(1−R̄)（R2，v001 实现漏 √R̄ 已修正为 √R̄）；硅厚基准 t̂=3.4477 µm（R1，非 v001 §13.1 的 6.9 µm 伪影）
+  - 基线 B(ν) 与包络 C/S(ν) 用中心化正交化（Chebyshev）多项式基（p=3/q=1，计算前固定）；n_sub 由幅值 A=√(C²+S²) 弱辨识
+  - 硅主反演带 [2000,4000]（透明窗，C8）；SiC 用 prob02 对照值（Rbar<=theta_mb → 无显著多光束、无需修正，C17）
+  - 输出目录为 silicon_mb_verify（prob03 首个 computation 结果，无历史结果可覆盖）；只读原始数据；不修改 formulation/assumption 历史文件

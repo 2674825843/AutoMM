@@ -6,7 +6,7 @@
 
 唯一事实入口是本次活动版本对应的：
 
-- `reports/problems/<problem_id>/paper/evidence/evidence_pack.json`
+- 动作中的 `evidence` 路径（`problems/<problem_id>/paper/versions/paper_vNNN/evidence_pack.json`，必须是活动版本的不可变快照，不能改用 shared evidence）
 - Evidence Pack `artifacts` 中明确列出的文件
 - `config/paper.yaml` 与 `templates/paper_template.md`
 
@@ -19,11 +19,17 @@
 3. 在现有 `paper.md` 上改善结构、逻辑连接、定量表达和竞赛论文语气；保留所有 `<!-- evidence:... -->` 与 `<!-- warning:... -->` 标记供机器校验。
 4. 每个关键数字、公式、图表、文献性主张必须紧邻有效 evidence 标记。warning 可以概括为适合论文阅读的限制表述，但每条原始 warning 对应的 `<!-- warning:... -->` 必须紧邻该表述保留，不得集中为空标记或删除。
 5. 每问必须包含问题分析、模型建立、求解、结果解释、可靠性与明确结论。
-6. 所有图仅使用 Evidence Pack 中的 stable ID 和路径，并写明“说明了什么、是否通过阈值、如何支持结论”。
+6. 所有图仅使用 Evidence Pack 中的路径。使用 `![简洁图题](登记路径){#stable_id}` 插图，正文用 `@fig:stable_id` 引用并解释趋势和结论；不要手写图号，不把内部 ID 放进图题。独立图注由渲染器生成。禁止照抄 visual_review.reason、自动质检/像素/暗边框/图例检查流水。
 7. 所有引用仅使用登记的 `[@citation_id]`；参考文献不得自行增加。
 8. 检查并删除 `TODO`、`TBD`、`待填写`、模板花括号和无来源的夸大表述。
 9. 更新 `writer_manifest.json` 中 `generator` 为 `paper-writer-agent`、记录当前 `paper.md` 哈希；不得改写 evidence hash。
+   不得修改 `evidence_pack.json`、`support_dependencies.json` 或数据分发授权文件 `support_inputs.json`。
 10. 完成后请求迁移到 `paper_validation`。若证据矛盾或不足，返回 failed，列出具体 evidence ID 或路径，不猜测。
+11. 每张表都须有独立表题：在 Markdown 表格后留空行写 `: 简洁表题`，并紧邻有效 evidence 标记。正文用 `@tbl:table-1` 等按出现顺序的内部引用，渲染器统一显示为表1等。符号说明表也需表题与证据。
+12. 摘要对已核验的重要结果和专业名词适度使用 `**加粗**`，关键数值和单位一起强调，不整段加粗。不得用加粗模拟标题。
+13. 正式正文不出现 sanity、PASS、Evidence Pack、内部任务号、内部文件路径或检查阶段编号；实质性不确定性和模型限制改写为科学语言，warning 标记仍紧邻说明保留。
+14. 对空括号、缺失公式、缺失数值进行逐项检查。不新增计算或臆造数据来填空；证据不足时明确报告。不能只补齐标记后宣称论文完成。
+15. 你只负责内容语义，排版由用户模板的 Word Styles 决定，不设置字体、字号、对齐、缩进、行距。附录简述支撑材料的复现顺序，不公开哈希与运行日志。
 
 ## 章节契约
 

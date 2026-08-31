@@ -1,0 +1,54 @@
+# prob01 robustness 实验矩阵（机器可读，与 robustness.py PREREGISTERED 一致）
+# 版本：robustness_v001（预注册，运行前固定；实验参数与 configs/robustness_config.yaml 对应）
+preregistration_version: robustness_v001
+base_scenario:
+  t_true_um: 10.0
+  n_sub: 3.0
+  theta_deg: [10.0, 15.0]
+  nu_range_cm1: [400.0, 4000.0]
+  weak_band_cm1: [2000.0, 4000.0]
+  reststrahlen_exclude_cm1: [700.0, 1000.0]
+experiments:
+  e1:
+    name: n_sub 参数扰动
+    perturbation_percent: [-20.0, -10.0, -5.0, 0.0, 5.0, 10.0, 20.0]
+    design: "正模型用基准 n_sub=3.0 生成谱；反演用扰动 n_sub（模拟 prob02 衬底折射率估计误差）"
+    criterion: "NLS 厚度相对真值最大误差 <= 3%"
+  e2:
+    name: 入射角 theta 参数扰动
+    perturbation_percent: [-20.0, -10.0, -5.0, 0.0, 5.0, 10.0, 20.0]
+    design: "正模型用基准 theta 生成谱；反演用扰动 theta（模拟入射角测量误差）"
+    criterion: "NLS 厚度相对真值最大误差 <= 2%"
+  e3:
+    name: 色散模型情景
+    dispersion_models: [sellmeier, piecewise_constant, constant]
+    design: "正模型用 S1（Sellmeier+constant）生成谱；反演分别用三种色散模型"
+    criterion: "基准 Sellmeier 误差 <= 1%；替代模型偏差 <= 5%"
+  e4:
+    name: 数据噪声稳健性
+    noise_sigma_percent: [0.5, 1.0, 2.0]
+    repetitions: 100
+    seed_strategy: "seed + round(sigma*100)；每 σ 独立 rng，100 次随机实验"
+    design: "基准参数生成谱 + 反射率相对高斯噪声；全谱 NLS（网格扫描初值 +- period 布点）"
+    criterion: "95% CI 半宽分别 <= 2%/4%/8%；收敛率 100%（失败计入）"
+  e5:
+    name: 谱段截断敏感性
+    spectral_cutoffs_cm1:
+      - [1800.0, 4000.0]
+      - [1900.0, 4000.0]
+      - [2000.0, 4000.0]
+      - [2100.0, 4000.0]
+      - [2000.0, 3800.0]
+      - [2000.0, 3600.0]
+    design: "正模型生成 full 谱；反演用截断谱段（[2000,4000] 为基准）"
+    criterion: "相对基准截断最大变化 <= 2%"
+inversion:
+  method: "全谱 NLS（formulation_v001 §3.6 方法 B）"
+  init_strategy: "网格扫描初值（t in [1,25] um，200 点最小 rmse）+ +-period 布点"
+  period_ambiguity: "formula_validation §6：cos(delta) 对 t 的周期歧义，多初值规避"
+outputs:
+  result_json: "判据通过情况、conclusion（stable/conditionally_stable）、feasible_incumbent"
+  summary_json: "E1-E5 汇总表（t 估计、相对变化、置信区间）"
+  checks_json: "判据逐条检查（阈值、实测值）"
+  metadata_json: "场景、种子、输入/配置 hash、单位约定"
+  raw_samples: "E4 原始样本 CSV（与汇总分开保存）"

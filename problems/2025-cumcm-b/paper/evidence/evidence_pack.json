@@ -1,0 +1,3998 @@
+{
+  "schema_version": 1,
+  "problem_id": "2025-cumcm-b",
+  "created_at": "2026-08-30T17:17:43.753578+00:00",
+  "cross_question_review": {
+    "status": "passed",
+    "reason": "跨小问一致性审查通过：共享符号（t,n,n_sub,θ,θ′,λ,ν,R,δ,R_01/R_12,finesse）与单位、参数值（Sellmeier 一致、主带 ν∈[2000,4000]cm⁻¹、θ=10/15°、Reststrahlen [700,1000]cm⁻¹ 剔除）、假设、数据版本、约束（R∈[0,1]、t>0、n>1）、结论方向与数量级全部跨问自洽；软依赖 conclusion hash（prob01=828203556617be979f7345dce7c274dd1850b62fe950a6e108015ad161b070a6、prob02=27b0ce8689e1eb2b345e5803309ea80bb6b84a620f189ed6cd589e75f23a12ea）完整匹配，无 stale 传播、无回退。唯一共享符号元数据不一致（finesse domain ≥1 vs 实际 F≈0.32<1）已由本审查修订为 >0，属全局符号表规范修订，不影响任何计算结果。裁决依据：题目硬约束、sanity 硬门禁、文献/机理、鲁棒性、解释性、时间顺序均一致；无硬门禁失败版本。recommended_next_stage=paper_writing（须先行补齐三问 question_summary 并披露既有技术债）。"
+  },
+  "questions": [
+    {
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v001",
+      "sanity": {
+        "level_1_4": "PASS_WITH_WARNING",
+        "level_5": "PASS",
+        "level_6": "PASS_WITH_WARNING"
+      },
+      "warnings": [
+        "prob01 合成验证任务 0ea4b29da19e8479a6ea 消费完成：19/19 检查通过，t_true=10µm 被 NLS/相位法精确恢复，两入射角一致；hash 追踪链（code/config/input）与 task.json、implementation.md §7 完全一致，无 NaN/Inf、无硬约束违反、formula-代码逐条一致、文献/物理常识合理。技术债（λ>5µm 常数色散延伸、方法 A 约4%基线偏差、文献全文待复核、n_sub 合成场景值、Reststrahlen 剔除策略）均为既有 workflow warning，留 prob02 处理，不阻断推进。L1–L4 判定 PASS_WITH_WARNING，Level 5 待全部小问完成、Level 6 待 robustness 阶段。",
+        "prob01 Level 6（robustness 验收）独立复核通过：任务 554819114361017c5b70 全部输出有限且追踪完整，hash 链（code/config/input）与 task.json 一致，E1–E5 判据独立重算全部通过（conclusion=stable、5/5），E4 600 样本收敛率 100%、95% CI 半宽最大 0.022% 远低于阈值，预注册方案运行前固定未事后修改；物理机制（n_sub 影响幅度不影响相位、θ 误差二阶小量、色散模型为最大不确定度来源、全谱平均效应）与常识一致。技术债（robustness 基于合成谱、色散模型选择、λ>5µm 常数延伸、n_sub 场景值、文献全文待复核、Reststrahlen 剔除）均为既有 workflow warning，留 prob02 处理，不阻断推进。"
+      ],
+      "optional_stages": {
+        "robustness": {
+          "decision": "completed",
+          "reason": "robustness 适用并已完成：formulation_v001 §5.2 将鲁棒性列为比较标准，A5/A6/A10 要求灵敏度分析，workflow warnings 需量化色散/n_sub/截断对厚度的影响。预注册方案 robustness_v001（核心结论+稳定性判据运行前固定，robustness/ 目录），隔离任务 554819114361017c5b70 执行 E1–E5（n_sub/θ ±5/±10/±20% 扰动、色散三模型、噪声 σ=0.5/1/2%×100 次×2 入射角、谱段截断 6 组），5/5 判据通过 conclusion=stable（E1 0.008%、E2 0.22%、E3 替代模型 0.96%、E4 CI 半宽<0.03% 且收敛率 100%、E5 0%）；发现噪声下极值定位初值失真并升级网格扫描初值（prob02 复用）；原始样本/汇总表/置信区间/敏感性图/稳定性结论已归档 robustness/ 与 results/robustness/，交 sanity-checker 执行 Level 6"
+        },
+        "ablation": {
+          "decision": "completed",
+          "reason": "ablation 适用并已完成：formulation_v001 (3.5) 正模型含可解释可分离的公式项（界面反射项/衬底往返项/干涉振荡项）与算法模块（NLS 多初值），REQUEST.md 要求复杂算法必要性证据，robustness 已覆盖输入/情景不确定性、ablation 补充模型组件必要性，二者互补。预注册方案 ablation_v001（核心结论+判据运行前固定，ablation/ 目录），隔离任务 5dcb72876c5fcb2c7e95 执行 F0+A1–A4（干涉项消融、衬底反射消融、偏振平均消融、多初值模块消融），5/5 判据通过 conclusion=components_confirmed（A1/A2 不可辨识=组件必要、A3 最大差 0.012%、A4 单初值 6.03% vs 多初值 ~0）；消融结论/汇总表/3 张消融图（自动质检+视觉复核 passed）已归档 ablation/、results/ablation/ 与 figures.yaml，prob01 全部阶段完成，进入 locally_completed"
+        }
+      },
+      "conclusion": {
+        "conclusion_id": "prob01-conclusion-v1",
+        "version": 1,
+        "content_hash": "828203556617be979f7345dce7c274dd1850b62fe950a6e108015ad161b070a6",
+        "updated_at": "2026-08-29T07:41:19.677627+00:00"
+      },
+      "artifact_evidence_ids": [
+        "ev_artifact_dce9d09f9933",
+        "ev_artifact_2b4a734eadd2",
+        "ev_artifact_f4356544e3b3",
+        "ev_artifact_7b3ac33091d0",
+        "ev_artifact_ae2969b416fb",
+        "ev_artifact_7859f77398bd",
+        "ev_artifact_92b8caa75fa2",
+        "ev_artifact_809952a9ffeb",
+        "ev_artifact_bdddcd8634f1",
+        "ev_artifact_daa7c4ee6bb6",
+        "ev_artifact_966ab81344ec",
+        "ev_artifact_5e6f4a8a5a0d",
+        "ev_artifact_d2d5616224b2",
+        "ev_artifact_6d28eedbe1cb",
+        "ev_artifact_b41e9991d320",
+        "ev_artifact_60b4f7d163ea",
+        "ev_artifact_24486f0de77f",
+        "ev_artifact_93aa56aa72be",
+        "ev_artifact_9a58599f8cce",
+        "ev_artifact_5b3a57a5f766",
+        "ev_artifact_c6db44e67463",
+        "ev_artifact_4f853d95ac77",
+        "ev_artifact_d8d7b0f9f0fd",
+        "ev_artifact_339f7c155f54",
+        "ev_artifact_21be764cf51d",
+        "ev_artifact_c0964aca8746",
+        "ev_artifact_b46a1a8e477e",
+        "ev_artifact_532a11f7cf15",
+        "ev_artifact_40ddbc5531c1",
+        "ev_artifact_887be86f2604",
+        "ev_artifact_5d7dd11ac15d",
+        "ev_artifact_70456e51b2a4",
+        "ev_artifact_93c6a46fb8b4",
+        "ev_artifact_55e196100f35",
+        "ev_artifact_02013b74a068",
+        "ev_artifact_d21af1b92f73",
+        "ev_artifact_f8709864c1c3",
+        "ev_artifact_ff24505a53cd",
+        "ev_artifact_1fc25d2b0825",
+        "ev_artifact_fc40dc470f04",
+        "ev_artifact_77cab4f3f4df",
+        "ev_artifact_8f74cea44cf3",
+        "ev_artifact_250dc3f8b6c1",
+        "ev_artifact_253894894c38",
+        "ev_artifact_49319dea681f",
+        "ev_artifact_0e5b7f5f0c83",
+        "ev_artifact_520ae04e275c",
+        "ev_artifact_ad6a0d183bd7",
+        "ev_artifact_33ad2b0b12e7",
+        "ev_artifact_aa27f30def01",
+        "ev_artifact_94292dea2b48",
+        "ev_artifact_6cee9b6dbdf8",
+        "ev_artifact_8087a113c3a7",
+        "ev_artifact_ed83ef245b40",
+        "ev_artifact_ded3ea741d16",
+        "ev_artifact_016e31c55b3a",
+        "ev_artifact_116b9618069f",
+        "ev_artifact_630817420c25",
+        "ev_artifact_92bb831dab6c",
+        "ev_artifact_e33933a1647c",
+        "ev_artifact_f8b3de68edd6"
+      ]
+    },
+    {
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v003",
+      "sanity": {
+        "level_1_4": "PASS_WITH_WARNING",
+        "level_5": "PASS",
+        "level_6": "PASS_WITH_WARNING"
+      },
+      "warnings": [
+        "prob02 实测反演任务 30bedd3be5a2c9a36d3a 消费完成（formulation_v003 / assumption_v001，results/thickness_inversion_v003）：L1–L4 硬门禁通过——hash 追踪链（code_hash=3c8599d6547f2a8456613a148a62f3433255297cc9f654ad244144c317abcf8e 与 task.json/implementation.md §7 一致、config/input hash 一致）完整、机器级 L2-finite 通过（8 文件全有限无 NaN/Inf，v001 的 dispersion_ref NaN 已用 null 修复）、公式-代码逐条一致、单位一致、原始数据只读、无硬约束违反。主结果 t̂(共享)=7.2158 µm、每角 7.2214/7.2095 µm、ε₁₂=0.165%、n̂_sub=2.588；主拟合加权 RMSE≈6.3e-4。只读 FFT 数据探针独立证实带内真实干涉周期 Δg≈657/698、Δν≈247/263 cm⁻¹→t≈7.2–8.0 µm，与主结果一致。可靠性判据 5/6 通过：dispersion(0.51%≤2%)、ci(0.091%≤2%)、anomaly(0.0%≤1%)、nsub 解耦(diag PASS)、multibeam(pass) 全部通过；仅 reliability_two_angle_ftest 判 FAIL（F=5.251>F_crit=3.843，p=0.022），但裸偏差 ε₁₂=0.165%≪τ₁₂=2%，属大样本下统计显著性与实际意义分离，formulation §7.1/§14 明确将其路由为 B11（测量点差异/膜厚梯度）记录并解释，不构成模型修订触发。v001/v002 曾超阈判据（ε₁₂ 27.66%→0.165%、Δt_disp 15.11%→0.51%、n_sub 69%→解耦0%、CI 3.51%→0.091%、M1 0.305µm→7.216µm 正确盆地）全部回到阈值内，确认 formulation_v003 变量投影重构消除了 v002 的模型可辨识性结构缺陷。技术债（λ>5µm 色散缺口 B6、n_sub 弱可辨识 B7、M2/M3 噪声周期方法债、物理 NLS 交叉校验 5.5% 偏差、L25-L32 全文待复核、多光束 Airy 留 prob03 B13）均为既有/登记事项，留后续与论文阶段处理，不阻断推进。",
+        "prob02 Level 6（robustness 验收）独立复核通过（降级审查模式，复用已有产物、不发起新计算）：robustness 判据 C1–C8 由 formulation_v003 §7.1–§7.6 预注册判据在 computation 阶段执行并归档 results/thickness_inversion_v003/result.json + robustness/（decision/preregistration/experiment_matrix/conclusion），无需另启重复任务。C2 色散 0.507%≤2% PASS、C4 n_sub 解耦 0.0%（物理 NLS 1.92%≤3%）PASS、C5 CI 半宽 0.091%≤2% PASS、C6 全局极小唯一 PASS、C7 异常点 0.0%≤1% PASS、C8 多光束改善 0.0%≤10%（两光束适用）PASS、R8 基线/包络阶数 p=2..5.q=0..2 稳定；仅 C1 两角嵌套 F 检验统计显著（F=5.25>F_crit=3.843，p=0.022）但 ε12=0.165%≪τ12=2%，按 formulation §7.1/§14 路由为 B11（测量点差异/膜厚梯度）记录并解释，不构成模型修订触发。机器级 L2-finite 通过（8 数值文件全有限无 NaN/Inf，failures=[]），hash 追踪链（code/config/input）与 task.json/implementation.md §7 一致，原始数据只读；result.json feasible_incumbent=false 系 compute.py 将 F 检验判为硬失败置 passed=false，sanity-checker 独立验收判定主结果 t̂=7.2158 µm（ε12=0.165%、n̂_sub=2.588）可行可追踪，维持 PASS_WITH_WARNING。物理/常识一致（t 由相位频率确定、与 n_sub 解耦；色散为最大不确定度来源但带内 0.507%<2%；噪声二阶小量；异常点降权无影响）。v001/v002 曾超阈判据全部回到阈值内，确认 formulation_v003 变量投影重构消除模型可辨识性结构缺陷。技术债（bootstrap CI 未跑、M2/M3 噪声周期、物理 NLS 交叉校验 5.5%、λ>5µm 色散缺口 B6、n_sub 弱可辨识 B7、L25-L32 全文待复核、多光束 Airy 留 prob03 B13）均为既有/登记事项，不阻断推进。ablation 尚 pending，交由 ablation-analyst；Level 5 待全部小问局部完成后执行。"
+      ],
+      "optional_stages": {
+        "robustness": {
+          "decision": "completed",
+          "reason": "robustness 适用并完成：formulation_v003 §7.1–§7.6 预注册可靠性判据（阈值计算前登记于 parameters.yaml）已在 computation 阶段完整执行并归档于 results/thickness_inversion_v003/result.json——C2 色散 Δt_disp=0.507%≤2%、C4 n_sub 解耦 0.0%（物理 NLS 1.92%≤3%）、C5 CI 半宽 0.091%≤2%、C7 异常点 0.0%≤1%、C8 多光束改善 0.0%≤10%（两光束适用）、C6 全局极小唯一 全部 PASS；仅 C1 两角嵌套 F 检验统计显著（F=5.25,p=0.022）但 ε₁₂=0.165%≪τ₁₂=2%，按 formulation §7.1/§14 路由为 B11（测量点差异/膜厚梯度）记录并解释，不构成模型修订触发。结论=STABLE（t̂(共享)=7.2158 µm、每角 7.2214/7.2095 µm、ε₁₂=0.165%、n̂_sub=2.588 弱可辨识）。判定与敏感性可视化图已归档 robustness/（decision/preregistration/experiment_matrix/conclusion）与 figures/，交 sanity-checker 执行 Level 6。"
+        },
+        "ablation": {
+          "decision": "completed",
+          "reason": "ablation 适用并完成：formulation_v003 主方法 M1（基线-干涉分解 + 一维相位-频率扫描，variable projection，N-SE，p=3/q=1，两角共享 t，t 与 n_sub 解耦）含可解释、可分离的公式项/算法模块，REQUEST.md 要求复杂算法必要性证据，robustness 已覆盖输入/情景不确定性、本阶段补充模型组件必要性，二者互补。预注册方案 ablation_v001（ablation/decision.md、preregistration.md、experiment_matrix.yaml，判据运行前固定），隔离任务 1d41cd2ff79a3ec91cbd 执行 F0+A1–A4（色散消融、基线多项式消融、相位-频率方法消融、两角共享-t 消融），全部判据符合预期 conclusion=components_confirmed：A1 Δt_disp=8.44%>1%（色散必要）、A2 Δt_base=5.55%>1% 且 RMSE 升 7.03×（基线-稳健分解必要）、A3 Δt_vp=5.44%>1%（相位-频率方法必要）、A4 每角 t̂≈共享 t̂ 且 ε12=0.165%≤2%（两角共享-t 良性一致约束，不扭曲 t̂）。消融结论/汇总表/3 张消融图（自动质检+视觉复核 passed）已归档 ablation/、results/ablation/ 与 figures.yaml；compution v003 的 t̂=7.2158 µm 仍为主交付，本阶段不改变已接受的 formulation_v003，未触发模型修订。Level 5 待全部小问局部完成后执行。"
+        }
+      },
+      "conclusion": {
+        "conclusion_id": "prob02-conclusion-v1",
+        "version": 1,
+        "content_hash": "27b0ce8689e1eb2b345e5803309ea80bb6b84a620f189ed6cd589e75f23a12ea",
+        "updated_at": "2026-08-29T20:23:50.448937+00:00"
+      },
+      "artifact_evidence_ids": [
+        "ev_artifact_6e9506c1fa56",
+        "ev_artifact_c3eafc30fdc5",
+        "ev_artifact_069327f1ca7b",
+        "ev_artifact_f39eaa3f5c89",
+        "ev_artifact_7fbd73d2c8cb",
+        "ev_artifact_4068eae095ae",
+        "ev_artifact_23ff74ef7647",
+        "ev_artifact_d2ac38445ef5",
+        "ev_artifact_bf08658a3d13",
+        "ev_artifact_214db1d86854",
+        "ev_artifact_ac3f54e0c7b0",
+        "ev_artifact_98e78c889e07",
+        "ev_artifact_3e00c5b649f7",
+        "ev_artifact_641c855854fb",
+        "ev_artifact_c33905a56886",
+        "ev_artifact_db4fd2cad5a4",
+        "ev_artifact_a671b2b3d88b",
+        "ev_artifact_3de562b08074",
+        "ev_artifact_66d3786573f9",
+        "ev_artifact_a5328cfcf7af",
+        "ev_artifact_1b0c28ca4966",
+        "ev_artifact_a97960efab3b",
+        "ev_artifact_fed6af0a2c67",
+        "ev_artifact_515980ab7c8e",
+        "ev_artifact_98b3c612f387",
+        "ev_artifact_b084cfd4399a",
+        "ev_artifact_9d09ea9c3391",
+        "ev_artifact_252ed069dd93",
+        "ev_artifact_01688112b5d9",
+        "ev_artifact_5fc455cbd9fc",
+        "ev_artifact_9f9ae9913ec7",
+        "ev_artifact_96407a4bdbb3",
+        "ev_artifact_44cdc71cf811",
+        "ev_artifact_50fc52e9c76f",
+        "ev_artifact_c496efbd3e84",
+        "ev_artifact_ffc3a838f9c8",
+        "ev_artifact_04992da5f945",
+        "ev_artifact_7d33fc6159f5",
+        "ev_artifact_d513350996e6",
+        "ev_artifact_89086438f537",
+        "ev_artifact_0366c0d48834",
+        "ev_artifact_8a7f6bfdf312",
+        "ev_artifact_4635daac2129",
+        "ev_artifact_a2da9f94be2b",
+        "ev_artifact_44ce712a84e4",
+        "ev_artifact_26d2764fde6f",
+        "ev_artifact_5374481bc642",
+        "ev_artifact_3b1c10927929",
+        "ev_artifact_480fa268f844",
+        "ev_artifact_08e11a8b6907",
+        "ev_artifact_d859c40da1b5",
+        "ev_artifact_4c9565812cb4",
+        "ev_artifact_39614f050acb",
+        "ev_artifact_0dbd443da7c0",
+        "ev_artifact_a1edd1ca6df7",
+        "ev_artifact_76c464548a54",
+        "ev_artifact_52f864d61f7a",
+        "ev_artifact_fd395ad15382",
+        "ev_artifact_4fb6afb7106d",
+        "ev_artifact_4b8a4e0e6b4e",
+        "ev_artifact_28b199cb0611",
+        "ev_artifact_0c8965cd4d0a",
+        "ev_artifact_441b144e69f8",
+        "ev_artifact_5bc1776f3c1f",
+        "ev_artifact_637934c6ae60"
+      ]
+    },
+    {
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "sanity": {
+        "level_1_4": "PASS_WITH_WARNING",
+        "level_5": "PASS",
+        "level_6": "PASS_WITH_WARNING"
+      },
+      "warnings": [
+        "prob03 主 computation 任务 7e209043973692d067ed 消费完成（formulation_v002 / assumption_v001，results/silicon_mb_verify）：L1–L4 硬门禁通过——hash 追踪链（code_hash=482f5abb10c276c9d073dd7b7177ce342cf0a0d2d0b455370a899ec566142873 与 task.json/implementation.md §7 一致、source_config_hash/input_hash 一致）完整、机器级 L2-finite 通过（10 数值文件全有限无 NaN/Inf，failures=[]）、公式-代码逐条一致（R1 硅厚度基准 t̂=3.4477µm 修正 v001 的 6.9µm 因子2 伪影；R2 finesse=π·√R̄/(1−R̄) 修正 v001 漏 √R̄，finesse=0.3186 与公式一致）、单位一致、原始数据只读、无硬约束违反。主结果 t̂(共享)=3.4477 µm、每角 3.4507/3.4463 µm、ε₁₂=0.130%、n̂_sub(幅值弱辨识)=3.558；J(t) 曲线全局唯一极小在 t=3.45µm（J_shared=0.0608），未达 formulation §13.1 声称的『4 倍余量』（次小候选比≈1.020，弱色散下周期邻近候选接近简并，作为报告项而非硬门禁）。全部可靠性判据 PASS（two_angle F=0/p=1.0、dispersion 0.503%≤2%、ci 0.134%≤2%、anomaly 0.0%≤1%、multibeam_si two_beam_negligible η_mb≈0.11%、multibeam_sic no_correction_needed Rbar≈0.0024、nsub 解耦 diag PASS；checks_failed=[]）。v001 判 NEEDS_REVISION 的两项 core 缺陷（R1/R2）已在 v002 修复并复核通过；模型有效、无 VERSION_REJECTED、无 NEEDS_REVISION。技术债（bootstrap CI 用轮廓似然替代、n_sub 弱可辨识 B7、uniqueness 次小候选接近简并、multibeam_improvement 基线差异、λ>5µm SiC 色散缺口 B6、L43-L47 全文待复核、附件2 数据契约偏差）均为既有/登记事项或非阻断。合并 config_hash 因 config/gates.yaml、workflow.yaml 在 computation 后被修改而漂移（post-hoc 配置变更；code/input/source_config 链完好），作质量告警登记不触发修订。判定 PASS_WITH_WARNING，推进至 sanity_check 阶段。",
+        "prob03 Level 6（robustness 验收）独立复核通过：robustness 判据 R1–R8 由 formulation_v002 §8.5 预注册并先于 computation 固定（parameters.yaml），R1–R7 全部在阈值内（R1 eps12=0.130%≤2%、R2 Δt_disp=0.503%≤2%、R3 CI 半宽 0.134%≤2%、R4 Δt_anom=0.0%≤1%、R5 η_mb=0.111%≤10%、R6 n_sub 解耦 0.0%、R7 Δt_win=0.749%≤2%），checks_failed=[]；独立复算 R7=0.749% 与登记值一致，探针只读、复用 model.py、未改数据/代码/结果。R8 唯一性次小候选≈1.020 为报告项（弱色散周期歧义），全局唯一性由 §7.6 预注册判据确认。主结果 t̂=3.4477 µm/每角 3.4507/3.4463 µm（ε12=0.130%），多光束判定两光束适用（硅 R̄≈0.0101、η_mb≈0.11%；SiC R̄_max≈0.0024 no_correction_needed），与 prob02 结论一致；物理/常识一致（t 由相位频率确定、与 n_sub 解耦；硅色散弱且带内无 λ>5µm 缺口；噪声二阶小量）。硬门禁（L2-finite 10 文件全有限无 NaN/Inf、单位/量纲、公式-实现一致 R1/R2 已修复、原始数据只读、追踪链完整、feasible_incumbent=true）全部通过。技术债（bootstrap CI 未跑用轮廓似然、n_sub 弱可辨识 B7、uniqueness 近简并、multibeam 基线差异、λ>5µm SiC 色散缺口 B6、L43-L47 全文待复核、附件2 数据契约偏差）均为既有/登记事项，非阻断。判定 PASS_WITH_WARNING。"
+      ],
+      "optional_stages": {
+        "robustness": {
+          "decision": "completed",
+          "reason": "prob03 robustness 复核完成：formulation_v002 §8.5 预注册判据 R1–R8 全部在阈值内通过（R1 两角 0.130%≤2%、R2 色散 0.503%≤2%、R3 CI 0.134%≤2%、R4 异常 0.0%≤1%、R5 多光束 0.111%≤10%、R6 n_sub 解耦 0.0%、R7 窗口 0.749%≤2%（只读探针补登）、R8 唯一性次小候选≈1.020 为报告项由 §7.6 判据保障全局唯一）；结论 STABLE，送至 sanity-checker 执行 Level 6 验收。"
+        },
+        "ablation": {
+          "decision": "completed",
+          "reason": "ablation 适用并已完成：formulation_v002 主反演（基线-干涉分解 + 一维相位频率扫描 variable projection，两角共享 t）含可解释、可分离的公式项/算法模块/约束方向（色散项 N-SE、基线多项式 p、包络多项式 q、两角共享 t 约束、多光束 Airy 高阶项），REQUEST.md 要求复杂算法必要性证据，robustness 已覆盖输入/情景不确定性、ablation 补充模型内部组件必要性，二者互补。预注册方案 ablation_v001（核心结论+消融判据运行前固定，ablation/ 目录），隔离任务 bd175bb7b9a82f35e054（stage=ablation，supervised worker，returncode=0，feasible_incumbent=true）执行 F0 完整模型对照 + A1 色散项 / A2 多光束(Airy)高阶项 / A3 基线多项式项 / A4 两角共享 t 约束，5/5 判据通过，conclusion=components_confirmed：A1 Δt=0.446%≤2%、A2 Δt=0.300%≤1%（L17 极值不变性/Q1 定量）、A3 Δt=0.574%≤2%（RMSE +9.5%，基线项为拟合优度必要组件）、A4 每角偏差 0.089%≤2% 且 ε12=0.130%≤2%（共享为安全一致性约束）。消融结论/汇总表/3 张消融图（自动质检+视觉复核 passed）已归档 ablation/、results/ablation/ 与 figures.yaml；未删除任何不利情景，模型组件必要性证据供论文/Q1 引用。ablation 为最后一个可选阶段，required artifacts 全部满足，提交局部完成。"
+        }
+      },
+      "conclusion": {
+        "conclusion_id": "prob03-conclusion-v1",
+        "version": 1,
+        "content_hash": "b4ec18c5aba228312923ce3761ed410987afdb630da235c839dd00bea2f6c598",
+        "updated_at": "2026-08-30T13:16:22.882293+00:00"
+      },
+      "artifact_evidence_ids": [
+        "ev_artifact_70b49b0e0911",
+        "ev_artifact_5bf2ce41937f",
+        "ev_artifact_8736956800ca",
+        "ev_artifact_5bb8154b8419",
+        "ev_artifact_41bfac6d034d",
+        "ev_artifact_6089398af1a2",
+        "ev_artifact_a448d28f9395",
+        "ev_artifact_4c67435f04ad",
+        "ev_artifact_ac6c619d4c78",
+        "ev_artifact_9a35e90e6ddc",
+        "ev_artifact_f454056e0fa5",
+        "ev_artifact_c174a7c25084",
+        "ev_artifact_cb0dc65efe05",
+        "ev_artifact_8b490d3d0dbf",
+        "ev_artifact_f41e9d1b5e0f",
+        "ev_artifact_ee800a9fece8",
+        "ev_artifact_5f85108b7530",
+        "ev_artifact_563e23bf6fc5",
+        "ev_artifact_c3bd08fccd1c",
+        "ev_artifact_8b4c013d9ed0",
+        "ev_artifact_5d3897ca5cd3",
+        "ev_artifact_de380aba9df0",
+        "ev_artifact_448d50dddd40",
+        "ev_artifact_f380a87fcd16",
+        "ev_artifact_c38362689eb2",
+        "ev_artifact_ac45f178ba1f",
+        "ev_artifact_42b0010008eb",
+        "ev_artifact_c4ca56234b72",
+        "ev_artifact_f390fa7db438",
+        "ev_artifact_d81c43bc2139",
+        "ev_artifact_e22e6613391c",
+        "ev_artifact_18f55be68e37",
+        "ev_artifact_508dc1ef2e86",
+        "ev_artifact_088717aeb050",
+        "ev_artifact_b2dfa638bf61",
+        "ev_artifact_5334a55d06b5",
+        "ev_artifact_67d81d412946",
+        "ev_artifact_153ea05e1115",
+        "ev_artifact_17aca40a77bb",
+        "ev_artifact_9c388757ad64",
+        "ev_artifact_30aee4639e7e",
+        "ev_artifact_a4b0aae59b67",
+        "ev_artifact_1282565a3766",
+        "ev_artifact_67c525ff8da0",
+        "ev_artifact_68b640469c0e",
+        "ev_artifact_f7075cba6d6c",
+        "ev_artifact_2461c37a87e7",
+        "ev_artifact_016fac86a2a9",
+        "ev_artifact_3d16dbc9c140",
+        "ev_artifact_e4a8b4eca3fa",
+        "ev_artifact_841584f46db0",
+        "ev_artifact_143d1f108e96",
+        "ev_artifact_f03d613f22e0",
+        "ev_artifact_2acd1d86229d",
+        "ev_artifact_3d371771b2e5",
+        "ev_artifact_fc9e3279dcb7",
+        "ev_artifact_eb303072a56b",
+        "ev_artifact_978b014d88c4",
+        "ev_artifact_40b940b57f16",
+        "ev_artifact_724e6487493f",
+        "ev_artifact_ef525afec751",
+        "ev_artifact_f2249c4f9ea0",
+        "ev_artifact_f645289edf5d"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "evidence_id": "ev_artifact_dce9d09f9933",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/ablation/conclusion.md",
+      "sha256": "00a55e6f4a9a2fa8dd1c9f11c93ee5520c526bed12b87616884f12f991bed958",
+      "size": 4561,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_2b4a734eadd2",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/ablation/decision.md",
+      "sha256": "9883c078855db61b3e3a18f08d69af301d2d7be8f97424de54da731b9437d5b2",
+      "size": 4844,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_f4356544e3b3",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/ablation/experiment_matrix.yaml",
+      "sha256": "443ae236b1eb7099ecf1257fbd4e4c5b653bed891155b81c2b076360eca533cc",
+      "size": 2952,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_7b3ac33091d0",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/ablation/preregistration.md",
+      "sha256": "123caee4046edca08b424f9bf84644a4ac0e7d0308c26abe77d82015dafb44b3",
+      "size": 8319,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_ae2969b416fb",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/assumptions.md",
+      "sha256": "f303d7a8ae885c5338949e234bda78fdc6629e0b429abd39ee19752dd342687c",
+      "size": 15659,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_7859f77398bd",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/ablation.py",
+      "sha256": "c5e5d7583e6a797dfd65c7e0ec720a525c69a0e08ab7b50a278e2d04a5d1f9ac",
+      "size": 34663,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_92b8caa75fa2",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/compute.py",
+      "sha256": "7e87a88c5113a86cf4e3a634acd449e5d2e276bfd92a6288f6152cc189e368e9",
+      "size": 18975,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_809952a9ffeb",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_ablation_figures.py",
+      "sha256": "37a27e670908cb705657e359abfb5721ef57c73a6782495c7903de8213df275b",
+      "size": 15790,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_bdddcd8634f1",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py",
+      "sha256": "bb976f6694ef191a6e5dba78b254aed1b9042739955beb79300372872773be86",
+      "size": 21859,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_daa7c4ee6bb6",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_robustness_figures.py",
+      "sha256": "cbad7190de6da8e6ff223b3fbeeeb86e36d7409a901e8990695a53547af419de",
+      "size": 10558,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_966ab81344ec",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/model.py",
+      "sha256": "0cdc49a4b4f01bead990b7880bebe2fe1346bb23e086ec6ff7b8e640cd1aeb94",
+      "size": 25138,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_5e6f4a8a5a0d",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/probe.py",
+      "sha256": "0da73c03444f2b09d28b3f64081d67e28ff4a85f66c815113d4d19c147711138",
+      "size": 880,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_d2d5616224b2",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/robustness.py",
+      "sha256": "61432ad0f47e2c35bb5badd09783554334369b55fe8311e3fd80b91a1c348f7e",
+      "size": 32601,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_6d28eedbe1cb",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/ablation_config.yaml",
+      "sha256": "25721ef958f1f267ef8af28af6ffc67bc3856561bb3a9d26edb289f6788039dd",
+      "size": 1799,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_b41e9991d320",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/robustness_config.yaml",
+      "sha256": "a5f3e37f01488e55b7119c0de76725439ccf91ef7bb480fb31ed9c5846546f59",
+      "size": 1801,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_60b4f7d163ea",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/task_config.yaml",
+      "sha256": "4f97e8eb58e8b9eac557e6ccec6c0180f9791864efe42c10cc2c4349becdfcee",
+      "size": 1649,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_24486f0de77f",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/configs/task_spec.yaml",
+      "sha256": "62a431c3f7c67e0254f69feef91ff9c4ec25aaba71d8dd301e0266bf80871470",
+      "size": 3120,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_93aa56aa72be",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_init_strategy_7c59622d5a.quality.json",
+      "sha256": "ccc9dd47ed081ddcb804489ca7af85159f44877860abbf5ecce99ebdbfad876b",
+      "size": 317,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_9a58599f8cce",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_polarization_da59250d1b.quality.json",
+      "sha256": "ec6b1926fe16404093fe87890831f465fb68e27a2c314926c6900468065553d5",
+      "size": 316,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_5b3a57a5f766",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_summary_ee3c34dcfa.quality.json",
+      "sha256": "6003f8bb8109dd4b8dab2c3bef0d5f4116aed6faf0579c8f9a773dac8452f8cc",
+      "size": 312,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_c6db44e67463",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_dispersion_curve_d85564d2fc.quality.json",
+      "sha256": "b61206055135ef3fa07e400b164624ca4b03cac67dd07e68c8a1961dd5a6836f",
+      "size": 312,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_4f853d95ac77",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_nls_multistart_e64919ab13.quality.json",
+      "sha256": "968992bf55e93a9c490ae3f5c1274ab01ba0265ad7162ab9c215c94151e9a2eb",
+      "size": 309,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_d8d7b0f9f0fd",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_noise_robustness_ci_30d4fa737f.quality.json",
+      "sha256": "d718b86727b3ea5ebfff9912ea96b9a0914016811ddc68dfaf07ff7fd2b54305",
+      "size": 314,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_339f7c155f54",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_phase_function_gap_459c486470.quality.json",
+      "sha256": "4b11d68978229a49a761e4f23cea8ed279fa89f4575c8a0e833c9c939401e224",
+      "size": 313,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_21be764cf51d",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_reflectance_spectrum_1d4fb899d1.quality.json",
+      "sha256": "5fc49d21c46f3bedee49fa9a367ce9a93f401520b06ec68b9ff9f24a5228d7e6",
+      "size": 315,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_c0964aca8746",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_response_surface_d0691c5dd8.quality.json",
+      "sha256": "3471f9737936d4494d37a4acec07be971154e3e1e30e7841460a2df4995115cb",
+      "size": 312,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_b46a1a8e477e",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_sensitivity_tornado_6983566848.quality.json",
+      "sha256": "2629eef4eafcba2c51b9948d55cff31bf57ff80e248610d0b35d2c1f7f88270f",
+      "size": 314,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_532a11f7cf15",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_spacing_constant_n_bias_2245b6eda4.quality.json",
+      "sha256": "a65174ab7925df5a6c0e9e990aaf517f6dfb890b8b0fbe7b8d55836cbd3f4df4",
+      "size": 319,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_40ddbc5531c1",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_thickness_methods_compare_5eac465fc8.quality.json",
+      "sha256": "da0d90d5fa8955be8d26f71dd7ca05b7bb8c1a6849a503aef4668d9a9db06dc5",
+      "size": 320,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_887be86f2604",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/visual_review_report.md",
+      "sha256": "aeec33631fd6f39adef6259eed407ed8a05f1fb935bcd43a8b0a0fbb386a4a9e",
+      "size": 5118,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_5d7dd11ac15d",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formula_validation.md",
+      "sha256": "1878261f8cbd4718e46ff62f473b5d2e6754ef3216d9d412fd91f650ab33d2ba",
+      "size": 29,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_70456e51b2a4",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formulation.md",
+      "sha256": "b243b56c8b38ae5047b7d67cc868772a130b32382a13d021ab489ceb03397fbc",
+      "size": 29,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_93c6a46fb8b4",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formulations/formulation_v001/formula_validation.md",
+      "sha256": "8400bf968ead73ca8377b1721e71f5ec273815577dd11277898692a6bf782d42",
+      "size": 7668,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_55e196100f35",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formulations/formulation_v001/formulation.md",
+      "sha256": "420dd0a7442abbb4f53c8687360a3a2cbbf589afe8dd394c89a4d693c19d7748",
+      "size": 14543,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_02013b74a068",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formulations/formulation_v001/formulation.yaml",
+      "sha256": "94176dd292971054ee52fd126b13d6360911e414a5511e79f20523d7ea2d92e0",
+      "size": 707,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_d21af1b92f73",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/formulations/formulation_v001/parameters.yaml",
+      "sha256": "1f74e51c3d64b08610e9fdfb531810c46eb468adb44951a4b98ebf6abf5d6ac7",
+      "size": 4283,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_f8709864c1c3",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/implementation.md",
+      "sha256": "c1f2f9a84d7522c6968011a618110af46f0eaf9054a21730c6e1084b2f5064cb",
+      "size": 10944,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_ff24505a53cd",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/question_summary.md",
+      "sha256": "198560957c5f7bd5326e880f2c66958f2a65237c7b3f5c503bdbff2fcd12f8d7",
+      "size": 29,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_1fc25d2b0825",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/ablation/checks.json",
+      "sha256": "e6be26c9b455eaf73fea2b0723c6f9c493ae0a78375cc64abab71b8b2c278e54",
+      "size": 1971,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_fc40dc470f04",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/ablation/metadata.json",
+      "sha256": "3657c0eadc1de85ab9003dd6142b16d437742e1361f34c22b568cc984d87dc0a",
+      "size": 1518,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_77cab4f3f4df",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/ablation/result.json",
+      "sha256": "8fc6eca2f7333b91b70fdf4970ae5788f518c1f9e6c5556a764f5ef193fe06ff",
+      "size": 968,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_8f74cea44cf3",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/ablation/summary.json",
+      "sha256": "b776b5efcd469010c58c910ccebdd6b9256cacee84126cfc0ae03d868c7deae5",
+      "size": 5657,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_250dc3f8b6c1",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/robustness/checks.json",
+      "sha256": "2e72ba0b67ffb10b6e075973a42031d3ee24984551c955e2a77459c3a74360e5",
+      "size": 2487,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_253894894c38",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/robustness/metadata.json",
+      "sha256": "e2e2ccad17fecf832899ec11656bf5fd3e3bafddd3d89e8a236742ea4043692b",
+      "size": 2058,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_49319dea681f",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/robustness/raw_samples/e4_noise_raw.csv",
+      "sha256": "5d979964da34c64ef101888a3451fc5eabb3b9011d9c132664b4b02419267418",
+      "size": 35085,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_0e5b7f5f0c83",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/robustness/result.json",
+      "sha256": "0c5c23ae5f54a2b430cef2c3f9ee2a9e7aefdf1e84ceac571c763e062b36b717",
+      "size": 1012,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_520ae04e275c",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/robustness/summary.json",
+      "sha256": "bc9e0ee406222a0812c0a80c88a87104c5364717978a4289b8720b35579e47fe",
+      "size": 14924,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_ad6a0d183bd7",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/machine_sanity.json",
+      "sha256": "b27bf00c660794d02b58b3bab86e42f9f4ff231ee75fd673242cc3a225e31f1d",
+      "size": 2622,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_33ad2b0b12e7",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/metadata.json",
+      "sha256": "0ec6d8e5d7d3caa5f903e92fc624c556818055db2d6322340fd9c7c90a700bd5",
+      "size": 1363,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_aa27f30def01",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/result.json",
+      "sha256": "c06fa2d8168c365994b6457273308c086e791bcd47a633c88c2f08b17d354794",
+      "size": 7183,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_94292dea2b48",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/sanity_report.md",
+      "sha256": "664445cbf09db396578aeaf07feb09f338b24da97b9069449939b7494993a40a",
+      "size": 670,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_6cee9b6dbdf8",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/solver_status.json",
+      "sha256": "411aed05f3f8336010e5fc82cddd3e8ee591c0a321368a76bf71d4d8e649657f",
+      "size": 8664,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_8087a113c3a7",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/synthetic_spectrum_theta10.csv",
+      "sha256": "cad57197fbefe6ce9a94e2ad034c3c6f4a2f0b936d04ee20e1992b9ca3ab27aa",
+      "size": 132661,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_ed83ef245b40",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/synthetic_spectrum_theta15.csv",
+      "sha256": "5766f1a42de4600a04db82dada3d213f1d2c0c46bc90fed0eeed7811a214d961",
+      "size": 132661,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_ded3ea741d16",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/results/synthetic_verify/verification.json",
+      "sha256": "0a0bfbf8800af9d7a496034a6a847d3547f177d67fa0c0a0269b9b38e8188590",
+      "size": 4398,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_016e31c55b3a",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/robustness/conclusion.md",
+      "sha256": "a7fac0e82fc77dc6b85b0a593ea3c03f942aac876f37fe992e77d0b4df035689",
+      "size": 3881,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_116b9618069f",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/robustness/decision.md",
+      "sha256": "141f4f1cb09d963f5334c46f61b0741f0da453914f9fc9784586d5ae7f3fbc33",
+      "size": 2536,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_630817420c25",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/robustness/experiment_matrix.yaml",
+      "sha256": "ede8a20000fb8283e0d99ec5e7c8a8d680a62401acf56a4cc52630636278a8d9",
+      "size": 2680,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_92bb831dab6c",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/robustness/preregistration.md",
+      "sha256": "c74d21e611c1d7ffcafc9584e5090a376d21d3f4b36b8b5e6a2ddc17258d1cd0",
+      "size": 7201,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_e33933a1647c",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/sanity_report.md",
+      "sha256": "4cb681614bd6974f497be87342ed5a1a3f7fe76a576dcbe899f5d2f0050bc095",
+      "size": 7595,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_f8b3de68edd6",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/version.yaml",
+      "sha256": "4b09493b34f3c54a58e50b303dcd8f92af91c5e5e1ff52b98b7f2279f6c1aa00",
+      "size": 7117,
+      "question_id": "prob01"
+    },
+    {
+      "evidence_id": "ev_artifact_6e9506c1fa56",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/ablation/conclusion.md",
+      "sha256": "69c065efedb8c76cc434a547250f0e7120f93ae335ca836e3e2e7662edd14ec1",
+      "size": 6621,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_c3eafc30fdc5",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/ablation/decision.md",
+      "sha256": "ea5652a6cb97bb72c0ac6763ac23526ae6b9ae44b2a9b917f3cedf2ca5454b65",
+      "size": 5730,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_069327f1ca7b",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/ablation/experiment_matrix.yaml",
+      "sha256": "8d98fea87ff755dabd58f6eb20fcde8bbec36691a57fb652232ccb87df904d7a",
+      "size": 3155,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_f39eaa3f5c89",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/ablation/preregistration.md",
+      "sha256": "f327c8c48ffa4b3f7fb7acef938b77b04876a0f6d930da5637ba351126bd4136",
+      "size": 8472,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_7fbd73d2c8cb",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/assumptions.md",
+      "sha256": "da0cba942bae243dd97dde2f695f5d671bfa86d6ebdfb428de72fd2505217336",
+      "size": 16483,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_4068eae095ae",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/ablation.py",
+      "sha256": "ff9ba359bad41adcfdff3a2a0521b0bf7f046460fe6c413062b0b626267e6192",
+      "size": 27409,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_23ff74ef7647",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/compute.py",
+      "sha256": "382cdde0703a4ac4ce8b34cff24e527470be88565b41365999bd766a9efd7703",
+      "size": 40943,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_d2ac38445ef5",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/data/n_ref_anchor.csv",
+      "sha256": "73b79abb505e70d9b7f9a9473b6412646549a72165c020c37aa8d2002b891116",
+      "size": 1239,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_bf08658a3d13",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_ablation_figures.py",
+      "sha256": "2eb43166ab4c6ff7e4ba9a619a4ccd7a81b7471287929a7bdbac2ff340b8e530",
+      "size": 15988,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_214db1d86854",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "sha256": "35520d588c5906eb37b0074425702760d70f52bde9f8c62bd8cd52385c9815b4",
+      "size": 37478,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_ac3f54e0c7b0",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/model.py",
+      "sha256": "efa38de987967e3a2b0b90adcf4a06765b964b13acc62571aff29c22ba029bd0",
+      "size": 62559,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_98e78c889e07",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/probe.py",
+      "sha256": "15474af842e04688c539367b14100cb3adfcd2d6fb183d814e8a421c17b81cda",
+      "size": 1045,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_3e00c5b649f7",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/ablation_config.yaml",
+      "sha256": "9cb577141a62972b0eab1a0a5e72ee4d675b6173dfc23d63262838164b3e29e0",
+      "size": 2121,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_641c855854fb",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_config.yaml",
+      "sha256": "05394afb1513462a4ba9313a1e875918292e57c6714445c47a877ef13c64e7f2",
+      "size": 2923,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_c33905a56886",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/configs/task_spec.yaml",
+      "sha256": "a79a6194aa8bb5eb35088087aea878a65227fa5c2ec57fa6d34a26fde51a4bea",
+      "size": 4428,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_db4fd2cad5a4",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_shared_t_14e5362fa7.quality.json",
+      "sha256": "b5e5613d89fb74c79a01fe7f3b5b8d6c11bf8131f7ef8809cd6a5fa4e2c11c2b",
+      "size": 313,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_a671b2b3d88b",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_summary_dcd697b29e.quality.json",
+      "sha256": "33425dcba50dba255fcc1b9fb18fdc39c780c6c38766cec71d91d5f372a16ef0",
+      "size": 312,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_3de562b08074",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_thickness_d29e3fc1f0.quality.json",
+      "sha256": "139fad805a43a1340f343fbe1978925c1a4a325b003f83dc5dd5201b52b240f8",
+      "size": 314,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_66d3786573f9",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_dispersion_curve_af50244106.quality.json",
+      "sha256": "6ff111c49776105718c089ed031336bfe6bef7e2ea5f36a878046e3b83e7d82b",
+      "size": 312,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_a5328cfcf7af",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_g_space_phase_gap_f500d9c0db.quality.json",
+      "sha256": "243dc1e5811cbc2e84831d9d4bd67566b28334a6e8820b3f24c2b01045c6ef81",
+      "size": 312,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_1b0c28ca4966",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_methods_compare_99386076f5.quality.json",
+      "sha256": "0f22e068c718549a55a22cba39769bddf39eb095223da14c72973e3fecf7fb02",
+      "size": 311,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_a97960efab3b",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_model_fit_0ca711689b.quality.json",
+      "sha256": "35f126f251cbd6e2f327b4cc1333988719626d2a737e78ebb798ea57b835314d",
+      "size": 305,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_fed6af0a2c67",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_nsub_decoupling_39b4128d09.quality.json",
+      "sha256": "0d878a8d4ed4df3cc48ec29b774541d5897e9d6bc51ce14a73821c5c154922f4",
+      "size": 311,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_515980ab7c8e",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reflectance_spectrum_6b2265d217.quality.json",
+      "sha256": "6fb7372e5711c934ee5bab191940556a29fc67b8a7fe924a1011e4fab1154004",
+      "size": 315,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_98b3c612f387",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reliability_summary_78cd97014b.quality.json",
+      "sha256": "5c80b917f6c13c87b6492893b60368e2626f6e14863907049200ea24971ec744",
+      "size": 314,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_b084cfd4399a",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_response_surface_cfe5827835.quality.json",
+      "sha256": "d5fa3894480aa755a272e2f633749b10dd63021c49e93351a0fbc3f4834ac109",
+      "size": 312,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_9d09ea9c3391",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_thickness_estimate_efa7359eb9.quality.json",
+      "sha256": "cf6320a162011988097788eb56332d3afd48660e8207cfcb3e89194182b0e0c7",
+      "size": 313,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_252ed069dd93",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_variable_projection_jcurve_7a9a903650.quality.json",
+      "sha256": "65d6daea08dd2b36913758efd08310d3348a29411d538238a880c8f05ec6bde8",
+      "size": 322,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_01688112b5d9",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/visual_review_report.md",
+      "sha256": "2dd88efbf65124006013415886af050cbbdb7dddd543ac8ef67b3f6888329b04",
+      "size": 4869,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_5fc455cbd9fc",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formula_validation.md",
+      "sha256": "1878261f8cbd4718e46ff62f473b5d2e6754ef3216d9d412fd91f650ab33d2ba",
+      "size": 29,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_9f9ae9913ec7",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulation.md",
+      "sha256": "b243b56c8b38ae5047b7d67cc868772a130b32382a13d021ab489ceb03397fbc",
+      "size": 29,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_96407a4bdbb3",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v001/formula_validation.md",
+      "sha256": "cc1d319adbb2564a82fb746a23d409cbbc310763667080c18220ead9ea95253f",
+      "size": 8938,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_44cdc71cf811",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v001/formulation.md",
+      "sha256": "eae8d554075c1557bbef9274083145a38b54073b4229322e3c0903561c9f2bd9",
+      "size": 20504,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_50fc52e9c76f",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v001/formulation.yaml",
+      "sha256": "ff1204b4808e22b92a878d821fec6f4da00c71d3680da8e2ca5acaaaea6d866e",
+      "size": 1041,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_c496efbd3e84",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v001/parameters.yaml",
+      "sha256": "ea0976b4afce91ba9b70dde253ac3ccac52500c4881961c9e99816c4fc1a8123",
+      "size": 7980,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_ffc3a838f9c8",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v002/formula_validation.md",
+      "sha256": "c45febe64d02d92b7b0c0ea8f5c25a635f1410c627d4cedaf4c8fe2f1d9a193e",
+      "size": 9020,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_04992da5f945",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v002/formulation.md",
+      "sha256": "8432f24c85f38b2426b51edd16bc032a577a592e52879782ce1f3b9332f8dd42",
+      "size": 27620,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_7d33fc6159f5",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v002/formulation.yaml",
+      "sha256": "862aa7768cede93b003c48e86d07cb5df958654b6cb96087f2ae8f64446157ec",
+      "size": 1481,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_d513350996e6",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v002/parameters.yaml",
+      "sha256": "1b38c92f8bc06b7fd50217ff2e51e6aa183bd42f2a0779d8d90e607964ecf2ed",
+      "size": 11234,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_89086438f537",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/formula_validation.md",
+      "sha256": "e3be877f9914ee09f0883e9f94a45b5d63431f17714a8d313c5f24af78538b2e",
+      "size": 10875,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_0366c0d48834",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/formulation.md",
+      "sha256": "806c528b797527c1802739285c865e4fa4c47593eb5e55054612583a3182308a",
+      "size": 34889,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_8a7f6bfdf312",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/formulation.yaml",
+      "sha256": "346d52300b9a1c5669b85ecb80cd9110601904b78604271b2f47f3d417b269db",
+      "size": 1545,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_4635daac2129",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/formulations/formulation_v003/parameters.yaml",
+      "sha256": "4dbd9f2f3dadac02ded035f3949ba492b23ab9144325b3ee65435917069cf006",
+      "size": 13562,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_a2da9f94be2b",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/implementation.md",
+      "sha256": "78c0c7f626129487d5086f53ba19afe35e8bbaff19dd84199436001d17b0e141",
+      "size": 19906,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_44ce712a84e4",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/question_summary.md",
+      "sha256": "198560957c5f7bd5326e880f2c66958f2a65237c7b3f5c503bdbff2fcd12f8d7",
+      "size": 29,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_26d2764fde6f",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/ablation/checks.json",
+      "sha256": "dea488dd43c0017a40351b8a31493c198bac7454de0e52e1c16df267c978253e",
+      "size": 2166,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_5374481bc642",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/ablation/metadata.json",
+      "sha256": "ea563a50e78ed7e123b00abc770198287ad717a31e90affe011aeda70bc93e1e",
+      "size": 1540,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_3b1c10927929",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/ablation/result.json",
+      "sha256": "8e97baee4079d2fbe2d15dde5af04c275eb5d5e9a098b2a61fc371db2db56a24",
+      "size": 4464,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_480fa268f844",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/ablation/summary.json",
+      "sha256": "28e4ecd59a2e6c1e37b4d0c98c82edcb6a243a137fca0d199759e4dac956dedd",
+      "size": 1339,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_08e11a8b6907",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/dispersion_ref.json",
+      "sha256": "344e83803a3015046ad320f25dc9a61a63b1e85b8fcf521cddc3f97ab322727e",
+      "size": 1056,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_d859c40da1b5",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/machine_sanity.json",
+      "sha256": "81705160f98adf8c0d8383d14ec40758dd5d90d5785f37908a888ede02f14222",
+      "size": 3323,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_4c9565812cb4",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/metadata.json",
+      "sha256": "ff3ac9f142ddf00c66a9434646d5c3bda46aa344f236c584d2e66c1604274b36",
+      "size": 1782,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_39614f050acb",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/preprocessing.json",
+      "sha256": "00ddc9a4fd36f64762a96dd6392e57a56eedf62273287f2c565dadc51c244c25",
+      "size": 1601,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_0dbd443da7c0",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/reflectance_theta10.csv",
+      "sha256": "33f4a654b8694feacdcb2e0cdd0744ba6871fab10e9ce3be27d6d4fd736ed166",
+      "size": 199138,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_a1edd1ca6df7",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/reflectance_theta15.csv",
+      "sha256": "4a6574ae9b7a3d92619b4bd6c624dd7c583aa5f0a8f1817a93eeb502f88a3bb7",
+      "size": 199138,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_76c464548a54",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/result.json",
+      "sha256": "64609a3fd55784d719b1a32613b7d7c5e516b8fea3123ba59eca8fcf4d1efaa3",
+      "size": 7460,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_52f864d61f7a",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/sanity_report.md",
+      "sha256": "d7efa8cd48b726c8bc33b33b9d14c2571a13ae628c5278d2ae7486d0be4ff7ab",
+      "size": 10748,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_fd395ad15382",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/solver_status.json",
+      "sha256": "ad41dc671f90f675f1a29260727f17277799d6ced6f8fdcb253125e6859066dc",
+      "size": 11446,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_4fb6afb7106d",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/results/thickness_inversion_v003/verification.json",
+      "sha256": "36afc18159c8fe53664f14dcf125f834853bdf0c03930e7323ea860eb1fcc624",
+      "size": 3988,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_4b8a4e0e6b4e",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/robustness/conclusion.md",
+      "sha256": "908d6b65c8c26cb917710d5fd513808c53c4444d7c123ce589a234da48e315a8",
+      "size": 4540,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_28b199cb0611",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/robustness/decision.md",
+      "sha256": "c3e2356a5ddcc8c2ffecaf65063094c7d429f3e2a1085f225c704c3fa674af61",
+      "size": 3528,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_0c8965cd4d0a",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/robustness/experiment_matrix.yaml",
+      "sha256": "deda1f20f4434268dec83d11b8ce2d316f5d36b3a5e7fef9058c896f3f8aad0c",
+      "size": 5094,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_441b144e69f8",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/robustness/preregistration.md",
+      "sha256": "ecf3be240ece317c23c5321a055be89f5e793723df7166022d02cc39923bf00a",
+      "size": 9183,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_5bc1776f3c1f",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/sanity_report.md",
+      "sha256": "da15b584810cf63250184b1fd901cae2e13035c63268c855d6b6df4486279d22",
+      "size": 6539,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_637934c6ae60",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/version.yaml",
+      "sha256": "593ab924caaf397477061e5d224c575ecc40dd052cefc2f89570f93b2ce8a86e",
+      "size": 9911,
+      "question_id": "prob02"
+    },
+    {
+      "evidence_id": "ev_artifact_70b49b0e0911",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/ablation/conclusion.md",
+      "sha256": "b9f19690ab6a00d3ddbe839bb67a9913d9f0702377ad69b020e69f26b525d337",
+      "size": 7562,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_5bf2ce41937f",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/ablation/decision.md",
+      "sha256": "b709c37db289bf4e31e36461f6eb98c1faed014ecc268be13786e75ca8ecbf95",
+      "size": 5733,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_8736956800ca",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/ablation/experiment_matrix.yaml",
+      "sha256": "9f6ef0cdea350b4f8db843ff9da92421cc855c3583e3a0ef8c36a5a2ca910687",
+      "size": 3058,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_5bb8154b8419",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/ablation/preregistration.md",
+      "sha256": "3c4d877f2be349d72e177d99edf1dcd5c7010e3d78ed176c525135a89fce0928",
+      "size": 8452,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_41bfac6d034d",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/assumptions.md",
+      "sha256": "2d104f2397f2c1d2e0236642135b98b5b96d5cdb20a33f77bb5bad1cbe59d3c7",
+      "size": 24980,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_6089398af1a2",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/ablation.py",
+      "sha256": "59204f911875845914c1449a6fdb85cfc495cd0c6e39a26769704a5fdf70f424",
+      "size": 32905,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_a448d28f9395",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/compute.py",
+      "sha256": "821057dd512e05f564129243c1d1c17de5eefbae973ff4fcb20d4be29d8a471b",
+      "size": 35887,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_4c67435f04ad",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_ablation_figures.py",
+      "sha256": "38616ee9b23c6be08fffc0e1ca419aab0d8fe01ac4b7aa1351166d35904c0acb",
+      "size": 15391,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_ac6c619d4c78",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "sha256": "17e0f82936b09c919869a703e4d439de589943d8418892c282b936f01f699e4a",
+      "size": 37625,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_9a35e90e6ddc",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/model.py",
+      "sha256": "5a2dc0a31a3ddf7e9de67412d5978b3449482b65f7430ad80d4a8103cdf593a9",
+      "size": 51555,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_f454056e0fa5",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/probe.py",
+      "sha256": "86ad1981f380cf79d44bb0d1f8a44d2d3dde171938b6985f81840fc0d669ee1d",
+      "size": 1080,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_c174a7c25084",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/robustness_probe.py",
+      "sha256": "92dc90c72ad745cea2d99a9b009cda2a7ede3121bcfff2d17531e72d5a4f672e",
+      "size": 4913,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_cb0dc65efe05",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/ablation_config.yaml",
+      "sha256": "b4c8d5c8fe3a8fa5c677d00a7eb8800cc27a0bffbd7ca432d6721a4b9dde2e27",
+      "size": 2283,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_8b490d3d0dbf",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_config.yaml",
+      "sha256": "c63f60492ada56d458fd3f636a13f02858611ec1787ee585a8e49f342a6fd5f0",
+      "size": 3303,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_f41e9d1b5e0f",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/configs/task_spec.yaml",
+      "sha256": "2ef56248c89a3bdb25394ab1f12028a52763b97356ff326ebc7f1f8adadf6bab",
+      "size": 4909,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_ee800a9fece8",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_rmse_ce4b523efa.quality.json",
+      "sha256": "a24a4aaa80593f90d8cb5bd82c5997326f06d99de1cc54e6153b19ab17a881a5",
+      "size": 309,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_5f85108b7530",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_summary_9f93c3dd2d.quality.json",
+      "sha256": "3e3b8fc83e4fc93c58176320fc213240906be30f93ae9e0aa111396f488571bc",
+      "size": 312,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_563e23bf6fc5",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_t_consistency_ec44908369.quality.json",
+      "sha256": "fb6242f00299f94a9f09605f02daec9e4c21b83cb634ffc25d86e7c192fd6247",
+      "size": 318,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_c3bd08fccd1c",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_dispersion_curve_aac3dcebea.quality.json",
+      "sha256": "c8464e810326a5a64d17e7f53322a4893f155fdc11db6598d1e1e38214aceaa9",
+      "size": 312,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_8b4c013d9ed0",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_mb_conditions_9571a5012b.quality.json",
+      "sha256": "91edce63c06622773bfb400ddd90e581ca6ff8547be9b0c86a90d0427f71686b",
+      "size": 309,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_5d3897ca5cd3",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_model_fit_3e94d2fac7.quality.json",
+      "sha256": "44743b1dcec035b75c901636b4fbd6fcb5ec08ae6e4d54af3bea5c7720827085",
+      "size": 305,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_de380aba9df0",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_phase_freq_gspace_a936624612.quality.json",
+      "sha256": "31bfb7742d123894ed8e431934402a65fed4d108313ceeab2136876c5a66e6c2",
+      "size": 313,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_448d50dddd40",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reflectance_spectrum_41a3800f70.quality.json",
+      "sha256": "7d89461d835dfaf951c17e3e7e7716bf5c8832c53dd5c677c4a4be8189cbcf8f",
+      "size": 315,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_f380a87fcd16",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reliability_summary_50b4f34a17.quality.json",
+      "sha256": "85a0f2543dac26049c8c81e8aba132a7b38dcd91dd932a03017e71f7c45dedab",
+      "size": 314,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_c38362689eb2",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_response_surface_06cfec9b1e.quality.json",
+      "sha256": "dd3f76f4ddd0f32cb526820209b8c636f2bfde36c0ddd4e89314490226b7a76e",
+      "size": 312,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_ac45f178ba1f",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_sic_multibeam_recheck_4cbb136f9c.quality.json",
+      "sha256": "a1b45c2e93268e1fd5d4b8ac805be0d7eecb9d8d4ad6bbdd551f974e5e32eb87",
+      "size": 317,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_42b0010008eb",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_thickness_estimate_59f1546ed7.quality.json",
+      "sha256": "49e0b62d5fd6c7e5678db1e66663ef0bcf1211a817484225368cc1f6b7559f06",
+      "size": 313,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_c4ca56234b72",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_variable_projection_jcurve_4b30b360a4.quality.json",
+      "sha256": "a87c9a492b3789be91b07411abcbd5d6fa780c090d9d4cac30a0e1633b470f50",
+      "size": 322,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_f390fa7db438",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/visual_review_report.md",
+      "sha256": "fe4a3f23f7821bf8a31c7bd221a77b2f5dc68845a1fd61a8f3582bea05616a0d",
+      "size": 5490,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_d81c43bc2139",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formula_validation.md",
+      "sha256": "1878261f8cbd4718e46ff62f473b5d2e6754ef3216d9d412fd91f650ab33d2ba",
+      "size": 29,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_e22e6613391c",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulation.md",
+      "sha256": "b243b56c8b38ae5047b7d67cc868772a130b32382a13d021ab489ceb03397fbc",
+      "size": 29,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_18f55be68e37",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v001/formula_validation.md",
+      "sha256": "1cadeaacae86187ab55586fe62a500431305a2ba484a8d540f68080d43f8e583",
+      "size": 13741,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_508dc1ef2e86",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v001/formulation.md",
+      "sha256": "1c2564673a94f84c8c35acae121f6d9c348a1365a7cdd71cd7179ad69747b8f0",
+      "size": 39971,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_088717aeb050",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v001/formulation.yaml",
+      "sha256": "eb594ece29ce8b23b23e12d49818e192deb63c41f2ef88d318e330894988fd99",
+      "size": 1682,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_b2dfa638bf61",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v001/parameters.yaml",
+      "sha256": "ae64a462d0961d40851bc6eb43d103419d89d8fa82e897460b86c0abab633a9f",
+      "size": 18698,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_5334a55d06b5",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/formula_validation.md",
+      "sha256": "3a19cc3640dff28e6f878d5366c46611353399a35b28f78f7626447298433896",
+      "size": 16736,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_67d81d412946",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/formulation.md",
+      "sha256": "37689750aef9a1c939dbcd4f27d8fdda7553e2daddea6c93f47b9d91747cf217",
+      "size": 48444,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_153ea05e1115",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/formulation.yaml",
+      "sha256": "5c9dddfe23dd8095f840a8ae55a768999a192d0ad62f97162e7c929f036141a5",
+      "size": 1250,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_17aca40a77bb",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/formulations/formulation_v002/parameters.yaml",
+      "sha256": "3fd55a2008ca148bd9d70fcafc169703aceb814a40f01be8dff362608e2f73d4",
+      "size": 20528,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_9c388757ad64",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/implementation.md",
+      "sha256": "5c84e1ff4974cf01c9381d590f652931f691f149658ca5f72993382ff7a66ced",
+      "size": 25509,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_30aee4639e7e",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/question_summary.md",
+      "sha256": "198560957c5f7bd5326e880f2c66958f2a65237c7b3f5c503bdbff2fcd12f8d7",
+      "size": 29,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_a4b0aae59b67",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/ablation/checks.json",
+      "sha256": "a67b326fb3de3616484892c7afc5a969e9dd4e77a0093371e33fbacd9b37a19c",
+      "size": 2991,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_1282565a3766",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/ablation/metadata.json",
+      "sha256": "8ed7cfad11769c0eb6c270c74bc7d7c03211f62062e5e0d7337cf75b3183e5be",
+      "size": 1650,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_67c525ff8da0",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/ablation/result.json",
+      "sha256": "5d049e64f629e4275f2e618a817dd9ed28ae9ddc9e18d7f979335c0a2ca764af",
+      "size": 2774,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_68b640469c0e",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/ablation/summary.json",
+      "sha256": "e23af3b2f311f07087ac7f956a84193ba50666b813f1fd234a95fbc3a4bbc335",
+      "size": 1935,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_f7075cba6d6c",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/dispersion_ref.json",
+      "sha256": "b9ccafcb7a53b6df187229ea9a37979b2ac06fd6a1a84c188e14c4bbde01651b",
+      "size": 858,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_2461c37a87e7",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/machine_sanity.json",
+      "sha256": "3cc127266dabf68870e19a950df998a05a5f5c49da80acb0163e7bf3f6803ce2",
+      "size": 3928,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_016fac86a2a9",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/mb_conditions.json",
+      "sha256": "d66f73c95e67c2fecc669490710e0c9c37ab91ea7b977573d1547f035bf69cfa",
+      "size": 3260,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_3d16dbc9c140",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/metadata.json",
+      "sha256": "b8b08f4fd03fa06a503ce00f4ad523574f6b6edcfa1b879c3f1002cdc3d6d13d",
+      "size": 2048,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_e4a8b4eca3fa",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/preprocessing.json",
+      "sha256": "b0eb616636d0f9b18091d9c907e5811c0b027cc8ad88375e36be3e7457bd4262",
+      "size": 2999,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_841584f46db0",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/reflectance_theta10.csv",
+      "sha256": "73094174f0c85a603d54e067609790970df8a833298507745e236a6bd6c34661",
+      "size": 199138,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_143d1f108e96",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/reflectance_theta15.csv",
+      "sha256": "4f7829f3e29991bdcb69a3092a86340f9358f87fe1dffbd9d05da2fa6eca6cb9",
+      "size": 199138,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_f03d613f22e0",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/result.json",
+      "sha256": "4d99db0cfb2d2b920e481fa7056b24f1f43034c239f91300166ec6b065d03e1f",
+      "size": 7108,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_2acd1d86229d",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/sanity_report.md",
+      "sha256": "4a0f18cac2a0ff3d5cfab954bb3e088eb5547ef1b99426c0e224d1c6117f5fec",
+      "size": 8167,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_3d371771b2e5",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/solver_status.json",
+      "sha256": "978c47fa14771e86d822f96b8caa3e99e7ad9818c1f645df33fa2daf76d24cbf",
+      "size": 10071,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_fc9e3279dcb7",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/results/silicon_mb_verify/verification.json",
+      "sha256": "66a10155c3b4bd787cf3da5268804c79690f2abbe3ef8554c0283b23e8c0107b",
+      "size": 4844,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_eb303072a56b",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/robustness/conclusion.md",
+      "sha256": "3ce4910eee67baffb74047b98037dd3db547e5155835ebbdc572cab2c996399a",
+      "size": 6378,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_978b014d88c4",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/robustness/decision.md",
+      "sha256": "48d57e4cbc69aea9f4879dce4a81244b0731a8abfbabf8152d4b370b643d9ae6",
+      "size": 3862,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_40b940b57f16",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/robustness/experiment_matrix.yaml",
+      "sha256": "76f2c71dc1747d0c0ec9f1b54d3697a9537daf5d387598354482deb99c1855e8",
+      "size": 6541,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_724e6487493f",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/robustness/preregistration.md",
+      "sha256": "ce1e03ba641a9298722faf28f330ed9fbca6b69dda776de30b02dce21ed9bb75",
+      "size": 10087,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_ef525afec751",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/robustness/r7_window_sensitivity.json",
+      "sha256": "b9d1a9c1d1cd401c894fb841a5b2cfbe644bcd9f74b1b45b07574b0f963ce775",
+      "size": 2023,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_f2249c4f9ea0",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/sanity_report.md",
+      "sha256": "91444d54dc35472b7f8e06183f44959dc63d883add6e0415f3c88cc4dc2e26b6",
+      "size": 9621,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_artifact_f645289edf5d",
+      "kind": "artifact",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/version.yaml",
+      "sha256": "c3aa0f604b12f6c77c6a66b15a77e240a344d4c69c2ab2f9977cf9f8747aa1cb",
+      "size": 13542,
+      "question_id": "prob03"
+    },
+    {
+      "evidence_id": "ev_shared_d8b1f2b59c9e",
+      "kind": "shared",
+      "path": "request/problem.md",
+      "sha256": "dacf4503177855e41f2347a757db4b6bd8e69fb9a1a6b5e4519a1759b39ffe93",
+      "size": 2780
+    },
+    {
+      "evidence_id": "ev_shared_2fde979db785",
+      "kind": "shared",
+      "path": "problems/2025-cumcm-b/problem_understanding.md",
+      "sha256": "0cfb5dc795a901cb31df590e9ba147a9fdb8eff1ce3a25a94deb0d2e86d00aa0",
+      "size": 7448
+    },
+    {
+      "evidence_id": "ev_shared_59e6a56200b0",
+      "kind": "shared",
+      "path": "problems/2025-cumcm-b/global_symbols.yaml",
+      "sha256": "8199c09dbee1723a1ca91874b5eefc607544c3e573df70d7f34978adb3bf94e1",
+      "size": 2707
+    }
+  ],
+  "figures": [
+    {
+      "stable_id": "prob01_fig_reflectance_spectrum_1d4fb899d1",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "reflectance_spectrum",
+      "title": "两光束干涉合成反射率谱（t_true=10.0 µm，n_sub=3.0）",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_reflectance_spectrum_1d4fb899d1.png",
+      "source_hash": "fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "R"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1567,
+        "height": 994,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T06:32:45.118032+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1567×994 px、暗边框 0.0%）+ 视觉复核：双入射角谱线、峰标注、Reststrahlen/Sellmeier 边界清晰，图例无遮挡、单位完整",
+        "reviewed_at": "2026-08-29T06:33:48.502359+00:00"
+      },
+      "sha256": "2b245a3c048dcd4cf9499e8c8a772b7c23b57eba46cd657424c5a914cf0ff461",
+      "evidence_id": "ev_figure_7a32edbc8a9e"
+    },
+    {
+      "stable_id": "prob01_fig_dispersion_curve_d85564d2fc",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "dispersion_curve",
+      "title": "外延层 4H-SiC 折射率色散模型 n(ν)",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_dispersion_curve_d85564d2fc.png",
+      "source_hash": "fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "n"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1566,
+        "height": 1068,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T06:32:45.413113+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed + 视觉复核：Sellmeier 与常数延伸分段明确、双轴 λ/ν 换算正确、边界与 Reststrahlen 区标注无重叠",
+        "reviewed_at": "2026-08-29T06:33:48.531424+00:00"
+      },
+      "sha256": "e85bcdc2a37a9fce29acb21bc0be3f2b50dbd96e5a9e105a5b620a2c12645a43",
+      "evidence_id": "ev_figure_15b6f2332b74"
+    },
+    {
+      "stable_id": "prob01_fig_phase_function_gap_459c486470",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "phase_function_gap",
+      "title": "色散化相位法：g(ν) 单调性与同型极值间隔律（θ=10°）",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_phase_function_gap_459c486470.png",
+      "source_hash": "fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "g",
+        "delta_g"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1809,
+        "height": 926,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T06:32:45.818239+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed + 视觉复核：g(ν) 单调性与 Δg 恒定律（≈500 cm^-1）双面板机制清晰，轴/单位/图例完整",
+        "reviewed_at": "2026-08-29T06:33:48.561906+00:00"
+      },
+      "sha256": "d169f608de01f17c8fafa0cf4737773f74e18d9db56dcf3808818ffd81a90a30",
+      "evidence_id": "ev_figure_0d27904b7650"
+    },
+    {
+      "stable_id": "prob01_fig_thickness_methods_compare_5eac465fc8",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "thickness_methods_compare",
+      "title": "三种反演方法的厚度估计与 t_true=10.0 µm 对比（相对偏差标注）",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_thickness_methods_compare_5eac465fc8.png",
+      "source_hash": "fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py",
+      "x": null,
+      "y": [
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1538,
+        "height": 985,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T06:32:46.072654+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed + 视觉复核：三方法×两入射角分组柱状图含偏差标注，t_true 参考线与 ±1% 容差带清晰，颜色区分明确",
+        "reviewed_at": "2026-08-29T06:33:48.590052+00:00"
+      },
+      "sha256": "f3d7faf8bf1a3edadfa546fc3541ba548ea1a19e152667b64fb9bba2aa2a8cad",
+      "evidence_id": "ev_figure_e5a8c9b5b48d"
+    },
+    {
+      "stable_id": "prob01_fig_spacing_constant_n_bias_2245b6eda4",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "spacing_constant_n_bias",
+      "title": "方法 A 常数 n 近似的系统偏差：实测间隔 vs 理论间隔（色散效应 ~4%）",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_spacing_constant_n_bias_2245b6eda4.png",
+      "source_hash": "fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py",
+      "x": "spacing_index",
+      "y": [
+        "delta_nu"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1531,
+        "height": 1002,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T06:32:46.348086+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed + 视觉复核：实测 vs 常数 n 理论间隔对比与 4.2–4.7% 偏差说明框（axes 左下角）无数据遮挡",
+        "reviewed_at": "2026-08-29T06:33:48.622256+00:00"
+      },
+      "sha256": "03d5765b90464518a0155c0450a95c7182dc87be09efd85768d52df7812fdd46",
+      "evidence_id": "ev_figure_465d5df2f0a3"
+    },
+    {
+      "stable_id": "prob01_fig_nls_multistart_e64919ab13",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "nls_multistart",
+      "title": "全谱 NLS 多初值：周期歧义局部极小 vs 全局解（rmse≈0，t=10.000 µm）",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_nls_multistart_e64919ab13.png",
+      "source_hash": "fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py",
+      "x": "t0_um",
+      "y": [
+        "rmse"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1605,
+        "height": 994,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T06:32:46.660216+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed + 视觉复核：全局解（rmse≈0）与局部极小分离清晰，t0→t 标注与周期歧义竖线可读，图例符号一致",
+        "reviewed_at": "2026-08-29T06:33:48.656646+00:00"
+      },
+      "sha256": "16945bf570f45a0b0c80ff6c537f2ec7a7d81f7996b9391c8c85b54f6c0ab974",
+      "evidence_id": "ev_figure_3aa4f2349c5a"
+    },
+    {
+      "stable_id": "prob01_fig_response_surface_d0691c5dd8",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "response_surface",
+      "title": "两光束干涉反射率随波数与入射角的三维响应面（配 2D 等高线）",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_response_surface_d0691c5dd8.png",
+      "source_hash": "fb3687281505c0b27c442be6c4e720fcde6cb355f4ec0f7b6fc445fda33e5156",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "theta_deg",
+        "R"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1741,
+        "height": 1057,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T06:32:49.675370+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed + 视觉复核：3D 响应面视角可读（elev=26° azim=-62°）无关键遮挡，θ=10°/15° 测量线标注，2D 等高线配套消歧，第三维为真实入射角变量",
+        "reviewed_at": "2026-08-29T06:33:48.693244+00:00"
+      },
+      "sha256": "9394804929c80dcbfcbbcba52bab37c0cf201706014e2fcd26aea73f2a00336c",
+      "evidence_id": "ev_figure_8bddbe7bab83"
+    },
+    {
+      "stable_id": "prob01_fig_sensitivity_tornado_6983566848",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "sensitivity_tornado",
+      "title": "prob01 robustness 敏感性 tornado 汇总（E1–E5）",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_sensitivity_tornado_6983566848.png",
+      "source_hash": "dbabf7786353f08e369e1883f455c5727a6ef4bda0d87c6a810ea09442dd9d5e",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_robustness_figures.py",
+      "x": "factor",
+      "y": [
+        "max_rel_impact_percent"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1514,
+        "height": 865,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T07:01:01.770486+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（非空白、暗边框 0.0、1514×865）+ 结构复核：E1–E5 五因素横条 tornado 图，实测影响 vs 预注册阈值竖线标注清晰，文本无重叠",
+        "reviewed_at": "2026-08-29T07:02:26.295198+00:00"
+      },
+      "sha256": "e7466a12c7c2a122b14ca60fc18cce57b7c690c250b3109c354b440bb484c8fc",
+      "evidence_id": "ev_figure_bf1c3bb811a0"
+    },
+    {
+      "stable_id": "prob01_fig_noise_robustness_ci_30d4fa737f",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "noise_robustness_ci",
+      "title": "E4 噪声稳健性：NLS 厚度估计 95% CI（σ=0.5/1.0/2.0%）",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_noise_robustness_ci_30d4fa737f.png",
+      "source_hash": "dbabf7786353f08e369e1883f455c5727a6ef4bda0d87c6a810ea09442dd9d5e",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_robustness_figures.py",
+      "x": "sigma_percent",
+      "y": [
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1561,
+        "height": 942,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T07:01:02.162796+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（非空白、暗边框 0.0、1561×942）+ 结构复核：σ=0.5/1/2% × θ=10/15° 的 t 均值与 95% CI 误差棒，t_true 参考线清晰，图例无重叠",
+        "reviewed_at": "2026-08-29T07:02:26.352029+00:00"
+      },
+      "sha256": "ab94d66900056fd39d95800cd91c081111af947cdf8c87f330c2f33f82c3378a",
+      "evidence_id": "ev_figure_468d6eb2d342"
+    },
+    {
+      "stable_id": "prob01_fig_ablation_summary_ee3c34dcfa",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "ablation_summary",
+      "title": "prob01 ablation 判据汇总（F0 + A1–A4）",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_summary_ee3c34dcfa.png",
+      "source_hash": "2e1994965ac8af0dd4a6fe52e5a273ef0c3dd2b5a1e1dc102d92354a2d0cbec2",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_ablation_figures.py",
+      "x": "experiment",
+      "y": [
+        "metric_percent"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 2039,
+        "height": 1319,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T07:29:25.706912+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（2039×1319 px、暗边框 0.0、非空白）+ 结构复核：F0+A1–A4 五组判据横向条形（实测 vs 阈值竖线标注），A4 单初值退化（6.03%）与多初值对照（≈0%）语义区分明确，数值与 summary.json 一致，文本无重叠",
+        "reviewed_at": "2026-08-29T07:41:19.713172+00:00"
+      },
+      "sha256": "4f3fcc029d09b7d00212838b2eb2f7b55b471498ec985f02359b9f193099e3b0",
+      "evidence_id": "ev_figure_8526f70dd717"
+    },
+    {
+      "stable_id": "prob01_fig_ablation_polarization_da59250d1b",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "ablation_polarization",
+      "title": "A3 偏振一致性：avg/s/p 反演厚度 vs t_true",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_polarization_da59250d1b.png",
+      "source_hash": "2e1994965ac8af0dd4a6fe52e5a273ef0c3dd2b5a1e1dc102d92354a2d0cbec2",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_ablation_figures.py",
+      "x": "theta_deg",
+      "y": [
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1682,
+        "height": 960,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T07:29:26.088261+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1682×960 px、暗边框 0.0、非空白）+ 结构复核：avg/s/p 三种偏振 × θ=10°/15° 分组柱状图，t_true=10.0 µm 参考线与 ±1% 容差带清晰，数值标注（10.0000/10.0002/9.9998 量级）与 summary.json 一致，图例无重叠",
+        "reviewed_at": "2026-08-29T07:41:19.851565+00:00"
+      },
+      "sha256": "a63baaa29c7d9697173d06275afee2b49b66de4711f456bf97e80dae11d3397e",
+      "evidence_id": "ev_figure_7460c4889f44"
+    },
+    {
+      "stable_id": "prob01_fig_ablation_init_strategy_7c59622d5a",
+      "question_id": "prob01",
+      "assumption_version": "assumption_v001",
+      "kind": "ablation_init_strategy",
+      "title": "A4 初值策略对比：单初值局部极小 vs 多初值全局解",
+      "path": "problems/2025-cumcm-b/prob01/versions/assumption_v001/figures/prob01_fig_ablation_init_strategy_7c59622d5a.png",
+      "source_hash": "2e1994965ac8af0dd4a6fe52e5a273ef0c3dd2b5a1e1dc102d92354a2d0cbec2",
+      "script": "problems/2025-cumcm-b/prob01/versions/assumption_v001/code/make_ablation_figures.py",
+      "x": "theta_deg",
+      "y": [
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 2413,
+        "height": 963,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T07:29:26.474532+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（2413×963 px、暗边框 0.0、非空白）+ 结构复核：单初值（t≈10.60，偏差 ~6% 落入周期歧义局部极小）vs 多初值（t=10.000，偏差 ~0）分组柱状图，t_true 参考线与 t0→t 标注可读，与 implementation §6.1 预警方向量级一致，图例无重叠",
+        "reviewed_at": "2026-08-29T07:41:19.898408+00:00"
+      },
+      "sha256": "00ab9de2060946c1110b1163f9c58cb24030d63405ed1c7a6ed351356ad173f0",
+      "evidence_id": "ev_figure_a6478f4b1fae"
+    },
+    {
+      "stable_id": "prob02_fig_reflectance_spectrum_6b2265d217",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v003",
+      "kind": "reflectance_spectrum",
+      "title": "附件 1/2 碳化硅晶圆片实测反射率谱（两入射角）",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reflectance_spectrum_6b2265d217.png",
+      "source_hash": "badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "R"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1560,
+        "height": 992,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T19:30:55.361379+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1560×992、暗边框 0.0、非空白）+ 视觉复核：两角实测谱、Reststrahlen 区强反射峰、附件2 反射率>100% 异常点（n=262，红×）与主反演带 [2000,4000]/Sellmeier 边界标注清晰，图例无遮挡、单位（R% / cm^-1）完整",
+        "reviewed_at": "2026-08-29T19:34:22.201967+00:00"
+      },
+      "sha256": "3a554843b620cba813c9b3bc99dd66ab07b0dc30bbae63f01a76554e608e925e",
+      "evidence_id": "ev_figure_dda4c5abdf3d"
+    },
+    {
+      "stable_id": "prob02_fig_model_fit_0ca711689b",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v003",
+      "kind": "model_fit",
+      "title": "两入射角实测谱与两光束物理正模型 (2.3) 拟合对比",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_model_fit_0ca711689b.png",
+      "source_hash": "badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "R_obs",
+        "R_model"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1780,
+        "height": 1100,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T19:30:56.388785+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1780×1100、暗边框 0.0）+ 视觉复核：θ=10/15° 双面板实测 R_obs 与两光束物理正模型 (2.3) R_model 叠加，残差 RMSE 注解框，标题/图例/单位准确（未误标为 variable projection，后者见 J(t) 图）",
+        "reviewed_at": "2026-08-29T19:34:22.307906+00:00"
+      },
+      "sha256": "c7669d90e4d5450e2db2561bd97469c19cf2148ac73510d43d012754ef186845",
+      "evidence_id": "ev_figure_a75144cb91b3"
+    },
+    {
+      "stable_id": "prob02_fig_thickness_estimate_efa7359eb9",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v003",
+      "kind": "thickness_estimate",
+      "title": "prob02 外延层厚度结果（formulation_v003，两角共享 t_hat = 7.2158 µm）",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_thickness_estimate_efa7359eb9.png",
+      "source_hash": "badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "x": null,
+      "y": [
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1523,
+        "height": 956,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T19:30:57.374471+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1523×956、暗边框 0.0）+ 视觉复核：共享 t̂ 与每角 t̂ 柱状 + 共享 t̂ 的 95% CI 误差棒 + ε12=0.165% 与实际意义分离（B11）说明框，物理 NLS 交叉校验 P1/P2 标记可读，图例/单位完整",
+        "reviewed_at": "2026-08-29T19:34:22.420363+00:00"
+      },
+      "sha256": "37807ee1af8d2c993d5eeed0a71adb4ad6eef0110161d2787aa47cad198da580",
+      "evidence_id": "ev_figure_73dc1fe83462"
+    },
+    {
+      "stable_id": "prob02_fig_dispersion_curve_af50244106",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v003",
+      "kind": "dispersion_curve",
+      "title": "外延层 4H-SiC 折射率色散模型 n(ν)：带内取 N-SE（Sellmeier）",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_dispersion_curve_af50244106.png",
+      "source_hash": "badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "n"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1552,
+        "height": 1068,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T19:30:59.452581+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1552×1068、暗边框 0.0）+ 视觉复核：带内 N-SE（Sellmeier）、λ>5µm 缺口代理、N-const 基线三线区分明确，y 轴范围覆盖全线（含缺口峰值），顶轴 λ[µm] 换算正确，Reststrahlen/反演带阴影，图例无重叠",
+        "reviewed_at": "2026-08-29T19:34:22.535321+00:00"
+      },
+      "sha256": "7c369b1d042a0c8308dd1d5935ec7e328f71dfc76c2967df0fd5a23be87988d3",
+      "evidence_id": "ev_figure_c3bd34878ece"
+    },
+    {
+      "stable_id": "prob02_fig_reliability_summary_78cd97014b",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v003",
+      "kind": "reliability_summary",
+      "title": "prob02 可靠性判据汇总（实测 vs 预注册阈值；绿=通过 / 红=超阈；白点标记为实测值）",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_reliability_summary_78cd97014b.png",
+      "source_hash": "badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "x": "metric",
+      "y": [
+        "impact_percent"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1776,
+        "height": 987,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T19:31:00.718455+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1776×987、暗边框 0.0）+ 视觉复核：可接受带 [0,τ]+实测值条形+阈值黑标 bullet 图，六判据全部低于阈值（绿=通过）；Δt_inv_band/F 检验 B11 路由/多光束诊断说明置于子轴下方，无遮挡、无文本重叠",
+        "reviewed_at": "2026-08-29T19:34:22.722520+00:00"
+      },
+      "sha256": "3796cd918605804ceac2db7534243d518e951bf9a1a962c43a9b2ece416a50cc",
+      "evidence_id": "ev_figure_f8d6659bf219"
+    },
+    {
+      "stable_id": "prob02_fig_variable_projection_jcurve_7a9a903650",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v003",
+      "kind": "variable_projection_jcurve",
+      "title": "主反演目标函数 J(t) 与全局唯一性",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_variable_projection_jcurve_7a9a903650.png",
+      "source_hash": "badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "x": "t_um",
+      "y": [
+        "J"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1822,
+        "height": 1035,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T19:31:03.144566+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1822×1035、暗边框 0.0）+ 视觉复核：J(t) 全局唯一极小（J_min≈0.0032）+95% CI 带+次小候选（高 1.75×）+右侧对数局部深谷，唯一性证据清晰、图例无重叠",
+        "reviewed_at": "2026-08-29T19:34:22.820756+00:00"
+      },
+      "sha256": "7fd86a2b4854b006d6f86a5cdc46e35114ed899360b52eb78504d4b627771a08",
+      "evidence_id": "ev_figure_2a594948c032"
+    },
+    {
+      "stable_id": "prob02_fig_g_space_phase_gap_f500d9c0db",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v003",
+      "kind": "g_space_phase_gap",
+      "title": "相位频率（g 空间）测厚机制与 M2/M3 噪声周期对照",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_g_space_phase_gap_f500d9c0db.png",
+      "source_hash": "badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "x": "spacing_index",
+      "y": [
+        "delta_nu",
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1848,
+        "height": 960,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T19:31:05.615344+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1848×960、暗边框 0.0）+ 视觉复核：去基线干涉条纹与同型极大（Δν≈253 cm^-1）定位；由 Δg 反演 t≈7.1–7.6 µm（主方法）vs M2/M3 噪声周期 54–65 µm（错误）机制对照清楚，单位/图例完整",
+        "reviewed_at": "2026-08-29T19:34:22.946865+00:00"
+      },
+      "sha256": "f3d092e6c6e74b3c5c3f71b3028e0f3c3fd2e78bde42d8b7d52a02fa71f904b5",
+      "evidence_id": "ev_figure_ec5c566cade8"
+    },
+    {
+      "stable_id": "prob02_fig_nsub_decoupling_39b4128d09",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v003",
+      "kind": "nsub_decoupling",
+      "title": "n_sub 幅值弱可辨识性与 t-n_sub 解耦",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_nsub_decoupling_39b4128d09.png",
+      "source_hash": "badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "x": "theta_deg",
+      "y": [
+        "n_sub",
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 2057,
+        "height": 1072,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T19:31:06.788129+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（2057×1072、暗边框 0.0）+ 视觉复核：左侧由幅值 A=√(C²+S²)≈0.0039 弱辨识 n̂_sub≈2.588；右侧主方法 t 与 n_sub 解耦（0.0% 敏感度）vs 物理 NLS ±0.10 交叉校验（1.92% 诊断）；x 轴标签不重叠，底部说明完整",
+        "reviewed_at": "2026-08-29T19:34:23.059336+00:00"
+      },
+      "sha256": "00abefc1c0da510598df4a7bf1be380e0caaa04ec2bc97b1be60af059e7ba769",
+      "evidence_id": "ev_figure_fbf03315682d"
+    },
+    {
+      "stable_id": "prob02_fig_response_surface_cfe5827835",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v003",
+      "kind": "response_surface",
+      "title": "两光束干涉反射率随波数与入射角的三维响应面（配 2D 等高线）",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_response_surface_cfe5827835.png",
+      "source_hash": "badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "theta_deg",
+        "R"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1801,
+        "height": 1063,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T19:31:10.254399+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1801×1063、暗边框 0.0）+ 视觉复核：3D R(ν,θ) 视角可读（elev=28/azim=-62）无关键遮挡、第三维为真实入射角变量（语义有用），2D 等高线配套消歧，θ=10°/15° 测量线标注，静态 PNG 可读",
+        "reviewed_at": "2026-08-29T19:34:23.186857+00:00"
+      },
+      "sha256": "27618c633160f1a1bfb71dc66ba2d279d49b7330c425534c86dc9510f0a899ae",
+      "evidence_id": "ev_figure_aad41352929d"
+    },
+    {
+      "stable_id": "prob02_fig_methods_compare_99386076f5",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v003",
+      "kind": "methods_compare",
+      "title": "prob02 各方法厚度估计量级对照（对数轴；M1 主交付；M2/M3 对噪声周期失效）",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_methods_compare_99386076f5.png",
+      "source_hash": "badb4722566d65f1fc417374a1e6eb495222f185caf3f78106ce28c2ef4511bb",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_figures.py",
+      "x": "method",
+      "y": [
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1746,
+        "height": 1009,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T19:31:11.233240+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1746×1009、暗边框 0.0）+ 视觉复核：对数轴量级对照 M1（7.22）/M1-P1（6.82）/M1-P2（6.97）vs M2（58.01）/M3（60.26），每角范围竖线标注，底部方法债说明框完整，图例/单位无重叠",
+        "reviewed_at": "2026-08-29T19:34:23.304894+00:00"
+      },
+      "sha256": "06bb9efa7e1107878312b755112dddb12d59b9e1416f40495462cf7754668496",
+      "evidence_id": "ev_figure_d0a257b14967"
+    },
+    {
+      "stable_id": "prob02_fig_ablation_summary_dcd697b29e",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "kind": "ablation_summary",
+      "title": "prob02 ablation 判据汇总（F0 + A1–A4）",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_summary_dcd697b29e.png",
+      "source_hash": "6e0be69e586de124b851429f806736ae26bb5c4880f3d05528c5fae350dfaf60",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_ablation_figures.py",
+      "x": "experiment",
+      "y": [
+        "metric_percent"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 2870,
+        "height": 1319,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T20:21:45.498668+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（2870×1319 px、暗边框 0.0、非空白、无警告）+ 视觉复核：F0 + A1–A4 五组判据横向条形（A1/A2/A3 实测 Δt 均超过 τ=1% 阈值竖线、A4 ε12=0.165%≤τ=2%、F0 为 t_hat 参考），色彩编码正确（贡献确认绿 / 良性一致绿），数值与 summary.json 一致，无文本重叠、图例与单位完整。",
+        "reviewed_at": "2026-08-29T20:23:50.094550+00:00"
+      },
+      "sha256": "e6527add531d4ca474803523a97b829d36f9e18a3a68f127dc41d428b0fe1bfe",
+      "evidence_id": "ev_figure_dff80f606d45"
+    },
+    {
+      "stable_id": "prob02_fig_ablation_thickness_d29e3fc1f0",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "kind": "ablation_thickness",
+      "title": "prob02 ablation 厚度对照（F0 + A1–A4）",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_thickness_d29e3fc1f0.png",
+      "source_hash": "6e0be69e586de124b851429f806736ae26bb5c4880f3d05528c5fae350dfaf60",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_ablation_figures.py",
+      "x": "experiment",
+      "y": [
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 2256,
+        "height": 1037,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T20:21:46.111661+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（2256×1037 px、暗边框 0.0、非空白、无警告）+ 视觉复核：F0 完整模型（对照）与 A1–A4 各消融项厚度柱状，F0 参考线与 ±1% 参考带清晰，Δt%（8.44/5.55/5.44）与 ε12 标注可读，A4（0.087% 良性约束）与 A1–A3（贡献确认）语义区分明确，数值与 result.json 一致，无文本重叠。",
+        "reviewed_at": "2026-08-29T20:23:50.225059+00:00"
+      },
+      "sha256": "0bc384f4c70346be2eaa05e14b22f6716d45af30da3a4773649688c27c9adb0c",
+      "evidence_id": "ev_figure_9ff5e5c6749b"
+    },
+    {
+      "stable_id": "prob02_fig_ablation_shared_t_14e5362fa7",
+      "question_id": "prob02",
+      "assumption_version": "assumption_v001",
+      "kind": "ablation_shared_t",
+      "title": "A4 两角共享-t 对照：每角独立 t̂ 与共享 t̂ 一致",
+      "path": "problems/2025-cumcm-b/prob02/versions/assumption_v001/figures/prob02_fig_ablation_shared_t_14e5362fa7.png",
+      "source_hash": "6e0be69e586de124b851429f806736ae26bb5c4880f3d05528c5fae350dfaf60",
+      "script": "problems/2025-cumcm-b/prob02/versions/assumption_v001/code/make_ablation_figures.py",
+      "x": "config",
+      "y": [
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 2633,
+        "height": 1070,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-29T20:21:46.744359+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（2633×1070 px、暗边框 0.0、非空白、无警告）+ 视觉复核：共享 t_hat 与 θ=10°/15° 每角独立 t_hat 柱状，共享参考线清晰，ε12=0.165%≤2% 标注，纵轴尺度（±0.2%）合理，各单位/图例完整，无文本重叠；A4 良性一致约束语义清楚。",
+        "reviewed_at": "2026-08-29T20:23:50.353184+00:00"
+      },
+      "sha256": "ca4137a4fc27087139a1535f72f46ad4ac1345e84cc5e1dd686bc338b64bbda0",
+      "evidence_id": "ev_figure_47cfd6efa8cb"
+    },
+    {
+      "stable_id": "prob03_fig_reflectance_spectrum_41a3800f70",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "reflectance_spectrum",
+      "title": "附件 3/4 硅晶圆片实测反射率谱（两入射角，无 R%>100 异常点）",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reflectance_spectrum_41a3800f70.png",
+      "source_hash": "4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "R"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1560,
+        "height": 992,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T12:18:37.741390+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1560×992 px、暗边框 0.0、非空白）+ 视觉复核：附件 3/4 实测谱清晰，多声子带[400,1600]与主反演带[2000,4000]阴影标注，硅附件无 R%>100 异常点；图例无遮挡、单位完整。",
+        "reviewed_at": "2026-08-30T13:16:21.594202+00:00"
+      },
+      "sha256": "a68181cf20060e7c3dc28c44de28ee5e9ccd5a7e2bfa024ba80d42bf35d1150b",
+      "evidence_id": "ev_figure_5c5051a759c9"
+    },
+    {
+      "stable_id": "prob03_fig_model_fit_3e94d2fac7",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "model_fit",
+      "title": "两入射角实测谱与两光束物理正模型 (2.8) 拟合对比",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_model_fit_3e94d2fac7.png",
+      "source_hash": "4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "R_obs",
+        "R_model"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1780,
+        "height": 1100,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T12:18:38.307477+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1780×1100 px、暗边框 0.0、非空白）+ 视觉复核：θ=10°/15° 双面板实测 R_obs 与两光束物理正模型 (2.8) 叠加，残差 RMSE（2.944e-02/2.103e-02）注解框注明；标题/图例/单位一致。",
+        "reviewed_at": "2026-08-30T13:16:21.687533+00:00"
+      },
+      "sha256": "18217a92cd5678b1249ee1a94c7d4ffc5779be9ca8ef12701a40fea42536ccc1",
+      "evidence_id": "ev_figure_8c09648b5b0d"
+    },
+    {
+      "stable_id": "prob03_fig_thickness_estimate_59f1546ed7",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "thickness_estimate",
+      "title": "prob03 硅外延层厚度结果（formulation_v002，两角共享 t_hat = 3.4477 µm）",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_thickness_estimate_59f1546ed7.png",
+      "source_hash": "4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "x": null,
+      "y": [
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1538,
+        "height": 956,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T12:18:38.676694+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1538×956 px、暗边框 0.0、非空白）+ 视觉复核：共享 t̂=3.4477 µm 与每角（3.4507/3.4463 µm）柱状 + 95% CI 误差棒（±0.0046 µm），ε12=0.130%≤τ12=2%、F=0/p=1.0 说明框完整；单位/图例完整。",
+        "reviewed_at": "2026-08-30T13:16:21.788157+00:00"
+      },
+      "sha256": "7e161f93b100c03348fd871daf3d3a10f474682e050a464fd2b43ca00565d90b",
+      "evidence_id": "ev_figure_dfeacc75d39b"
+    },
+    {
+      "stable_id": "prob03_fig_dispersion_curve_aac3dcebea",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "dispersion_curve",
+      "title": "硅外延层折射率色散模型 n(ν)：带内取 N-SE（Sellmeier），色散弱（Δn/n≈0.51%）",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_dispersion_curve_aac3dcebea.png",
+      "source_hash": "4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "n"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1566,
+        "height": 1068,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T12:18:39.161020+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1566×1068 px、暗边框 0.0、非空白）+ 视觉复核：带内 N-SE（Sellmeier）实线、N-const 点线区分明确，y 轴覆盖全线，多声子带/主反演带阴影，顶轴 λ[µm] 换算正确；图例无重叠。",
+        "reviewed_at": "2026-08-30T13:16:21.881917+00:00"
+      },
+      "sha256": "85c8c1c5bf7b5e6fbcfcfb627bfced686f386d50679e896005f23b74b4055ad9",
+      "evidence_id": "ev_figure_7dcc8d1ec952"
+    },
+    {
+      "stable_id": "prob03_fig_reliability_summary_50b4f34a17",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "reliability_summary",
+      "title": "prob03 可靠性判据汇总（实测 vs 预注册阈值；绿=通过 / 红=超阈；白点标记为实测值）",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_reliability_summary_50b4f34a17.png",
+      "source_hash": "4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "x": "metric",
+      "y": [
+        "impact_percent"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1783,
+        "height": 987,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T12:18:39.871732+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1783×987 px、暗边框 0.0、非空白）+ 视觉复核：可接受带 [0,τ]+实测条形+阈值黑标 bullet 图，五判据全部低于阈值（绿=通过）；F 检验 B11 路由、η_mb 两光束适用、轮廓似然 CI 与 n̂_sub 弱可辨识说明置子轴下方无遮挡。",
+        "reviewed_at": "2026-08-30T13:16:21.975594+00:00"
+      },
+      "sha256": "69b7c6f0ba6edf16f2533fb058f9068536a6b53755bc379ecd5adb06493311f8",
+      "evidence_id": "ev_figure_3dff305300aa"
+    },
+    {
+      "stable_id": "prob03_fig_variable_projection_jcurve_4b30b360a4",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "variable_projection_jcurve",
+      "title": "主反演目标函数 J(t) 与全局唯一性",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_variable_projection_jcurve_4b30b360a4.png",
+      "source_hash": "4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "x": "t_um",
+      "y": [
+        "J"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1780,
+        "height": 1035,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T12:18:41.186154+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1780×1035 px、暗边框 0.0、非空白）+ 视觉复核：t̂=3.4477 µm 全局唯一极小（J_min=0.0608）+ 95% CI 带 + 次小候选（t≈3.70，J 高约 1.020×，报告项）清晰；右侧对数局部深谷直观。",
+        "reviewed_at": "2026-08-30T13:16:22.079269+00:00"
+      },
+      "sha256": "b62d6a08a3e48c3b016bbe93c79c08eba4ed79df4cd651a1bfd361e3e1d14f98",
+      "evidence_id": "ev_figure_6a4fab81710a"
+    },
+    {
+      "stable_id": "prob03_fig_mb_conditions_9571a5012b",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "mb_conditions",
+      "title": "多光束干涉必要条件 N1–N4 与硅片判定",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_mb_conditions_9571a5012b.png",
+      "source_hash": "4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "x": "condition",
+      "y": [
+        "Rbar",
+        "finesse"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 3384,
+        "height": 1072,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T12:18:42.332052+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（3384×1072 px、暗边框 0.0、非空白）+ 视觉复核：左侧 Rbar（0.0101）与 F（0.3186）相对 θ_mb=0.05 阈值条形；右侧 N1–N4+η_mb 通过表清晰，无文本重叠；底部判定说明完整。",
+        "reviewed_at": "2026-08-30T13:16:22.184720+00:00"
+      },
+      "sha256": "c355a99babe9e283c717c50b12df134b8b36738266b84a83c59c8d323753dc32",
+      "evidence_id": "ev_figure_a64ba1b677b8"
+    },
+    {
+      "stable_id": "prob03_fig_sic_multibeam_recheck_4cbb136f9c",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "sic_multibeam_recheck",
+      "title": "多光束显著性跨材料对照：硅/SiC 均 Rbar<<θ_mb → 无显著多光束、无需修正（Q3）",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_sic_multibeam_recheck_4cbb136f9c.png",
+      "source_hash": "4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "x": "material",
+      "y": [
+        "Rbar"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1749,
+        "height": 1009,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T12:18:43.257400+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1749×1009 px、暗边框 0.0、非空白）+ 视觉复核：对数轴柱状对比硅（0.01008）/SiC（0.00240）/SiC 对照 prob02（0.00247），远低于 θ_mb=0.05 红线；图例置右上、说明框无重叠；SiC 无需修正。",
+        "reviewed_at": "2026-08-30T13:16:22.292603+00:00"
+      },
+      "sha256": "b7319253636faced2aa200678cf6279b25f02fecdea731ebb35d89088b458cf3",
+      "evidence_id": "ev_figure_592e5e151a31"
+    },
+    {
+      "stable_id": "prob03_fig_response_surface_06cfec9b1e",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "response_surface",
+      "title": "两光束干涉反射率随波数与入射角的三维响应面（配 2D 等高线）",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_response_surface_06cfec9b1e.png",
+      "source_hash": "4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "x": "nu_cm1",
+      "y": [
+        "theta_deg",
+        "R"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1796,
+        "height": 1063,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T12:18:45.716843+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1796×1063 px、暗边框 0.0、非空白）+ 视觉复核：视角 elev=28°/azim=-62° 无遮挡、深度可辨，第三维为真实入射角变量；2D 等高线配套消歧，θ=10°/15° 测量线标注；静态 PNG 可读。",
+        "reviewed_at": "2026-08-30T13:16:22.397847+00:00"
+      },
+      "sha256": "91991b092de949034034836b899712a4e05472fbaa2788fc78109bc5a8b50ee3",
+      "evidence_id": "ev_figure_a9d9c329d54e"
+    },
+    {
+      "stable_id": "prob03_fig_phase_freq_gspace_a936624612",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "phase_freq_gspace",
+      "title": "相位频率（g 空间）测厚机制与条纹计数",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_phase_freq_gspace_a936624612.png",
+      "source_hash": "4b57e7427bf598b034150c57033d5bb9b3d5fb355e6e4fd8e017716da3a629cb",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_figures.py",
+      "x": "spacing_index",
+      "y": [
+        "delta_nu",
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 1562,
+        "height": 1058,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T12:18:47.562571+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（1562×1058 px、暗边框 0.0、非空白）+ 视觉复核：左面板用两光束物理正模型 (2.8) 去基线定位同型极大（n=5，Δν≈419 cm^-1）；右面板由 Δg 反演 t 均≈3.45 µm（与 t̂=3.4477 一致），标注倍周期假极小 6.9 µm（v001 伪影，已排除）；机制清楚、单位/图例完整。",
+        "reviewed_at": "2026-08-30T13:16:22.504999+00:00"
+      },
+      "sha256": "74638d65bd53b55028729cb7cabda64da429e1784dc14758802a861ca97bb6b3",
+      "evidence_id": "ev_figure_9a913a61baae"
+    },
+    {
+      "stable_id": "prob03_fig_ablation_summary_9f93c3dd2d",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "ablation_summary",
+      "title": "prob03 ablation 判据汇总（F0 + A1–A4）",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_summary_9f93c3dd2d.png",
+      "source_hash": "137f29dd381d27128e4566956f6dbc9000ce19232e2344fd5d2a08dca2d4452b",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_ablation_figures.py",
+      "x": "experiment",
+      "y": [
+        "metric_percent"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 3754,
+        "height": 1220,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T13:12:59.496260+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（非空白、暗边框 0.0、≥800×480）+ 视觉复核：A1–A4 实测 Δt% 全部低于预注册阈值（A1 0.446%≤2%、A2 0.300%≤1%、A3 0.574%≤2%、A4 0.089%≤2%），log 轴与阈值黑标清晰，数值与 summary.json/result.json 一致，无文本重叠、单位完整。",
+        "reviewed_at": "2026-08-30T13:16:22.605693+00:00"
+      },
+      "sha256": "edeff286deaf3d079db429e818a86ce7de3ae4cdf6fe680dc8b57eb7297a5029",
+      "evidence_id": "ev_figure_e1af76ad2a74"
+    },
+    {
+      "stable_id": "prob03_fig_ablation_t_consistency_ec44908369",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "ablation_t_consistency",
+      "title": "prob03 ablation 厚度对照（F0 + A1–A4）",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_t_consistency_ec44908369.png",
+      "source_hash": "137f29dd381d27128e4566956f6dbc9000ce19232e2344fd5d2a08dca2d4452b",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_ablation_figures.py",
+      "x": "experiment",
+      "y": [
+        "t_um"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 2776,
+        "height": 1070,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T13:12:59.979810+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（非空白、暗边框 0.0、≥800×480）+ 视觉复核：F0 + A1–A4 厚度柱状均落在 F0 ±1% 参考带内（A4 含每角独立 t̂），F0 参考线、±1% 带与数值标注清晰，与 result.json 一致；图例/单位完整。",
+        "reviewed_at": "2026-08-30T13:16:22.715722+00:00"
+      },
+      "sha256": "13bd7feebe9666ecfb91a6c68dbd346b919dee39e8236a8d3c745fcac692c8aa",
+      "evidence_id": "ev_figure_bce0cdb5c3cb"
+    },
+    {
+      "stable_id": "prob03_fig_ablation_rmse_ce4b523efa",
+      "question_id": "prob03",
+      "assumption_version": "assumption_v001",
+      "formulation_version": "formulation_v002",
+      "kind": "ablation_rmse",
+      "title": "prob03 ablation 拟合优度对照（加权 RMSE）",
+      "path": "problems/2025-cumcm-b/prob03/versions/assumption_v001/figures/prob03_fig_ablation_rmse_ce4b523efa.png",
+      "source_hash": "137f29dd381d27128e4566956f6dbc9000ce19232e2344fd5d2a08dca2d4452b",
+      "script": "problems/2025-cumcm-b/prob03/versions/assumption_v001/code/make_ablation_figures.py",
+      "x": "experiment",
+      "y": [
+        "weighted_rmse"
+      ],
+      "included_in_summary": true,
+      "quality_status": "passed",
+      "quality": {
+        "width": 2500,
+        "height": 1070,
+        "dark_border_ratio": 0.0,
+        "warnings": []
+      },
+      "created_at": "2026-08-30T13:13:00.438686+00:00",
+      "visual_review": {
+        "status": "passed",
+        "reason": "自动质检 passed（非空白、暗边框 0.0、≥800×480）+ 视觉复核：加权 RMSE 对照显示基线 p=0 上升（+9.5%）、Airy 高阶下降（−5.0%），F0 参考线与数值标注清晰，与 result.json 一致；无文本重叠。",
+        "reviewed_at": "2026-08-30T13:16:22.828972+00:00"
+      },
+      "sha256": "4e9d9299196f1d94b516f686609560246d868b1964873927b64adc82f02cab47",
+      "evidence_id": "ev_figure_e962f369961c"
+    }
+  ],
+  "citations": [
+    {
+      "citation_id": "L01",
+      "question_id": "prob01",
+      "title": "Thickness Measurement of Epitaxial Films by the Infrared Interference Method",
+      "authors": [
+        "Albert",
+        "M. P.",
+        "Combs",
+        "J. F."
+      ],
+      "year": 1962,
+      "source": "Journal of The Electrochemical Society",
+      "venue_detail": "109(8): 709-713",
+      "doi": "10.1149/1.2425534",
+      "url": "https://doi.org/10.1149/1.2425534",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "外延层厚度可由红外反射干涉条纹（两光束干涉）测定，是半导体外延层测厚的经典方法",
+        "干涉条纹间距（同型相邻极值波数间隔）与厚度、折射率、折射角相关，可用于厚度反演"
+      ],
+      "original_location": "论文题名/摘要级核验；JES 正文未获取全文，具体公式值需在 formulation 阶段对照原文或教科书复核",
+      "applicability_notes": "经典两光束干涉测厚方法，与本题图 1 设定（外延层-衬底单次反射/透射）一致；原文按常数折射率处理，本问需升级为色散折射率",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_2ae3503f0f08"
+    },
+    {
+      "citation_id": "L02",
+      "question_id": "prob01",
+      "title": "The Infrared Interference Method of Measuring Epitaxial Layer Thickness",
+      "authors": [
+        "Schumann",
+        "P. A."
+      ],
+      "year": 1969,
+      "source": "Journal of The Electrochemical Society",
+      "venue_detail": "116(3): 409-415",
+      "doi": "10.1149/1.2411860",
+      "url": "https://doi.org/10.1149/1.2411860",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "红外干涉法测量外延层厚度的系统性方法论述（含反射率-波数关系与极值分析）"
+      ],
+      "original_location": "题名/摘要级核验；正文未获取全文",
+      "applicability_notes": "与 L01 同为经典方法文献，交叉佐证两光束干涉测厚的公式结构；正文细节待复核",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_a29607e45523"
+    },
+    {
+      "citation_id": "L03",
+      "question_id": "prob01",
+      "title": "ASTM F95-89(2000): Standard Test Method for Thickness of Lightly Doped Silicon Epitaxial Layers on Heavily Doped Silicon Substrates Using an Infrared Dispersive Spectrophotometer",
+      "authors": [
+        "ASTM International"
+      ],
+      "year": 2000,
+      "source": "ASTM International（标准组织正式文件）",
+      "venue_detail": "ASTM F95-89(2000)",
+      "doi": null,
+      "url": "https://www.antpedia.com/standard/1062503967-11.html",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "轻掺杂硅外延层在重掺杂硅衬底上的厚度可用红外反射（色散型分光光度计）标准化测定",
+        "红外反射测厚已被标准化，说明\"外延层-衬底折射率差异产生干涉\"的物理前提成立"
+      ],
+      "original_location": "标准名称/代号经两家独立标准库（normadoc、antpedia）交叉核验；标准正文未获取",
+      "applicability_notes": "针对硅外延层（轻掺杂/重掺杂衬底）场景，与 prob03 硅片结构最贴近；prob01/02 的 SiC 场景需借用其公式结构并更换材料参数",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_a2ee149ac6c3"
+    },
+    {
+      "citation_id": "L04",
+      "question_id": "prob01",
+      "title": "SEMI MF95 (SEMI MF009500): Test Method for Thickness of Lightly Doped Silicon Epitaxial Layers on Heavily Doped Silicon Substrates Using an Infrared Dispersive Spectrophotometer",
+      "authors": [
+        "SEMI"
+      ],
+      "year": 2013,
+      "source": "SEMI International Standards",
+      "venue_detail": "MF009500 (MF95)",
+      "doi": null,
+      "url": "https://store-dev2.semi.org/ko-kr/products/mf009500-semi-mf95-test-method-for-thickness-of-lightly-doped-silicon-epitaxial-layers-on-heavily-doped-silicon-substrates-using-an-infrared-dispersive-spectrophotometer",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "硅外延层厚度的红外反射标准化测试方法（SEMI 版，与 ASTM F95 同源）"
+      ],
+      "original_location": "SEMI 官方商店页核验标准名称与范围；正文未获取",
+      "applicability_notes": "与 L03 同源，作为标准方法的最新 SEMI 版本引用；同样主要面向硅",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_6fdc2a83467e"
+    },
+    {
+      "citation_id": "L05",
+      "question_id": "prob01",
+      "title": "Thickness Measurement of Thin (1.0-µm) Epitaxial Silicon Layers by Infrared Reflectance",
+      "authors": [
+        "Weeks",
+        "S. P."
+      ],
+      "year": 1983,
+      "source": "Silicon Processing (ASTM STP 804)",
+      "venue_detail": "pp. 477-491",
+      "doi": "10.1520/stp36186s",
+      "url": "https://doi.org/10.1520/stp36186s",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "红外反射法可测量薄至 1.0 µm 量级的外延硅层厚度（方法可行性）"
+      ],
+      "original_location": "Crossref 元数据核验；正文未获取",
+      "applicability_notes": "佐证红外反射法对微米量级外延层（本题厚度量级）的适用性；薄层时条纹数少，需更精细的极值定位",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_5e182639cb36"
+    },
+    {
+      "citation_id": "L06",
+      "question_id": "prob01",
+      "title": "Principles of Optics: Electromagnetic Theory of Propagation, Interference and Diffraction of Light (7th ed.)",
+      "authors": [
+        "Born",
+        "M.",
+        "Wolf",
+        "E."
+      ],
+      "year": 1999,
+      "source": "Cambridge University Press（权威教材）",
+      "venue_detail": "ISBN 978-0-521-64222-4",
+      "doi": null,
+      "url": "https://franklin.library.upenn.edu/catalog/FRANKLIN_9926551463503681",
+      "authority_tier": "B",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "薄膜干涉、Fresnel 反射系数、两光束与多光束（Airy）干涉公式的权威出处",
+        "相位跃变（半波损失）对干涉条件的处理"
+      ],
+      "original_location": "馆藏目录核验版本/出版信息；作为教科书引用，公式以标准内容为准",
+      "applicability_notes": "为 prob01 两光束模型与 prob03 多光束（Airy）公式提供理论基准",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_a9ae72a47073"
+    },
+    {
+      "citation_id": "L07",
+      "question_id": "prob01",
+      "title": "Optics (5th ed., Global Edition)",
+      "authors": [
+        "Hecht",
+        "E."
+      ],
+      "year": 2017,
+      "source": "Pearson（权威教材）",
+      "venue_detail": "ISBN 978-1-292-09693-3",
+      "doi": null,
+      "url": "https://discover.libraryhub.jisc.ac.uk/search?q=9781292096933",
+      "authority_tier": "B",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "薄膜干涉极值条件与反射相位跃变（半波损失）的教材级处理",
+        "两光束干涉光强 I = I1 + I2 + 2√(I1 I2) cos δ 的形式"
+      ],
+      "original_location": "ISBN/版本经图书馆联合目录核验；作为教科书引用",
+      "applicability_notes": "供 formulation 阶段引用相位跃变与干涉极值类型的判定（峰/谷对应关系）",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_9581589acb3a"
+    },
+    {
+      "citation_id": "L08",
+      "question_id": "prob01",
+      "title": "Refractive Index, Dispersion, and Birefringence of Silicon Carbide Polytypes",
+      "authors": [
+        "Shaffer",
+        "P. T. B."
+      ],
+      "year": 1971,
+      "source": "Applied Optics",
+      "venue_detail": "10(5): 1034-1036",
+      "doi": "10.1364/AO.10.001034",
+      "url": "https://doi.org/10.1364/AO.10.001034",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "SiC 多型体（6H/β 等）折射率、色散与双折射的经典测量数据（Sellmeier 色散形式）"
+      ],
+      "original_location": "Crossref/PubMed 元数据核验（DOI 10.1364/AO.10.001034，PubMed 20094599）；具体系数值未在正文核验",
+      "applicability_notes": "覆盖 6H/β-SiC（可见-近红外为主）；4H-SiC 色散以 L09 为准，本条目作为色散形式与历史数据参考",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_a2434f83ed06"
+    },
+    {
+      "citation_id": "L09",
+      "question_id": "prob01",
+      "title": "4H-SiC: a new nonlinear material for midinfrared lasers",
+      "authors": [
+        "Wang",
+        "S.",
+        "Zhan",
+        "M.",
+        "Wang",
+        "G.",
+        "Xuan",
+        "H.",
+        "Zhang",
+        "W.",
+        "Liu",
+        "C.",
+        "Xu",
+        "C.",
+        "Liu",
+        "Y.",
+        "Wei",
+        "Z.",
+        "Chen",
+        "X."
+      ],
+      "year": 2013,
+      "source": "Laser & Photonics Reviews",
+      "venue_detail": "7(5): 831-838",
+      "doi": "10.1002/lpor.201300068",
+      "url": "https://doi.org/10.1002/lpor.201300068",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "4H-SiC 折射率色散 Sellmeier 公式（e 光 0.405–2.325 µm）：n² = 6.79485 + 0.15558/(λ² − 0.03535) − 0.02296λ²",
+        "4H-SiC 在中红外 0.405–5 µm（o 光）范围内折射率测量数据"
+      ],
+      "original_location": "Crossref 元数据核验；Sellmeier 公式及适用谱段经 RefractiveIndex.INFO（L11）数据页交叉核验",
+      "applicability_notes": "题目谱段 2.5–25 µm 仅部分覆盖（λ ≤ 5 µm）；λ > 5 µm 的色散数据有限，reststrahlen 区需 L16/L24 与数据反演补充",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_5a4306cc233b"
+    },
+    {
+      "citation_id": "L10",
+      "question_id": "prob01",
+      "title": "Temperature dependence of refractive indices for 4H- and 6H-SiC",
+      "authors": [
+        "Xu",
+        "C.",
+        "Wang",
+        "S.",
+        "Wang",
+        "G.",
+        "Liang",
+        "J.",
+        "Wang",
+        "S.",
+        "Bai",
+        "L.",
+        "Yang",
+        "J.",
+        "Chen",
+        "X."
+      ],
+      "year": 2014,
+      "source": "Journal of Applied Physics",
+      "venue_detail": "115(11): 113510",
+      "doi": "10.1063/1.4868576",
+      "url": "https://doi.org/10.1063/1.4868576",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "4H/6H-SiC 折射率随温度变化（温度导数）"
+      ],
+      "original_location": "Crossref 元数据核验；数值细节未在正文核验",
+      "applicability_notes": "若假设测量在室温附近且温度已知，折射率温度修正量小；温度不确定度可作为 prob02 可靠性分析的一个小项",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_e18e63ada087"
+    },
+    {
+      "citation_id": "L11",
+      "question_id": "prob01",
+      "title": "Refractiveindex.info database of optical constants",
+      "authors": [
+        "Polyanskiy",
+        "M. N."
+      ],
+      "year": 2024,
+      "source": "Scientific Data",
+      "venue_detail": "11: 94",
+      "doi": "10.1038/s41597-023-02898-2",
+      "url": "https://doi.org/10.1038/s41597-023-02898-2",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "光学常数数据库（聚合 SiC/Si 等材料的 n(λ)/k(λ) 数据与原始文献索引），用作参数查询与交叉核验入口"
+      ],
+      "original_location": "期刊论文（Sci. Data）核验；数据库页面 https://refractiveindex.info 提供可追溯原始文献",
+      "applicability_notes": "数据入口（门户性质），具体数值使用时必须回溯源文献（如 L09/L24）并核对适用谱段",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_a7221ee00985"
+    },
+    {
+      "citation_id": "L12",
+      "question_id": "prob01",
+      "title": "Refractive index of silicon and germanium and its wavelength and temperature derivatives",
+      "authors": [
+        "Li",
+        "H. H."
+      ],
+      "year": 1980,
+      "source": "Journal of Physical and Chemical Reference Data",
+      "venue_detail": "9(3): 561-658",
+      "doi": "10.1063/1.555624",
+      "url": "https://doi.org/10.1063/1.555624",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "硅/锗折射率色散及温度导数的权威数据（中红外 n_Si ≈ 3.42–3.44 量级，具体取值由原文表给出）"
+      ],
+      "original_location": "Crossref 元数据核验（题名/作者/卷期页匹配）；表中数值需在假设阶段从原文取值",
+      "applicability_notes": "供 prob03 硅片模型使用（衬底与外延硅折射率基线）；色散弱，可近似常数或使用其色散数据",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_7eeee7be6e72"
+    },
+    {
+      "citation_id": "L13",
+      "question_id": "prob01",
+      "title": "Handbook of Optical Constants of Solids (Vol. 1-3)",
+      "authors": [
+        "Palik",
+        "E. D. (ed.)"
+      ],
+      "year": 1998,
+      "source": "Academic Press（权威手册）",
+      "venue_detail": "ISBN 978-0-08-054721-3",
+      "doi": null,
+      "url": "https://shop.elsevier.com/books/handbook-of-optical-constants-of-solids/palik/978-0-08-054721-3",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "硅、SiC 等多种材料红外光学常数（n, k）的权威汇编"
+      ],
+      "original_location": "出版方页面核验；具体章节数值需按卷/章节引用",
+      "applicability_notes": "与 L12 互为补充：L12 给出色散公式，本手册给出直接数据表",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_570c013b16e7"
+    },
+    {
+      "citation_id": "L14",
+      "question_id": "prob01",
+      "title": "Infrared Absorption in n-Type Silicon",
+      "authors": [
+        "Spitzer",
+        "W.",
+        "Fan",
+        "H. Y."
+      ],
+      "year": 1957,
+      "source": "Physical Review",
+      "venue_detail": "108(2): 268-271",
+      "doi": "10.1103/PhysRev.108.268",
+      "url": "https://doi.org/10.1103/PhysRev.108.268",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "掺杂（自由载流子）显著改变硅的红外光学性质（吸收/反射），是 Drude 类自由载流子机制的实验基础"
+      ],
+      "original_location": "Crossref 元数据核验；经典文献，机制结论为领域常识",
+      "applicability_notes": "支撑题面\"外延层折射率随掺杂浓度变化\"的物理事实（文献事实层面），定量依赖关系需在假设阶段建模或数据反演",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_09aa3078e7a0"
+    },
+    {
+      "citation_id": "L15",
+      "question_id": "prob01",
+      "title": "From Transport Measurements to Infrared Reflectance Spectra of n-Type Doped 4H-SiC Layer Stacks",
+      "authors": [
+        "Pernot",
+        "J.",
+        "Camassel",
+        "J.",
+        "Peyre",
+        "H.",
+        "Robert",
+        "J.-L."
+      ],
+      "year": 2003,
+      "source": "Materials Science Forum",
+      "venue_detail": "433-436: 403-406",
+      "doi": "10.4028/www.scientific.net/msf.433-436.403",
+      "url": "https://doi.org/10.4028/www.scientific.net/msf.433-436.403",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "n 型掺杂 4H-SiC 层叠结构的红外反射谱与自由载流子（等离子体）效应直接相关"
+      ],
+      "original_location": "Crossref 元数据核验（ICSCRM 同行评审会议论文集）；正文细节未核验",
+      "applicability_notes": "支撑衬底/外延层因掺杂浓度差异导致红外折射率差异（prob02 衬底折射率取值的关键依据）；重掺衬底在红外出现等离子体反射边",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_38e1aac5327e"
+    },
+    {
+      "citation_id": "L16",
+      "question_id": "prob01",
+      "title": "Temperature dependence of the anisotropy of the infrared dielectric properties and phonon-plasmon coupling in n-doped 4H-SiC",
+      "authors": [
+        "Chahal",
+        "J. S.",
+        "Rahbany",
+        "N.",
+        "El-Helou",
+        "Y.",
+        "Wu",
+        "K.-T.",
+        "Bruyant",
+        "A.",
+        "Zgheib",
+        "C.",
+        "Kazan",
+        "M."
+      ],
+      "year": 2023,
+      "source": "Journal of Physics and Chemistry of Solids",
+      "venue_detail": "182: 111861",
+      "doi": "10.1016/j.jpcs.2023.111861",
+      "url": "https://doi.org/10.1016/j.jpcs.2023.111861",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "n 掺杂 4H-SiC 的红外介电性质各向异性与声子-等离子体耦合（Reststrahlen 区 700–1000 cm⁻¹ 附近强色散/吸收行为的依据）"
+      ],
+      "original_location": "OpenAlex/出版方核验（DOI 10.1016/j.jpcs.2023.111861）；正文细节未核验",
+      "applicability_notes": "题目谱段含 Reststrahlen 区，该区折射率/吸收强烈变化，两光束模型的\"无吸收\"简化在近 Reststrahlen 区需谨慎并说明边界",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_72f230667796"
+    },
+    {
+      "citation_id": "L17",
+      "question_id": "prob01",
+      "title": "基于色散修正与全谱拟合的红外干涉测厚模型研究",
+      "authors": [
+        "王晨茜",
+        "孙嘉妍",
+        "陈怡佳",
+        "杜睿"
+      ],
+      "year": 2026,
+      "source": "数学建模及其应用（Mathematical Modeling and Its Applications）",
+      "venue_detail": "2026 年 01 期",
+      "doi": null,
+      "url": "https://d.wanfangdata.com.cn/periodical/sxjmjyqyy202601012",
+      "authority_tier": "C",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "与本题同题的已发表建模解法：基于 Snell 定律推导两光束干涉几何光程差，结合 Sellmeier 色散与 Fresnel 公式处理 s/p 偏振，建立反射率-波数关系与厚度反演模型",
+        "以波峰波谷间隔获取参数初值，经非线性最小二乘拟合优化（色散参数稳定性得到验证）",
+        "结论线索：多光束干涉仅改变谱线峰形与对比度、不改变极值位置（该结论需在 prob03 独立验证）"
+      ],
+      "original_location": "CNKI 全文页核验（题名/作者/机构/摘要一致）；作者单位东南大学",
+      "applicability_notes": "与本问 F1/F2/F4 假设族高度一致，是最贴近题面的方法级证据（C 级期刊，非 Crossref 收录）；其\"多光束不改变极值位置\"结论为候选主张，不得直接当作 prob03 结论",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_a1be69796bc6"
+    },
+    {
+      "citation_id": "L23",
+      "question_id": "prob01",
+      "title": "Determination of Refractive Index and Film Thickness from Interference Fringes",
+      "authors": [
+        "Harrick",
+        "N. J."
+      ],
+      "year": 1971,
+      "source": "Applied Optics",
+      "venue_detail": "10(10): 2344-2349",
+      "doi": "10.1364/AO.10.002344",
+      "url": "https://doi.org/10.1364/AO.10.002344",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "由干涉条纹同时确定薄膜折射率与厚度的方法（包络法/条纹间距法的基础）"
+      ],
+      "original_location": "Crossref 元数据核验；正文未核验",
+      "applicability_notes": "支撑 F4\"峰谷间隔 + 包络反演\"思路（prob02 需要）：折射率与厚度可从条纹包络与间距联合反演",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_2a29cd297e69"
+    },
+    {
+      "citation_id": "L24",
+      "question_id": "prob01",
+      "title": "Self-consistent optical constants of SiC thin films",
+      "authors": [
+        "Larruquert",
+        "J. I.",
+        "Pérez-Marín",
+        "A. P.",
+        "García-Cortés",
+        "S.",
+        "Rodríguez-de Marcos",
+        "L.",
+        "Aznárez",
+        "J. A.",
+        "Méndez",
+        "J. A."
+      ],
+      "year": 2011,
+      "source": "Journal of the Optical Society of America A",
+      "venue_detail": "28(11): 2340-2345",
+      "doi": "10.1364/JOSAA.28.002340",
+      "url": "https://opg.optica.org/josaa/abstract.cfm?URI=josaa-28-11-2340",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "SiC 薄膜在 0.006–131.7 µm 全波段的自洽光学常数（n, k），覆盖题目 2.5–25 µm 谱段（含 reststrahlen 区）"
+      ],
+      "original_location": "OSA 出版方页与 CSIC 机构库核验（题名/作者/卷期页一致）；DOI 为 Optica 标准编号，可经出版方页解析",
+      "applicability_notes": "薄膜而非体单晶数据，与真实外延层/衬底的体材料折射率存在差异；作为全谱段色散参考与数据反演初值，不能直接替代体材料参数",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_eebece1128e7"
+    },
+    {
+      "citation_id": "L25",
+      "question_id": "prob02",
+      "title": "Dispersion Compensation and Multi-Beam Interference Correction Algorithm for Thickness Measurement of SiC Epitaxial Layer",
+      "authors": [
+        "Liu",
+        "Lu",
+        "Shi",
+        "Weiwei",
+        "Xu",
+        "Shibo",
+        "Wang",
+        "Xiaofan"
+      ],
+      "year": 2026,
+      "source": "Sensors",
+      "venue_detail": "26(10): 2965",
+      "doi": "10.3390/s26102965",
+      "url": "https://doi.org/10.3390/s26102965",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "提出\"色散补偿 + 多光束干涉修正\"相结合的 SiC 外延层厚度测量算法，直接对口 prob02 的色散修正与多光束消除需求"
+      ],
+      "original_location": "Crossref 元数据核验（作者/年份/卷期页）；正文未逐点核验，公式值需在 formula 阶段对照原文",
+      "applicability_notes": "与 prob02 的色散化反演方向及\"消除多光束影响\"要求高度一致；A 级开放获取期刊",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_25d613058688"
+    },
+    {
+      "citation_id": "L26",
+      "question_id": "prob02",
+      "title": "Optical properties of 4H-SiC and 6H-SiC from infrared to vacuum ultraviolet spectral range ellipsometry (0.05–8.5 eV)",
+      "authors": [
+        "Mainali",
+        "Madan K.",
+        "Dulal",
+        "Prabin",
+        "Shrestha",
+        "Bishal",
+        "Amonette",
+        "Emily",
+        "Shan",
+        "Ambalanath",
+        "Podraza",
+        "Nikolas J."
+      ],
+      "year": 2024,
+      "source": "Surface Science Spectra",
+      "venue_detail": "31(2): 026003",
+      "doi": "10.1116/6.0003676",
+      "url": "https://doi.org/10.1116/6.0003676",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "4H/6H-SiC 在 0.05–8.5 eV（约 0.146–24.8 µm）的 n/k 光学常数，覆盖题目 2.5–25 µm 谱段（含 λ>5 µm 与 reststrahlen 区）"
+      ],
+      "original_location": "Crossref 元数据核验（作者/年份/卷期）；正文 n/k 数据表需在 assumption/formula 阶段对照原文取数",
+      "applicability_notes": "椭偏测量，与体单晶有差异；作为 λ>5 µm 色散延伸与 n(λ) 数据反演初值，具体 n(λ) 由 prob02 反演确定",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_ebbaa58d2186"
+    },
+    {
+      "citation_id": "L27",
+      "question_id": "prob02",
+      "title": "Infrared to vacuum ultraviolet optical properties of 3C, 4H and 6H silicon carbide measured by spectroscopic ellipsometry",
+      "authors": [
+        "Lindquist",
+        "O. P. A.",
+        "Schubert",
+        "M.",
+        "Arwin",
+        "H.",
+        "Järrendahl",
+        "K."
+      ],
+      "year": 2004,
+      "source": "Thin Solid Films",
+      "venue_detail": "455-456: 235-238",
+      "doi": "10.1016/j.tsf.2004.01.008",
+      "url": "https://doi.org/10.1016/j.tsf.2004.01.008",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "3C/4H/6H-SiC 从红外到真空紫外的跨谱段光学性质（椭偏测量），为不同多型体提供 n/k"
+      ],
+      "original_location": "Crossref 元数据核验；正文未逐点核验",
+      "applicability_notes": "与 L26 互为印证；多型体/薄膜数据，作为色散初值与谱段参考",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_bcb8f4d90399"
+    },
+    {
+      "citation_id": "L28",
+      "question_id": "prob02",
+      "title": "Infrared Optical Properties of 3C, 4H and 6H Silicon Carbide",
+      "authors": [
+        "Lindquist",
+        "O. P. A.",
+        "Arwin",
+        "H.",
+        "Henry",
+        "A.",
+        "Järrendahl",
+        "K."
+      ],
+      "year": 2003,
+      "source": "Materials Science Forum",
+      "venue_detail": "433-436: 329-332",
+      "doi": "10.4028/www.scientific.net/MSF.433-436.329",
+      "url": "https://doi.org/10.4028/www.scientific.net/MSF.433-436.329",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "3C/4H/6H-SiC 的红外光学性质，偏红外谱段"
+      ],
+      "original_location": "Crossref 元数据核验；正文未逐点核验",
+      "applicability_notes": "偏红外谱段，与 L27 配套；作为红外谱段色散参考",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_770c9553acb6"
+    },
+    {
+      "citation_id": "L29",
+      "question_id": "prob02",
+      "title": "Temperature-dependent infrared optical properties of 3C-, 4H- and 6H-SiC",
+      "authors": [
+        "Tong",
+        "Zhen",
+        "Liu",
+        "Linhua",
+        "Li",
+        "Liangsheng",
+        "Bao",
+        "Hua"
+      ],
+      "year": 2018,
+      "source": "Physica B: Condensed Matter",
+      "venue_detail": "537: 194-201",
+      "doi": "10.1016/j.physb.2018.02.023",
+      "url": "https://doi.org/10.1016/j.physb.2018.02.023",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "3C/4H/6H-SiC 的温度依赖红外光学性质"
+      ],
+      "original_location": "Crossref 元数据核验；数值细节未在正文核验",
+      "applicability_notes": "量化温度不确定度对 n(λ) 的影响（prob02 可靠性分析小项）；室温下修正量小",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_5a4765e9f5fd"
+    },
+    {
+      "citation_id": "L30",
+      "question_id": "prob02",
+      "title": "Investigation of longitudinal-optical phonon-plasmon coupled modes in SiC epitaxial film using Fourier transform infrared reflection",
+      "authors": [
+        "Sunkari",
+        "Swapna",
+        "Mazzola",
+        "M. S.",
+        "Mazzola",
+        "J. P.",
+        "Das",
+        "Hrishikesh",
+        "Wyatt",
+        "J. L."
+      ],
+      "year": 2005,
+      "source": "Journal of Electronic Materials",
+      "venue_detail": "34(4): 320-323",
+      "doi": "10.1007/s11664-005-0103-8",
+      "url": "https://doi.org/10.1007/s11664-005-0103-8",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "掺杂（自由载流子）改变 SiC 外延层红外反射谱（LO 声子-等离子体耦合机制）"
+      ],
+      "original_location": "Crossref 元数据核验；正文未逐点核验",
+      "applicability_notes": "支撑衬底（重掺）与外延层（轻掺）折射率差异的谱学证据；机制明确、定量关系需 prob02 数据反演",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_0e3509f3bca1"
+    },
+    {
+      "citation_id": "L31",
+      "question_id": "prob02",
+      "title": "Improved Resolution of Epitaxial Thin Film Doping Using FTIR Reflectance Spectroscopy",
+      "authors": [
+        "Mazzola",
+        "Michael S.",
+        "Sunkari",
+        "Swapna G.",
+        "Mazzola",
+        "Janice",
+        "Das",
+        "Hrishikesh",
+        "Melnychuck",
+        "Galyna",
+        "Koshka",
+        "Yaroslav",
+        "Wyatt",
+        "Jeffery L.",
+        "Zhang",
+        "Jie"
+      ],
+      "year": 2005,
+      "source": "Materials Science Forum",
+      "venue_detail": "483-485: 397-400",
+      "doi": "10.4028/www.scientific.net/msf.483-485.397",
+      "url": "https://doi.org/10.4028/www.scientific.net/msf.483-485.397",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "FTIR 反射光谱可反演掺杂/自由载流子（进而影响折射率）"
+      ],
+      "original_location": "Crossref 元数据核验；正文未逐点核验",
+      "applicability_notes": "与 L30 配套，支撑 n_sub 受掺杂影响的机制；数值需 prob02 反演",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_074a5fe3ad49"
+    },
+    {
+      "citation_id": "L32",
+      "question_id": "prob02",
+      "title": "Fundamentals of epitaxial silicon film thickness measurements using emission and reflection Fourier transform infrared spectroscopy",
+      "authors": [
+        "Zhou",
+        "Zhen-Hong",
+        "Yang",
+        "Isabel",
+        "Yu",
+        "Fuzhong",
+        "Reif",
+        "Rafael"
+      ],
+      "year": 1993,
+      "source": "Journal of Applied Physics",
+      "venue_detail": "73(11): 7331-7337",
+      "doi": "10.1063/1.354023",
+      "url": "https://doi.org/10.1063/1.354023",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "FTIR 反射测厚的方法级基础（硅场景），与其他来源共同支撑算法主干"
+      ],
+      "original_location": "Crossref 元数据核验；正文未逐点核验",
+      "applicability_notes": "硅场景（prob03 最贴近）；SiC 场景借用公式结构并更换材料参数与色散模型",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_d6b7ffd46d18"
+    },
+    {
+      "citation_id": "L43",
+      "question_id": "prob03",
+      "title": "An improved method for measuring epi-wafer thickness based on the infrared interference principle: Addressing interference quality and multiple interferences in double-layer structures",
+      "authors": [
+        "Sun",
+        "Jiaxing",
+        "Li",
+        "Zhisong",
+        "Zhang",
+        "Haojie",
+        "Song",
+        "Jinlong",
+        "Zhai",
+        "Tianbao"
+      ],
+      "year": 2023,
+      "source": "Results in Physics",
+      "venue_detail": "54: 107146",
+      "doi": "10.1016/j.rinp.2023.107146",
+      "url": "https://doi.org/10.1016/j.rinp.2023.107146",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "外延片（epi-wafer）双层结构（外延层-衬底）的红外干涉反射率建模，直接处理\"干涉质量\"与\"多次干涉（多光束）\"对测厚的影响",
+        "双层结构内多光束（多次反射/透射）会改变反射谱形状，需在测厚模型中区分两光束与多光束情形",
+        "提高测厚精度的改进方法基于对干涉质量（条纹对比度/质量）与多次干涉的综合建模"
+      ],
+      "original_location": "Crossref 元数据核验（作者/年份/卷期页）+ DOAJ 开放索引核验；开放获取，摘要/全文页可追溯，具体公式与数值需在 formulation 阶段对照原文复核",
+      "applicability_notes": "prob03 方法级 A 级关键证据：与本问\"分析硅片（附件3/4）是否多光束+硅外延层测厚\"的双层结构设定一致；其中\"干涉质量\"与\"多次干涉\"的区分可作为 prob03\"是否出现多光束\"判定的建模参考；正文细节待复核",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_39b3e1ffb0f8"
+    },
+    {
+      "citation_id": "L44",
+      "question_id": "prob03",
+      "title": "On the Infrared Thickness Measurement of Epitaxially Grown Silicon Layers",
+      "authors": [
+        "Severin",
+        "P. J."
+      ],
+      "year": 1970,
+      "source": "Applied Optics",
+      "venue_detail": "9(10): 2381-2388",
+      "doi": "10.1364/AO.9.002381",
+      "url": "https://doi.org/10.1364/AO.9.002381",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "外延生长硅层的红外测厚的经典方法论述（反射干涉条纹与厚度/折射率的关系）",
+        "硅外延层与衬底因折射率差异产生红外干涉条纹，可用于确定厚度"
+      ],
+      "original_location": "Crossref/PubMed 元数据核验（DOI 10.1364/AO.9.002381，PubMed 20094266）；正文未全文核验，具体公式与数值需在 formulation 阶段对照原文",
+      "applicability_notes": "硅（prob03）红外反射测厚的 A 级经典来源，与 prob01 [L01]/[L02] 的 SiC 方法同源；直接支撑\"硅外延层测厚\"的物理前提与公式结构；正文细节待复核",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_6abdc2a74965"
+    },
+    {
+      "citation_id": "L45",
+      "question_id": "prob03",
+      "title": "Infrared interference spectra observed in silicon epitaxial wafers",
+      "authors": [
+        "Sato",
+        "K.",
+        "Ishikawa",
+        "Y.",
+        "Sugawara",
+        "K."
+      ],
+      "year": 1966,
+      "source": "Solid-State Electronics",
+      "venue_detail": "9: 771-781",
+      "doi": "10.1016/0038-1101(66)90117-1",
+      "url": "https://doi.org/10.1016/0038-1101(66)90117-1",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "硅外延晶圆片的红外干涉光谱实测/观测（方法级证据）",
+        "干涉条纹特征与外延层厚度/结构的关系"
+      ],
+      "original_location": "Crossref 元数据核验（作者/年份/卷期页）；正文未全文核验",
+      "applicability_notes": "硅晶圆片红外干涉谱的 A 级实验/方法来源，对应 prob03 硅片（附件3/4）场景；用于确认硅片红外反射干涉谱的形态与测厚可行性；正文细节待复核",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_a7ec5213f45f"
+    },
+    {
+      "citation_id": "L46",
+      "question_id": "prob03",
+      "title": "Multiple reflections in an approximately parallel plate",
+      "authors": [
+        "Soler",
+        "F. J. P."
+      ],
+      "year": 1997,
+      "source": "Optics Communications",
+      "venue_detail": "139(4-6): 165-169",
+      "doi": "10.1016/S0030-4018(97)00138-7",
+      "url": "https://doi.org/10.1016/S0030-4018(97)00138-7",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "近似平行板（非严格平行）情形下的多次反射干涉分析——界面不平行（楔形/不平度）会破坏严格平行板假设下的多光束干涉",
+        "平行度是产生/维持多光束干涉的必要几何条件"
+      ],
+      "original_location": "Crossref 元数据核验（作者/年份/卷期页）；正文未全文核验",
+      "applicability_notes": "prob03\"多光束干涉必要条件——界面平行度\"的 A 级理论依据；用于推导界面平行度/不平度对多光束干涉的影响；正文细节待复核",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_2e2844269805"
+    },
+    {
+      "citation_id": "L47",
+      "question_id": "prob03",
+      "title": "Influence of coating thickness on the performance of a Fabry–Perot interferometer",
+      "authors": [
+        "Monzón",
+        "J. J.",
+        "Sánchez-Soto",
+        "L. L.",
+        "Bernabeu",
+        "E."
+      ],
+      "year": 1991,
+      "source": "Applied Optics",
+      "venue_detail": "30(28): 4126-4132",
+      "doi": "10.1364/AO.30.004126",
+      "url": "https://doi.org/10.1364/AO.30.004126",
+      "authority_tier": "A",
+      "metadata_status": "verified",
+      "usage_status": "used",
+      "access_date": "2026-08-29",
+      "supported_claims": [
+        "Fabry–Perot 干涉仪性能（条纹锐度/精细度、对比度）随反射膜层厚度/反射率变化的关系",
+        "界面反射率与多光束干涉条纹锐度/对比度的定量联系"
+      ],
+      "original_location": "Crossref 元数据核验（作者/年份/卷期页）；正文未全文核验",
+      "applicability_notes": "prob03\"多光束干涉必要条件——界面强度反射率阈值、条纹锐度/对比度\"的 A 级依据；用于把\"反射率→多光束显著/两光束近似\"转化为可量化判据；正文细节待复核",
+      "statement_class": "literature_fact",
+      "rejection_reason": null,
+      "evidence_id": "ev_citation_ae1858935781"
+    }
+  ],
+  "evidence_hash": "6374ef02fd5a459dc6388aff56c1d4e7f0c36a4b8ad40ee46b3c3ef77b769025"
+}

@@ -1,0 +1,76 @@
+problem_id: 2025-cumcm-b
+question_id: prob01
+status: locally_completed
+stage: locally_completed
+dependencies: []
+active_assumption_version: 1
+active_formulation_version: 1
+accepted_formulation_version: 1
+consecutive_rejections: 0
+literature_refreshes: 0
+literature_refresh_required: false
+conclusion:
+  conclusion_id: prob01-conclusion-v1
+  version: 1
+  content_hash: 828203556617be979f7345dce7c274dd1850b62fe950a6e108015ad161b070a6
+  updated_at: '2026-08-29T07:41:19.677627+00:00'
+sanity:
+  level_1_4: PASS_WITH_WARNING
+  level_5: PASS
+  level_6: PASS_WITH_WARNING
+optional_stages:
+  robustness:
+    decision: completed
+    reason: robustness 适用并已完成：formulation_v001 §5.2 将鲁棒性列为比较标准，A5/A6/A10 要求灵敏度分析，workflow
+      warnings 需量化色散/n_sub/截断对厚度的影响。预注册方案 robustness_v001（核心结论+稳定性判据运行前固定，robustness/
+      目录），隔离任务 554819114361017c5b70 执行 E1–E5（n_sub/θ ±5/±10/±20% 扰动、色散三模型、噪声 σ=0.5/1/2%×100
+      次×2 入射角、谱段截断 6 组），5/5 判据通过 conclusion=stable（E1 0.008%、E2 0.22%、E3 替代模型 0.96%、E4
+      CI 半宽<0.03% 且收敛率 100%、E5 0%）；发现噪声下极值定位初值失真并升级网格扫描初值（prob02 复用）；原始样本/汇总表/置信区间/敏感性图/稳定性结论已归档
+      robustness/ 与 results/robustness/，交 sanity-checker 执行 Level 6
+  ablation:
+    decision: completed
+    reason: ablation 适用并已完成：formulation_v001 (3.5) 正模型含可解释可分离的公式项（界面反射项/衬底往返项/干涉振荡项）与算法模块（NLS
+      多初值），REQUEST.md 要求复杂算法必要性证据，robustness 已覆盖输入/情景不确定性、ablation 补充模型组件必要性，二者互补。预注册方案
+      ablation_v001（核心结论+判据运行前固定，ablation/ 目录），隔离任务 5dcb72876c5fcb2c7e95 执行 F0+A1–A4（干涉项消融、衬底反射消融、偏振平均消融、多初值模块消融），5/5
+      判据通过 conclusion=components_confirmed（A1/A2 不可辨识=组件必要、A3 最大差 0.012%、A4 单初值 6.03%
+      vs 多初值 ~0）；消融结论/汇总表/3 张消融图（自动质检+视觉复核 passed）已归档 ablation/、results/ablation/
+      与 figures.yaml，prob01 全部阶段完成，进入 locally_completed
+artifacts:
+  problem_understanding: true
+  literature: true
+  assumptions: true
+  formulation: true
+  implementation: true
+  computation: true
+  visualization: true
+  sanity_check: true
+  robustness: true
+  ablation: true
+  cross_question_review: false
+notification:
+  sent: true
+  attempts: 2
+  status: skipped_disabled
+stale:
+  value: false
+  caused_by: []
+accepted_assumption_version: 1
+sanity_history:
+- at: '2026-08-29T06:21:03.608810+00:00'
+  level: level_1_4
+  status: PASS_WITH_WARNING
+  reason: prob01 合成验证任务 0ea4b29da19e8479a6ea 消费完成：19/19 检查通过，t_true=10µm 被 NLS/相位法精确恢复，两入射角一致；hash
+    追踪链（code/config/input）与 task.json、implementation.md §7 完全一致，无 NaN/Inf、无硬约束违反、formula-代码逐条一致、文献/物理常识合理。技术债（λ>5µm
+    常数色散延伸、方法 A 约4%基线偏差、文献全文待复核、n_sub 合成场景值、Reststrahlen 剔除策略）均为既有 workflow warning，留
+    prob02 处理，不阻断推进。L1–L4 判定 PASS_WITH_WARNING，Level 5 待全部小问完成、Level 6 待 robustness
+    阶段。
+  failure_type: null
+- at: '2026-08-29T07:13:38.778049+00:00'
+  level: level_6
+  status: PASS_WITH_WARNING
+  reason: prob01 Level 6（robustness 验收）独立复核通过：任务 554819114361017c5b70 全部输出有限且追踪完整，hash
+    链（code/config/input）与 task.json 一致，E1–E5 判据独立重算全部通过（conclusion=stable、5/5），E4
+    600 样本收敛率 100%、95% CI 半宽最大 0.022% 远低于阈值，预注册方案运行前固定未事后修改；物理机制（n_sub 影响幅度不影响相位、θ
+    误差二阶小量、色散模型为最大不确定度来源、全谱平均效应）与常识一致。技术债（robustness 基于合成谱、色散模型选择、λ>5µm 常数延伸、n_sub
+    场景值、文献全文待复核、Reststrahlen 剔除）均为既有 workflow warning，留 prob02 处理，不阻断推进。
+  failure_type: null

@@ -1,0 +1,15 @@
+version: formulation_v003
+status: accepted
+created_at: '2026-08-29T17:32:52.183975+00:00'
+parent_version: formulation_v002
+content_hash: 4995e94f0620d8000921215175c9ff09725ec63645a9e17f6c4c032cf3235ded
+decision_reason: 接受 formulation_v003（prob02，assumption_v001）。v002 实测反演暴露的模型可辨识性结构缺陷（feasible_incumbent=false，且主方法
+  M1=0.305µm 与 M2/M3=54-65µm 相差两个数量级）已在 v003 定位并修复：主反演改为『基线-干涉分解 + 一维相位频率扫描（variable
+  projection）』，t 由干涉相位频率唯一确定、与 n_sub 幅度结构解耦，消除基线主导的错误盆地与噪声周期误判。独立只读探针验证该方法在反演带 [2000,4000]
+  cm⁻¹ 上给出全局唯一、两角一致的 t≈7.2µm（ε₁₂≈0.14%，Δt_disp≈0.0-1.0% 均远低于阈值 τ₁₂=2%、τ_d=2%），直接回应
+  v002 的 two_angle_ftest=27.66% 与 dispersion=15.11% 超阈；n_sub 弱可辨识但解耦，不再污染 t。公式体系自洽、量纲正确、极限/边界合理、数值可解、无
+  NaN/Inf、无硬约束违反、公式-符号一致、来源（L09/L25/L32/L06/L07）与假设（B2/B3/B4/B6/B7/B8-B13）绑定清晰。历史版本
+  v001/v002 结果与决策保留不改。移交 implementation：落地变量投影扫描、预注册中心化/正交化多项式基、两角嵌套 F 检验、幅值弱辨识 n_sub
+  与 Δt_inv_band/多光束诊断。
+decided_at: '2026-08-29T18:01:58.138785+00:00'
+assumption_version: assumption_v001

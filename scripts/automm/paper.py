@@ -13,6 +13,8 @@ from pathlib import Path
 from typing import Any, Callable
 
 from .common import CONFIG_DIR, ROOT, read_yaml, relative, utc_now, write_json, write_text
+from .paper_integrity import load_version_evidence
+from .paper_semantics import audit_public_docx, prepare_publication
 from .problems import load_problem, problem_dir, question_manifest
 
 _TEXT_SUFFIXES = {".md", ".txt", ".yaml", ".yml", ".json", ".csv", ".py"}
@@ -91,7 +93,7 @@ def _artifact(path: Path, kind: str, question_id: str | None = None) -> dict[str
     return item
 
 
-def build_evidence_pack(problem_id: str) -> dict[str, Any]:
+def build_evidence_pack(problem_id: str, *, persist: bool = True) -> dict[str, Any]:
     """从已接受且通过门禁的产物构建带哈希的论文证据包。"""
     problem = load_problem(problem_id)
     if problem.get("cross_question_review") != "passed":
@@ -232,6 +234,17 @@ def build_evidence_pack(problem_id: str) -> dict[str, Any]:
     canonical_payload = {key: value for key, value in evidence.items() if key != "created_at"}
     canonical = json.dumps(canonical_payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
     evidence["evidence_hash"] = hashlib.sha256(canonical).hexdigest()
+    if not persist:
+        return evidence
+    _persist_evidence_pack(problem_id, evidence)
+    return evidence
+
+
+def _persist_evidence_pack(problem_id: str, evidence: dict) -> None:
+    root = problem_dir(problem_id)
+    question_entries = evidence['questions']
+    selected_figures = evidence['figures']
+    selected_citations = evidence['citations']
     evidence_dir = root / "paper" / "evidence"
     write_json(evidence_dir / "evidence_pack.json", evidence)
     lines = [f"# {problem_id} 论文证据包", "", f"- Evidence hash：`{evidence['evidence_hash']}`", ""]
@@ -252,7 +265,6 @@ def build_evidence_pack(problem_id: str) -> dict[str, Any]:
         ["", "## 引用", ""] + [f"- `[@{item['citation_id']}]`：{item['title']}" for item in selected_citations]
     )
     write_text(evidence_dir / "evidence_pack.md", "\n".join(lines) + "\n")
-    return evidence
 
 
 def create_paper_version(problem_id: str) -> tuple[str, Path]:
@@ -345,7 +357,7 @@ def validate_paper_markdown(problem_id: str, version_dir: Path, evidence: dict[s
         errors.append("正文没有 evidence 标记")
 
     known_citations = {str(item.get("citation_id")) for item in evidence.get("citations", [])}
-    used_citations = set(_CITATION_RE.findall(text))
+    used_citations = {key for key in _CITATION_RE.findall(text) if not key.startswith(('fig:', 'tbl:'))}
     for citation_id in sorted(used_citations - known_citations):
         errors.append(f"未登记引用：{citation_id}")
     for citation_id in sorted(known_citations - used_citations):
@@ -353,20 +365,25 @@ def validate_paper_markdown(problem_id: str, version_dir: Path, evidence: dict[s
 
     prose_lines = [line for line in text.splitlines() if not line.lstrip().startswith("![")]
     prose = "\n".join(prose_lines)
+    normalized_text = text.replace('\\_', '_')
+    prose = prose.replace('\\_', '_')
     for figure in evidence.get("figures", []):
         stable_id = str(figure.get("stable_id", ""))
         question_id = str(figure.get("question_id", ""))
-        if not stable_id or stable_id not in text:
+        if not stable_id or stable_id not in normalized_text:
             errors.append(f"缺少审核图表：{stable_id or '?'}")
             continue
         if stable_id not in prose:
             errors.append(f"图表缺少正文解释：{stable_id}")
         if question_id and not re.search(
-            rf"图\s*`?\s*{re.escape(stable_id)}\s*`?[^\n]*(?:展示|给出|对比|汇总|叠加|显示|表明|说明|验证|支持|低于|高于)",
+            rf"(?:图\s*`?\s*|@fig:){re.escape(stable_id)}\s*`?[^\n]*(?:展示|给出|对比|汇总|叠加|显示|表明|说明|验证|支持|低于|高于)",
             prose,
         ):
             errors.append(f"图表缺少正文解释：{stable_id}")
 
+    publication = prepare_publication(text, evidence)
+    errors.extend(publication['issues'])
+    write_json(version_dir / 'publication_manifest.json', publication['manifest'])
     result = {
         "checked_at": utc_now(),
         "problem_id": problem_id,
@@ -458,26 +475,29 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
         summary_evidence = str(summary_item.get("evidence_id") or question.get("artifact_evidence_ids", [""])[0])
         assumption_evidence = str(assumption_item.get("evidence_id") or summary_evidence)
         formulation_evidence = str(formulation_item.get("evidence_id") or summary_evidence)
+        emphasized_summary = re.sub(
+            r'(?<![\w.])\d+(?:\.\d+)?\s*(?:[%％]|(?:um|μm|nm|mm|cm|km|m|kg|g|ms|s|Hz|K|℃)(?![A-Za-z]))',
+            lambda match: f'**{match[0]}**', summary.replace('**', ''),
+        )
         abstract_parts.append(
-            f"针对 {question_id}，依据接受版本建立并求解模型：{summary}"
-            f"该结果已通过 L1–L4 与 L5 检查。<!-- evidence:{summary_evidence} -->"
+            f"针对问题{index}，{emphasized_summary}"
+            f"<!-- evidence:{summary_evidence} -->"
         )
         figures = [item for item in evidence.get("figures", []) if item.get("question_id") == question_id]
         figure_blocks = []
         for figure in figures:
             stable_id = str(figure["stable_id"])
             title = str(figure.get("title") or stable_id)
-            reason = str(figure.get("visual_review", {}).get("reason") or "图中关系与数值趋势清晰")
             figure_blocks.append(
-                f"![{stable_id} {title}]({figure['path']})\n\n"
-                f"图 {stable_id} 展示“{title}”。{reason}；该图用于验证本问模型结果与结论之间的对应关系。"
+                f"![{title}]({figure['path']}){{#{stable_id}}}\n\n"
+                f"@fig:{stable_id} 展示“{title}”。具体数值及适用条件见本问结果分析。"
                 f"<!-- evidence:{figure['evidence_id']} -->"
             )
         warnings = [str(item) for item in question.get("warnings", []) if str(item).strip()]
         warning_text = (
             "；".join(f"{warning}<!-- warning:{_warning_id(question_id, warning)} -->" for warning in warnings)
             if warnings
-            else "未记录 PASS_WITH_WARNING 警告"
+            else "未记录额外限制"
         )
         warning_lines.extend(
             f"- {question_id}：{warning}<!-- warning:{_warning_id(question_id, warning)} -->" for warning in warnings
@@ -508,7 +528,7 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 
 ### {question_id} 可靠性与结论
 
-本问 L1–L4 sanity 为 {question.get("sanity", {}).get("level_1_4")}，L5 sanity 为 {question.get("sanity", {}).get("level_5")}。稳健性记录为“{robustness.get("decision", "未登记")}：{robustness.get("reason", "")}”；消融记录为“{ablation.get("decision", "未登记")}：{ablation.get("reason", "")}”。需要保留的边界或警告是：{warning_text}。因此，本问结论限于上述假设、数据范围和误差条件。<!-- evidence:{summary_evidence} -->
+稳健性分析：{robustness.get("reason", "未提供额外稳健性实验")}。消融分析：{ablation.get("reason", "未提供额外消融实验")}。适用边界为：{warning_text}。本问结论限于上述假设、数据范围和误差条件。<!-- evidence:{summary_evidence} -->
 """
         )
 
@@ -522,7 +542,8 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
             f"[@{citation_id}] {_authors(item)}. {item.get('title', '')}. "
             f"{item.get('source', '')}, {item.get('year', '')}. <!-- evidence:{item['evidence_id']} -->"
         )
-    all_warnings = "\n".join(warning_lines) or "- 所有小问均未记录 PASS_WITH_WARNING 警告。"
+    all_warnings = "\n".join(warning_lines) or "- 未记录额外适用范围限制。"
+    symbol_evidence = next((str(x['evidence_id']) for x in evidence.get('artifacts', []) if x.get('evidence_id')), '')
     content = f"""# {problem_id} 数学建模论文
 
 ## 摘要
@@ -531,7 +552,7 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 
 ## 关键词
 
-数学建模；证据闭合；参数反演；敏感性分析；可复现计算
+数学建模；结果分析；模型检验
 
 ## 问题重述
 
@@ -539,11 +560,11 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 
 ## 问题分析与总体流程
 
-全文采用“题面解析—假设与符号统一—分问建模—计算结果解释—sanity 与稳健性验证—跨问一致性复核”的流程。Writer 仅组织已接受材料，不重新建模或计算。
+全文采用“问题分析—假设与符号统一—分问建模—结果解释—稳健性分析—跨问一致性检验”的流程。
 
 ## 模型假设
 
-各小问只采用 Evidence Pack 中登记的接受假设。关键假设的适用范围、偏差方向和验证方式保留在对应小问中，并以登记文献作为方法依据{first_citation}。
+各小问的关键假设、适用范围及偏差方向在对应小问中说明，并以文献作为方法依据{first_citation}。
 
 ## 符号说明
 
@@ -553,6 +574,10 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 | $y$ | 模型响应或观测量 | 见对应小问 |
 | $\theta$ | 模型参数向量 | 按分量给定 |
 | $\varepsilon$ | 观测与模型之间的残差 | 与 $y$ 相同 |
+
+: 符号说明
+
+<!-- evidence:{symbol_evidence} -->
 
 ## 数据说明与预处理
 
@@ -570,11 +595,11 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 
 ## 模型评价、局限与推广
 
-模型链条从假设、公式、实现、结果到图表均可追溯，便于复核和复现；多种 sanity 与扰动证据减少只凭单点结果下结论的风险。局限性来自接受假设的适用范围、数据质量、样本规模以及可辨识性条件。推广到新的材料、时段或数据分布前，应重新执行参数标定、敏感性分析与 Level 5 视觉复核。
+模型从假设、公式到数值结果具有明确对应关系；扰动实验用于评估参数变化对结论的影响。局限性来自假设适用范围、数据质量、样本规模以及可辨识性条件。推广到新的材料或数据分布前，应重新执行参数标定和敏感性分析。
 
 ## 结论
 
-本文逐问完成了模型建立、求解、结果解释与可靠性检查。{" ".join(_compact_text(part, maximum=350) for part in abstract_parts)} 所有结论只在 Evidence Pack 固定的接受版本、数据范围和警告边界内成立。
+本文逐问完成了模型建立、求解、结果解释与可靠性检查。{" ".join(_compact_text(part, maximum=350) for part in abstract_parts)} 所有结论只在所述假设、数据范围和适用边界内成立。
 
 ## 参考文献
 
@@ -582,7 +607,7 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 
 ## 附录：复现说明、文件清单和核心代码索引
 
-论文由 Evidence Pack `{evidence.get("evidence_hash", "")}` 自动生成。复现时先核验该哈希和 `writer_manifest.json`，再运行论文构建命令；计算代码及结果路径以证据包登记清单为准，正文不重复粘贴完整代码。
+计算代码、对应图片与可分发的输入数据见支撑材料。运行环境、程序入口、执行顺序及未附输入见其中的运行说明，正文不重复粘贴完整代码。
 """
     version_dir.mkdir(parents=True, exist_ok=True)
     output = version_dir / "paper.md"
@@ -610,15 +635,25 @@ def generate_evidence_markdown(problem_id: str, version_dir: Path, evidence: dic
 
 
 def prepare_paper_writing(problem_id: str) -> dict[str, Any]:
-    evidence = build_evidence_pack(problem_id)
+    from .paper_delivery import build_support_dependencies
+
+    previous = load_problem(problem_id).get('paper', {})
+    expected = previous.get('rewrite_evidence_hash') or previous.get('evidence_hash')
+    evidence = build_evidence_pack(problem_id, persist=False)
+    if expected is not None and expected != evidence['evidence_hash']:
+        raise RuntimeError('授权后证据发生变化，须重新复核后才能准备论文版本')
+    dependencies = build_support_dependencies(evidence)
+    _persist_evidence_pack(problem_id, evidence)
     version_name, version_dir = create_paper_version(problem_id)
     draft = generate_evidence_markdown(problem_id, version_dir, evidence)
+    write_json(version_dir / 'evidence_pack.json', evidence)
+    write_json(version_dir / 'support_dependencies.json', dependencies)
     return {
         "problem_id": problem_id,
         "paper_version": version_name,
         "version_dir": relative(version_dir),
         "draft": relative(draft),
-        "evidence": relative(problem_dir(problem_id) / "paper" / "evidence" / "evidence_pack.json"),
+        "evidence": relative(version_dir / 'evidence_pack.json'),
         "evidence_hash": evidence["evidence_hash"],
     }
 
@@ -778,11 +813,29 @@ def render_paper(
     pandoc = shutil.which(pandoc_setting) or (pandoc_setting if Path(pandoc_setting).is_file() else None)
     if not pandoc:
         raise RuntimeError(f"Pandoc 不可用：{pandoc_setting}")
-    render_source = version_dir / "paper.render.md"
-    source = markdown.read_text(encoding="utf-8")
-    source = _EVIDENCE_MARKER_RE.sub("", source)
-    source = _CITATION_RE.sub(lambda match: f"[{match.group(1)}]", source)
-    write_text(render_source, source)
+    from .docx_styles import adapt_docx, inspect_template
+
+    reference = (ROOT / str(settings.get('reference_doc') or '')).resolve()
+    template_info = inspect_template(reference, settings.get('style_map'))
+    render_source = version_dir / "paper.render.json"
+    source_bytes = markdown.read_bytes()
+    source = source_bytes.decode('utf-8')
+    source_hash = hashlib.sha256(source_bytes).hexdigest()
+    evidence = load_version_evidence(version_dir)
+    figure_sources = []
+    for figure in evidence.get('figures', []):
+        local = (version_dir / figure['path']).resolve()
+        shared = (ROOT / figure['path']).resolve()
+        chosen = local if local.is_file() else shared
+        if (not (chosen.is_relative_to(ROOT) or chosen.is_relative_to(version_dir.resolve())) or
+                not chosen.is_file() or _sha256(chosen) != figure.get('sha256')):
+            raise RuntimeError(f'渲染图片来源与证据哈希不匹配：{figure["path"]}')
+        figure_sources.append((chosen, figure['sha256']))
+    publication = prepare_publication(source, evidence, pandoc=str(pandoc))
+    if publication['issues']:
+        raise RuntimeError('论文公开内容门禁未通过：' + '；'.join(publication['issues']))
+    write_json(render_source, publication['pandoc_ast'])
+    write_json(version_dir / 'publication_manifest.json', publication['manifest'])
     docx_path = version_dir / "paper.docx"
     tex_path = version_dir / "paper.tex"
     pdf_path = version_dir / "paper.pdf"
@@ -791,16 +844,11 @@ def render_paper(
         str(pandoc),
         str(render_source),
         "--from",
-        "markdown+tex_math_dollars",
+        "json",
         "--resource-path",
         ";".join(resource_paths),
     ]
-    docx_command = [*base, "--to", "docx", "--output", str(docx_path), "--number-sections"]
-    reference_value = settings.get("reference_doc")
-    if reference_value:
-        reference = (ROOT / str(reference_value)).resolve()
-        if reference.is_file():
-            docx_command.extend(["--reference-doc", str(reference)])
+    docx_command = [*base, "--to", "docx", "--output", str(docx_path), '--reference-doc', str(reference)]
     commands = [docx_command, [*base, "--to", "latex", "--output", str(tex_path), "--number-sections"]]
     pandoc_logs: list[dict[str, Any]] = []
     for command in commands:
@@ -817,19 +865,34 @@ def render_paper(
         pandoc_logs.append({"command": command, "returncode": result.returncode, "stderr": result.stderr[-4000:]})
         if result.returncode != 0:
             raise RuntimeError(f"Pandoc 转换失败：{result.stderr.strip()[-2000:]}")
+    style_report = adapt_docx(docx_path, reference, settings.get('style_map'), publication['manifest'])
     report: dict[str, Any] = {
         "checked_at": utc_now(),
         "paper_version": version_dir.name,
-        "source_sha256": _sha256(markdown),
+        "source_sha256": source_hash,
         "docx_sha256": _sha256(docx_path),
         "tex_sha256": _sha256(tex_path),
+        'evidence_hash': evidence['evidence_hash'],
+        'publication_manifest_sha256': _sha256(version_dir / 'publication_manifest.json'),
         "pandoc": pandoc_logs,
         "status": "FAILED_RENDER",
         "errors": [],
+        'template': template_info,
+        'styles': style_report,
     }
+    if (version_dir / 'support_dependencies.json').is_file():
+        report['support_dependencies_sha256'] = _sha256(version_dir / 'support_dependencies.json')
     try:
+        if _sha256(markdown) != source_hash or any(_sha256(path) != expected for path, expected in figure_sources):
+            raise RuntimeError('渲染期间 Markdown 或图片来源哈希变化')
+        report['public_audit'] = audit_public_docx(docx_path)
+        if report['public_audit']['status'] != 'PASS':
+            raise RuntimeError('DOCX 公开内容门禁未通过：' + '；'.join(report['public_audit']['issues']))
         exporter = pdf_exporter or export_docx_to_pdf
         exporter(docx_path, pdf_path, int(settings.get("pdf_export_timeout_seconds", 120)))
+        if (_sha256(markdown) != source_hash or _sha256(docx_path) != report['docx_sha256'] or
+                any(_sha256(path) != expected for path, expected in figure_sources)):
+            raise RuntimeError('Word 导出期间来源或 DOCX 哈希变化')
         inspection = inspect_rendered_paper(version_dir, int(settings.get("minimum_pdf_pages", 12)))
         report.update(inspection)
         report["pdf_sha256"] = _sha256(pdf_path)

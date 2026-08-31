@@ -1,0 +1,279 @@
+{
+  "solver": "scipy.optimize.least_squares",
+  "fits": {
+    "theta_10": {
+      "full_band": {
+        "best": {
+          "t_um": 10.0,
+          "success": true,
+          "status": 1,
+          "cost": 0.0,
+          "optimality": 0.0,
+          "nfev": 4,
+          "message": "`gtol` termination condition is satisfied.",
+          "t0_um": 10.00218946185139,
+          "max_residual": 0.0,
+          "rmse": 0.0
+        },
+        "starts": [
+          {
+            "t_um": 10.599214069379254,
+            "success": true,
+            "status": 2,
+            "cost": 6.800124592800113,
+            "optimality": 3.3517684575939084,
+            "nfev": 30,
+            "message": "`ftol` termination condition is satisfied.",
+            "t0_um": 10.438409213063995,
+            "max_residual": 0.12829918980335997,
+            "rmse": 0.06145565788010344
+          },
+          {
+            "t_um": 9.3999676126926,
+            "success": true,
+            "status": 2,
+            "cost": 6.780550328902256,
+            "optimality": 0.002988838560755642,
+            "nfev": 29,
+            "message": "`ftol` termination condition is satisfied.",
+            "t0_um": 9.537204487640297,
+            "max_residual": 0.12828642754490452,
+            "rmse": 0.06136714360553892
+          },
+          {
+            "t_um": 11.573291529439738,
+            "success": true,
+            "status": 2,
+            "cost": 6.735034751851125,
+            "optimality": 4.378868238464063,
+            "nfev": 85,
+            "message": "`ftol` termination condition is satisfied.",
+            "t0_um": 11.339613938487693,
+            "max_residual": 0.12833382994472373,
+            "rmse": 0.06116082818819571
+          },
+          {
+            "t_um": 10.0,
+            "success": true,
+            "status": 1,
+            "cost": 0.0,
+            "optimality": 0.0,
+            "nfev": 4,
+            "message": "`gtol` termination condition is satisfied.",
+            "t0_um": 10.00218946185139,
+            "max_residual": 0.0,
+            "rmse": 0.0
+          }
+        ],
+        "period_um_estimate": 0.901204725423698
+      },
+      "weak_band": {
+        "best": {
+          "t_um": 10.0,
+          "success": true,
+          "status": 1,
+          "cost": 0.0,
+          "optimality": 0.0,
+          "nfev": 6,
+          "message": "`gtol` termination condition is satisfied.",
+          "t0_um": 9.78426890237865,
+          "max_residual": 0.0,
+          "rmse": 0.0
+        },
+        "starts": [
+          {
+            "t_um": 10.63120540494823,
+            "success": true,
+            "status": 2,
+            "cost": 2.0495456654707693,
+            "optimality": 1.569049865278285,
+            "nfev": 21,
+            "message": "`ftol` termination condition is satisfied.",
+            "t0_um": 10.438409213063995,
+            "max_residual": 0.11694056854745699,
+            "rmse": 0.04526059439256609
+          },
+          {
+            "t_um": 10.0,
+            "success": true,
+            "status": 1,
+            "cost": 0.0,
+            "optimality": 0.0,
+            "nfev": 6,
+            "message": "`gtol` termination condition is satisfied.",
+            "t0_um": 9.78426890237865,
+            "max_residual": 0.0,
+            "rmse": 0.0
+          },
+          {
+            "t_um": 11.031981096939685,
+            "success": true,
+            "status": 2,
+            "cost": 2.9870858207042605,
+            "optimality": 0.002415499759946914,
+            "nfev": 52,
+            "message": "`ftol` termination condition is satisfied.",
+            "t0_um": 11.092549523749339,
+            "max_residual": 0.11352374615553279,
+            "rmse": 0.0546405803793496
+          },
+          {
+            "t_um": 10.0,
+            "success": true,
+            "status": 1,
+            "cost": 0.0,
+            "optimality": 0.0,
+            "nfev": 4,
+            "message": "`gtol` termination condition is satisfied.",
+            "t0_um": 10.00218946185139,
+            "max_residual": 0.0,
+            "rmse": 0.0
+          }
+        ],
+        "period_um_estimate": 0.6541403106853436
+      }
+    },
+    "theta_15": {
+      "full_band": {
+        "best": {
+          "t_um": 10.0,
+          "success": true,
+          "status": 1,
+          "cost": 0.0,
+          "optimality": 0.0,
+          "nfev": 3,
+          "message": "`gtol` termination condition is satisfied.",
+          "t0_um": 9.99952915606864,
+          "max_residual": 0.0,
+          "rmse": 0.0
+        },
+        "starts": [
+          {
+            "t_um": 10.602884845372534,
+            "success": true,
+            "status": 2,
+            "cost": 6.780228668335299,
+            "optimality": 3.445074124054097,
+            "nfev": 29,
+            "message": "`ftol` termination condition is satisfied.",
+            "t0_um": 10.468149549532413,
+            "max_residual": 0.1282151424435114,
+            "rmse": 0.06136568799918283
+          },
+          {
+            "t_um": 9.39979029533488,
+            "success": true,
+            "status": 2,
+            "cost": 6.788074966644772,
+            "optimality": 0.002585773785579565,
+            "nfev": 31,
+            "message": "`ftol` termination condition is satisfied.",
+            "t0_um": 9.564323736918086,
+            "max_residual": 0.12823004711909675,
+            "rmse": 0.06140118490483042
+          },
+          {
+            "t_um": 11.581924095217982,
+            "success": true,
+            "status": 2,
+            "cost": 6.715710011298993,
+            "optimality": 4.3404713594096265,
+            "nfev": 76,
+            "message": "`ftol` termination condition is satisfied.",
+            "t0_um": 11.37197536214674,
+            "max_residual": 0.12828809146999803,
+            "rmse": 0.06107302120476336
+          },
+          {
+            "t_um": 10.0,
+            "success": true,
+            "status": 1,
+            "cost": 0.0,
+            "optimality": 0.0,
+            "nfev": 3,
+            "message": "`gtol` termination condition is satisfied.",
+            "t0_um": 9.99952915606864,
+            "max_residual": 0.0,
+            "rmse": 0.0
+          }
+        ],
+        "period_um_estimate": 0.9038258126143265
+      },
+      "weak_band": {
+        "best": {
+          "t_um": 10.0,
+          "success": true,
+          "status": 1,
+          "cost": 0.0,
+          "optimality": 0.0,
+          "nfev": 6,
+          "message": "`gtol` termination condition is satisfied.",
+          "t0_um": 9.812145511095048,
+          "max_residual": 0.0,
+          "rmse": 0.0
+        },
+        "starts": [
+          {
+            "t_um": 10.634625733473126,
+            "success": true,
+            "status": 2,
+            "cost": 2.047694415153149,
+            "optimality": 1.0898898097505814,
+            "nfev": 21,
+            "message": "`ftol` termination condition is satisfied.",
+            "t0_um": 10.468149549532413,
+            "max_residual": 0.1176608109534811,
+            "rmse": 0.045240148978682
+          },
+          {
+            "t_um": 10.0,
+            "success": true,
+            "status": 1,
+            "cost": 0.0,
+            "optimality": 0.0,
+            "nfev": 6,
+            "message": "`gtol` termination condition is satisfied.",
+            "t0_um": 9.812145511095048,
+            "max_residual": 0.0,
+            "rmse": 0.0
+          },
+          {
+            "t_um": 11.037523108009015,
+            "success": true,
+            "status": 2,
+            "cost": 2.9812808820556844,
+            "optimality": 0.002726158746030667,
+            "nfev": 55,
+            "message": "`ftol` termination condition is satisfied.",
+            "t0_um": 11.124153587969777,
+            "max_residual": 0.11340345701741983,
+            "rmse": 0.054587461807290544
+          },
+          {
+            "t_um": 10.0,
+            "success": true,
+            "status": 1,
+            "cost": 0.0,
+            "optimality": 0.0,
+            "nfev": 3,
+            "message": "`gtol` termination condition is satisfied.",
+            "t0_um": 9.99952915606864,
+            "max_residual": 0.0,
+            "rmse": 0.0
+          }
+        ],
+        "period_um_estimate": 0.6560040384373645
+      }
+    }
+  },
+  "bounds": [
+    0.0001,
+    10000.0
+  ],
+  "tolerances": {
+    "ftol": 1e-10,
+    "xtol": 1e-10,
+    "gtol": 1e-10,
+    "max_nfev": 200
+  }
+}

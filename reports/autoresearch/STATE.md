@@ -4,23 +4,280 @@
 
 ## 基本状态
 
-- 更新时间：2026-08-22T15:08:47.218330+00:00
-- 控制状态：running
-- 活动题目：未设置
+- 更新时间：2026-08-31T04:04:36.010536+00:00
+- 控制状态：paused
+- 活动题目：2025-cumcm-b
 - 当前小问：未设置
-- 当前阶段：idle
+- 当前阶段：completed
 
 ## 任务
 
-无任务
+failed=1 | succeeded=10 | timed_out=1
 
 ## 最近动作
 
-无
+act-8acb17b1960c49bb: poll_email
 
 ## 警告
 
-- 无
+- 附件2 反射率最大值 102.74% 超出 100%，疑似测量/标定异常，需在 prob02 预处理阶段核实并记录处理策略
+- 外延层折射率与波长/掺杂浓度的函数关系题面未给出，需文献研究或数据反演确定，并量化其对厚度结果的影响
+- L01–L05、L23 等关键来源目前为题名/摘要级核验，正文未获取全文，具体公式与数值需在 formulation/假设阶段对照原文或教科书复核后才能用于定量主张
+- λ > 5 µm（波数 < 2000 cm⁻¹）的 SiC 体材料色散数据来源有限（现成 Sellmeier 仅覆盖 λ ≤ 5 µm），折射率色散模型选择与谱段截断策略需在假设/反演阶段确定，并量化其对厚度结果的影响
+- L18–L22 为 C/D 级候选（全文未核验），仅作方法对照与检索线索，不支撑关键假设
+- λ > 5 µm（波数 < 2000 cm⁻¹）的 SiC 体材料色散数据来源有限：A5 采用 L24/L16 参考 + prob02 数据反演/分谱段策略，需量化其对厚度结果的影响
+- 近 Reststrahlen 区（约 700–1000 cm⁻¹）SiC 吸收不可忽略：A7 明确该区两光束无吸收模型不适用，prob02 预处理需剔除或降权并记录处理策略
+- L01–L05、L23 等关键来源为题名/摘要级核验，正文未获取全文：具体公式值需在 formulation 阶段对照原文或教科书复核后才能用于定量主张
+- λ > 5 µm（波数 < 2000 cm⁻¹）的 SiC 体材料色散数据来源有限：formulation 保留一般 n(ν) 形式并标注 Sellmeier 适用边界，prob02 需分谱段/数据反演并量化对厚度的影响
+- 近 Reststrahlen 区（约 700-1000 cm⁻¹）两光束无吸收模型不适用：formulation 已标注该谱段边界（parameters.yaml reststrahlen_exclude），prob02 预处理剔除或降权并记录策略
+- L01-L05、L23 等关键来源为题名/摘要级核验，正文未获取全文：公式结构与教科书（L06/L07）一致，具体数值（如 Sellmeier 系数 L09）经 L11 数据页交叉核验，定量主张需在 implementation 阶段对照原文复核
+- prob01 level_1_4: prob01 合成验证任务 0ea4b29da19e8479a6ea 消费完成：19/19 检查通过，t_true=10µm 被 NLS/相位法精确恢复，两入射角一致；hash 追踪链（code/config/input）与 task.json、implementation.md §7 完全一致，无 NaN/Inf、无硬约束违反、formula-代码逐条一致、文献/物理常识合理。技术债（λ>5µm 常数色散延伸、方法 A 约4%基线偏差、文献全文待复核、n_sub 合成场景值、Reststrahlen 剔除策略）均为既有 workflow warning，留 prob02 处理，不阻断推进。L1–L4 判定 PASS_WITH_WARNING，Level 5 待全部小问完成、Level 6 待 robustness 阶段。
+- λ>5 µm 色散延伸采用 constant（n(boundary) 常数延续），prob02 需数据反演/分谱段确定并量化对厚度的影响（既有 workflow warning 延续）
+- 方法 A 常数 n 近似在 2000–4000 cm⁻¹ 引入约 4.2–4.7% 系统偏差（A3 文档化），仅作基线/初值，相位法与全谱 NLS 为色散修正主方法
+- L01–L05、L23 等关键来源为题名/摘要级核验（正文全文未获取），定量主张需在 prob02 对照原文/教科书复核
+- n_sub=3.0 为合成验证场景值（A6），prob02 需文献取值/数据反演并做灵敏度分析
+- Reststrahlen 区 [700,1000] cm⁻¹ 剔除/降权策略由 prob02 预处理落实（A7）
+- 方法 A 常数 n 近似在 2000–4000 cm^-1 引入约 4.2–4.7% 系统偏差（A3 文档化，图 4/5 已可视化），仅作基线/初值，相位法与全谱 NLS 为色散修正主方法（既有 workflow warning 延续）
+- λ>5 µm（ν<2000 cm^-1）色散采用 constant 延伸，prob02 需数据反演/分谱段确定并量化对厚度的影响（图 2 已标注延伸区；既有 workflow warning 延续）
+- 图表基于合成验证数据（prob01 无实测数据）；实测数据反演与真实噪声/异常点处理留 prob02
+- 方法 A 常数 n 近似在 2000–4000 cm^-1 引入约 4.2–4.7% 系统偏差（A3 文档化），仅作基线/初值，相位法与全谱 NLS 为色散修正主方法（既有 workflow warning 延续）
+- n_sub=3.0 为合成验证场景值（A6），prob02 需文献取值/数据反演；robustness E1 已量化 n_sub ±20% 对厚度影响 <0.01%（既有 workflow warning 延续）
+- Reststrahlen 区 [700,1000] cm^-1 剔除/降权策略由 prob02 预处理落实（A7；既有 workflow warning 延续）
+- L01–L05、L23 等关键来源为题名/摘要级核验（正文全文未获取），定量主张需在 prob02 对照原文/教科书复核（既有 workflow warning 延续）
+- robustness 实验基于正模型合成谱（prob01 无实测数据）；实测数据反演与真实噪声/异常点（反射率 >100%）处理留 prob02
+- prob01 level_6: prob01 Level 6（robustness 验收）独立复核通过：任务 554819114361017c5b70 全部输出有限且追踪完整，hash 链（code/config/input）与 task.json 一致，E1–E5 判据独立重算全部通过（conclusion=stable、5/5），E4 600 样本收敛率 100%、95% CI 半宽最大 0.022% 远低于阈值，预注册方案运行前固定未事后修改；物理机制（n_sub 影响幅度不影响相位、θ 误差二阶小量、色散模型为最大不确定度来源、全谱平均效应）与常识一致。技术债（robustness 基于合成谱、色散模型选择、λ>5µm 常数延伸、n_sub 场景值、文献全文待复核、Reststrahlen 剔除）均为既有 workflow warning，留 prob02 处理，不阻断推进。
+- robustness 实验基于正模型合成谱（prob01 无附件实测数据）；真实噪声水平与异常点（附件2 反射率 >100%）处理留 prob02 预处理（既有 workflow warning 延续）
+- 色散模型选择是 prob01 厚度反演的最大不确定度来源（E3 常数 n 替代偏差 0.96%）；prob02 应优先采用色散化反演（Sellmeier/数据反演），避免常数 n 近似（A3/A5 文档化）
+- λ>5 µm（ν<2000 cm⁻¹）色散采用 constant 延伸，prob02 需数据反演/分谱段确定并量化对厚度的影响（既有 workflow warning 延续）
+- n_sub=3.0 为合成验证场景值（A6）；robustness E1 已量化 ±20% 扰动对厚度影响 <0.01%，prob02 仍须实测取值/反演
+- ablation 实验基于正模型合成谱（prob01 无附件实测数据）；实测数据反演与真实噪声/异常点（反射率 >100%）处理留 prob02 预处理（既有 workflow warning 延续）
+- 色散模型选择是 prob01 厚度反演的最大不确定度来源（robustness E3 常数 n 替代偏差 0.96%）；prob02 应优先采用色散化反演（既有 workflow warning 延续）
+- n_sub=3.0 为合成验证场景值（A6）；robustness E1 已量化 ±20% 扰动影响 <0.01%，prob02 仍须实测取值/反演（既有 workflow warning 延续）
+- Reststrahlen 区 [700,1000] cm⁻¹ 剔除/降权策略由 prob02 预处理落实（A7；既有 workflow warning 延续）
+- 附件2 反射率最大值 102.74% 超出 100%，疑似测量/标定异常，需在 prob02 预处理阶段核实并记录处理策略（既有 workflow warning 延续）
+- 外延层折射率与波长/掺杂浓度的函数关系题面未给出，需文献研究或数据反演确定，并量化其对厚度结果的影响（既有 workflow warning 延续）
+- 色散模型选择是 prob01 厚度反演的最大不确定度来源（robustness E3 常数 n 替代偏差 0.96%）；prob02 应优先采用色散化反演（Sellmeier/数据反演），避免常数 n 近似（A3/A5 文档化，既有 workflow warning 延续）
+- n_sub=3.0 为合成验证场景值（A6）；prob02 仍须文献取值/数据反演并做灵敏度分析（既有 workflow warning 延续）
+- λ > 5 µm（ν < 2000 cm⁻¹）的 SiC 体材料色散来源有限：L26 为椭偏测量且与体单晶有差异，L27/L28 为多型体/薄膜数据；色散模型选择与谱段截断策略需在假设/反演阶段确定并量化其对厚度的影响（延续 prob01 E3 结论：色散模型是厚度反演最大不确定度来源）。
+- 近 Reststrahlen 区（约 700–1000 cm⁻¹）SiC 吸收不可忽略：该区两光束无吸收模型不适用（延续 prob01 A7 边界），prob02 预处理需剔除或降权并记录处理策略。
+- L25–L32 等关键来源目前为题名/摘要级核验，正文全文未获取：具体公式值与 n/k 数值需在假设/formulation 阶段对照原文复核后才能用于定量主张。
+- L33–L41 为 C 级会议论文（正文未核验），仅作方法对照与检索线索，不单独支撑关键公式或结论。
+- n_sub 及外延层折射率与掺杂浓度的定量关系文献未给出（G2 机制明确、数值不定），须由 prob02 数据反演确定并纳入可靠性分析（灵敏传播）；L17“多光束不改变极值位置”为候选主张，需独立验证。
+- 附件2 反射率最大值 102.74% 超出 100%（B2），预处理需核实异常性质并记录处理策略，不直接修改原始数据。
+- 外延层折射率色散（尤其 λ>5µm / ν<2000 cm⁻¹）来源有限：L26 为椭偏测量且与体单晶有差异，L27/L28 为多型体/薄膜数据；色散模型选择与谱段截断策略需在 formulation/反演阶段确定并量化对厚度结果的影响（延续 prob01 E3：色散模型为最大不确定度来源，B6）。
+- 近 Reststrahlen 区（约 700–1000 cm⁻¹）SiC 吸收不可忽略，两光束无吸收模型不适用（B3），prob02 预处理需剔除或降权并记录策略。
+- L25–L32 等关键来源目前为题名/摘要级核验，正文全文未获取：具体公式值与 n/k 数值需在 formulation 阶段对照原文复核后方可用于定量主张。
+- n_sub 及外延层折射率与掺杂浓度的定量关系文献未给出（G2 机制明确、数值不定，B7），须由 prob02 数据反演确定并纳入可靠性分析（灵敏传播）。
+- L17「多光束不改变极值位置」为候选主张，需独立推导验证（prob03），B13 多光束判定不预先采信其结论。
+- 色散数值 n_ref(ν) 的节点值待 implementation 阶段从 L26 n/k 数据表载入并登记来源/换算；implementation 需对照原文复核后可定量。
+- λ>5µm（ν<2000 cm⁻¹）色散模型选择（N-L26 vs N-const）对厚度的定量影响本问未运行数值，留 computation 阶段量化（延续 prob01 robustness E3：色散为最大不确定度来源，B6）。
+- n_sub 定量值文献机制明确、数值待定（B7），prob02 以 P1/P2 模式反演或给定并做 ±20% 灵敏度（τ_nsub=0.5%）。
+- 两光束近似残差约 0.2%（R1R2~1e-3）与多光束诊断（B13）需在 computation 阶段以实测残差/对比度校验；不预先采信 L17『多光束不改变极值位置』候选主张。
+- 附件2 反射率 >100% 异常点（B2）的处理策略 S_A（剔除/截断/降权）对厚度的影响需 computation 阶段量化（τ_anom=1%），不修改原始数据。
+- λ>5µm（ν<2000 cm⁻¹）色散模型选择是厚度反演最大不确定度来源（B6，延续 prob01 robustness E3）：其中 5-17µm 谱段为文献/数据缺口，L26 全文 n/k 表未在仓库；implementation 以 Sellmeier+Fischer 锚点插值作临时代理，定量影响由 computation 阶段 §7.2（N-const/N-L26/N-scaled 对照 Δt_disp）量化。
+- n_sub 定量值文献机制明确、数值待定（B7）：prob02 以 P1 给定（暂用 3.0）+ P2 联合反演/±20% 灵敏度（τ_nsub=0.5%）处理；若 P2 弱可辨识，回退文献取值并记录。
+- 多光束（Airy）修正仅在 computation 阶段做诊断（B13），完整推导与修正预留 prob03；不预先采信 L17『多光束不改变极值位置』候选主张。
+- 附件2 反射率 >100% 异常点（B2）按 (5.2) 降权 w=0.05 处理（非剔除），且不修改原始数据；若 computation 发现该策略对 t 影响超 τ_anom=1%，需复核策略（剔除/截断）并记录。
+- 实测全谱 NLS 的 RMSE 约 0.05（无量纲，约对应反射率 5%），属两光束+色散代理模型（B6：5-17µm 缺口以锚点插值作临时代理）的近似残差；是否影响 feasible_incumbent 交由 sanity-checker 验收；若某可靠性判据超阈值按 quality_warning 记录并视需要修订 formulation。
+- 延续既有 workflow warning：λ>5µm（ν<2000 cm⁻¹）色散为厚度反演最大不确定度来源（B6）；n_sub=3.0 为合成/初值（B7）；附件2 反射率 >100% 异常点按 (5.2) 降权处理（B2）；多光束（Airy）修正仅诊断、完整推导预留 prob03（B13）。
+- 本次为 computation_repair 代码修订，未改动 formulation/assumption 历史文件；新任务代码/配置 hash 变化后将由 Runner 在下次唤醒经 resource-manager 重新提交（任务 ID 变更为 0670bb687607edb7dd91），原超时任务 e4a68a3fb8cbbfc02fe1 交由 Runner 标记 consumed。
+- 实测全谱 NLS 的 RMSE 约 0.05（无量纲，约对应反射率 5%），属两光束+色散代理模型（B6：5-17µm 缺口以锚点插值作临时代理）的近似残差；是否影响 feasible_incumbent 交由 sanity-checker 验收。
+- 色散模型选择是厚度反演最大不确定度来源：Δt_disp=37.41%（N-const 2.966 vs N-L26 2.170 vs N-scaled 2.154，τ=2%）；须在 formulation 修订（谱段截断至 ν≥2000cm⁻¹ 色散已知区、改进/拟合适配色散模型、从 L26 全文提取 n/k 表）并量化对厚度的影响。
+- n_sub 数值未定且敏感性 69.0%（+7.44%/-69.01%，τ=0.5%，B7）：P1 基线 t=2.170µm 在 n_sub ±20% 下厚度可在 0.67-2.33µm 之间大幅移动，n_sub 弱可辨识；须由文献取值/数据反演固定或重构模型结构并做灵敏度传播。
+- 两入射角厚度不一致（eps12=6.56%>τ=2%）且 bootstrap 95% CI 半宽 3.51%>τ=2%：源于两光束+色散代理模型残差 RMSE≈0.046（约 4.6% 反射率）偏大；异常点策略（0.91%<τ=1%）、多光束诊断（改善 0.14%<10% 无需修正）通过。
+- dispersion_ref.json 含 Sellmeier 超界 NaN（λ=17/20/25µm）触发机器级 L2-finite NEEDS_REVISION；该文件为色散模型核验/对照用途，非厚度结果，建议后续用 null 表示超界值。
+- 本次为 sanity 验收结论，未改动 computation 结果及 formulation/assumption 历史文件；formulation 修订后代码/配置 hash 变化将触发新任务 ID 重新反演。
+- λ>5µm（ν<2000 cm⁻¹）为色散缺口区（B6），本版不进入主反演；其定量影响以 Δt_inv_band（v001 实测约 37%）作为谱段截断合理性证据与论文讨论，L26 全文 n/k 表待 literature 复核。
+- 带内 n_sub≈n（条纹对比度约 3–17%，弱对比度）：t–n_sub 相关不确定度量级约 ±1.7%（τ_ci=2% 边缘）。若正式 computation 中 P2 可辨识性不足，回退 P1 并取文献值（L26 4H/6H-SiC n、L30/L31 掺杂机制），记录 t 对 n_sub 的灵敏度。
+- 两角一致性以嵌套 F 检验为主判据；若检验拒绝 H₀（两角 t 显著不同），判为测量点差异/膜厚梯度（B11），记录并解释，数值 ε₁₂ 作为报告项。
+- L25–L32 等关键来源（Sellmeier 系数 L09 经 L11 数据页交叉核验）为题名/摘要级核验，正文未获取全文；定量主张由 implementation 阶段对照原文复核。
+- 与 v001 相同的既有 workflow warning 延续：附件 2 反射率 >100% 异常按 (5.2) 降权（w=0.05）处理不改原始数据；Reststrahlen [700,1000] cm⁻¹ 剔除。
+- λ>5µm（ν<2000 cm⁻¹）为色散缺口区（B6），本版不进入主反演；其定量影响以 Δt_inv_band（v001 实测约 37%）作为谱段截断合理性证据，L26 全文 n/k 表待 literature 复核。
+- 带内 n_sub≈n（条纹对比度约 3–17%，弱对比度）：t–n_sub 相关不确定度量级约 ±1.7%（τ_ci=2% 边缘）；若正式 computation 中 P2 可辨识性不足（n_sub 触界），回退 P1 并取文献值（L26 4H/6H-SiC n、L30/L31 掺杂机制），记录 t 对 n_sub 的灵敏度。
+- 两角一致性以嵌套 F 检验为主判据（α=0.05）；τ12=2% 仅作裸偏差报告/解释阈值。若检验拒绝 H₀（两角 t 显著不同），判为测量点差异/膜厚梯度（B11），记录并解释。
+- 带内色散不确定度以 Sellmeier 系数可复现性（N-SE-δ，δ=0.5%）量化；L09 系数经 L11 数据页交叉核验，但 L25–L32 等关键来源为题名/摘要级核验（正文全文未获取），定量主张需在 computation/论文阶段对照原文复核。
+- v001 的 computation 结果（results/thickness_inversion/，formulation_v001，feasible_incumbent=false→NEEDS_REVISION）为历史结果，予以保留；本次 v002 实现与任务规格输出至结果目录 thickness_inversion_v002。
+- 两入射角厚度不一致并恶化：eps12=27.66%（v001 6.56%）>τ2%，F 检验显著拒绝共享 t（F=905.04，p≈0）；源于带内弱对比度+n_sub≈n 强相关下模型残差与可辨识性不足，须在 formulation 修订共享 t/两角一致性建模。
+- 色散模型选择仍为厚度反演最大不确定度来源：带内 N-SE vs N-SE-δ（±0.5%）Δt_disp=15.11%（τ2%）仍 FAIL；Δt_inv_band=117.55% 反映被剔除的 ν<2000 色散缺口对 t 的拉偏（v001 约 37%），作为谱段截断合理性证据保留。
+- nsub_local_sensitivity 判据逻辑缺陷：delta_t_nsub_percent=28.65%>τ3% 却被记录为 passed=true/status=PASS，且 note 声称 1-1.7% 与实际矛盾；该诊断项虽非硬门禁，但遮蔽了真实 n_sub 敏感性，需修正判定逻辑与 note。
+- 主方法 M1（t=0.305 µm）与 M2 相位法/ M3 间隔法（t≈54–65 µm）相差约 2 个数量级，与 formulation §13.1 探针（t=2.254 µm）亦不一致；当前模型未稳健确定厚度。
+- computation 提交的 code_hash（2b22543b…）与当前 code/ 目录复算值（31bd59f8…）不一致，config/input 链完好，需在下次对账核对 code/ 目录与任务 hash 同步。
+- 延续既有 workflow warning：λ>5µm（ν<2000 cm⁻¹）为色散缺口（B6），本版不进入主反演，其影响以 Δt_inv_band 报告；n_sub 为联合反演（B7），L26/L30/L31 全文 n/k 表与掺杂机制待 literature 复核；附附件2 反射率 >100% 异常点按 (5.2) 降权处理（B2）；多光束（Airy）仅诊断、完整推导预留 prob03（B13）。
+- 本次为 sanity 验收结论，未改动 computation 结果及 formulation/assumption 历史文件；formulation 再次修订后代码/配置 hash 变化将触发新任务 ID 重新反演，v001/v002 计算结果均予保留。
+- implementation 必须预注册基线/包络多项式基的归一化（中心化/正交化 Vandomer，per formula_validation §7），因绝对厚度对基选择敏感（原始 ν^3 基→约 7.17µm，中心化基→约 7.22µm，§13.1 记为 7.38µm）；规范 t 由 computation 阶段产出，§13.1 为方法有效性示意值。
+- n_sub 为幅度弱可辨识量（与 t 解耦，R₂≈3×10⁻⁵）；文献取值（L26 4H/6H-SiC n、L30/L31 掺杂机制）仍待全文复核，必要时回退文献取值并记录 t 对 n_sub 的灵敏度（预期趋近 0）。
+- λ>5µm（ν<2000 cm⁻¹）为色散缺口区（B6），本版不进入主反演，其定量影响以 Δt_inv_band 报告，作为谱段截断合理性证据与论文讨论（既有 workflow warning 延续）。
+- 多光束（Airy）修正本版仅做诊断，完整推导与修正预留 prob03，不预先采信 L17『多光束不改变极值位置』候选主张。
+- 附件 2 反射率 >100% 异常点处理（B2）、近 Reststrahlen [700,1000] cm⁻¹ 剔除（B3）及 L25-L32 等关键来源全文待复核，均为既有 workflow warning，延续至 implementation/computation 阶段落实。
+- λ>5µm（ν<2000 cm⁻¹）为色散缺口区（B6），本版不进入主反演；其定量影响以 Δt_inv_band 报告（正确方法下预计大幅收敛，不再有 v002 错误盆地的 117% 假象），L26 全文 n/k 表待 literature 复核。
+- n_sub 为幅度弱可辨识量（B7）：t 与 n_sub 结构解耦，n_sub 由幅值 A=√(C²+S²) 事后弱辨识（本版合成探针 n̂_sub≈2.606）；若正式 computation 中幅值信噪比过低（n_sub 触界/None），回退文献取值（L26 4H/6H-SiC n、L30/L31 掺杂机制）并记录 t 对 n_sub 的灵敏度（预期趋近 0）。
+- L25–L32 等关键来源（Sellmeier 系数 L09 经 L11 数据页交叉核验）为题名/摘要级核验，正文全文未获取；定量主张需在 computation/论文阶段对照原文复核。
+- 两角一致性以对相位-频率拟合的嵌套 F 检验为主判据（α=0.05）；τ12=2% 仅作裸偏差报告/解释阈值。若检验拒绝 H₀（两角 t 显著不同），判为测量点差异/膜厚梯度（B11），记录并解释。
+- 基线/包络多项式阶数（p=3/q=1）计算前固定（parameters.yaml 登记）；t 对 p（1..6）与带区稳健已由接口探针/合成探针核验，但对更一般的背景（明显弯曲/吸收背景）可扩展为样条或物理化 R₁(ν) 基线（formulation §14 方法债），由 computation 残差谱判定。
+- 附件 2 反射率 >100% 异常点（B2）按权重 w=0.05 降权（非剔除）、不修改原始数据；若 computation 发现该策略对 t 影响超 τ_anom=1%，复核策略（剔除/截断）并记录。多光束（Airy）修正本版仅诊断（B13），完整推导与修正预留 prob03。
+- v001/v002 的 computation 结果（results/thickness_inversion/、results/thickness_inversion_v002/，判 NEEDS_REVISION）为历史结果，予以保留；本次 v003 实现与任务规格输出至 results/thickness_inversion_v003。
+- 本次 v003 提交沿用 formulation_v003：λ>5µm（ν<2000 cm⁻¹）为色散缺口区（B6），本版不进入主反演，其定量影响以 Δt_inv_band 报告作为谱段截断合理性证据；n_sub 为幅度弱可辨识量（B7），由干涉幅值事后弱辨识，若正式 computation 中幅值信噪比过低（n_sub 触界/None）则回退文献取值（L26 4H/6H-SiC n、L30/L31 掺杂机制）并记录 t 对 n_sub 的灵敏度（预期趋近 0）。
+- 附件 2 反射率 >100% 异常点（B2）按权重 w=0.05 降权（非剔除）、不修改原始数据；若 computation 发现该策略对 t 影响超 τ_anom=1%，复核策略（剔除/截断）并记录。近 Reststrahlen [700,1000] cm⁻¹ 剔除（B3）、多光束（Airy）修正本版仅诊断、完整推导预留 prob03（B13）。
+- L25–L32 等关键来源（Sellmeier 系数 L09 经 L11 数据页交叉核验）为题名/摘要级核验，正文全文未获取；定量主张需在 computation/论文阶段对照原文复核。f
+- prob02 level_1_4: prob02 实测反演任务 30bedd3be5a2c9a36d3a 消费完成（formulation_v003 / assumption_v001，results/thickness_inversion_v003）：L1–L4 硬门禁通过——hash 追踪链（code_hash=3c8599d6547f2a8456613a148a62f3433255297cc9f654ad244144c317abcf8e 与 task.json/implementation.md §7 一致、config/input hash 一致）完整、机器级 L2-finite 通过（8 文件全有限无 NaN/Inf，v001 的 dispersion_ref NaN 已用 null 修复）、公式-代码逐条一致、单位一致、原始数据只读、无硬约束违反。主结果 t̂(共享)=7.2158 µm、每角 7.2214/7.2095 µm、ε₁₂=0.165%、n̂_sub=2.588；主拟合加权 RMSE≈6.3e-4。只读 FFT 数据探针独立证实带内真实干涉周期 Δg≈657/698、Δν≈247/263 cm⁻¹→t≈7.2–8.0 µm，与主结果一致。可靠性判据 5/6 通过：dispersion(0.51%≤2%)、ci(0.091%≤2%)、anomaly(0.0%≤1%)、nsub 解耦(diag PASS)、multibeam(pass) 全部通过；仅 reliability_two_angle_ftest 判 FAIL（F=5.251>F_crit=3.843，p=0.022），但裸偏差 ε₁₂=0.165%≪τ₁₂=2%，属大样本下统计显著性与实际意义分离，formulation §7.1/§14 明确将其路由为 B11（测量点差异/膜厚梯度）记录并解释，不构成模型修订触发。v001/v002 曾超阈判据（ε₁₂ 27.66%→0.165%、Δt_disp 15.11%→0.51%、n_sub 69%→解耦0%、CI 3.51%→0.091%、M1 0.305µm→7.216µm 正确盆地）全部回到阈值内，确认 formulation_v003 变量投影重构消除了 v002 的模型可辨识性结构缺陷。技术债（λ>5µm 色散缺口 B6、n_sub 弱可辨识 B7、M2/M3 噪声周期方法债、物理 NLS 交叉校验 5.5% 偏差、L25-L32 全文待复核、多光束 Airy 留 prob03 B13）均为既有/登记事项，留后续与论文阶段处理，不阻断推进。
+- reliability_two_angle_ftest 以 F 检验拒绝共享 t（F=5.25，p=0.022），但 ε₁₂=0.165%≪τ₁₂=2%，属大样本统计显著性与实际意义分离；按 formulation §7.1/§14 路由为 B11（测量点差异/膜厚梯度），需在结论中记录并解释，数值 ε₁₂ 作为报告项。
+- M2/M3（色散相位法/间隔法）报告 t=54–65 µm（Δg_median≈80 cm⁻¹），系把小幅噪声纹波当作干涉极值（formulation §13.3 噪声周期）；M1 为主交付。本轮 M1 已回到正确盆地，但 M2/M3 仍对噪声周期给出 54–65 µm，为已知/登记的方法债，论文须说明 M2/M3 不适用性（formulation §0 声称的「消除 M1/M2/M3 量级冲突」仅部分达成）。
+- 物理正模型 NLS 交叉校验（P1/P2）从主 t̂=7.216 起点局部拟合收敛到 P1 t=6.816 / P2 t=6.975 µm（RMSE≈0.009），与主结果相差约 5.5%。源于物理正模型 (2.3) 用刚性 Fresnel DC 基线、未吸收带内慢变基线趋势（v002 根因一），而主方法 variable projection 以低阶多项式吸收基线、t 交给相位频率；故该差异为方法债（formulation §6.4），主结果由 FFT 周期图与低残差拟合双重佐证。
+- λ>5µm（ν<2000 cm⁻¹）为色散缺口区（B6），本版不进入主反演，其定量影响以 Δt_inv_band=58.4% 作为谱段截断合理性证据；L26 全文 n/k 表待 literature 全文复核。
+- n_sub 为幅值弱可辨识量（B7）：t 与 n_sub 解耦、t 不依赖 n_sub；n̂_sub=2.588 为弱辨识值，文献取值与掺杂机制（L26 4H/6H-SiC n、L30/L31）待全文复核。
+- L25–L32 等关键来源（Sellmeier 系数 L09 经 L11 交叉核验）为题名/摘要级核验，正文全文未获取；定量主张需在 computation/论文阶段对照原文复核。
+- 多光束（Airy）修正本版仅诊断，完整推导与修正预留 prob03，不预先采信 L17『多光束不改变极值位置』候选主张。
+- 本次为 sanity 验收结论，未改动 computation 结果、formulation/assumption 历史文件；formulation_v003 的 computation 结果保留于 results/thickness_inversion_v003（与 v001/v002 结果目录分离）。
+- reliability_two_angle_ftest 以 F 检验拒绝共享 t（F=5.25，p=0.022），但 ε₁₂=0.165%≪τ₁₂=2%，属大样本统计显著性与实际意义分离；按 formulation §7.1/§14 路由为 B11（测量点差异/膜厚梯度），需在小问结论中记录并解释，数值 ε₁₂ 作为报告项。
+- M2/M3（色散相位法/间隔法）报告 t=54–65 µm（Δg_median≈80 cm⁻¹），系把小幅噪声纹波当作干涉极值（formulation §13.3 噪声周期）；M1 为主交付，M2/M3 为已知/登记的方法债，论文须说明其不适用性。
+- 物理正模型 NLS 交叉校验（P1/P2）从主 t̂=7.216 起点收敛到 P1 t=6.816 / P2 t=6.975 µm（RMSE≈0.009），与主结果相差约 5.5%，源于其刚性 Fresnel DC 基线未吸收带内慢变背景（formulation §6.4 方法债）；主结果以 FFT 周期图与低残差拟合双重佐证。
+- n_sub 为幅值弱可辨识量（B7）：主方法 t 与 n_sub 解耦、t 不依赖 n_sub；n̂_sub=2.588 为弱辨识值，文献取值与掺杂机制（L26 4H/6H-SiC n、L30/L31）待全文复核。
+- 多光束（Airy）修正本版仅诊断（B13），完整推导与修正预留 prob03，不预先采信 L17『多光束不改变极值位置』候选主张。
+- prob02 实测反演为 PASS_WITH_WARNING：reliability_two_angle_ftest 大样本显著（F=5.25，p=0.022）但 ε12=0.165%≪τ12=2%，按 formulation §7.1/§14 路由为 B11（测量点差异/膜厚梯度）；图表如实呈现该边界与其余 5/6 判据通过。
+- λ>5µm（ν<2000 cm⁻¹）为色散缺口区（B6）：主反演仅用带内 Sellmeier 已知区 [2000,4000]，图 4 以虚线标注缺口代理，其定量影响以 Δt_inv_band=58.4% 报告（仅作谱段截断合理性证据）；L26 全文 n/k 表待文献全文复核。
+- M2/M3（方法债）报告 54–65 µm 与 M1 主方法 7.216 µm 相差约一个数量级，须在论文说明 M2/M3 不适用（图 10 已可视化其量级对照）。
+- 物理正模型 NLS 交叉校验（P1=6.816/P2=6.975 µm）与主结果约 5.5% 差异，源于刚性 Fresnel DC 基线未吸收带内慢变背景（formulation §6.4 方法债）；主结果由 FFT 周期图与低残差拟合双重佐证（图 2/图 7）。
+- n̂_sub=2.588 为干涉幅值弱可辨识值（B7）：主方法 t 与 n_sub 结构解耦（0.0% 敏感度，图 8），文献取值与掺杂机制（L26 4H/6H-SiC n、L30/L31）待全文复核。
+- 附件 2 反射率 >100% 异常点（n=262）按 (5.2) 降权 w=0.05 处理、原始数据只读（图 1 红 × 标注）；近 Reststrahlen [700,1000] cm⁻¹ 剔除（B3）。
+- 多光束（Airy）修正本版仅诊断（B13，改善 0.00%≤10%，两光束适用）；完整推导与修正预留 prob03。
+- CI 采用轮廓似然/夹逼区间（SSE(t) 曲率）而非重采样 bootstrap（B≥200），登记为方法债（CI 半宽 0.091%≪2%，不阻断；留论文/后续小问补）。
+- M2/M3（方法债）：报告 t≈54–65 µm 系把噪声纹波当作干涉极值（formulation §13.3 噪声周期）；M1 为主交付，论文须说明 M2/M3 不适用。
+- 物理正模型 NLS 交叉校验（P1=6.816 / P2=6.975 µm）与主结果差约 5.5%，源于刚性 Fresnel DC 基线未吸收带内慢变背景（formulation §6.4 方法债）；主结果由 FFT 周期图与低残差拟合双重佐证。
+- λ>5µm（ν<2000 cm⁻¹）为色散缺口区（B6）：主反演仅用带内 Sellmeier 已知区 [2000,4000]，Δt_inv_band=58.42% 作为截断合理性证据，L26 全文 n/k 表待 literature 复核。
+- n̂_sub=2.588 为干涉幅值弱可辨识值（B7）：主方法 t 与 n_sub 结构解耦（0.0% 敏感度），文献取值与掺杂机制（L26 4H/6H-SiC n、L30/L31）待全文复核；不影响 t̂。
+- 多光束（Airy）修正本版仅诊断（B13，改善 0.0%≤10%，两光束适用），完整推导与修正预留 prob03，不预先采信 L17『多光束不改变极值位置』候选主张。
+- prob02 level_6: prob02 Level 6（robustness 验收）独立复核通过（降级审查模式，复用已有产物、不发起新计算）：robustness 判据 C1–C8 由 formulation_v003 §7.1–§7.6 预注册判据在 computation 阶段执行并归档 results/thickness_inversion_v003/result.json + robustness/（decision/preregistration/experiment_matrix/conclusion），无需另启重复任务。C2 色散 0.507%≤2% PASS、C4 n_sub 解耦 0.0%（物理 NLS 1.92%≤3%）PASS、C5 CI 半宽 0.091%≤2% PASS、C6 全局极小唯一 PASS、C7 异常点 0.0%≤1% PASS、C8 多光束改善 0.0%≤10%（两光束适用）PASS、R8 基线/包络阶数 p=2..5.q=0..2 稳定；仅 C1 两角嵌套 F 检验统计显著（F=5.25>F_crit=3.843，p=0.022）但 ε12=0.165%≪τ12=2%，按 formulation §7.1/§14 路由为 B11（测量点差异/膜厚梯度）记录并解释，不构成模型修订触发。机器级 L2-finite 通过（8 数值文件全有限无 NaN/Inf，failures=[]），hash 追踪链（code/config/input）与 task.json/implementation.md §7 一致，原始数据只读；result.json feasible_incumbent=false 系 compute.py 将 F 检验判为硬失败置 passed=false，sanity-checker 独立验收判定主结果 t̂=7.2158 µm（ε12=0.165%、n̂_sub=2.588）可行可追踪，维持 PASS_WITH_WARNING。物理/常识一致（t 由相位频率确定、与 n_sub 解耦；色散为最大不确定度来源但带内 0.507%<2%；噪声二阶小量；异常点降权无影响）。v001/v002 曾超阈判据全部回到阈值内，确认 formulation_v003 变量投影重构消除模型可辨识性结构缺陷。技术债（bootstrap CI 未跑、M2/M3 噪声周期、物理 NLS 交叉校验 5.5%、λ>5µm 色散缺口 B6、n_sub 弱可辨识 B7、L25-L32 全文待复核、多光束 Airy 留 prob03 B13）均为既有/登记事项，不阻断推进。ablation 尚 pending，交由 ablation-analyst；Level 5 待全部小问局部完成后执行。
+- λ>5µm（ν<2000 cm⁻¹）为色散缺口区（B6）：主反演仅用带内 Sellmeier 已知区 [2000,4000]，其定量影响以 Δt_inv_band=58.42% 作为谱段截断合理性证据；L26 全文 n/k 表待 literature 复核。
+- n̂_sub=2.588 为干涉幅值弱可辨识值（B7）：主方法 t 与 n_sub 结构解耦（0.0% 敏感度），不影响 t̂；文献取值与掺杂机制（L26 4H/6H-SiC n、L30/L31）待全文复核。
+- M2/M3（色散相位法/间隔法）报告 t≈54–65 µm（Δg_median≈80 cm⁻¹），系把小幅噪声纹波当作干涉极值（formulation §13.3 噪声周期）；M1 为主交付，论文须说明 M2/M3 不适用。
+- 物理正模型 NLS 交叉校验（P1=6.816/P2=6.975 µm）与主结果差约 5.5%，源于其刚性 Fresnel DC 基线未吸收带内慢变背景（formulation §6.4 方法债）；主结果由 FFT 周期图与低残差拟合双重佐证。
+- 多光束（Airy）修正本版仅做诊断（B13，改善 0.0%≤10%，两光束适用），完整推导与修正预留 prob03，不预先采信 L17『多光束不改变极值位置』候选主张。
+- results/ablation/ 尚未创建（异步 task 待 supervised worker 运行），本响应不将其列为已创建产物；消融结论与图表待后续唤醒确认存在并消费后登记（本动作仅提交任务）。
+- A1 实测 Δt_disp=8.44% 大于 ν 空间 interval 基线法（B10/方法 A,M3）的 4.2–4.7% 估计：因 N-const 亦将 cosθ' 与 g(ν) 色散映射常数化（非仅极值间隔），属不同估计器；仍确认色散必要性（远超 >1% 阈值），方向与量级一致并如实记录。
+- F0 的 J(t) 次小候选残差比≈1.017（弱色散下周期歧义候选接近简并）；唯一性已由 robustness C6/§7.4 预注册判据（嵌套 F 检验）在 computation 阶段确认，ablation 将其作为报告项而非硬门禁，不翻转消融结论。
+- 延续既有 workflow warning（ablation 不重复覆盖）：λ>5µm（ν<2000）色散缺口 B6（Δt_inv_band=58.4% 为截断合理性证据）、n_sub 弱可辨识 B7（t 与 n_sub 结构解耦，n̂_sub=2.588）、M2/M3 噪声周期方法与物理 NLS 交叉校验约 5.5%、多光束 Airy 仅诊断且完整推导留 prob03（B13），均由论文讨论与文献复核承接。
+- prob02 的 L1–L4/L6 sanity 已 PASS_WITH_WARNING，本阶段消融结论不会改变已接受的 formulation_v003；若后续 sanity-checker 对 ablation 验收发现问题，按 failure_class 路由不直接人工阻塞。
+- A1 实测 Δt_disp_abl=8.44% 大于 ν 空间 interval 基线法（B10/方法 A,M3）的 4.2–4.7% 估计：因 N-const 亦将 cosθ' 与 g(ν) 色散映射常数化（属不同估计器）；仍确认色散必要性（远超 τ=1%），方向与量级一致并如实记录（写入 conclusion.md）。
+- F0 的 J(t) 次小候选残差比≈1.017（弱色散下周期歧义候选接近简并）；唯一性已由 robustness C6/§7.4 预注册判据在 computation 阶段确认，ablation 将其作为报告项而非硬门禁，不翻转消融结论。
+- 延续既有 workflow warning（ablation 不重复覆盖）：λ>5µm（ν<2000 cm⁻¹）色散缺口 B6（Δt_inv_band=58.4% 为截断合理性证据）、n_sub 弱可辨识 B7（t 与 n_sub 结构解耦，n̂_sub=2.588）、M2/M3 噪声周期方法与物理 NLS 交叉校验约 5.5%、多光束 Airy 仅诊断且完整推导留 prob03（B13），均由论文讨论与文献复核承接。
+- 辅助消融图（make_ablation_figures.py）以本版本自包含脚本生成，数据源只读 results/ablation/ 结果，未修改 model.py / compute.py，故 computation/robustness 既有 hash 追踪链保持稳定。
+- 当前工作流处于 degraded_review（recovery 累计 10 轮非实质进展，last_failure=agent_transport/sanity-checker JSON 解析失败，same_fingerprint_streak=1）；本响应基于已有产物给出结论性响应，未发起新计算，也未改写已有问题理解产物（prob03 理解文件与全局文档保持一致）。
+- 多光束干涉必要条件的量化判据（强度反射率阈值、相干长度/相干性、界面平行度、吸收限制）属 prob03 数学推导内容，decomposer 不预先固定阈值，需由数学建模阶段从物理上严格推导。
+- 硅晶圆片（附件 3/4）是否出现多光束干涉必须由数据判定，不能假设；若判定不出现，需在 prob03 给出不适用理由；该判定的可操作形式依赖必要条件推导结论。
+- prob03 依赖 prob02 的 SiC 结果作为对照与修正基准：若 prob02 结论（prob02-conclusion-v1，content_hash=27b0ce8689e1eb2b345e5803309ea80bb6b84a620f189ed6cd589e75f23a12ea）后续变化，prob03 会被置 stale 并重新审查，dependency_graph 已登记该依赖链。
+- 延续既有 workflow warning（ablation/robustness 移交）：λ>5µm（ν<2000 cm⁻¹）色散缺口、n_sub 弱可辨识（n̂_sub=2.588）、M2/M3 噪声周期方法债、物理正模型 NLS 交叉校验约 5.5%、L25–L32 关键来源全文待复核，均在论文/文献复核阶段承接，不影响本阶段问题理解。
+- 新增 A 级来源 L43–L47 为 Crossref/DOAJ/PubMed 元数据级核验（标题/作者/年份/卷期页一致），正文多为摘要/元数据级；具体公式与数值需在 formulation 阶段对照原文复核后方可用于定量主张（延续既有 workflow warning）。
+- 多光束干涉必要条件的量化判据（R₁R₂ 阈值、相干长度、界面平行度容差、吸收限制）属 prob03 数学推导内容，文献只提供机理与定性-半定量框架，不给出适用于本样品的最终阈值——具体阈值由数学建模阶段从物理上严格推导并登记（project_assumption / team_decision，decomposer 明确不预设）。
+- 硅片（附件 3/4）是否出现多光束干涉必须由数据判定，不能假设；若判定不出现，需在 prob03 给出不适用理由（decomposer 明确；文献只提供判定方法与建模框架，不提供该样品结论）。
+- L17『多光束不改变极值位置』为 prob01 登记的同题解法候选主张，未经独立推导验证；prob03 不预先采信，须独立推导验证（延续 B13 判定原则）。
+- 延续 prob01/prob02 已登记技术债：λ>5µm（ν<2000 cm⁻¹）色散缺口 B6、n_sub 弱可辨识 B7（n̂_sub=2.588）、M2/M3 噪声周期方法债、物理正模型 NLS 交叉校验约 5.5%、L25–L32 全文待复核；均由论文/文献复核阶段承接，不影响本问文献研究结论。
+- prob03 依赖 prob02 的 SiC 结论（prob02-conclusion-v1，content_hash=27b0ce…）作为对照与修正基准；若该结论后续变化，prob03 会被置 stale 并重新审查（dependency_graph 已登记该依赖链）。
+- L43–L47 为 A 级但多为元数据/摘要级核验，具体公式与数值需在 formulation 阶段对照原文复核后方可用于定量主张（延续既有 workflow warning）。
+- L48–L50 为 C 级会议论文（正文未核验，usage_status=new），仅作方法对照与算法线索，不单独支撑关键公式；C14 的关键依据为 A 级来源 L25。
+- 多光束必要条件最终阈值（C2/C11）与硅片/SiC 判定结论及厚度数值属后续 formulation/computation 阶段，本假设阶段不预先固定，避免为方便计算隐藏假设。
+- 本次为 assumption_definition 阶段结论，未改动 computation 结果及 formulation/assumption 历史文件；assumption_v001 的 version.yaml/assumptions.md 为既有 candidate 产物，本轮（收敛模式）仅进行最小静态检查并确认后接受，未发起新计算。
+- 延续既有 workflow warning：L43–L47 等关键来源为题名/摘要级核验（正文全文未获取），定量参数（硅 Sellmeier 系数、n_sub 值）需 implementation 阶段对照原文（L12/L13 Palik、L44/L45、L46/L47）复核后方可用于定量主张
+- 硅衬底折射率 n_sub 为干涉幅值弱可辨识量（探针范围约3.5–3.7，随包络多项式模型而变），t 与 n_sub 结构解耦（不进入 t 主反演）；文献取值与掺杂机制（L12/L13/L45）待全文复核
+- 硅片厚度 t̂≈6.9 µm 为本版只读探针（method-validation）值，非 computation 结果；正式 t̂、不确定性、色散敏感性（Δt_disp）、异常点、多光束（η_mb）等由 computation 阶段按 §5/§7 预注册判据产出并归档追踪链
+- R12（进而 Rbar/Finesse）为弱信号、模型依赖（q=0/q=1 包络给出 Rbar≈0.009~0.025），已按弱可辨识范围登记；两光束结论（Rbar≤0.05、η_mb≈0.02%）对 R12 取值稳健
+- 硅透明窗 [2000,4000] 为主反演带（避开多声子吸收带 <1500 cm⁻¹）；带边缘的剔除/降权边界以 computation 残差谱诊断，若 ν<2000 处吸收/色散可忽略可扩展（C8）
+- L17『多光束不改变极值位置』本版独立推导验证为成立（适用边界：透明谱段、无吸收、近平行板）；吸收带（SiC Reststrahlen [700,1000]、硅多声子带）不在此结论适用域（C5/B3）
+- prob03 依赖 prob02-conclusion-v1（content_hash=27b0ce…）作为 SiC 对照基准；若该结论后续变化，prob03 被置 stale 并重审（dependency_graph 已登记）
+- 【关键发现·质量告警】formulation_v001 §13.1 对硅片厚度的探针值 t̂≈6.9µm 与文档化公式 (2.7)/(6.1)-(6.5) 及实测数据不一致：本文档忠实实现审定的文档公式，对附件3/4 主反演得 t̂≈3.4477（10°）/3.4463（15°）µm。多重独立验证确认 3.45µm 为正确值——(a) 干涉条纹计数：数据在 [2000,4000] 仅 4 极大/5 极小，t=3.45µm 的 δ 扫约 30 rad（≈4.8 周期，对应 4-5 极大），而 t=6.9µm 扫约 60 rad（≈9.5 周期，应出现 9-10 极大），与数据不符；(b) 直接条纹间距：同型极大 Δν≈432 cm⁻¹、极小≈424 cm⁻¹ → t=1/(2×1e-4·n·cosθ′·Δν)≈3.4µm；(c) RMSE 数值互换：§13.1 报告「6.9→RMSE 2.58e-3、3.55→RMSE 1.11e-2」，本文档按公式实为「3.45→RMSE 2.575e-3、6.9→RMSE 1.11e-2」——RMSE 值相同、t 标签互换，即 §13.1 探针存在因子 2 的相位频率/标签伪影。建议 computation 产出的正式 t̂ 以实测干涉数据为准，sanity/论文阶段对照原文与数据仲裁；必要时回 formulation 修订 §13.1/§7/§10 对 6.9µm 的引用（本文档未改动 formulation 历史文件，遵守『不覆盖公式/结果历史』）。
+- 硅衬底折射率 n̂_sub≈3.56 为干涉幅值弱可辨识值（范围 3.5-3.7），与 t 结构解耦（不进入 t 主反演）；文献取值与掺杂机制（L12/L13、L45）待全文复核，必要时回退文献取值并记录 t 对 n_sub 灵敏度（预期趋近 0）。
+- L43–L47 等关键来源为题名/摘要级核验（正文全文未获取），定量参数（硅 Sellmeier 系数、n_sub 值）需在论文/文献复核阶段对照原文复核后方可用于定量主张（延续既有 workflow warning）。
+- 多光束判定基于实测谱的只读探针核实（非主反演结果重算）；若 computation 中任意样品 η_mb>τ_mb=10%，启用 §7.4 Airy 修正并记录 t 位移（预期≈0，验证 §3.5 极值不变性）。CI 采用轮廓似然（J(t) 曲率，B12），残差重采样 bootstrap 留 computation 备选。
+- prob03 依赖 prob02-conclusion-v1（content_hash=27b0ce…）作为 SiC 对照基准；若该结论后续变化，prob03 被置 stale 并重审（dependency_graph 已登记 prob02→prob03 依赖）。
+- 【既有 workflow warning 延续】implementation-agent 指出 formulation_v001 §13.1 的硅片厚度探针值 t̂≈6.9µm 与忠实实现审定公式所得 t̂≈3.4477µm 不一致：本任务提交的是审定的 formulation_v001 代码与规格，正式 computation 结果以实测干涉数据为准，sanity-checker 验收时须对照原文与数据仲裁该差异（quality_warning，不阻断推进，未改动 formulation 历史文件）。
+- 【既有 workflow warning 延续】prob03 依赖 prob02-conclusion-v1（content_hash=27b0ce…）作为 SiC 对照基准；若该结论后续变化，prob03 被置 stale 并重审（dependency_graph 已登记 prob02→prob03 依赖）。
+- 【既有 workflow warning 延续】多光束判定基于实测谱只读探针核实；若 computation 中任意样品 η_mb>τ_mb=10%，启用 §7.4 Airy 修正并记录 t 位移（预期≈0）。CI 采用轮廓似然（J(t) 曲率），残差重采样 bootstrap 留 computation 备选。
+- 【既有 workflow warning 延续】implementation §6.1 关键发现：formulation_v001 §13.1 硅片厚度探针值 t̂≈6.9µm 与忠实实现审定公式所得 t̂≈3.45µm 不一致（差因子 2 相位频率/标签伪影）；本任务提交审定代码与规格，正式 computation 结果以实测数据为准，sanity-checker 验收时须对照原文与数据仲裁该差异（quality_warning，不阻断推进，未改动 formulation 历史文件）。
+- 【既有 workflow warning 延续】prob03 依赖 prob02-conclusion-v1（content_hash=27b0ce86…a12ea）作为 SiC 对照基准；若该结论后续变化，prob03 被置 stale 并重审（dependency_graph 已登记 prob02→prob03 依赖）。
+- 【既有 workflow warning 延续】L43–L47 为 A 级但多为元数据/摘要级核验，正文全文未获取；定量参数（硅 Sellmeier 系数、n_sub 值）需在论文/文献复核阶段对照原文复核后方可用于定量主张。
+- 本次修复仅校正 parameters.yaml 两处 YAML 引号靠位（语义中性），未改动 assumption/formulation 的公式、数值与历史结果文件；因 input_hash 变化，正式 computation 将由资源管理在下次唤醒重新提交新任务并交由 supervised worker 运行（本实现阶段仅做静态检查与小探针，未运行完整数据集）。
+- 【需修订】formulation_v001 §13.1/§0/§7.2 的硅厚度探针值 t̂≈6.9µm 与实现对审定公式所得 t̂≈3.4477µm 不一致（因子 2 相位频率/标签伪影，§13.1 的 RMSE 2.58e-3 应属 t≈3.45、1.11e-2 应属 t≈6.9）；正确值 t̂=3.4477µm，须在 formulation 阶段修订并复核 §13.4/§13.2 相关探针值。
+- 【需修订】formulation (3.2) 精细度公式 F=π√R̄/(1−R̄) 与代码 finesse=π·R̄/(1−R̄) 不一致（差值约 √R̄≈0.1 倍，报告 0.032 vs 应得 ≈0.319）；该量仅诊断、不影响 N1/multibeam 判定，但仍属 formula-代码不一致，须统一。
+- n̂_sub≈3.558 为干涉幅值弱可辨识值（B7）：主方法 t 与 n_sub 解耦、t 不依赖 n_sub；文献取值与掺杂机制（L12/L13 硅、L45 掺杂机制）待全文复核。
+- uniqueness_second_min_ratio≈1.020 较接近 1（次小候选仅高约 2%），反映带内弱色散下周期邻近候选接近简并；全局唯一性以 J 曲线单一全局极小佐证，但未达 formulation §13.1 声称的「4 倍余量」，作为报告项而非硬门禁。
+- multibeam_improvement 用物理两光束正模型（Fresnel 刚性 DC 基线，θ10 RMSE≈0.0294）与主方法 variable projection（低阶多项式吸收基线，RMSE≈0.00257）基线不同；η_mb 基准为物理两光束模型，不影响 t̂ 主结果，论文须说明两模型基线差异。
+- L12/L13/L43–L47 等关键来源（Sellmeier 系数经 L13 数据页交叉核验）为题名/摘要级核验（正文全文未获取），定量主张需在论文/文献复核阶段对照原文复核（延续既有 workflow warning）。
+- 本次为 sanity 验收结论，未改动 computation 结果、formulation/assumption 历史文件；核实 t̂=3.4477µm 为对审定公式的正确输出，予以保留（results/silicon_mb_verify）。
+- 非关键保留项（延续既有 workflow warning，不阻断交付）：n̂_sub≈3.558 为干涉幅值弱可辨识值（范围 3.5–3.7，与 t 解耦），文献取值与掺杂机制（L12/L13 硅、L45）待全文复核，必要时回退文献取值并记录 t 对 n_sub 灵敏度（预期趋近 0）。
+- L43–L47 等关键来源（硅 Sellmeier 系数 L12/L13 经 L13 Palik 数据页交叉核验）为题名/摘要级核验，正文全文未获取；定量参数需 implementation/论文阶段对照原文复核后方可用于定量主张。
+- implementation 须修正 finesse 实现为 `finesse=π·√R̄/(1−R̄)`（v001 代码 `π·R̄/(1−R̄)` 为 bug，R2）；代码/配置/输入 hash 将变化 → 触发新任务 ID 重新反演并归档（原结果目录 results/silicon_mb_verify 保留）。
+- η_mb、Δt_disp、CI 半宽 等本版给出的是对审定公式的复核/实测值；正式 computation 结果与追踪链以重新提交的任务为准，sanity-checker 再验收。
+- CI 采用轮廓似然（SSE(t) 曲率/夹逼区间）而非重采样 bootstrap（B≥200），登记为方法债（CI 半宽 0.134%≪2%，不阻断）。
+- 唯一性：J(t) 次小候选/最小 J≈1.020（弱色散下周期邻近候选接近简并），作为报告项而非硬门禁；全局唯一性由 §7.6 预注册判据（全局极小唯一 + 嵌套 F 检验）确认。
+- n̂_sub≈3.558 为干涉幅值弱可辨识值（B7）：主方法 t 与 n_sub 结构解耦（不进入 t 主反演），文献取值与掺杂机制（L12/L13 硅、L45）待全文复核，必要时回退文献取值并记录 t 对 n_sub 灵敏度（预期趋近 0）。
+- λ>5µm（ν<2000 cm⁻¹）为 SiC 色散缺口区（B6）：本版不进入 SiC 主反演，其定量影响以 prob02 对照（t̂=7.2158µm）承接；L26 全文 n/k 表待 literature 复核。
+- 多光束（Airy）修正本版仅诊断（B13，硅 η_mb≈0.11%、SiC Rbar≈0.0024≤θ_mb → 两光束适用、无需修正）；完整推导与修正预留 prob03，不预先采信 L17 之外的候选结论。
+- L43–L47 为 A 级但多为元数据/摘要级核验（正文全文未获取），定量参数（硅 Sellmeier 系数、n_sub 值）需在论文/文献复核阶段对照原文复核后方可用于定量主张（延续既有 workflow warning）。
+- 唯一性：J(t) 次小候选/最小 J≈1.020（比 1 高约 2%，弱色散下周期邻近候选接近简并），作为报告项而非硬门禁；全局唯一性由 §7.6 预注册判据（全局极小唯一 + 嵌套 F 检验）确认。
+- CI 采用轮廓似然（SSE(t) 曲率/夹逼区间）而非重采样 bootstrap（B≥200），登记为方法债（半宽 0.134%≪2%，不阻断）。
+- prob03 依赖 prob02-conclusion-v1（content_hash=27b0ce86…a12ea）作为 SiC 对照基准；若该结论后续变化，prob03 被置 stale 并重审（dependency_graph 已登记 prob02→prob03 依赖）。
+- 【输出目录复用告警】formulation_v002 任务复用输出目录 results/silicon_mb_verify，该目录已含 v001 计算结果（任务 f1c4e3ed425ff6b0e73f 的 result.json/metadata.json/solver_status.json 等）。v002 worker 会写入同名文件，将覆盖该目录内的 v001 证据，与『不覆盖结果历史』原则存在冲突；建议 sanity-checker/流水线在验收时确认 v001 证据已保留，或后续将 v002 输出归档到版本化子目录（如 results/silicon_mb_verify_v002）。（quality_warning，不阻断推进）
+- 【既有 workflow warning 延续】formulation_v002 已接受硅厚基准 t̂≈3.4477µm（R1，非 v001 的 6.9µm 伪影）；computation 正式 t̂ 以实测干涉数据为准，sanity-checker 验收时须对照原文与数据仲裁。
+- 【既有 workflow warning 延续】prob03 依赖 prob02-conclusion-v1（content_hash=27b0ce…）作为 SiC 对照基准（C17）；若该结论后续变化，prob03 被置 stale 并重审（dependency_graph 已登记 prob02→prob03 依赖）。
+- 【既有 workflow warning 延续】多光束判定基于实测谱只读探针核实；若 computation 中任意样品 η_mb>τ_mb=10%，启用 §7.4 Airy 修正并记录 t 位移（预期≈0）。CI 采用轮廓似然（J(t) 曲率），残差重采样 bootstrap 作为 computation 备选。
+- 【既有 workflow warning 延续】L43–L47 等关键来源为题名/摘要级核验（正文全文未获取），定量参数（硅 Sellmeier 系数、n_sub 值）需在论文/文献复核阶段对照原文复核后方可用于定量主张。
+- prob03 level_1_4: prob03 主 computation 任务 7e209043973692d067ed 消费完成（formulation_v002 / assumption_v001，results/silicon_mb_verify）：L1–L4 硬门禁通过——hash 追踪链（code_hash=482f5abb10c276c9d073dd7b7177ce342cf0a0d2d0b455370a899ec566142873 与 task.json/implementation.md §7 一致、source_config_hash/input_hash 一致）完整、机器级 L2-finite 通过（10 数值文件全有限无 NaN/Inf，failures=[]）、公式-代码逐条一致（R1 硅厚度基准 t̂=3.4477µm 修正 v001 的 6.9µm 因子2 伪影；R2 finesse=π·√R̄/(1−R̄) 修正 v001 漏 √R̄，finesse=0.3186 与公式一致）、单位一致、原始数据只读、无硬约束违反。主结果 t̂(共享)=3.4477 µm、每角 3.4507/3.4463 µm、ε₁₂=0.130%、n̂_sub(幅值弱辨识)=3.558；J(t) 曲线全局唯一极小在 t=3.45µm（J_shared=0.0608），未达 formulation §13.1 声称的『4 倍余量』（次小候选比≈1.020，弱色散下周期邻近候选接近简并，作为报告项而非硬门禁）。全部可靠性判据 PASS（two_angle F=0/p=1.0、dispersion 0.503%≤2%、ci 0.134%≤2%、anomaly 0.0%≤1%、multibeam_si two_beam_negligible η_mb≈0.11%、multibeam_sic no_correction_needed Rbar≈0.0024、nsub 解耦 diag PASS；checks_failed=[]）。v001 判 NEEDS_REVISION 的两项 core 缺陷（R1/R2）已在 v002 修复并复核通过；模型有效、无 VERSION_REJECTED、无 NEEDS_REVISION。技术债（bootstrap CI 用轮廓似然替代、n_sub 弱可辨识 B7、uniqueness 次小候选接近简并、multibeam_improvement 基线差异、λ>5µm SiC 色散缺口 B6、L43-L47 全文待复核、附件2 数据契约偏差）均为既有/登记事项或非阻断。合并 config_hash 因 config/gates.yaml、workflow.yaml 在 computation 后被修改而漂移（post-hoc 配置变更；code/input/source_config 链完好），作质量告警登记不触发修订。判定 PASS_WITH_WARNING，推进至 sanity_check 阶段。
+- prob03 的 Level 1–4 sanity 为 PASS_WITH_WARNING，技术债均非阻断：bootstrap CI 未跑（改用轮廓似然 J(t) 曲率，半宽 0.134%≪2%）；n_sub 为干涉幅值弱可辨识值（B7，n̂_sub≈3.558，主方法 t 与其结构解耦，文献取值与掺杂机制 L12/L13、L45 待全文复核）；uniqueness_second_min_ratio≈1.020 次小候选接近简并（弱色散下周期歧义，作为报告项而非硬门禁，全局唯一性由 §7.6 预注册判据确认）；multibeam_improvement 用物理两光束正模型（Fresnel 刚性 DC 基线）对比主方法 variable projection（多项式吸收基线）基线不同，论文须说明两模型基线差异；λ>5µm（ν<2000 cm⁻¹）为 SiC 色散缺口（B6，prob03 主反演不入，由 prob02 对照 t̂=7.2158µm 承接）；L43–L47 等关键来源为题名/摘要级核验（正文全文未获取），定量参数（硅 Sellmeier 系数、n_sub 值）需在论文/文献复核阶段对照原文复核后方可用于定量主张。
+- 附件2（SiC 15°数据）SHA-256/大小与 data/2025_cumcm_B/README.md 不符（磁盘 2E67444B…/780,181B vs README 24B3113E…/186,957B），属 prob02 起全流程共用的数据契约偏差；附件2 仅用于 prob03 Q3 的 SiC 只读量级复核、不进入硅厚度主反演（Q2 用附件3/4，二者契约完好）；建议按 implementation.md §7.1 由数据所有者确认附件2 真实来源 hash 与 README 条目后更正，不作为本结果否决依据。
+- 延续既有 workflow warning：prob03 依赖 prob02-conclusion-v1（content_hash=27b0ce86…a12ea）作为 SiC 对照基准（C17）；若该结论后续变化，prob03 被置 stale 并重审（dependency_graph 已登记 prob02→prob03 依赖）。
+- 本版 merged config_hash 因 config/gates.yaml、config/workflow.yaml 在 computation 之后被修改而无法复现（见 findings），为 post-hoc 配置变更；computation 的 code/input/source_config 追踪链完好，不影响验证结论，仅作质量告警登记。
+- 多光束（Airy）修正本版仅诊断（B13，两光束适用、无需修正），完整推导与修正预留 prob03 结论/论文阶段，不预先采信 L17『多光束不改变极值位置』之外的候选主张。
+- results/silicon_mb_verify 输出目录复用（formulation_v002 与 v001 共用，已登记目录复用告警）：v002 写入同名结果文件，v001 的关键发现（R1/R2）已在 formulation_v002 修订日志与 workflow_state 警告中保留，未被覆盖为有效结果。
+- prob03 sanity_check 阶段闭合（level_1_4=PASS_WITH_WARNING）：技术债均非阻断——bootstrap CI 用轮廓似然替代（半宽 0.134%≪2%）；n_sub 弱可辨识 B7（n̂_sub≈3.558，t 与其解耦，文献取值/掺杂机制 L12/L13、L45 待全文复核）；uniqueness_second_min_ratio≈1.020 次小候选接近简并（弱色散下周期歧义，作为报告项而非硬门禁）；multibeam_improvement 用物理两光束正模型（刚性 DC 基线）对比主方法 variable projection（多项式吸收基线）基线不同，论文须说明；λ>5µm SiC 色散缺口 B6（prob03 主反演不入，由 prob02 对照 t̂=7.2158µm 承接）；L43–L47 全文待复核（定量参数需论文/文献阶段对照原文）。
+- 合并 config_hash 因 config/gates.yaml、config/workflow.yaml 在 computation 之后被修改而无法复现，为 post-hoc 配置变更；computation 的 code/input/source_config 追踪链完好，不影响验证结论，仅作质量告警登记。
+- multibeam_improvement 用物理两光束正模型（Fresnel 刚性 DC 基线，θ10 RMSE≈0.0294）与主方法 variable projection（低阶多项式吸收基线，RMSE≈0.0026）基线不同；η_mb 基准为物理两光束模型，不影响 t̂ 主结果，论文须说明两模型基线差异（延续既有 workflow warning）。
+- n̂_sub≈3.558 为干涉幅值弱可辨识值（B7）：主方法 t 与 n_sub 结构解耦；文献取值与掺杂机制（L12/L13 硅、L45）待全文复核。
+- uniqueness_second_min_ratio≈1.020 次小候选接近简并（弱色散下周期歧义），作为报告项而非硬门禁；全局唯一性由 §7.6 预注册判据确认。
+- 图表数据源复用 results/silicon_mb_verify 目录（formulation_v002 与 v001 共用）；v001 关键发现（R1/R2）已在 workflow_state 警告与 formulation_v002 修订日志保留（output 目录复用，quality_warning）。
+- L43–L47、硅 Sellmeier 系数（L12/L13）等关键来源为题名/摘要级核验（正文全文未获取），定量参数需在论文/文献复核阶段对照原文复核（延续既有 workflow warning）。
+- 附件2（SiC 15°数据）SHA-256 与 data/2025_cumcm_B/README.md 不符，属 prob02 起全流程共用数据契约偏差；附件2 仅用于 prob03 Q3 SiC 只读量级复核、不进入硅厚度主反演（Q2 用附件3/4，契约完好），建议数据所有者确认（延续既有 workflow warning）。
+- prob03 robustness 结论 STABLE（R1–R7 全部在预注册阈值内通过，R8 唯一性为报告项）：R7 谱段窗口敏感性（Δt_win=0.749%<2%）在降级审查模式下由只读探针（code/robustness_probe.py，复用已审定 model.py，不修改原始数据/代码/结果）补登——computation 阶段未单独执行该项（formulation §8.5 曾标记为预注册/报告项）。
+- R8 唯一性次小候选比值≈1.020 接近 1（弱色散下周期邻近候选接近简并）：全局唯一性由 §7.6 预注册判据（全局极小唯一 + 嵌套 F 检验）确认，作为报告项而非硬门禁，不翻转模型结论（延续 sanity_check 已登记项）。
+- bootstrap CI（B≥200）未运行：R3 用轮廓似然/夹逼区间（J(t) 曲率）给出 95% CI（半宽 0.134%≪2%），登记为方法债，留论文/后续小问补。
+- n_sub 弱可辨识（B7）：n̂_sub≈3.558 为干涉幅值弱辨识值（范围 3.5–3.7），与 t 结构解耦、不影响 t̂；文献取值与掺杂机制（L12/L13 硅、L45）待全文复核。
+- 延续既有 workflow warning：multibeam_improvement 用物理两光束正模型（Fresnel 刚性 DC 基线）为基准，与主方法 variable projection（多项式吸收基线）基线不同，论文须说明；λ>5µm（ν<2000 cm⁻¹）为 SiC 色散缺口（B6）由 prob02 对照承接；L43–L47、硅 Sellmeier（L12/L13）为题名/摘要级核验，定量参数需论文/文献阶段对照原文复核。
+- prob03 level_6: prob03 Level 6（robustness 验收）独立复核通过：robustness 判据 R1–R8 由 formulation_v002 §8.5 预注册并先于 computation 固定（parameters.yaml），R1–R7 全部在阈值内（R1 eps12=0.130%≤2%、R2 Δt_disp=0.503%≤2%、R3 CI 半宽 0.134%≤2%、R4 Δt_anom=0.0%≤1%、R5 η_mb=0.111%≤10%、R6 n_sub 解耦 0.0%、R7 Δt_win=0.749%≤2%），checks_failed=[]；独立复算 R7=0.749% 与登记值一致，探针只读、复用 model.py、未改数据/代码/结果。R8 唯一性次小候选≈1.020 为报告项（弱色散周期歧义），全局唯一性由 §7.6 预注册判据确认。主结果 t̂=3.4477 µm/每角 3.4507/3.4463 µm（ε12=0.130%），多光束判定两光束适用（硅 R̄≈0.0101、η_mb≈0.11%；SiC R̄_max≈0.0024 no_correction_needed），与 prob02 结论一致；物理/常识一致（t 由相位频率确定、与 n_sub 解耦；硅色散弱且带内无 λ>5µm 缺口；噪声二阶小量）。硬门禁（L2-finite 10 文件全有限无 NaN/Inf、单位/量纲、公式-实现一致 R1/R2 已修复、原始数据只读、追踪链完整、feasible_incumbent=true）全部通过。技术债（bootstrap CI 未跑用轮廓似然、n_sub 弱可辨识 B7、uniqueness 近简并、multibeam 基线差异、λ>5µm SiC 色散缺口 B6、L43-L47 全文待复核、附件2 数据契约偏差）均为既有/登记事项，非阻断。判定 PASS_WITH_WARNING。
+- bootstrap CI（B≥200）未运行：R3 用轮廓似然/夹逼区间（J(t) 曲率，χ²_{0.95,1}·σ²）给出 95% CI（半宽 0.134%≪2%），登记为方法债，留论文/后续小问补残差重采样（robustness/preregistration §8；延续既有 workflow warning）。
+- n_sub 弱可辨识（B7）：n̂_sub≈3.558 为干涉幅值弱辨识值（范围 3.5–3.7），与 t 结构解耦、不进入 t 主反演；文献取值与掺杂机制（L12/L13 硅、L45）待全文复核，必要时回退文献取值并记录 t 对 n_sub 灵敏度（预期趋近 0）。
+- R7 由只读探针补登（非 supervised worker 任务）：robustness 阶段在降级审查模式下复用 model.py 模块对附件3/4 做窗口敏感性（确定性、只读、不改数据/代码），Δt_win=0.749%<2%；已注明方法边界与输出目录。
+- 唯一性近简并（R8）：次小候选比值≈1.020 接近 1（弱色散下周期邻近候选接近简并），作为报告项而非硬门禁；全局唯一性由 §7.6 预注册判据确认，论文须如实披露该边界。
+- multibeam_improvement 基线差异：η_mb 以物理两光束正模型（Fresnel 刚性 DC 基线，RMSE≈0.029）为基准，与主方法 variable projection（多项式吸收基线，RMSE≈0.0026）基线不同；η_mb 基准为物理两光束模型，不影响 t̂ 主结果，论文须说明两模型基线差异。
+- 文档术语不一致（quality_warning，非阻断）：L1–L4 sanity_report §Level 3 对 t≈6.9 µm 记为『RMSE≈1.19e-2，高约 20×』，而 robustness/parameters 记为『高约 4.3×』——两者实指 J(SSE) 之比≈19.6× 与 RMSE 之比≈4.4×，属同一结论的不同度量标签；不影响 6.9 µm 为倍周期假极小、t=3.45 µm 为全局唯一的判定，建议统一表述。
+- R7 叙述『基线 [2000,4000] 为最优』（robustness/conclusion.md）：实际 [2200,4000] 窗口 RMSE（0.00147）低于基线（0.0027），故『最优』相对更宽窗口（[1600/1800,4000]）成立、相对更窄窗口（[2200,4000]）不严格成立；Δt_win=0.749%<2% 的窗口稳健性结论不因此改变（quality_warning）。
+- 附件2（SiC 15°数据）SHA-256/大小与 data/2025_cumcm_B/README.md 不符（磁盘 2E67444B…/780,181B vs README 24B3113E…/186,957B），属 prob02 起全流程共用数据契约偏差；附件2 仅用于 prob03 Q3 的 SiC 只读量级复核、不进入硅厚度主反演（Q2 用附件3/4，契约完好），建议由数据所有者确认（延续既有 workflow warning）。
+- 延续既有 workflow warning：λ>5µm（ν<2000 cm⁻¹）为 SiC 色散缺口（B6，prob03 主反演不入，由 prob02 对照 t̂=7.2158 µm 承接；其定量影响以 prob02 的 Δt_inv_band 作为截断合理性证据）；L43–L47、硅 Sellmeier（L12/L13）为题名/摘要级核验（正文全文未获取），定量参数需论文/文献阶段对照原文复核。
+- ablation（可选阶段）在 question_manifest 中 decision=pending：robustness 已判定 STABLE；是否对 prob03 执行/跳过 ablation 交由 ablation-analyst 决定，如跳过须记录明确理由。
+- ablation 的 A2 以「加 Airy 高阶谐波列（cos2δ/sin2δ、cos3δ/sin3δ）」作为多光束高阶干涉内容的 Fourier 代理，非逐项 Airy (3.6) 精确模型；其残差改善率另以 computation 阶段的 η_mb≈0.11%（硅）/SiC R̄≈0.0024 交叉对照，两者共同支撑 L17 与「多光束不贡献 t̂」结论
+- ablation 基于实测硅片附件 3/4（与 computational/robustness 相同数据）；F0 在该阶段另以 computation 对审定公式的忠实实现值 t̂=3.4477 µm 为对照基准，无外部 baseline（按 ablation 约定）
+- A1/A3/A4 预期主要显示「t̂ 稳定/Δt≤2%」——这是「复杂度项不贡献 t̂ 点估计」的正常 abl-ation 结论（components_confirmed），非实验失败；若某实验翻转（Δt 超阈值）将如实记为 components_partially_confirmed 并报告边界
+- robustness R8 唯一性次小候选比值≈1.020（弱色散周期歧义）为既有报告项，非硬门禁；ablation 不改变该判据，A1（N-const）将报告唯一性比值作为佐证
+- 隔离任务为异步（queued），权威数值结果与 `abl-ation/conclusion.md`、图表待任务终态后的下一次唤醒消费并登记；本动作未提前声明任何 worker 尚未创建的产物（results/abl-ation 目录及其文件在响应时不存在）
+- bootstrap CI 未运行，R3/CI 用轮廓似然（0.134%≤2%）；如需更稳健抽样分布留论文/后续小问补齐 B≥200 残差重采样 bootstrap。
+- n_sub 幅值弱可辨识（n̂_sub≈3.558，B7，范围 3.5–3.7）：t 与 n_sub 结构解耦，n_sub 不确定性不影响 t̂。
+- 唯一性近简并（robustness R8 次小候选≈1.020，A1 N-const 唯一性比值 1.018）：全局唯一性由 formulation §7.6 预注册判据保障，作为报告项而非硬门禁。
+- multibeam_improvement 基线差异：η_mb 以物理两光束正模型（刚性 Fresnel DC 基线）为基准，与主方法 variable projection（多项式吸收基线）基线不同，论文须说明。
+- SiC λ>5µm 色散缺口（B6）：SiC 多光束判定用 prob02 对照（R̄≈0.0024）；L26 全文 n/k 表待文献全文复核。
+- L43–L47 与硅 Sellmeier（L12/L13）多为元数据/摘要级核验，定量参数需论文/文献阶段对照原文复核。
+- A2 以「加 Airy 高阶谐波列（cos2δ/sin2δ、cos3δ/sin3δ）」作为多光束高阶干涉内容的 Fourier 代理，非逐项 Airy (3.6) 精确模型；其残差改善率另以 computation 阶段 η_mb≈0.11%（硅）/SiC R̄≈0.0024 交叉对照，两者共同支撑 L17 与「多光束不贡献 t̂」结论。
+- formulation_v002 computation 输出目录 results/silicon_mb_verify 与 v001 复用（已登记目录复用告警），v001 关键发现 R1/R2 已在 formulation_v002 修订日志与 workflow_state 警告保留；本 ablation 未修改任何 computation/robustness 结果与 formula 历史文件。
+- 三问 versions/assumption_v001/question_summary.md 均为『待填写』占位，未达 workflow-states 完成契约对 question_summary 可追溯性的要求；属跨问一致性之外的完成契约内容完备性缺口，须在进入论文阶段前补齐（记录为 paper_writing 前置项）。
+- 论文阶段须如实披露的既有技术债：SiC λ>5µm（ν<2000 cm⁻¹）色散缺口（B6，Δt_inv_band≈58.42% 为谱段截断合理性证据）、n_sub 弱可辨识（B7，n̂_sub≈2.588/3.558，均与 t 结构解耦）、M2/M3 噪声周期方法债（prob02 报告 t≈54–65µm 与主方法 M1 约 7.2µm 差约一个数量级，论文须说明 M2/M3 不适用）、物理正模型 NLS 交叉校验约 5.5% 偏差（formulation §6.4 方法债）、bootstrap CI 未跑（改用轮廓似然/夹逼区间，半宽 0.091%/0.134%≪2%）、L25–L32/L43–L47 等关键来源为题名/摘要级核验（正文全文未获取）、silicon_mb_verify 输出目录复用告警、附件2 数据契约偏差、multibeam_improvement 用物理两光束正模型（Fresnel 刚性 DC 基线）与主方法 variable projection（多项式吸收基线）基线不同。
+- 审查结论为 PASS（存在两项非阻断性文档/元数据项：finesse 共享符号元数据域错标已修订、三问 question_summary 占位待论文阶段前补齐）；不触发任何小问 stale 或回退。
+- 前序 act-e2dd92503e8e46fd 的『expected string or bytes-like object, got NoneType』harness 异常已由 codex-cross-review-fix RESUME 修复：本动作以相同命令批次（record_artifact + mark_cross_question_review）复现 apply_agent_commands 全部应用成功，确认该异常不再复现。
+- 本次为跨小问一致性审查动作，未改动任何小问的 assumption/formulation 结果历史；仅规范化全局符号表 finesse domain（既有元数据改动已在仓库中）并复核落盘 state（question_manifest/proble_state 已核对，状态由 Runner 经命令事务提交）。
+- prob01/prob02/prob03 的 question_summary.md 为证据包登记的空占位文件（size=29），其证据标记（ev_artifact_ff24505a53cd / 44ce712a84e4 / 30aee4639e7e）在本文中用于“每问结论”汇总语句；相关定量结论在正文各问结果解释与可靠性与结论章节均以对应的 figure/result/warning 证据标记锚定，未凭空新增。
+- 全文披露的既有技术债（λ>5µm 色散缺口、n_sub 幅值弱可辨识、M2/M3 噪声周期方法债、物理 NLS 交叉校验约5.5%偏差、唯一性次小候选接近简并、bootstrap CI 用轮廓似然替代、L25–L32/L43–L47 文献定量参数待对照原文复核、prob03 合并 config_hash 漂移、方法A约4%基线偏差、Reststrahlen 剔除策略）均作为结果解释与推广边界被保留，未改写为已解决。
+- prob02 两角嵌套 F 检验统计显著（F=5.25>F_crit=3.843，p=0.022）但裸偏差 ε₁₂=0.165%≪2%，按 B11 路由解释，不构成模型修订触发；prob03 为 F=0、p=1.0。
+- 跨小问审查注明的先决条件仍未闭环：prob01/prob02/prob03 的 question_summary.md 仍为『待填写』占位。摘要/结论内容已由本文档逐问写入 paper.md 并紧邻 ev_artifact_ff24505a53cd / ev_artifact_44ce712a84e4 / ev_artifact_30aee4639e7e 标记；但该三个 evidence 实体指向的空文件需在后续阶段补齐，以免 paper_validation 校验该标记时报告『证据实体内容为空』。
+- 论文中多光束精细度统一采用正确公式 F=π·√R̄/(1−R̄)（F≈0.3186）；全局符号表对 finesse 的 domain 登记（≥1）与实际值（≈0.32<1）不一致，已在跨问审查中修订为 >0，请 paper_validation 按修订后的符号域核验。
+- 摘要/结论中的 prob01 采用合成数据验证（无实测附件），其结论仅代表公式/算法自洽性；prob02 的 Δt_inv_band（58.4%）为谱段截断背景报告项，非主判据；prob03 的次小候选比值（≈1.020）为弱色散周期歧义报告项，均由预注册判据确认全局极小，不作为硬门禁。
+- 披露技术债：λ>5 µm 色散缺口（B6）、n_sub 弱可辨识（B7）、M2/M3 噪声周期方法债、物理 NLS 交叉校验约 5.5% 偏差、L25–L32 与 L43–L47 文献全文待复核、bootstrap CI 用轮廓似然替代、prob03 uniqueness 次小候选接近简并（报告项）、附件2 数据契约偏差、post-hoc config_hash 漂移（质量告警）。
+- prob02 两角嵌套 F 检验统计显著（F=5.251>3.843，p=0.022）但裸偏差 ε12=0.165%≪τ12=2%，按 formulation §7.1/§14 路由为 B11（测量点差异/膜厚梯度）并解释，不构成模型修订触发；该点作为限制外推范围的一部分保留。
+- prob01/02/03 L1–L4 与 L6 为 PASS_WITH_WARNING，L5 为 PASS；结论仅在已验收假设、数据范围与警告边界内成立。
 
 ## 阻塞项
 
@@ -28,4 +285,4 @@
 
 ## 下次唤醒
 
-按 workflow 配置
+2026-08-31T04:14:36.010492+00:00
